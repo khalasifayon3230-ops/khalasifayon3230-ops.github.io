@@ -2,1649 +2,3106 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Dream Hunt | Learn. Prepare. Achieve.</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f7f8fc;
-            color: #111827;
-        }
-
-        button,
-        input,
-        select {
-            font: inherit;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        nav {
-            width: 100%;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1180px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: #111827;
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        .logo span {
-            color: #4f46e5;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 27px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #4b5563;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-            color: #4f46e5;
-        }
-
-        .login-btn,
-        .register-btn,
-        .dashboard-nav-btn,
-        .logout-btn {
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            border-radius: 8px;
-        }
-
-        .login-btn {
-            background: #111827;
-            color: white;
-            padding: 10px 17px;
-        }
-
-        .register-btn {
-            background: #4f46e5;
-            color: white;
-            padding: 10px 17px;
-        }
-
-        .user-area {
-            display: none;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .user-name {
-            font-size: 13px;
-            font-weight: 700;
-            color: #374151;
-        }
-
-        .dashboard-nav-btn {
-            background: #4f46e5;
-            color: white;
-            padding: 9px 13px;
-        }
-
-        .logout-btn {
-            background: #111827;
-            color: white;
-            padding: 9px 13px;
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 650px;
-            display: flex;
-            align-items: center;
-            padding: 75px 20px;
-            background:
-                radial-gradient(circle at 85% 15%, #ddd6fe 0, transparent 26%),
-                radial-gradient(circle at 5% 85%, #dbeafe 0, transparent 25%),
-                #f8fafc;
-        }
-
-        .hero-container {
-            max-width: 1180px;
-            width: 100%;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 1.12fr 0.88fr;
-            gap: 55px;
-            align-items: center;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #eef2ff;
-            color: #4f46e5;
-            padding: 8px 14px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-size: 61px;
-            line-height: 1.04;
-            letter-spacing: -2.8px;
-            margin-bottom: 22px;
-        }
-
-        .hero h1 span {
-            color: #4f46e5;
-        }
-
-        .hero p {
-            max-width: 590px;
-            font-size: 18px;
-            line-height: 1.7;
-            color: #6b7280;
-            margin-bottom: 30px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 13px;
-            flex-wrap: wrap;
-        }
-
-        .primary-btn,
-        .secondary-btn {
-            display: inline-block;
-            text-decoration: none;
-            padding: 14px 22px;
-            border-radius: 9px;
-            font-size: 15px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-        }
-
-        .primary-btn {
-            background: #4f46e5;
-            color: white;
-        }
-
-        .secondary-btn {
-            background: white;
-            color: #111827;
-            border: 1px solid #d1d5db;
-        }
-
-        /* =========================
-           HERO CARD
-        ========================= */
-
-        .hero-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 23px;
-            padding: 25px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.08);
-        }
-
-        .card-top {
-            background: linear-gradient(135deg, #111827, #312e81);
-            color: white;
-            border-radius: 16px;
-            padding: 27px;
-            margin-bottom: 18px;
-        }
-
-        .card-top small {
-            color: #c7d2fe;
-            font-weight: 700;
-        }
-
-        .card-top h2 {
-            margin-top: 10px;
-            font-size: 25px;
-            line-height: 1.25;
-        }
-
-        .progress {
-            margin-top: 20px;
-            height: 7px;
-            background: #374151;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress div {
-            width: 72%;
-            height: 100%;
-            background: #818cf8;
-        }
-
-        .stat-row {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 12px;
-        }
-
-        .stat {
-            background: #f8fafc;
-            padding: 17px;
-            border-radius: 12px;
-        }
-
-        .stat strong {
-            display: block;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .stat span {
-            color: #6b7280;
-            font-size: 12px;
-        }
-
-        /* =========================
-           GENERAL SECTION
-        ========================= */
-
-        section {
-            padding: 90px 20px;
-        }
-
-        .section-container {
-            max-width: 1180px;
-            margin: auto;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-heading h2 {
-            font-size: 39px;
-            margin-bottom: 13px;
-            letter-spacing: -1px;
-        }
-
-        .section-heading p {
-            color: #6b7280;
-            max-width: 650px;
-            margin: auto;
-            line-height: 1.65;
-        }
-
-        /* =========================
-           PATH CARDS
-        ========================= */
-
-        .path-grid {
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            gap: 20px;
-        }
-
-        .path-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 18px;
-            overflow: hidden;
-            transition: 0.25s;
-        }
-
-        .path-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.09);
-            border-color: #c7d2fe;
-        }
-
-        .path-image {
-            width: 100%;
-            height: 175px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .path-body {
-            padding: 22px;
-        }
-
-        .path-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #eef2ff;
-            margin-bottom: 14px;
-            font-size: 21px;
-        }
-
-        .path-body h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .path-body > p {
-            color: #6b7280;
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .institution-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            margin-bottom: 18px;
-        }
-
-        .institution {
-            background: #f3f4f6;
-            color: #374151;
-            padding: 7px 9px;
-            border-radius: 7px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .explore-btn {
-            width: 100%;
-            padding: 11px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            background: white;
-            color: #4f46e5;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .explore-btn:hover {
-            background: #4f46e5;
-            color: white;
-            border-color: #4f46e5;
-        }
-
-        /* =========================
-           INSTITUTION SHOWCASE
-        ========================= */
-
-        .showcase {
-            background: #f8fafc;
-        }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 22px;
-        }
-
-        .showcase-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 17px;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 180px 1fr;
-        }
-
-        .showcase-card img {
-            width: 100%;
-            height: 100%;
-            min-height: 185px;
-            object-fit: cover;
-        }
-
-        .showcase-content {
-            padding: 22px;
-        }
-
-        .tag {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.7px;
-            color: #4f46e5;
-            background: #eef2ff;
-            padding: 6px 8px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-        }
-
-        .showcase-content h3 {
-            font-size: 19px;
-            margin-bottom: 8px;
-        }
-
-        .showcase-content p {
-            color: #6b7280;
-            font-size: 13px;
-            line-height: 1.55;
-        }
-
-        /* =========================
-           FEATURES
-        ========================= */
-
-        .features {
-            background: #111827;
-            color: white;
-        }
-
-        .features .section-heading p {
-            color: #9ca3af;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 20px;
-        }
-
-        .feature {
-            border: 1px solid #374151;
-            padding: 28px;
-            border-radius: 15px;
-            background: rgba(255,255,255,0.02);
-        }
-
-        .feature-icon {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        .feature h3 {
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            color: #9ca3af;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* =========================
-           CTA
-        ========================= */
-
-        .cta {
-            text-align: center;
-            background: #eef2ff;
-        }
-
-        .cta h2 {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        .cta p {
-            color: #6b7280;
-            margin-bottom: 25px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            background: #030712;
-            color: white;
-            padding: 45px 20px;
-            text-align: center;
-        }
-
-        footer .footer-logo {
-            font-size: 24px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        footer .footer-logo span {
-            color: #818cf8;
-        }
-
-        footer p {
-            color: #9ca3af;
-            font-size: 13px;
-        }
-
-        /* =========================
-           MODAL
-        ========================= */
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(17,24,39,0.76);
-            z-index: 5000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        .modal-box {
-            width: 100%;
-            max-width: 720px;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            right: 18px;
-            top: 12px;
-            border: none;
-            background: none;
-            font-size: 29px;
-            cursor: pointer;
-            color: #6b7280;
-        }
-
-        .modal-title {
-            font-size: 29px;
-            margin-bottom: 7px;
-        }
-
-        .modal-subtitle {
-            color: #6b7280;
-            margin-bottom: 25px;
-        }
-
-        /* =========================
-           FORM
-        ========================= */
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-        .form-group.full {
-            grid-column: 1/-1;
-        }
-
-        .form-group label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #374151;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 13px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            outline: none;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px #eef2ff;
-        }
-
-        .form-submit {
-            width: 100%;
-            margin-top: 22px;
-            padding: 14px;
-            border: none;
-            border-radius: 9px;
-            background: #4f46e5;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .form-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .switch-text {
-            text-align: center;
-            margin-top: 17px;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .switch-text button {
-            border: none;
-            background: none;
-            color: #4f46e5;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .message {
-            display: none;
-            margin-bottom: 18px;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        .message.success {
-            background: #ecfdf5;
-            color: #065f46;
-        }
-
-        .message.error {
-            background: #fef2f2;
-            color: #991b1b;
-        }
-
-        /* =========================
-           DETAILS MODAL
-        ========================= */
-
-        .details-box {
-            max-width: 650px;
-        }
-
-        .details-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 13px;
-            margin-bottom: 20px;
-        }
-
-        .details-box h2 {
-            margin-bottom: 10px;
-        }
-
-        .details-box > p {
-            color: #6b7280;
-            line-height: 1.6;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .details-list {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 10px;
-        }
-
-        .details-item {
-            padding: 13px;
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 9px;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media(max-width:1050px) {
-
-            .path-grid {
-                grid-template-columns: repeat(2,1fr);
-            }
-
-            .hero h1 {
-                font-size: 52px;
-            }
-        }
-
-        @media(max-width:800px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                min-height: auto;
-                padding: 65px 20px;
-            }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                gap: 45px;
-            }
-
-            .hero h1 {
-                font-size: 44px;
-                letter-spacing: -1.5px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .path-grid,
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .showcase-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .showcase-card {
-                grid-template-columns: 140px 1fr;
-            }
-
-            .section-heading h2 {
-                font-size: 31px;
-            }
-
-            .cta h2 {
-                font-size: 31px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full {
-                grid-column: auto;
-            }
-
-            .modal {
-                padding: 10px;
-            }
-
-            .modal-box {
-                padding: 24px 18px;
-            }
-
-            .details-list {
-                grid-template-columns: 1fr;
-            }
-
-            .user-name {
-                display: none;
-            }
-        }
-
-        @media(max-width:500px) {
-
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .showcase-card {
-                grid-template-columns: 1fr;
-            }
-
-            .showcase-card img {
-                height: 170px;
-            }
-
-            .stat-row {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .user-area {
-                gap: 5px;
-            }
-
-            .dashboard-nav-btn,
-            .logout-btn {
-                padding: 8px 9px;
-                font-size: 11px;
-            }
-        }
-
-    </style>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Dream Hunt | Learn. Prepare. Achieve.</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f7f8fc;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+#loader{
+
+    position:fixed;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #172554 0,
+            #080b16 45%,
+            #020617 100%
+        );
+
+    z-index:99999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+#loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-content{
+    text-align:center;
+    color:white;
+}
+
+.molecule{
+    position:relative;
+    width:120px;
+    height:120px;
+    margin:auto;
+}
+
+.atom{
+    position:absolute;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#818cf8;
+    box-shadow:0 0 25px #818cf8;
+}
+
+.atom.a1{
+    left:51px;
+    top:0;
+}
+
+.atom.a2{
+    left:5px;
+    top:73px;
+}
+
+.atom.a3{
+    right:5px;
+    top:73px;
+}
+
+.atom.center{
+    width:28px;
+    height:28px;
+    left:46px;
+    top:46px;
+    background:#c4b5fd;
+    box-shadow:0 0 35px #c4b5fd;
+}
+
+.bond{
+    position:absolute;
+    height:2px;
+    background:#6366f1;
+    transform-origin:left center;
+    opacity:.7;
+}
+
+.bond.one{
+    width:72px;
+    left:60px;
+    top:58px;
+    transform:rotate(-125deg);
+}
+
+.bond.two{
+    width:72px;
+    left:58px;
+    top:59px;
+    transform:rotate(125deg);
+}
+
+.bond.three{
+    width:78px;
+    left:61px;
+    top:60px;
+    transform:rotate(180deg);
+}
+
+.loader-title{
+    margin-top:24px;
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:-.5px;
+}
+
+.loader-text{
+    margin-top:8px;
+    color:#a5b4fc;
+    font-size:13px;
+}
+
+.loader-dots{
+    margin-top:15px;
+    letter-spacing:4px;
+    animation:pulseDots 1.4s infinite;
+}
+
+@keyframes pulseDots{
+    0%,100%{opacity:.3}
+    50%{opacity:1}
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav{
+
+    position:sticky;
+    top:0;
+    z-index:5000;
+
+    background:rgba(255,255,255,.88);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.nav-container{
+
+    max-width:1200px;
+    margin:auto;
+
+    min-height:74px;
+
+    padding:0 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+
+    text-decoration:none;
+
+    font-size:25px;
+    font-weight:950;
+
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:#6366f1;
+}
+
+.nav-links{
+
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.nav-links a{
+
+    text-decoration:none;
+
+    color:#4b5563;
+
+    font-size:13px;
+    font-weight:750;
+
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:#4f46e5;
+}
+
+.nav-actions{
+    display:flex;
+    gap:8px;
+}
+
+.login-btn,
+.register-btn{
+
+    border:none;
+    border-radius:9px;
+
+    padding:10px 16px;
+
+    font-weight:800;
+}
+
+.login-btn{
+    background:#111827;
+    color:white;
+}
+
+.register-btn{
+    background:#4f46e5;
+    color:white;
+}
+
+.user-area{
+
+    display:none;
+
+    align-items:center;
+    gap:8px;
+}
+
+.user-name{
+    font-size:13px;
+    font-weight:800;
+}
+
+.dashboard-nav-btn,
+.logout-btn{
+
+    border:none;
+    border-radius:8px;
+
+    padding:9px 13px;
+
+    font-weight:800;
+}
+
+.dashboard-nav-btn{
+    background:#4f46e5;
+    color:white;
+}
+
+.logout-btn{
+    background:#111827;
+    color:white;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    min-height:720px;
+
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+
+    background:
+
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(99,102,241,.25),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 5% 80%,
+            rgba(59,130,246,.17),
+            transparent 28%
+        ),
+
+        #f8fafc;
+}
+
+.hero-grid{
+
+    max-width:1200px;
+    width:100%;
+
+    margin:auto;
+    padding:90px 20px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.05fr
+        .95fr;
+
+    gap:65px;
+
+    align-items:center;
+}
+
+.hero-copy{
+    animation:heroIn .9s ease both;
+}
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.badge{
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 13px;
+
+    border-radius:50px;
+
+    background:#eef2ff;
+    color:#4f46e5;
+
+    font-size:12px;
+    font-weight:900;
+
+    margin-bottom:22px;
+}
+
+.badge-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#6366f1;
+
+    box-shadow:
+        0 0 0 5px rgba(99,102,241,.12);
+
+    animation:blink 1.7s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:.35}
+}
+
+.hero h1{
+
+    font-size:64px;
+
+    line-height:1.01;
+
+    letter-spacing:-3.5px;
+
+    max-width:700px;
+
+    margin-bottom:23px;
+}
+
+.hero h1 span{
+    color:#4f46e5;
+}
+
+.hero-description{
+
+    max-width:610px;
+
+    color:#6b7280;
+
+    font-size:17px;
+
+    line-height:1.75;
+
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.primary-btn,
+.secondary-btn{
+
+    border:none;
+
+    text-decoration:none;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:14px 21px;
+
+    border-radius:10px;
+
+    font-size:14px;
+    font-weight:850;
+
+    transition:.25s;
+}
+
+.primary-btn{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #6366f1
+        );
+
+    box-shadow:
+        0 12px 30px rgba(79,70,229,.22);
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+}
+
+.secondary-btn{
+
+    background:white;
+
+    border:1px solid #d1d5db;
+
+    color:#111827;
+}
+
+.secondary-btn:hover{
+    border-color:#818cf8;
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual{
+    position:relative;
+    min-height:470px;
+}
+
+.orbit-system{
+
+    position:absolute;
+
+    width:390px;
+    height:390px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+}
+
+.orbit{
+
+    position:absolute;
+
+    inset:0;
+
+    border:1px solid rgba(99,102,241,.25);
+
+    border-radius:50%;
+
+    animation:spin 18s linear infinite;
+}
+
+.orbit:nth-child(2){
+    inset:55px;
+    animation-duration:13s;
+    animation-direction:reverse;
+}
+
+.orbit:nth-child(3){
+    inset:110px;
+    animation-duration:9s;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.orbit-dot{
+
+    position:absolute;
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+
+    background:#6366f1;
+
+    box-shadow:0 0 25px #6366f1;
+
+    top:-7px;
+    left:50%;
+}
+
+.core{
+
+    position:absolute;
+
+    width:105px;
+    height:105px;
+
+    border-radius:30px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-5deg);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111827,
+            #312e81
+        );
+
+    color:white;
+
+    font-size:29px;
+    font-weight:950;
+
+    box-shadow:
+        0 30px 70px rgba(17,24,39,.3);
+
+    z-index:5;
+}
+
+.floating-card{
+
+    position:absolute;
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:15px;
+
+    padding:14px 16px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.09);
+
+    animation:float 4s ease-in-out infinite;
+}
+
+.floating-card strong{
+    display:block;
+    font-size:18px;
+}
+
+.floating-card small{
+    color:#6b7280;
+    font-size:11px;
+}
+
+.card-one{
+    left:0;
+    top:75px;
+}
+
+.card-two{
+    right:0;
+    top:155px;
+    animation-delay:1s;
+}
+
+.card-three{
+    left:45px;
+    bottom:40px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-11px);
+    }
+}
+
+
+/* =========================================================
+   MOTIVATIONAL STRIP
+========================================================= */
+
+.motivation{
+
+    padding:22px 20px;
+
+    background:#111827;
+
+    color:white;
+
+    overflow:hidden;
+}
+
+.motivation-inner{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    text-align:center;
+
+    min-height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.quote{
+
+    font-size:14px;
+
+    color:#d1d5db;
+
+    animation:quoteIn .6s ease;
+}
+
+.quote strong{
+    color:#a5b4fc;
+}
+
+@keyframes quoteIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+section{
+    padding:95px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.heading{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.heading .eyebrow{
+
+    color:#6366f1;
+
+    font-size:11px;
+    font-weight:950;
+
+    letter-spacing:1.4px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.heading h2{
+
+    font-size:42px;
+
+    letter-spacing:-1.7px;
+
+    margin-bottom:12px;
+}
+
+.heading p{
+
+    max-width:650px;
+
+    margin:auto;
+
+    color:#6b7280;
+
+    line-height:1.7;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   ADMISSION CATEGORIES
+========================================================= */
+
+.categories{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.category{
+
+    position:relative;
+
+    padding:27px;
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.category:hover{
+
+    transform:translateY(-7px);
+
+    border-color:#c7d2fe;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.08);
+}
+
+.category-number{
+
+    position:absolute;
+
+    right:18px;
+    top:12px;
+
+    font-size:60px;
+
+    font-weight:950;
+
+    color:#f3f4f6;
+}
+
+.category-icon{
+
+    width:50px;
+    height:50px;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#eef2ff;
+
+    font-size:23px;
+
+    margin-bottom:18px;
+}
+
+.category h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.category p{
+
+    color:#6b7280;
+
+    font-size:13px;
+
+    line-height:1.65;
+
+    margin-bottom:16px;
+}
+
+.category-link{
+
+    color:#4f46e5;
+
+    border:none;
+
+    background:none;
+
+    font-weight:850;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   PRICING
+========================================================= */
+
+.pricing-section{
+    background:#f8fafc;
+}
+
+.pricing-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:18px;
+
+    align-items:stretch;
+}
+
+.price-card{
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    padding:27px;
+
+    position:relative;
+
+    transition:.3s;
+}
+
+.price-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 25px 60px rgba(0,0,0,.08);
+}
+
+.price-card.featured{
+
+    background:
+        linear-gradient(
+            145deg,
+            #111827,
+            #312e81
+        );
+
+    color:white;
+
+    border-color:#312e81;
+
+    transform:scale(1.03);
+}
+
+.price-card.featured:hover{
+    transform:scale(1.03) translateY(-6px);
+}
+
+.price-badge{
+
+    position:absolute;
+
+    top:14px;
+    right:14px;
+
+    background:#818cf8;
+
+    color:white;
+
+    padding:5px 8px;
+
+    border-radius:30px;
+
+    font-size:9px;
+
+    font-weight:900;
+}
+
+.price-card h3{
+    font-size:18px;
+    margin-bottom:9px;
+}
+
+.price{
+
+    font-size:37px;
+
+    font-weight:950;
+
+    margin:18px 0;
+}
+
+.price small{
+    font-size:12px;
+    font-weight:600;
+    color:#9ca3af;
+}
+
+.price-list{
+
+    list-style:none;
+
+    margin-bottom:23px;
+}
+
+.price-list li{
+
+    font-size:12px;
+
+    margin-bottom:11px;
+
+    color:#6b7280;
+}
+
+.featured .price-list li{
+    color:#d1d5db;
+}
+
+.price-btn{
+
+    width:100%;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    background:#111827;
+
+    color:white;
+
+    font-weight:850;
+}
+
+.featured .price-btn{
+    background:#818cf8;
+}
+
+
+/* =========================================================
+   UNIVERSITY SHOWCASE
+========================================================= */
+
+.university-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.uni-card{
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.uni-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.08);
+}
+
+.uni-image{
+
+    width:100%;
+    height:180px;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.uni-content{
+    padding:21px;
+}
+
+.uni-tag{
+
+    display:inline-block;
+
+    background:#eef2ff;
+
+    color:#4f46e5;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    margin-bottom:10px;
+}
+
+.uni-content h3{
+    font-size:18px;
+    margin-bottom:7px;
+}
+
+.uni-content p{
+
+    color:#6b7280;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   WHY DREAM HUNT
+========================================================= */
+
+.why{
+
+    background:#111827;
+
+    color:white;
+}
+
+.why .heading p{
+    color:#9ca3af;
+}
+
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.why-card{
+
+    padding:28px;
+
+    border:1px solid #374151;
+
+    border-radius:18px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    transition:.3s;
+}
+
+.why-card:hover{
+    background:rgba(255,255,255,.05);
+    transform:translateY(-5px);
+}
+
+.why-icon{
+    font-size:27px;
+    margin-bottom:16px;
+}
+
+.why-card h3{
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.why-card p{
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+    line-height:1.65;
+}
+
+
+/* =========================================================
+   LIBRARY LOCKED PREVIEW
+========================================================= */
+
+.library-section{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99,102,241,.12),
+            transparent 30%
+        ),
+
+        #f7f8fc;
+}
+
+.library-preview{
+
+    max-width:1050px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:0;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.12);
+
+    border:1px solid #e5e7eb;
+}
+
+.library-left{
+
+    padding:50px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0f172a,
+            #312e81
+        );
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.library-left::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    right:-90px;
+    top:-90px;
+}
+
+.library-lock{
+
+    width:58px;
+    height:58px;
+
+    border-radius:17px;
+
+    background:rgba(255,255,255,.1);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+
+    margin-bottom:20px;
+}
+
+.library-left h2{
+
+    font-size:36px;
+
+    letter-spacing:-1.5px;
+
+    margin-bottom:12px;
+}
+
+.library-left p{
+
+    color:#c7d2fe;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+    max-width:460px;
+
+    margin-bottom:25px;
+}
+
+.library-items{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+}
+
+.library-pill{
+
+    border:1px solid rgba(255,255,255,.14);
+
+    background:rgba(255,255,255,.06);
+
+    padding:8px 10px;
+
+    border-radius:8px;
+
+    font-size:10px;
+
+    color:#e0e7ff;
+}
+
+.library-right{
+
+    background:white;
+
+    padding:50px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+.locked-label{
+
+    color:#6366f1;
+
+    font-size:10px;
+
+    font-weight:950;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    margin-bottom:10px;
+}
+
+.library-right h3{
+
+    font-size:26px;
+
+    margin-bottom:10px;
+}
+
+.library-right p{
+
+    color:#6b7280;
+
+    font-size:13px;
+
+    line-height:1.65;
+
+    margin-bottom:22px;
+}
+
+.unlock-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#4f46e5;
+
+    color:white;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta{
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8fafc
+        );
+}
+
+.final-cta h2{
+
+    font-size:43px;
+
+    letter-spacing:-1.8px;
+
+    margin-bottom:13px;
+}
+
+.final-cta p{
+
+    color:#6b7280;
+
+    margin-bottom:25px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    background:#020617;
+
+    color:white;
+
+    padding:42px 20px;
+
+    text-align:center;
+}
+
+.footer-logo{
+
+    font-size:25px;
+
+    font-weight:950;
+
+    margin-bottom:9px;
+}
+
+.footer-logo span{
+    color:#818cf8;
+}
+
+footer p{
+
+    color:#64748b;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9000;
+
+    background:
+        rgba(2,6,23,.78);
+
+    padding:15px;
+
+    overflow-y:auto;
+}
+
+.modal.active{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:center;
+}
+
+.modal-box{
+
+    width:100%;
+
+    max-width:720px;
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:30px;
+
+    margin:20px auto;
+
+    position:relative;
+}
+
+.modal-close{
+
+    position:absolute;
+
+    right:16px;
+    top:10px;
+
+    border:none;
+
+    background:none;
+
+    color:#6b7280;
+
+    font-size:28px;
+}
+
+.modal-title{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.modal-subtitle{
+
+    color:#6b7280;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    margin-bottom:23px;
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:14px;
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:#374151;
+}
+
+.form-group input,
+.form-group select{
+
+    width:100%;
+
+    padding:11px 12px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:8px;
+
+    outline:none;
+
+    background:white;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+    border-color:#6366f1;
+
+    box-shadow:
+        0 0 0 3px #eef2ff;
+}
+
+.form-submit{
+
+    width:100%;
+
+    margin-top:21px;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:9px;
+
+    background:#4f46e5;
+
+    color:white;
+
+    font-weight:850;
+}
+
+.form-submit:disabled{
+    opacity:.55;
+}
+
+.switch-text{
+
+    text-align:center;
+
+    color:#6b7280;
+
+    font-size:13px;
+
+    margin-top:15px;
+}
+
+.switch-text button{
+
+    border:none;
+
+    background:none;
+
+    color:#4f46e5;
+
+    font-weight:850;
+}
+
+.message{
+
+    display:none;
+
+    padding:11px;
+
+    border-radius:8px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.success{
+
+    background:#ecfdf5;
+    color:#065f46;
+}
+
+.message.error{
+
+    background:#fef2f2;
+    color:#991b1b;
+}
+
+
+/* =========================================================
+   ACCESS CODE MODAL
+========================================================= */
+
+.access-box{
+
+    max-width:460px;
+
+    text-align:center;
+
+    padding:36px 28px;
+}
+
+.access-icon{
+
+    width:68px;
+    height:68px;
+
+    margin:auto auto 17px;
+
+    border-radius:20px;
+
+    background:#eef2ff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:31px;
+}
+
+.access-box h2{
+
+    font-size:27px;
+
+    margin-bottom:8px;
+}
+
+.access-box p{
+
+    color:#6b7280;
+
+    font-size:13px;
+
+    line-height:1.65;
+
+    margin-bottom:22px;
+}
+
+.access-input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    letter-spacing:2px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    outline:none;
+}
+
+.access-input:focus{
+
+    border-color:#6366f1;
+
+    box-shadow:
+        0 0 0 3px #eef2ff;
+}
+
+.access-help{
+
+    margin-top:14px;
+
+    color:#9ca3af;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(25px);
+
+    transition:
+        opacity .75s ease,
+        transform .75s ease;
+}
+
+.reveal.visible{
+
+    opacity:1;
+
+    transform:none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .nav-links a{
+        display:none;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:54px;
+    }
+
+    .hero-visual{
+        min-height:420px;
+    }
+
+    .pricing-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .categories{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .university-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .nav-container{
+        min-height:65px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        min-height:auto;
+    }
+
+    .hero-grid{
+        padding:65px 20px;
+        gap:35px;
+    }
+
+    .hero h1{
+
+        font-size:43px;
+
+        letter-spacing:-2px;
+    }
+
+    .hero-description{
+        font-size:15px;
+    }
+
+    .hero-visual{
+        min-height:360px;
+    }
+
+    .orbit-system{
+
+        width:300px;
+        height:300px;
+    }
+
+    .floating-card{
+        transform:scale(.86);
+    }
+
+    .card-one{
+        left:-5px;
+    }
+
+    .card-two{
+        right:-5px;
+    }
+
+    section{
+        padding:70px 18px;
+    }
+
+    .heading h2{
+        font-size:32px;
+    }
+
+    .categories,
+    .pricing-grid,
+    .university-grid,
+    .why-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .price-card.featured{
+        transform:none;
+    }
+
+    .price-card.featured:hover{
+        transform:translateY(-6px);
+    }
+
+    .library-preview{
+        grid-template-columns:1fr;
+    }
+
+    .library-left,
+    .library-right{
+        padding:32px 25px;
+    }
+
+    .library-left h2{
+        font-size:30px;
+    }
+
+    .final-cta h2{
+        font-size:32px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .modal-box{
+        padding:25px 18px;
+    }
+
+    .user-name{
+        display:none;
+    }
+
+    .dashboard-nav-btn,
+    .logout-btn{
+        padding:8px 9px;
+        font-size:10px;
+    }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
 
-<!-- =====================================================
+<!-- =========================================================
+     SMART LOADER
+========================================================= -->
+
+<div id="loader">
+
+    <div class="loader-content">
+
+        <div class="molecule">
+
+            <div class="bond one"></div>
+            <div class="bond two"></div>
+            <div class="bond three"></div>
+
+            <div class="atom a1"></div>
+            <div class="atom a2"></div>
+            <div class="atom a3"></div>
+
+            <div class="atom center"></div>
+
+        </div>
+
+        <div class="loader-title">
+            Dream Hunt
+        </div>
+
+        <div class="loader-text" id="loaderText">
+            Preparing your learning universe...
+        </div>
+
+        <div class="loader-dots">
+            • • •
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
      NAVBAR
-===================================================== -->
+========================================================= -->
 
 <nav>
 
-    <div class="nav-container">
+<div class="nav-container">
 
-        <a href="#" class="logo">
-            Dream<span>Hunt</span>
+    <a href="#" class="logo">
+        Dream<span>Hunt</span>
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="#paths">
+            Paths
         </a>
 
-        <div class="nav-links" id="navLinks">
+        <a href="#pricing">
+            Pricing
+        </a>
 
-            <a href="#paths">Paths</a>
+        <a href="#universities">
+            Universities
+        </a>
 
-            <a href="#institutions">Institutions</a>
+        <a href="#library">
+            Library
+        </a>
 
-            <a href="#features">Why Us</a>
+        <div class="nav-actions">
 
-            <a href="#about">About</a>
+            <button
+                class="login-btn"
+                onclick="openLogin()">
 
-            <button class="login-btn" onclick="openLogin()">
                 Login
+
             </button>
 
-            <button class="register-btn" onclick="openRegister()">
+            <button
+                class="register-btn"
+                onclick="openRegister()">
+
                 Register
-            </button>
 
-        </div>
-
-
-        <div class="user-area" id="userArea">
-
-            <span class="user-name" id="navUserName">
-                Student
-            </span>
-
-            <button
-                class="dashboard-nav-btn"
-                onclick="goDashboard()">
-                Dashboard
-            </button>
-
-            <button
-                class="logout-btn"
-                onclick="logout()">
-                Logout
             </button>
 
         </div>
 
     </div>
 
-</nav>
 
+    <div
+        class="user-area"
+        id="userArea">
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+        <span
+            class="user-name"
+            id="navUserName">
 
-<header class="hero">
+            Student
 
-    <div class="hero-container">
-
-        <div>
-
-            <span class="badge">
-                Admission Preparation
-            </span>
-
-            <h1>
-                Turn Your<br>
-                <span>Dream Into</span><br>
-                Achievement.
-            </h1>
-
-            <p>
-                Dream Hunt is your learning companion for
-                university admission, engineering, medical,
-                study abroad and competitive exam preparation.
-            </p>
-
-            <div class="hero-buttons">
-
-                <button
-                    class="primary-btn"
-                    onclick="openRegister()">
-                    Get Started
-                </button>
-
-                <a
-                    href="#paths"
-                    class="secondary-btn">
-                    Explore Paths
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-card">
-
-            <div class="card-top">
-
-                <small>
-                    YOUR JOURNEY
-                </small>
-
-                <h2>
-                    Prepare. Progress. Achieve.
-                </h2>
-
-                <div class="progress">
-                    <div></div>
-                </div>
-
-            </div>
-
-
-            <div class="stat-row">
-
-                <div class="stat">
-                    <strong>50+</strong>
-                    <span>Courses</span>
-                </div>
-
-                <div class="stat">
-                    <strong>1000+</strong>
-                    <span>Students</span>
-                </div>
-
-                <div class="stat">
-                    <strong>10K+</strong>
-                    <span>Questions</span>
-                </div>
-
-                <div class="stat">
-                    <strong>24/7</strong>
-                    <span>Learning</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- =====================================================
-     CHOOSE YOUR PATH
-===================================================== -->
-
-<section id="paths">
-
-    <div class="section-container">
-
-        <div class="section-heading">
-
-            <h2>
-                Choose Your Path
-            </h2>
-
-            <p>
-                Whether your goal is a top university in Bangladesh,
-                engineering, medical or a world-class institution
-                abroad — Dream Hunt helps you prepare for the journey.
-            </p>
-
-        </div>
-
-
-        <div class="path-grid">
-
-
-            <!-- UNIVERSITY -->
-
-            <div class="path-card">
-
-                <img
-                    class="path-image"
-                    src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg"
-                    alt="University campus">
-
-                <div class="path-body">
-
-                    <div class="path-icon">
-                        🎓
-                    </div>
-
-                    <h3>
-                        University
-                    </h3>
-
-                    <p>
-                        Prepare for Bangladesh's leading public
-                        universities and admission tests.
-                    </p>
-
-                    <div class="institution-list">
-
-                        <span class="institution">
-                            University of Dhaka
-                        </span>
-
-                        <span class="institution">
-                            Jahangirnagar University
-                        </span>
-
-                        <span class="institution">
-                            University of Rajshahi
-                        </span>
-
-                        <span class="institution">
-                            University of Chittagong
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="explore-btn"
-                        onclick="openPath('university')">
-                        Explore Universities →
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- ENGINEERING -->
-
-            <div class="path-card">
-
-                <img
-                    class="path-image"
-                    src="https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG"
-                    alt="BUET campus">
-
-                <div class="path-body">
-
-                    <div class="path-icon">
-                        ⚙️
-                    </div>
-
-                    <h3>
-                        Engineering
-                    </h3>
-
-                    <p>
-                        Build strong concepts and prepare for
-                        Bangladesh's top engineering institutions.
-                    </p>
-
-                    <div class="institution-list">
-
-                        <span class="institution">
-                            BUET
-                        </span>
-
-                        <span class="institution">
-                            CUET
-                        </span>
-
-                        <span class="institution">
-                            KUET
-                        </span>
-
-                        <span class="institution">
-                            RUET
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="explore-btn"
-                        onclick="openPath('engineering')">
-                        Explore Engineering →
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- MEDICAL -->
-
-            <div class="path-card">
-
-                <img
-                    class="path-image"
-                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
-                    alt="Medical education">
-
-                <div class="path-body">
-
-                    <div class="path-icon">
-                        🩺
-                    </div>
-
-                    <h3>
-                        Medical
-                    </h3>
-
-                    <p>
-                        Prepare for medical admission with focused
-                        Biology, Chemistry, Physics and MCQ practice.
-                    </p>
-
-                    <div class="institution-list">
-
-                        <span class="institution">
-                            Dhaka Medical College
-                        </span>
-
-                        <span class="institution">
-                            Sir Salimullah Medical College
-                        </span>
-
-                        <span class="institution">
-                            Chittagong Medical College
-                        </span>
-
-                        <span class="institution">
-                            Rajshahi Medical College
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="explore-btn"
-                        onclick="openPath('medical')">
-                        Explore Medical →
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- ABROAD -->
-
-            <div class="path-card">
-
-                <img
-                    class="path-image"
-                    src="https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL3NodXR0ZXJzdG9jay0yMzYyNjgwOTE3LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6ODI4fX19"
-                    alt="Harvard University campus">
-
-                <div class="path-body">
-
-                    <div class="path-icon">
-                        🌎
-                    </div>
-
-                    <h3>
-                        Study Abroad
-                    </h3>
-
-                    <p>
-                        Explore global universities, international
-                        admission and study-abroad preparation.
-                    </p>
-
-                    <div class="institution-list">
-
-                        <span class="institution">
-                            Harvard
-                        </span>
-
-                        <span class="institution">
-                            Oxford
-                        </span>
-
-                        <span class="institution">
-                            MIT
-                        </span>
-
-                        <span class="institution">
-                            Toronto
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="explore-btn"
-                        onclick="openPath('abroad')">
-                        Explore Abroad →
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     INSTITUTION SHOWCASE
-===================================================== -->
-
-<section
-    class="showcase"
-    id="institutions">
-
-    <div class="section-container">
-
-        <div class="section-heading">
-
-            <h2>
-                Institutions Worth Chasing
-            </h2>
-
-            <p>
-                Set your target. Build your preparation.
-                Take the next step toward the institution you want.
-            </p>
-
-        </div>
-
-
-        <div class="showcase-grid">
-
-
-            <!-- DU -->
-
-            <div class="showcase-card">
-
-                <img
-                    src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg"
-                    alt="University of Dhaka">
-
-                <div class="showcase-content">
-
-                    <span class="tag">
-                        Bangladesh · University
-                    </span>
-
-                    <h3>
-                        University of Dhaka
-                    </h3>
-
-                    <p>
-                        One of Bangladesh's leading public research
-                        universities and a major target for admission
-                        aspirants.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- BUET -->
-
-            <div class="showcase-card">
-
-                <img
-                    src="https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG"
-                    alt="BUET">
-
-                <div class="showcase-content">
-
-                    <span class="tag">
-                        Bangladesh · Engineering
-                    </span>
-
-                    <h3>
-                        Bangladesh University of Engineering
-                        and Technology
-                    </h3>
-
-                    <p>
-                        A premier engineering and technology institution
-                        and one of the country's most competitive
-                        admission destinations.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- DMC -->
-
-            <div class="showcase-card">
-
-                <img
-                    src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=80"
-                    alt="Medical education">
-
-                <div class="showcase-content">
-
-                    <span class="tag">
-                        Bangladesh · Medical
-                    </span>
-
-                    <h3>
-                        Dhaka Medical College
-                    </h3>
-
-                    <p>
-                        A historic and highly regarded medical institution
-                        in Bangladesh, serving as a major target for
-                        medical admission candidates.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- OXFORD -->
-
-            <div class="showcase-card">
-
-                <img
-                    src="https://dreamuni.com/gallery/universty-photo-dreambig_53928054.webp"
-                    alt="University of Oxford">
-
-                <div class="showcase-content">
-
-                    <span class="tag">
-                        United Kingdom · Abroad
-                    </span>
-
-                    <h3>
-                        University of Oxford
-                    </h3>
-
-                    <p>
-                        Explore international preparation pathways for
-                        globally recognized universities.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- MIT -->
-
-            <div class="showcase-card">
-
-                <img
-                    src="https://geekerhertz.com/wp-content/uploads/2021/05/MIT-Campus.jpg"
-                    alt="MIT">
-
-                <div class="showcase-content">
-
-                    <span class="tag">
-                        USA · Abroad
-                    </span>
-
-                    <h3>
-                        Massachusetts Institute of Technology
-                    </h3>
-
-                    <p>
-                        A global destination for students interested
-                        in science, technology, engineering and research.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- TORONTO -->
-
-            <div class="showcase-card">
-
-                <img
-                    src="https://www.utoronto.ca/sites/default/files/styles/hero/public/2020-11/StGeorgeCampus.jpg"
-                    alt="University of Toronto">
-
-                <div class="showcase-content">
-
-                    <span class="tag">
-                        Canada · Abroad
-                    </span>
-
-                    <h3>
-                        University of Toronto
-                    </h3>
-
-                    <p>
-                        A leading Canadian university and a major
-                        international study destination.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     WHY DREAM HUNT
-===================================================== -->
-
-<section
-    class="features"
-    id="features">
-
-    <div class="section-container">
-
-        <div class="section-heading">
-
-            <h2>
-                Why Dream Hunt?
-            </h2>
-
-            <p>
-                Everything you need to turn preparation
-                into measurable progress.
-            </p>
-
-        </div>
-
-
-        <div class="feature-grid">
-
-
-            <div class="feature">
-
-                <div class="feature-icon">
-                    📚
-                </div>
-
-                <h3>
-                    Structured Learning
-                </h3>
-
-                <p>
-                    Follow organized courses designed around
-                    your admission target and preparation level.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">
-                    📝
-                </div>
-
-                <h3>
-                    Practice & Exams
-                </h3>
-
-                <p>
-                    Test yourself through MCQs, model tests,
-                    mock exams and performance-based practice.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">
-                    📊
-                </div>
-
-                <h3>
-                    Track Your Progress
-                </h3>
-
-                <p>
-                    Monitor your learning progress and identify
-                    the areas where you need more preparation.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">
-                    🎯
-                </div>
-
-                <h3>
-                    Target Based
-                </h3>
-
-                <p>
-                    Set your target university or admission path
-                    and prepare with a clear direction.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">
-                    🏆
-                </div>
-
-                <h3>
-                    Performance
-                </h3>
-
-                <p>
-                    Review your results and understand how your
-                    preparation is progressing over time.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">
-                    🌎
-                </div>
-
-                <h3>
-                    Global Opportunities
-                </h3>
-
-                <p>
-                    Explore international universities and build
-                    a pathway toward studying abroad.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ABOUT / CTA
-===================================================== -->
-
-<section
-    class="cta"
-    id="about">
-
-    <div class="section-container">
-
-        <h2>
-            Your Dream Starts Here.
-        </h2>
-
-        <p>
-            Learn today. Prepare tomorrow. Achieve your goal.
-        </p>
+        </span>
 
         <button
-            class="primary-btn"
-            onclick="openRegister()">
-            Start Learning
+            class="dashboard-nav-btn"
+            onclick="goDashboard()">
+
+            Dashboard
+
+        </button>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+
+            Logout
+
         </button>
 
     </div>
 
+</div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<header class="hero">
+
+<div class="hero-grid">
+
+    <div class="hero-copy">
+
+        <div class="badge">
+
+            <span class="badge-dot"></span>
+
+            Admission Preparation
+
+        </div>
+
+
+        <h1>
+
+            Your Dream.
+
+            <span>
+                Your Hunt.
+            </span>
+
+            Your Future.
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Dream Hunt is built for students who don't
+            want to prepare randomly. Choose your path,
+            sharpen your preparation and move toward the
+            institution you dream of.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <button
+                class="primary-btn"
+                onclick="openRegister()">
+
+                Start Your Journey →
+
+            </button>
+
+
+            <a
+                href="#paths"
+                class="secondary-btn">
+
+                Explore Admission Paths
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="orbit-system">
+
+            <div class="orbit">
+                <span class="orbit-dot"></span>
+            </div>
+
+            <div class="orbit">
+                <span class="orbit-dot"></span>
+            </div>
+
+            <div class="orbit">
+                <span class="orbit-dot"></span>
+            </div>
+
+            <div class="core">
+                DH
+            </div>
+
+        </div>
+
+
+        <div class="floating-card card-one">
+
+            <strong>
+                50+
+            </strong>
+
+            <small>
+                Learning Resources
+            </small>
+
+        </div>
+
+
+        <div class="floating-card card-two">
+
+            <strong>
+                10K+
+            </strong>
+
+            <small>
+                Practice Questions
+            </small>
+
+        </div>
+
+
+        <div class="floating-card card-three">
+
+            <strong>
+                HSC 26
+            </strong>
+
+            <small>
+                Admission Mission
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+</header>
+
+
+<!-- =========================================================
+     MOTIVATION
+========================================================= -->
+
+<div class="motivation">
+
+<div class="motivation-inner">
+
+    <div
+        class="quote"
+        id="quote">
+
+        <strong>
+            “Dreams don't become goals until you start moving.”
+        </strong>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     ADMISSION PATHS
+========================================================= -->
+
+<section id="paths">
+
+<div class="container">
+
+    <div class="heading reveal">
+
+        <div class="eyebrow">
+            Find Your Direction
+        </div>
+
+        <h2>
+            Choose Your Admission Path
+        </h2>
+
+        <p>
+            One destination may have many roads.
+            Choose the road that leads toward your goal.
+        </p>
+
+    </div>
+
+
+    <div class="categories">
+
+
+        <div class="category reveal">
+
+            <span class="category-number">
+                01
+            </span>
+
+            <div class="category-icon">
+                🎓
+            </div>
+
+            <h3>
+                Public University
+            </h3>
+
+            <p>
+                Prepare for Bangladesh's leading public
+                universities and competitive admission units.
+            </p>
+
+            <button
+                class="category-link"
+                onclick="openRegister()">
+
+                Start Preparation →
+
+            </button>
+
+        </div>
+
+
+        <div class="category reveal">
+
+            <span class="category-number">
+                02
+            </span>
+
+            <div class="category-icon">
+                ⚙️
+            </div>
+
+            <h3>
+                Engineering
+            </h3>
+
+            <p>
+                Focused preparation for engineering and
+                technology admission destinations.
+            </p>
+
+            <button
+                class="category-link"
+                onclick="openRegister()">
+
+                Start Preparation →
+
+            </button>
+
+        </div>
+
+
+        <div class="category reveal">
+
+            <span class="category-number">
+                03
+            </span>
+
+            <div class="category-icon">
+                🩺
+            </div>
+
+            <h3>
+                Medical & Dental
+            </h3>
+
+            <p>
+                Build speed, accuracy and subject strength
+                for medical and dental admission.
+            </p>
+
+            <button
+                class="category-link"
+                onclick="openRegister()">
+
+                Start Preparation →
+
+            </button>
+
+        </div>
+
+
+        <div class="category reveal">
+
+            <span class="category-number">
+                04
+            </span>
+
+            <div class="category-icon">
+                🌱
+            </div>
+
+            <h3>
+                Agriculture & Veterinary
+            </h3>
+
+            <p>
+                Prepare for agricultural, veterinary and
+                related admission opportunities.
+            </p>
+
+            <button
+                class="category-link"
+                onclick="openRegister()">
+
+                Start Preparation →
+
+            </button>
+
+        </div>
+
+
+        <div class="category reveal">
+
+            <span class="category-number">
+                05
+            </span>
+
+            <div class="category-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Specialized Admission
+            </h3>
+
+            <p>
+                Explore specialized institutions and
+                competitive admission pathways.
+            </p>
+
+            <button
+                class="category-link"
+                onclick="openRegister()">
+
+                Start Preparation →
+
+            </button>
+
+        </div>
+
+
+        <div class="category reveal">
+
+            <span class="category-number">
+                06
+            </span>
+
+            <div class="category-icon">
+                🌎
+            </div>
+
+            <h3>
+                Abroad Prep
+            </h3>
+
+            <p>
+                Build a pathway toward international
+                universities and global academic opportunities.
+            </p>
+
+            <button
+                class="category-link"
+                onclick="openRegister()">
+
+                Explore Abroad →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
+     PRICING
+========================================================= -->
+
+<section
+    class="pricing-section"
+    id="pricing">
+
+<div class="container">
+
+    <div class="heading reveal">
+
+        <div class="eyebrow">
+            Simple Pricing
+        </div>
+
+        <h2>
+            Choose What You Need
+        </h2>
+
+        <p>
+            Start with one admission path or prepare across
+            multiple categories with a single plan.
+        </p>
+
+    </div>
+
+
+    <div class="pricing-grid">
+
+
+        <div class="price-card reveal">
+
+            <h3>
+                1 Category
+            </h3>
+
+            <div class="price">
+                ৳300
+            </div>
+
+            <ul class="price-list">
+
+                <li>✓ One admission category</li>
+
+                <li>✓ Practice resources</li>
+
+                <li>✓ Admission preparation</li>
+
+                <li>✓ Exams & performance</li>
+
+            </ul>
+
+            <button
+                class="price-btn"
+                onclick="openRegister()">
+
+                Get Started
+
+            </button>
+
+        </div>
+
+
+        <div class="price-card reveal">
+
+            <h3>
+                2 Categories
+            </h3>
+
+            <div class="price">
+                ৳500
+            </div>
+
+            <ul class="price-list">
+
+                <li>✓ Two admission categories</li>
+
+                <li>✓ Practice resources</li>
+
+                <li>✓ Question-based preparation</li>
+
+                <li>✓ Exams & performance</li>
+
+            </ul>
+
+            <button
+                class="price-btn"
+                onclick="openRegister()">
+
+                Choose Plan
+
+            </button>
+
+        </div>
+
+
+        <div class="price-card featured reveal">
+
+            <span class="price-badge">
+                POPULAR
+            </span>
+
+            <h3>
+                3 Categories
+            </h3>
+
+            <div class="price">
+                ৳800
+            </div>
+
+            <ul class="price-list">
+
+                <li>✓ Three admission categories</li>
+
+                <li>✓ Full preparation resources</li>
+
+                <li>✓ Practice & exams</li>
+
+                <li>✓ Performance tracking</li>
+
+            </ul>
+
+            <button
+                class="price-btn"
+                onclick="openRegister()">
+
+                Choose Plan
+
+            </button>
+
+        </div>
+
+
+        <div class="price-card reveal">
+
+            <h3>
+                All 6 Categories
+            </h3>
+
+            <div class="price">
+                ৳1000
+            </div>
+
+            <ul class="price-list">
+
+                <li>✓ All six categories</li>
+
+                <li>✓ Complete preparation access</li>
+
+                <li>✓ Full practice system</li>
+
+                <li>✓ Maximum flexibility</li>
+
+            </ul>
+
+            <button
+                class="price-btn"
+                onclick="openRegister()">
+
+                Go All In
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     UNIVERSITY SHOWCASE
+========================================================= -->
+
+<section id="universities">
+
+<div class="container">
+
+    <div class="heading reveal">
+
+        <div class="eyebrow">
+            Know Your Destination
+        </div>
+
+        <h2>
+            Institutions Worth Chasing
+        </h2>
+
+        <p>
+            Your preparation becomes clearer when you know
+            exactly where you want to go.
+        </p>
+
+    </div>
+
+
+    <div class="university-grid">
+
+
+        <div class="uni-card reveal">
+
+            <img
+                class="uni-image"
+                src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg"
+                alt="University of Dhaka">
+
+            <div class="uni-content">
+
+                <span class="uni-tag">
+                    PUBLIC UNIVERSITY
+                </span>
+
+                <h3>
+                    University of Dhaka
+                </h3>
+
+                <p>
+                    A major target institution for
+                    university admission aspirants.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="uni-card reveal">
+
+            <img
+                class="uni-image"
+                src="https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG"
+                alt="BUET">
+
+            <div class="uni-content">
+
+                <span class="uni-tag">
+                    ENGINEERING
+                </span>
+
+                <h3>
+                    BUET
+                </h3>
+
+                <p>
+                    One of Bangladesh's most competitive
+                    engineering admission destinations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="uni-card reveal">
+
+            <img
+                class="uni-image"
+                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
+                alt="Medical">
+
+            <div class="uni-content">
+
+                <span class="uni-tag">
+                    MEDICAL
+                </span>
+
+                <h3>
+                    Dhaka Medical College
+                </h3>
+
+                <p>
+                    A historic destination for medical
+                    admission candidates.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="uni-card reveal">
+
+            <img
+                class="uni-image"
+                src="https://dreamuni.com/gallery/universty-photo-dreambig_53928054.webp"
+                alt="Oxford">
+
+            <div class="uni-content">
+
+                <span class="uni-tag">
+                    ABROAD
+                </span>
+
+                <h3>
+                    University of Oxford
+                </h3>
+
+                <p>
+                    A globally recognized academic destination
+                    for ambitious students.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="uni-card reveal">
+
+            <img
+                class="uni-image"
+                src="https://geekerhertz.com/wp-content/uploads/2021/05/MIT-Campus.jpg"
+                alt="MIT">
+
+            <div class="uni-content">
+
+                <span class="uni-tag">
+                    ABROAD
+                </span>
+
+                <h3>
+                    MIT
+                </h3>
+
+                <p>
+                    A global destination for science,
+                    technology and engineering.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="uni-card reveal">
+
+            <img
+                class="uni-image"
+                src="https://www.utoronto.ca/sites/default/files/styles/hero/public/2020-11/StGeorgeCampus.jpg"
+                alt="University of Toronto">
+
+            <div class="uni-content">
+
+                <span class="uni-tag">
+                    ABROAD
+                </span>
+
+                <h3>
+                    University of Toronto
+                </h3>
+
+                <p>
+                    A leading international destination
+                    for higher education.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     WHY DREAM HUNT
+========================================================= -->
+
+<section class="why">
+
+<div class="container">
+
+    <div class="heading reveal">
+
+        <div class="eyebrow">
+            The Idea
+        </div>
+
+        <h2>
+            Preparation With A Direction
+        </h2>
+
+        <p>
+            Dream Hunt isn't about studying everything.
+            It's about studying what moves you closer
+            to your goal.
+        </p>
+
+    </div>
+
+
+    <div class="why-grid">
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                🧭
+            </div>
+
+            <h3>
+                Direction First
+            </h3>
+
+            <p>
+                Know your admission path and understand
+                what you're preparing for before you begin.
+            </p>
+
+        </div>
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                🧠
+            </div>
+
+            <h3>
+                Smarter Preparation
+            </h3>
+
+            <p>
+                Turn your preparation into a system instead
+                of relying only on random practice.
+            </p>
+
+        </div>
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                🔬
+            </div>
+
+            <h3>
+                Learn By Testing
+            </h3>
+
+            <p>
+                Practice, test yourself, understand mistakes
+                and keep improving.
+            </p>
+
+        </div>
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                📚
+            </div>
+
+            <h3>
+                Curated Resources
+            </h3>
+
+            <p>
+                Access carefully organized study materials
+                designed for admission preparation.
+            </p>
+
+        </div>
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                🎯
+            </div>
+
+            <h3>
+                Goal Driven
+            </h3>
+
+            <p>
+                Your preparation should have a destination.
+                Build toward the institution you want.
+            </p>
+
+        </div>
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Consistency
+            </h3>
+
+            <p>
+                Small improvements repeated every day can
+                change your admission preparation completely.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     LIBRARY LOCKED PREVIEW
+========================================================= -->
+
+<section
+    class="library-section"
+    id="library">
+
+<div class="container">
+
+    <div class="heading reveal">
+
+        <div class="eyebrow">
+            Premium Student Resource Vault
+        </div>
+
+        <h2>
+            Dream Hunt Library
+        </h2>
+
+        <p>
+            A private collection of marked books, question banks,
+            notes and admission resources for enrolled students.
+        </p>
+
+    </div>
+
+
+    <div class="library-preview reveal">
+
+
+        <div class="library-left">
+
+            <div class="library-lock">
+                🔐
+            </div>
+
+            <h2>
+                Knowledge,
+                Curated.
+            </h2>
+
+            <p>
+                Your preparation shouldn't depend on searching
+                through hundreds of files. Everything important
+                should be within reach.
+            </p>
+
+
+            <div class="library-items">
+
+                <span class="library-pill">
+                    📕 দাগানো বই
+                </span>
+
+                <span class="library-pill">
+                    📝 Question Bank
+                </span>
+
+                <span class="library-pill">
+                    📒 Important Notes
+                </span>
+
+                <span class="library-pill">
+                    ⚡ Formula Sheets
+                </span>
+
+                <span class="library-pill">
+                    🧾 Previous Questions
+                </span>
+
+                <span class="library-pill">
+                    🧠 Short Tricks
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="library-right">
+
+            <div class="locked-label">
+                Paid Student Access
+            </div>
+
+            <h3>
+                Library is locked.
+            </h3>
+
+            <p>
+                Library access is available only to students
+                with an approved Dream Hunt course enrollment.
+                You'll also need the access code provided by Dream Hunt.
+            </p>
+
+            <button
+                class="unlock-btn"
+                onclick="openLibraryAccess()">
+
+                🔐 Enter Library Access Code
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL CTA
+========================================================= -->
+
+<section class="final-cta">
+
+<div class="container">
+
+    <h2>
+        The Hunt Starts With One Step.
+    </h2>
+
+    <p>
+        Choose your path. Build your preparation.
+        Go after the institution you dream about.
+    </p>
+
+    <button
+        class="primary-btn"
+        onclick="openRegister()">
+
+        Join Dream Hunt →
+
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
      FOOTER
-===================================================== -->
+========================================================= -->
 
 <footer>
 
@@ -1659,609 +3116,552 @@
 </footer>
 
 
-<!-- =====================================================
-     PATH DETAILS MODAL
-===================================================== -->
-
-<div
-    class="modal"
-    id="pathModal">
-
-    <div class="modal-box details-box">
-
-        <button
-            class="modal-close"
-            onclick="closePath()">
-            ×
-        </button>
-
-        <img
-            id="detailsImage"
-            class="details-image"
-            src=""
-            alt="">
-
-        <h2 id="detailsTitle">
-            Explore
-        </h2>
-
-        <p id="detailsDescription">
-        </p>
-
-        <div
-            class="details-list"
-            id="detailsList">
-        </div>
-
-        <button
-            class="form-submit"
-            onclick="openRegister(); closePath();">
-            Start Your Preparation
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
+<!-- =========================================================
      REGISTER MODAL
-===================================================== -->
+========================================================= -->
 
 <div
     class="modal"
     id="registerModal">
 
-    <div class="modal-box">
+<div class="modal-box">
 
-        <button
-            class="modal-close"
-            onclick="closeRegister()">
-            ×
-        </button>
+    <button
+        class="modal-close"
+        onclick="closeRegister()">
+        ×
+    </button>
 
-        <h2 class="modal-title">
-            Create Your Account
-        </h2>
+    <h2 class="modal-title">
+        Create Your Account
+    </h2>
 
-        <p class="modal-subtitle">
-            Join Dream Hunt and start your admission journey.
-        </p>
+    <p class="modal-subtitle">
+        Join Dream Hunt and start your admission journey.
+    </p>
 
-        <div
-            class="message"
-            id="registerMessage">
-        </div>
+    <div
+        class="message"
+        id="registerMessage">
+    </div>
 
 
-        <form id="registerForm">
+    <form id="registerForm">
 
-            <div class="form-grid">
+        <div class="form-grid">
 
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <label>
-                        Full Name *
-                    </label>
+                <label>
+                    Full Name *
+                </label>
 
-                    <input
-                        type="text"
-                        id="regFullName"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Phone Number *
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="regPhone"
-                        required>
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Email *
-                    </label>
-
-                    <input
-                        type="email"
-                        id="regEmail"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Date of Birth
-                    </label>
-
-                    <input
-                        type="date"
-                        id="regDob">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Current Institution *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="regInstitution"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Education Board *
-                    </label>
-
-                    <select
-                        id="regBoard"
-                        required>
-
-                        <option value="">
-                            Select Board
-                        </option>
-
-                        <option value="Dhaka">
-                            Dhaka
-                        </option>
-
-                        <option value="Chittagong">
-                            Chittagong
-                        </option>
-
-                        <option value="Rajshahi">
-                            Rajshahi
-                        </option>
-
-                        <option value="Jessore">
-                            Jessore
-                        </option>
-
-                        <option value="Comilla">
-                            Comilla
-                        </option>
-
-                        <option value="Barisal">
-                            Barisal
-                        </option>
-
-                        <option value="Sylhet">
-                            Sylhet
-                        </option>
-
-                        <option value="Dinajpur">
-                            Dinajpur
-                        </option>
-
-                        <option value="Mymensingh">
-                            Mymensingh
-                        </option>
-
-                        <option value="Madrasah">
-                            Madrasah
-                        </option>
-
-                        <option value="Technical">
-                            Technical
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Group *
-                    </label>
-
-                    <select
-                        id="regGroup"
-                        required>
-
-                        <option value="">
-                            Select Group
-                        </option>
-
-                        <option value="Science">
-                            Science
-                        </option>
-
-                        <option value="Humanities">
-                            Humanities
-                        </option>
-
-                        <option value="Business Studies">
-                            Business Studies
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        HSC / Equivalent Year
-                    </label>
-
-                    <input
-                        type="number"
-                        id="regHscYear"
-                        placeholder="2026">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        SSC Institution
-                    </label>
-
-                    <input
-                        type="text"
-                        id="regSscInstitution">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        SSC Board
-                    </label>
-
-                    <input
-                        type="text"
-                        id="regSscBoard">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        SSC Passing Year
-                    </label>
-
-                    <input
-                        type="number"
-                        id="regSscYear">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        SSC GPA
-                    </label>
-
-                    <input
-                        type="number"
-                        id="regSscGpa"
-                        step="0.01"
-                        min="0"
-                        max="5">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Division *
-                    </label>
-
-                    <select
-                        id="regDivision"
-                        required>
-
-                        <option value="">
-                            Select Division
-                        </option>
-
-                        <option value="Dhaka">
-                            Dhaka
-                        </option>
-
-                        <option value="Chattogram">
-                            Chattogram
-                        </option>
-
-                        <option value="Rajshahi">
-                            Rajshahi
-                        </option>
-
-                        <option value="Khulna">
-                            Khulna
-                        </option>
-
-                        <option value="Barishal">
-                            Barishal
-                        </option>
-
-                        <option value="Sylhet">
-                            Sylhet
-                        </option>
-
-                        <option value="Rangpur">
-                            Rangpur
-                        </option>
-
-                        <option value="Mymensingh">
-                            Mymensingh
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        District *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="regDistrict"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Upazila / Thana
-                    </label>
-
-                    <input
-                        type="text"
-                        id="regUpazila">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Target Admission *
-                    </label>
-
-                    <select
-                        id="regTargetAdmission"
-                        required>
-
-                        <option value="">
-                            Select Category
-                        </option>
-
-                        <option value="Public University">
-                            Public University
-                        </option>
-
-                        <option value="Engineering">
-                            Engineering
-                        </option>
-
-                        <option value="Medical">
-                            Medical
-                        </option>
-
-                        <option value="Study Abroad">
-                            Study Abroad
-                        </option>
-
-                        <option value="Other">
-                            Other
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Target University
-                    </label>
-
-                    <input
-                        type="text"
-                        id="regTargetUniversity">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Password *
-                    </label>
-
-                    <input
-                        type="password"
-                        id="regPassword"
-                        minlength="6"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Confirm Password *
-                    </label>
-
-                    <input
-                        type="password"
-                        id="regConfirmPassword"
-                        minlength="6"
-                        required>
-
-                </div>
+                <input
+                    type="text"
+                    id="regFullName"
+                    required>
 
             </div>
 
 
-            <button
-                type="submit"
-                class="form-submit"
-                id="registerSubmit">
+            <div class="form-group">
 
-                Create Account
+                <label>
+                    Phone Number *
+                </label>
 
-            </button>
+                <input
+                    type="tel"
+                    id="regPhone"
+                    required>
 
-        </form>
+            </div>
 
 
-        <div class="switch-text">
+            <div class="form-group full">
 
-            Already have an account?
+                <label>
+                    Email *
+                </label>
 
-            <button onclick="switchToLogin()">
-                Login
-            </button>
+                <input
+                    type="email"
+                    id="regEmail"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Date of Birth
+                </label>
+
+                <input
+                    type="date"
+                    id="regDob">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Current Institution *
+                </label>
+
+                <input
+                    type="text"
+                    id="regInstitution"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Education Board *
+                </label>
+
+                <select
+                    id="regBoard"
+                    required>
+
+                    <option value="">
+                        Select Board
+                    </option>
+
+                    <option>Dhaka</option>
+                    <option>Chittagong</option>
+                    <option>Rajshahi</option>
+                    <option>Jessore</option>
+                    <option>Comilla</option>
+                    <option>Barisal</option>
+                    <option>Sylhet</option>
+                    <option>Dinajpur</option>
+                    <option>Mymensingh</option>
+                    <option>Madrasah</option>
+                    <option>Technical</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Group *
+                </label>
+
+                <select
+                    id="regGroup"
+                    required>
+
+                    <option value="">
+                        Select Group
+                    </option>
+
+                    <option>Science</option>
+                    <option>Humanities</option>
+                    <option>Business Studies</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    HSC / Equivalent Year
+                </label>
+
+                <input
+                    type="number"
+                    id="regHscYear"
+                    placeholder="2026">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    SSC Institution
+                </label>
+
+                <input
+                    type="text"
+                    id="regSscInstitution">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    SSC Board
+                </label>
+
+                <input
+                    type="text"
+                    id="regSscBoard">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    SSC Passing Year
+                </label>
+
+                <input
+                    type="number"
+                    id="regSscYear">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    SSC GPA
+                </label>
+
+                <input
+                    type="number"
+                    id="regSscGpa"
+                    step="0.01"
+                    min="0"
+                    max="5">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Division *
+                </label>
+
+                <select
+                    id="regDivision"
+                    required>
+
+                    <option value="">
+                        Select Division
+                    </option>
+
+                    <option>Dhaka</option>
+                    <option>Chattogram</option>
+                    <option>Rajshahi</option>
+                    <option>Khulna</option>
+                    <option>Barishal</option>
+                    <option>Sylhet</option>
+                    <option>Rangpur</option>
+                    <option>Mymensingh</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    District *
+                </label>
+
+                <input
+                    type="text"
+                    id="regDistrict"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Upazila / Thana
+                </label>
+
+                <input
+                    type="text"
+                    id="regUpazila">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Target Admission *
+                </label>
+
+                <select
+                    id="regTargetAdmission"
+                    required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option>Public University</option>
+                    <option>Engineering</option>
+                    <option>Medical</option>
+                    <option>Study Abroad</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Target University
+                </label>
+
+                <input
+                    type="text"
+                    id="regTargetUniversity">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password *
+                </label>
+
+                <input
+                    type="password"
+                    id="regPassword"
+                    minlength="6"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Confirm Password *
+                </label>
+
+                <input
+                    type="password"
+                    id="regConfirmPassword"
+                    minlength="6"
+                    required>
+
+            </div>
 
         </div>
+
+
+        <button
+            type="submit"
+            class="form-submit"
+            id="registerSubmit">
+
+            Create Account
+
+        </button>
+
+    </form>
+
+
+    <div class="switch-text">
+
+        Already have an account?
+
+        <button onclick="switchToLogin()">
+            Login
+        </button>
 
     </div>
 
 </div>
 
+</div>
 
-<!-- =====================================================
+
+<!-- =========================================================
      LOGIN MODAL
-===================================================== -->
+========================================================= -->
 
 <div
     class="modal"
     id="loginModal">
 
+<div
+    class="modal-box"
+    style="max-width:450px;">
+
+    <button
+        class="modal-close"
+        onclick="closeLogin()">
+        ×
+    </button>
+
+    <h2 class="modal-title">
+        Welcome Back
+    </h2>
+
+    <p class="modal-subtitle">
+        Login to your Dream Hunt account.
+    </p>
+
     <div
-        class="modal-box"
-        style="max-width:450px;">
+        class="message"
+        id="loginMessage">
+    </div>
+
+
+    <form id="loginForm">
+
+        <div class="form-group">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                required>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="form-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                required>
+
+        </div>
+
 
         <button
-            class="modal-close"
-            onclick="closeLogin()">
-            ×
+            type="submit"
+            class="form-submit"
+            id="loginSubmit">
+
+            Login
+
         </button>
 
-        <h2 class="modal-title">
-            Welcome Back
-        </h2>
-
-        <p class="modal-subtitle">
-            Login to your Dream Hunt account.
-        </p>
-
-        <div
-            class="message"
-            id="loginMessage">
-        </div>
+    </form>
 
 
-        <form id="loginForm">
+    <div class="switch-text">
 
-            <div class="form-group">
+        Don't have an account?
 
-                <label>
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="loginEmail"
-                    required>
-
-            </div>
-
-
-            <br>
-
-
-            <div class="form-group">
-
-                <label>
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    required>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="form-submit"
-                id="loginSubmit">
-
-                Login
-
-            </button>
-
-        </form>
-
-
-        <div class="switch-text">
-
-            Don't have an account?
-
-            <button onclick="switchToRegister()">
-                Register
-            </button>
-
-        </div>
+        <button onclick="switchToRegister()">
+            Register
+        </button>
 
     </div>
 
 </div>
 
+</div>
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
+
+<!-- =========================================================
+     LIBRARY ACCESS MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="libraryAccessModal">
+
+<div class="modal-box access-box">
+
+    <button
+        class="modal-close"
+        onclick="closeLibraryAccess()">
+        ×
+    </button>
+
+
+    <div class="access-icon">
+        🔐
+    </div>
+
+
+    <h2>
+        Library Access
+    </h2>
+
+
+    <p>
+        Enter the access code provided by Dream Hunt.
+        Your account must also have an approved course enrollment.
+    </p>
+
+
+    <div
+        class="message"
+        id="accessMessage">
+    </div>
+
+
+    <input
+        class="access-input"
+        id="libraryAccessCode"
+        type="text"
+        maxlength="50"
+        placeholder="ENTER ACCESS CODE"
+        autocomplete="off">
+
+
+    <button
+        class="form-submit"
+        id="accessSubmit"
+        onclick="verifyLibraryFromHome()">
+
+        Unlock Library
+
+    </button>
+
+
+    <div class="access-help">
+
+        Don't have a code?
+        Contact Dream Hunt after your course payment is approved.
+
+    </div>
+
+</div>
+
+</div>
+
 
 <script>
 
-
-/* =====================================================
+/* =========================================================
    SUPABASE
-===================================================== */
+========================================================= */
 
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
@@ -2276,11 +3676,157 @@ const supabaseClient =
     );
 
 
-/* =====================================================
+/* =========================================================
+   SMART LOADER
+========================================================= */
+
+const loaderTexts = [
+
+    "Preparing your learning universe...",
+
+    "Connecting the dots...",
+
+    "Mixing knowledge with curiosity...",
+
+    "Calibrating your admission journey...",
+
+    "Almost ready..."
+
+];
+
+let loaderIndex = 0;
+
+const loaderText =
+    document.getElementById("loaderText");
+
+const loaderInterval =
+    setInterval(function(){
+
+        loaderIndex++;
+
+        if(loaderIndex >= loaderTexts.length){
+
+            clearInterval(loaderInterval);
+
+            return;
+        }
+
+        loaderText.textContent =
+            loaderTexts[loaderIndex];
+
+    },700);
+
+
+window.addEventListener(
+    "load",
+    function(){
+
+        setTimeout(function(){
+
+            document
+                .getElementById("loader")
+                .classList.add("hide");
+
+        },1200);
+
+    }
+);
+
+
+/* =========================================================
+   MOTIVATIONAL QUOTES
+========================================================= */
+
+const quotes = [
+
+    "“Dreams don't become goals until you start moving.”",
+
+    "“You don't need to be extraordinary today. You need to be consistent.”",
+
+    "“The institution you dream of is built one study session at a time.”",
+
+    "“Preparation is where confidence is created.”",
+
+    "“Your future self is watching what you do today.”",
+
+    "“Don't chase motivation. Build a system.”"
+
+];
+
+let quoteIndex = 0;
+
+setInterval(function(){
+
+    quoteIndex++;
+
+    if(
+        quoteIndex >= quotes.length
+    ){
+        quoteIndex = 0;
+    }
+
+    const element =
+        document.getElementById("quote");
+
+    element.style.opacity = "0";
+
+    setTimeout(function(){
+
+        element.textContent =
+            quotes[quoteIndex];
+
+        element.style.opacity = "1";
+
+    },250);
+
+},3500);
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+        function(entries){
+
+            entries.forEach(function(entry){
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(function(element){
+
+        revealObserver.observe(element);
+
+    });
+
+
+/* =========================================================
    MODALS
-===================================================== */
+========================================================= */
 
-function openRegister() {
+function openRegister(){
 
     document
         .getElementById("registerModal")
@@ -2288,8 +3834,7 @@ function openRegister() {
 
 }
 
-
-function closeRegister() {
+function closeRegister(){
 
     document
         .getElementById("registerModal")
@@ -2297,8 +3842,7 @@ function closeRegister() {
 
 }
 
-
-function openLogin() {
+function openLogin(){
 
     document
         .getElementById("loginModal")
@@ -2306,8 +3850,7 @@ function openLogin() {
 
 }
 
-
-function closeLogin() {
+function closeLogin(){
 
     document
         .getElementById("loginModal")
@@ -2315,16 +3858,14 @@ function closeLogin() {
 
 }
 
-
-function switchToLogin() {
+function switchToLogin(){
 
     closeRegister();
     openLogin();
 
 }
 
-
-function switchToRegister() {
+function switchToRegister(){
 
     closeLogin();
     openRegister();
@@ -2332,163 +3873,45 @@ function switchToRegister() {
 }
 
 
-/* =====================================================
-   PATH DETAILS
-===================================================== */
+/* =========================================================
+   LIBRARY ACCESS
+========================================================= */
 
-const pathData = {
-
-    university: {
-
-        title: "University Admission",
-
-        image:
-            "https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg",
-
-        description:
-            "Prepare for leading public universities in Bangladesh with structured admission preparation.",
-
-        institutions: [
-            "University of Dhaka",
-            "Jahangirnagar University",
-            "University of Rajshahi",
-            "University of Chittagong",
-            "Jagannath University",
-            "University of Barishal"
-        ]
-
-    },
-
-
-    engineering: {
-
-        title: "Engineering Admission",
-
-        image:
-            "https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG",
-
-        description:
-            "Build strong foundations in Physics, Chemistry and Mathematics for engineering admission.",
-
-        institutions: [
-            "BUET",
-            "CUET",
-            "KUET",
-            "RUET",
-            "IUT",
-            "MIST"
-        ]
-
-    },
-
-
-    medical: {
-
-        title: "Medical Admission",
-
-        image:
-            "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80",
-
-        description:
-            "Prepare for medical admission through focused subject preparation, MCQs and model tests.",
-
-        institutions: [
-            "Dhaka Medical College",
-            "Sir Salimullah Medical College",
-            "Chittagong Medical College",
-            "Rajshahi Medical College",
-            "Mymensingh Medical College",
-            "Sylhet MAG Osmani Medical College"
-        ]
-
-    },
-
-
-    abroad: {
-
-        title: "Study Abroad",
-
-        image:
-            "https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL3NodXR0ZXJzdG9jay0yMzYyNjgwOTE3LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6ODI4fX19",
-
-        description:
-            "Explore international university pathways and prepare for your global academic journey.",
-
-        institutions: [
-            "Harvard University",
-            "University of Oxford",
-            "MIT",
-            "University of Toronto",
-            "University of Cambridge",
-            "Stanford University"
-        ]
-
-    }
-
-};
-
-
-function openPath(type) {
-
-    const data = pathData[type];
-
-    document.getElementById("detailsImage").src =
-        data.image;
-
-    document.getElementById("detailsTitle").textContent =
-        data.title;
-
-    document.getElementById("detailsDescription").textContent =
-        data.description;
-
-    const list =
-        document.getElementById("detailsList");
-
-    list.innerHTML = "";
-
-    data.institutions.forEach(function(name) {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "details-item";
-
-        item.textContent =
-            "🎓 " + name;
-
-        list.appendChild(item);
-
-    });
+function openLibraryAccess(){
 
     document
-        .getElementById("pathModal")
+        .getElementById("accessMessage")
+        .className = "message";
+
+    document
+        .getElementById("libraryAccessCode")
+        .value = "";
+
+    document
+        .getElementById("libraryAccessModal")
         .classList.add("active");
 
 }
 
 
-function closePath() {
+function closeLibraryAccess(){
 
     document
-        .getElementById("pathModal")
+        .getElementById("libraryAccessModal")
         .classList.remove("active");
 
 }
 
 
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-    elementId,
+function showAccessMessage(
     message,
     type
-) {
+){
 
     const element =
-        document.getElementById(elementId);
+        document.getElementById(
+            "accessMessage"
+        );
 
     element.textContent =
         message;
@@ -2499,22 +3922,162 @@ function showMessage(
 }
 
 
-/* =====================================================
+/* =========================================================
+   VERIFY LIBRARY FROM HOME
+========================================================= */
+
+async function verifyLibraryFromHome(){
+
+    const code =
+        document
+            .getElementById(
+                "libraryAccessCode"
+            )
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const button =
+        document.getElementById(
+            "accessSubmit"
+        );
+
+
+    if(!code){
+
+        showAccessMessage(
+            "Please enter your access code.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Verifying...";
+
+
+    /* -----------------------------------------------------
+       CHECK LOGIN
+    ----------------------------------------------------- */
+
+    const {
+        data:sessionData
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    const session =
+        sessionData.session;
+
+
+    if(!session){
+
+        showAccessMessage(
+            "Please login first. Library access is available to enrolled students.",
+            "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "Unlock Library";
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       VERIFY CODE THROUGH SECURE RPC
+    ----------------------------------------------------- */
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.rpc(
+            "verify_library_access",
+            {
+                p_code:code
+            }
+        );
+
+
+    if(error){
+
+        showAccessMessage(
+            error.message,
+            "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "Unlock Library";
+
+        return;
+
+    }
+
+
+    if(!data || !data.success){
+
+        showAccessMessage(
+            data?.message ||
+            "Access denied.",
+            "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "Unlock Library";
+
+        return;
+
+    }
+
+
+    showAccessMessage(
+        "Library unlocked! Opening your resource vault...",
+        "success"
+    );
+
+
+    setTimeout(function(){
+
+        window.location.href =
+            "library.html";
+
+    },700);
+
+}
+
+
+/* =========================================================
    REGISTER
-===================================================== */
+========================================================= */
 
 document
     .getElementById("registerForm")
     .addEventListener(
         "submit",
-        async function(event) {
+        async function(event){
 
             event.preventDefault();
+
 
             const submitButton =
                 document.getElementById(
                     "registerSubmit"
                 );
+
 
             submitButton.disabled =
                 true;
@@ -2624,13 +4187,13 @@ document
 
             const confirmPassword =
                 document
-                    .getElementById("regConfirmPassword")
+                    .getElementById(
+                        "regConfirmPassword"
+                    )
                     .value;
 
 
-            /* PASSWORD CHECK */
-
-            if (password !== confirmPassword) {
+            if(password !== confirmPassword){
 
                 showMessage(
                     "registerMessage",
@@ -2645,10 +4208,11 @@ document
                     "Create Account";
 
                 return;
+
             }
 
 
-            if (password.length < 6) {
+            if(password.length < 6){
 
                 showMessage(
                     "registerMessage",
@@ -2663,24 +4227,26 @@ document
                     "Create Account";
 
                 return;
+
             }
 
 
-            /* SUPABASE SIGN UP */
-
-            const { data, error } =
+            const {
+                data,
+                error
+            } =
                 await supabaseClient.auth.signUp({
 
-                    email: email,
+                    email:email,
 
-                    password: password,
+                    password:password,
 
-                    options: {
+                    options:{
 
                         emailRedirectTo:
                             window.location.origin,
 
-                        data: {
+                        data:{
 
                             full_name:
                                 fullName,
@@ -2737,7 +4303,7 @@ document
                 });
 
 
-            if (error) {
+            if(error){
 
                 showMessage(
                     "registerMessage",
@@ -2752,6 +4318,7 @@ document
                     "Create Account";
 
                 return;
+
             }
 
 
@@ -2777,22 +4344,48 @@ document
     );
 
 
-/* =====================================================
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+    elementId,
+    message,
+    type
+){
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+    element.textContent =
+        message;
+
+    element.className =
+        "message show " + type;
+
+}
+
+
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 document
     .getElementById("loginForm")
     .addEventListener(
         "submit",
-        async function(event) {
+        async function(event){
 
             event.preventDefault();
+
 
             const submitButton =
                 document.getElementById(
                     "loginSubmit"
                 );
+
 
             submitButton.disabled =
                 true;
@@ -2813,20 +4406,21 @@ document
                     .value;
 
 
-            const { data, error } =
+            const {
+                data,
+                error
+            } =
                 await supabaseClient.auth
                     .signInWithPassword({
 
-                        email:
-                            email,
+                        email:email,
 
-                        password:
-                            password
+                        password:password
 
                     });
 
 
-            if (error) {
+            if(error){
 
                 showMessage(
                     "loginMessage",
@@ -2841,6 +4435,7 @@ document
                     "Login";
 
                 return;
+
             }
 
 
@@ -2863,30 +4458,26 @@ document
                 "Login";
 
 
-            /* =========================
-               DASHBOARD REDIRECT
-            ========================= */
-
-            setTimeout(function() {
+            setTimeout(function(){
 
                 window.location.href =
                     "dashboard.html";
 
-            }, 700);
+            },700);
 
         }
     );
 
 
-/* =====================================================
+/* =========================================================
    USER UI
-===================================================== */
+========================================================= */
 
-function updateUserUI(user) {
+function updateUserUI(user){
 
     const navLinks =
-        document.getElementById(
-            "navLinks"
+        document.querySelector(
+            ".nav-links"
         );
 
     const userArea =
@@ -2900,7 +4491,7 @@ function updateUserUI(user) {
         );
 
 
-    if (user) {
+    if(user){
 
         const name =
             user.user_metadata?.full_name ||
@@ -2915,7 +4506,7 @@ function updateUserUI(user) {
         userArea.style.display =
             "flex";
 
-    } else {
+    }else{
 
         navLinks.style.display =
             "flex";
@@ -2928,11 +4519,11 @@ function updateUserUI(user) {
 }
 
 
-/* =====================================================
+/* =========================================================
    DASHBOARD
-===================================================== */
+========================================================= */
 
-function goDashboard() {
+function goDashboard(){
 
     window.location.href =
         "dashboard.html";
@@ -2940,21 +4531,24 @@ function goDashboard() {
 }
 
 
-/* =====================================================
+/* =========================================================
    LOGOUT
-===================================================== */
+========================================================= */
 
-async function logout() {
+async function logout(){
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient.auth.signOut();
 
 
-    if (error) {
+    if(error){
 
         alert(error.message);
 
         return;
+
     }
 
 
@@ -2967,14 +4561,17 @@ async function logout() {
 }
 
 
-/* =====================================================
+/* =========================================================
    SESSION
-===================================================== */
+========================================================= */
 
-async function checkSession() {
+async function checkSession(){
 
-    const { data } =
+    const {
+        data
+    } =
         await supabaseClient.auth.getSession();
+
 
     updateUserUI(
         data.session?.user || null
@@ -2983,12 +4580,15 @@ async function checkSession() {
 }
 
 
-/* =====================================================
+/* =========================================================
    AUTH STATE
-===================================================== */
+========================================================= */
 
 supabaseClient.auth.onAuthStateChange(
-    function(event, session) {
+    function(
+        event,
+        session
+    ){
 
         updateUserUI(
             session?.user || null
@@ -2998,20 +4598,13 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* =====================================================
-   START
-===================================================== */
-
-checkSession();
-
-
-/* =====================================================
-   CLOSE MODALS WHEN CLICKING OUTSIDE
-===================================================== */
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
 
 window.addEventListener(
     "click",
-    function(event) {
+    function(event){
 
         const registerModal =
             document.getElementById(
@@ -3023,28 +4616,53 @@ window.addEventListener(
                 "loginModal"
             );
 
-        const pathModal =
+        const libraryModal =
             document.getElementById(
-                "pathModal"
+                "libraryAccessModal"
             );
 
 
-        if (event.target === registerModal) {
+        if(
+            event.target ===
+            registerModal
+        ){
+
             closeRegister();
+
         }
 
-        if (event.target === loginModal) {
+
+        if(
+            event.target ===
+            loginModal
+        ){
+
             closeLogin();
+
         }
 
-        if (event.target === pathModal) {
-            closePath();
+
+        if(
+            event.target ===
+            libraryModal
+        ){
+
+            closeLibraryAccess();
+
         }
 
     }
 );
 
+
+/* =========================================================
+   START
+========================================================= */
+
+checkSession();
+
 </script>
 
 </body>
-                        </html> 
+
+</html>
