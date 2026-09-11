@@ -1,19 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dream Hunt</title>
+    <title>Dream Hunt | Learn. Prepare. Achieve.</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f8fc;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 800;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .login-btn {
+            background: #111827;
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 8px;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            padding: 70px 20px;
+            background:
+                radial-gradient(circle at 85% 20%, #ddd6fe 0, transparent 25%),
+                radial-gradient(circle at 10% 80%, #dbeafe 0, transparent 25%),
+                #f8fafc;
+        }
+
+        .hero-container {
+            max-width: 1150px;
+            width: 100%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 8px 13px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+        .hero p {
+            max-width: 560px;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 13px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .primary-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #111827;
+            border: 1px solid #d1d5db;
+        }
+
+        /* HERO CARD */
+
+        .hero-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-top {
+            background: #111827;
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 18px;
+        }
+
+        .card-top small {
+            color: #c7d2fe;
+        }
+
+        .card-top h2 {
+            margin-top: 10px;
+            font-size: 25px;
+        }
+
+        .progress {
+            margin-top: 20px;
+            height: 7px;
+            background: #374151;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress div {
+            width: 72%;
+            height: 100%;
+            background: #818cf8;
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat {
+            background: #f8fafc;
+            padding: 17px;
+            border-radius: 12px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .stat span {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* SECTION */
+
+        section {
+            padding: 85px 20px;
+        }
+
+        .section-container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #6b7280;
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        /* COURSES */
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .course {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 25px;
+            border-radius: 16px;
+            transition: 0.25s;
+        }
+
+        .course:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+        }
+
+        .course-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef2ff;
+            color: #4f46e5;
+            border-radius: 12px;
+            font-size: 22px;
+            margin-bottom: 18px;
+        }
+
+        .course h3 {
+            margin-bottom: 10px;
+        }
+
+        .course p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* WHY US */
+
+        .features {
+            background: #111827;
+            color: white;
+        }
+
+        .features .section-heading p {
+            color: #9ca3af;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            border: 1px solid #374151;
+            padding: 28px;
+            border-radius: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #9ca3af;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* CTA */
+
+        .cta {
+            text-align: center;
+            background: #eef2ff;
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #030712;
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 65px 20px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+                letter-spacing: -1.5px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .course-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 31px;
+            }
+
+            .cta h2 {
+                font-size: 31px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Dream Hunt</h1>
+    <!-- NAVBAR -->
 
-    <p>Learn. Prepare. Achieve.</p>
+    <nav>
+        <div class="nav-container">
 
-    <button>Explore Courses</button>
+            <a href="#" class="logo">
+                Dream<span>Hunt</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#courses">Courses</a>
+                <a href="#features">Why Us</a>
+                <a href="#about">About</a>
+                <a href="#" class="login-btn">Login</a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div class="hero-container">
+
+            <div>
+
+                <span class="badge">
+                    HSC 2026 • Admission Preparation
+                </span>
+
+                <h1>
+                    Turn Your<br>
+                    <span>Dream Into</span><br>
+                    Achievement.
+                </h1>
+
+                <p>
+                    Dream Hunt is your learning companion for
+                    university admission preparation, competitive
+                    exams and academic excellence.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#courses" class="primary-btn">
+                        Explore Courses
+                    </a>
+
+                    <a href="#features" class="secondary-btn">
+                        Learn More
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <div class="card-top">
+
+                    <small>YOUR JOURNEY</small>
+
+                    <h2>
+                        Prepare. Progress. Achieve.
+                    </h2>
+
+                    <div class="progress">
+                        <div></div>
+                    </div>
+
+                </div>
+
+                <div class="stat-row">
+
+                    <div class="stat">
+                        <strong>50+</strong>
+                        <span>Courses</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>1000+</strong>
+                        <span>Students</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>10K+</strong>
+                        <span>Questions</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>24/7</strong>
+                        <span>Learning</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- COURSES -->
+
+    <section id="courses">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <h2>Choose Your Path</h2>
+
+                <p>
+                    Everything you need to prepare for your next
+                    academic milestone.
+                </p>
+
+            </div>
+
+
+            <div class="course-grid">
+
+                <div class="course">
+
+                    <div class="course-icon">🎓</div>
+
+                    <h3>University Admission</h3>
+
+                    <p>
+                        Prepare for public university admission
+                        tests with structured courses and practice.
+                    </p>
+
+                </div>
+
+
+                <div class="course">
+
+                    <div class="course-icon">⚙️</div>
+
+                    <h3>Engineering</h3>
+
+                    <p>
+                        Build strong concepts in Physics,
+                        Chemistry and Mathematics.
+                    </p>
+
+                </div>
+
+
+                <div class="course">
+
+                    <div class="course-icon">🩺</div>
+
+                    <h3>Medical Admission</h3>
+
+                    <p>
+                        Master Biology, Chemistry, Physics and
+                        other essential admission topics.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features" id="features">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <h2>Why Dream Hunt?</h2>
+
+                <p>
+                    A focused learning environment designed
+                    around your goal.
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature">
+
+                    <h3>Structured Learning</h3>
+
+                    <p>
+                        Follow organized courses and study
+                        according to your preparation path.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <h3>Practice & Exams</h3>
+
+                    <p>
+                        Test your preparation through MCQs,
+                        model tests and competitive exams.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <h3>Track Your Progress</h3>
+
+                    <p>
+                        Monitor your performance and understand
+                        where you need to improve.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta" id="about">
+
+        <div class="section-container">
+
+            <h2>Your Dream Starts Here.</h2>
+
+            <p>
+                Learn today. Prepare tomorrow. Achieve your goal.
+            </p>
+
+            <a href="#courses" class="primary-btn">
+                Start Learning
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Dream Hunt. Learn. Prepare. Achieve.
+        </p>
+
+    </footer>
 
 </body>
+
 </html>
