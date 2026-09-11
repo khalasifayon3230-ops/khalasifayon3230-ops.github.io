@@ -22,14 +22,12 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body{
-
     font-family:
         Inter,
         Arial,
         sans-serif;
 
-    background:#f6f7fb;
-
+    background:#f5f7fb;
     color:#111827;
 }
 
@@ -43,27 +41,25 @@ button{
 }
 
 
-/* =========================================================
+/* =====================================================
    TOPBAR
-========================================================= */
+===================================================== */
 
 .topbar{
-
     position:sticky;
     top:0;
     z-index:1000;
 
     height:70px;
 
-    background:rgba(255,255,255,.9);
+    background:rgba(255,255,255,.92);
 
-    backdrop-filter:blur(16px);
+    backdrop-filter:blur(18px);
 
     border-bottom:1px solid #e5e7eb;
 }
 
 .topbar-inner{
-
     max-width:1180px;
 
     height:100%;
@@ -73,184 +69,304 @@ button{
     padding:0 20px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 }
 
 .logo{
-
     text-decoration:none;
 
     font-size:24px;
-
     font-weight:950;
 
     letter-spacing:-1px;
+
+    color:#111827;
 }
 
 .logo span{
     color:#6366f1;
 }
 
-.back-btn{
-
+.dashboard-btn{
     border:none;
 
     background:#111827;
-
     color:white;
 
-    padding:9px 14px;
+    padding:10px 15px;
 
-    border-radius:8px;
+    border-radius:9px;
 
     font-size:12px;
-
     font-weight:850;
 }
 
 
-/* =========================================================
+/* =====================================================
    HERO
-========================================================= */
+===================================================== */
 
 .hero{
+    position:relative;
 
-    background:
-        radial-gradient(
-            circle at 85% 15%,
-            rgba(99,102,241,.2),
-            transparent 25%
-        ),
-        #f8fafc;
+    overflow:hidden;
+
+    text-align:center;
 
     padding:75px 20px 55px;
 
-    text-align:center;
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(99,102,241,.16),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(14,165,233,.13),
+            transparent 25%
+        ),
+        #f8fafc;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    border:1px solid rgba(99,102,241,.15);
+
+    border-radius:50%;
+
+    top:-160px;
+    left:-80px;
+
+    animation:orbit 14s linear infinite;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
+
+    border:1px dashed rgba(14,165,233,.18);
+
+    border-radius:50%;
+
+    right:-80px;
+    bottom:-150px;
+
+    animation:orbit 10s linear infinite reverse;
+}
+
+@keyframes orbit{
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 .eyebrow{
-
     color:#6366f1;
 
     font-size:10px;
 
     font-weight:950;
 
-    letter-spacing:1.4px;
+    letter-spacing:1.5px;
 
     text-transform:uppercase;
 
-    margin-bottom:11px;
+    margin-bottom:10px;
 }
 
 .hero h1{
+    position:relative;
+    z-index:2;
 
-    font-size:45px;
+    font-size:48px;
 
-    letter-spacing:-2px;
+    letter-spacing:-2.5px;
 
     margin-bottom:12px;
 }
 
 .hero p{
+    position:relative;
+    z-index:2;
 
-    max-width:620px;
+    max-width:650px;
 
     margin:auto;
 
     color:#6b7280;
 
-    line-height:1.7;
-
     font-size:14px;
+
+    line-height:1.75;
 }
 
 
-/* =========================================================
-   ACCESS LOCK
-========================================================= */
+/* =====================================================
+   LOCK BOX
+===================================================== */
 
-#lockedScreen{
+.lock-wrapper{
+    max-width:650px;
 
-    max-width:600px;
+    margin:35px auto 90px;
 
-    margin:30px auto 80px;
+    padding:0 20px;
+}
 
-    padding:45px 30px;
+.lock-box{
+
+    position:relative;
+
+    overflow:hidden;
 
     background:white;
 
     border:1px solid #e5e7eb;
 
-    border-radius:23px;
+    border-radius:25px;
+
+    padding:45px 30px;
 
     text-align:center;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.07);
+        0 25px 80px rgba(15,23,42,.08);
+
+    animation:boxIn .7s ease both;
+}
+
+@keyframes boxIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
+}
+
+.lock-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(99,102,241,.13),
+            transparent 70%
+        );
+
+    top:-90px;
+    left:-70px;
 }
 
 .lock-icon{
 
-    width:72px;
-    height:72px;
+    position:relative;
 
-    margin:auto auto 20px;
+    width:76px;
+    height:76px;
 
-    border-radius:21px;
+    margin:0 auto 20px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
+    border-radius:23px;
+
     background:#eef2ff;
 
-    font-size:32px;
+    font-size:33px;
+
+    box-shadow:
+        0 12px 30px rgba(99,102,241,.12);
+
+    animation:lockFloat 3s ease-in-out infinite;
 }
 
-#lockedScreen h2{
+@keyframes lockFloat{
 
-    font-size:27px;
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+
+}
+
+.lock-box h2{
+    position:relative;
+
+    font-size:28px;
+
+    letter-spacing:-1px;
 
     margin-bottom:10px;
 }
 
-#lockedScreen p{
+.lock-box p{
+    position:relative;
+
+    max-width:520px;
+
+    margin:0 auto 25px;
 
     color:#6b7280;
 
-    line-height:1.7;
-
     font-size:13px;
 
-    margin-bottom:22px;
+    line-height:1.7;
 }
 
 .code-input{
 
     width:100%;
 
-    padding:14px;
+    padding:15px;
 
     border:1px solid #d1d5db;
 
-    border-radius:10px;
+    border-radius:11px;
+
+    outline:none;
 
     text-align:center;
 
-    letter-spacing:2px;
+    letter-spacing:2.5px;
 
     font-weight:900;
 
     text-transform:uppercase;
 
-    outline:none;
-
     margin-bottom:10px;
+
+    transition:.2s;
 }
 
 .code-input:focus{
@@ -258,61 +374,104 @@ button{
     border-color:#6366f1;
 
     box-shadow:
-        0 0 0 3px #eef2ff;
+        0 0 0 4px #eef2ff;
 }
 
 .unlock-btn{
 
     width:100%;
 
-    padding:14px;
+    padding:15px;
 
     border:none;
 
-    border-radius:10px;
+    border-radius:11px;
 
-    background:#4f46e5;
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #6366f1
+        );
 
     color:white;
 
+    font-size:13px;
+
     font-weight:900;
+
+    transition:.2s;
 }
 
-.lock-message{
+.unlock-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(79,70,229,.25);
+}
+
+.unlock-btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+.message{
 
     display:none;
 
+    margin-bottom:12px;
+
     padding:11px;
 
-    border-radius:8px;
-
-    margin-bottom:12px;
+    border-radius:9px;
 
     font-size:12px;
 
     line-height:1.5;
 }
 
-.lock-message.show{
+.message.show{
     display:block;
 }
 
-.lock-message.error{
+.message.error{
 
     background:#fef2f2;
     color:#991b1b;
 }
 
-.lock-message.success{
+.message.success{
 
     background:#ecfdf5;
     color:#065f46;
 }
 
 
-/* =========================================================
+/* =====================================================
+   NO ENROLLMENT
+===================================================== */
+
+.no-paid{
+    display:none;
+}
+
+.no-paid.show{
+    display:block;
+}
+
+.no-paid .lock-icon{
+    background:#fff7ed;
+}
+
+
+/* =====================================================
    LIBRARY CONTENT
-========================================================= */
+===================================================== */
 
 #libraryContent{
 
@@ -320,32 +479,48 @@ button{
 
     max-width:1180px;
 
-    margin:0 auto;
+    margin:auto;
 
-    padding:25px 20px 80px;
+    padding:30px 20px 90px;
+
+    animation:contentIn .6s ease;
 }
 
-.library-header{
+@keyframes contentIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
+}
+
+.library-head{
 
     display:flex;
 
-    justify-content:space-between;
+    align-items:flex-end;
 
-    align-items:end;
+    justify-content:space-between;
 
     gap:20px;
 
     margin-bottom:25px;
 }
 
-.library-header h2{
+.library-head h2{
 
-    font-size:28px;
+    font-size:29px;
 
-    letter-spacing:-1px;
+    letter-spacing:-1.2px;
 }
 
-.library-header p{
+.library-head p{
 
     color:#6b7280;
 
@@ -354,20 +529,38 @@ button{
     margin-top:6px;
 }
 
+.unlocked-badge{
 
-/* =========================================================
-   SEARCH
-========================================================= */
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+    background:#ecfdf5;
+
+    color:#047857;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    margin-bottom:8px;
+}
 
 .search{
 
     width:280px;
 
-    padding:11px 13px;
+    padding:12px 14px;
 
     border:1px solid #d1d5db;
 
-    border-radius:9px;
+    border-radius:10px;
 
     outline:none;
 
@@ -383,9 +576,9 @@ button{
 }
 
 
-/* =========================================================
-   FILTERS
-========================================================= */
+/* =====================================================
+   FILTER
+===================================================== */
 
 .filters{
 
@@ -406,28 +599,37 @@ button{
 
     color:#4b5563;
 
-    padding:8px 12px;
+    padding:8px 13px;
 
     border-radius:20px;
 
     font-size:11px;
 
-    font-weight:800;
+    font-weight:850;
+
+    transition:.2s;
+}
+
+.filter:hover{
+
+    border-color:#818cf8;
+
+    color:#4f46e5;
 }
 
 .filter.active{
 
     background:#4f46e5;
 
-    color:white;
-
     border-color:#4f46e5;
+
+    color:white;
 }
 
 
-/* =========================================================
+/* =====================================================
    RESOURCE GRID
-========================================================= */
+===================================================== */
 
 .resource-grid{
 
@@ -445,34 +647,50 @@ button{
 
     border:1px solid #e5e7eb;
 
-    border-radius:17px;
+    border-radius:18px;
 
     padding:21px;
 
-    transition:.25s;
+    transition:.3s;
+
+    animation:cardIn .5s ease both;
 }
 
 .resource:hover{
 
-    transform:translateY(-5px);
-
-    box-shadow:
-        0 22px 50px rgba(0,0,0,.08);
+    transform:translateY(-6px);
 
     border-color:#c7d2fe;
+
+    box-shadow:
+        0 25px 55px rgba(15,23,42,.08);
+}
+
+@keyframes cardIn{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
 }
 
 .resource-icon{
 
-    width:47px;
-    height:47px;
+    width:48px;
+    height:48px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    border-radius:13px;
+    border-radius:14px;
 
     background:#eef2ff;
 
@@ -493,7 +711,7 @@ button{
 
     letter-spacing:.8px;
 
-    margin-bottom:8px;
+    margin-bottom:7px;
 }
 
 .resource h3{
@@ -509,20 +727,22 @@ button{
 
     font-size:12px;
 
-    line-height:1.6;
+    line-height:1.65;
 
-    margin-bottom:17px;
+    min-height:58px;
+
+    margin-bottom:16px;
 }
 
 .resource-btn{
 
     width:100%;
 
+    padding:10px;
+
     border:none;
 
-    border-radius:8px;
-
-    padding:10px;
+    border-radius:9px;
 
     background:#111827;
 
@@ -530,7 +750,7 @@ button{
 
     font-size:11px;
 
-    font-weight:850;
+    font-weight:900;
 }
 
 .resource-btn.disabled{
@@ -543,17 +763,15 @@ button{
 }
 
 
-/* =========================================================
+/* =====================================================
    EMPTY
-========================================================= */
+===================================================== */
 
 .empty{
 
     grid-column:1/-1;
 
-    text-align:center;
-
-    padding:60px 20px;
+    padding:70px 20px;
 
     background:white;
 
@@ -561,25 +779,31 @@ button{
 
     border-radius:18px;
 
+    text-align:center;
+
     color:#6b7280;
+
+    font-size:13px;
 }
 
 
-/* =========================================================
+/* =====================================================
    MOBILE
-========================================================= */
+===================================================== */
 
 @media(max-width:800px){
 
-    .hero h1{
-        font-size:36px;
+    .hero{
+        padding:60px 18px 45px;
     }
 
-    .library-header{
+    .hero h1{
+        font-size:37px;
+    }
 
-        align-items:stretch;
-
+    .library-head{
         flex-direction:column;
+        align-items:stretch;
     }
 
     .search{
@@ -588,6 +812,18 @@ button{
 
     .resource-grid{
         grid-template-columns:1fr;
+    }
+
+    .lock-wrapper{
+        margin-top:25px;
+    }
+
+    .lock-box{
+        padding:38px 20px;
+    }
+
+    .topbar-inner{
+        padding:0 14px;
     }
 
 }
@@ -600,229 +836,264 @@ button{
 <body>
 
 
-<!-- =========================================================
+<!-- =====================================================
      TOPBAR
-========================================================= -->
+===================================================== -->
 
-<div class="topbar">
+<header class="topbar">
 
 <div class="topbar-inner">
 
-    <a
-        href="dashboard.html"
-        class="logo">
+<a
+href="dashboard.html"
+class="logo">
 
-        Dream<span>Hunt</span>
+Dream<span>Hunt</span>
 
-    </a>
+</a>
 
+<button
+class="dashboard-btn"
+onclick="goDashboard()">
 
-    <button
-        class="back-btn"
-        onclick="goDashboard()">
+← Dashboard
 
-        ← Dashboard
-
-    </button>
-
-</div>
+</button>
 
 </div>
 
+</header>
 
-<!-- =========================================================
+
+<!-- =====================================================
      HERO
-========================================================= -->
+===================================================== -->
 
 <section class="hero">
 
-    <div class="eyebrow">
-        Dream Hunt Resource Vault
-    </div>
+<div class="eyebrow">
+Dream Hunt Private Resource Vault
+</div>
 
-    <h1>
-        The Library
-    </h1>
+<h1>
+The Library
+</h1>
 
-    <p>
-        Your private collection of marked books,
-        question banks, notes, formulas and admission resources.
-    </p>
+<p>
+A private collection of marked books, question banks,
+formula sheets, previous questions, notes and
+admission-focused resources.
+</p>
 
 </section>
 
 
-<!-- =========================================================
-     LOCKED SCREEN
-========================================================= -->
+<!-- =====================================================
+     LOCK AREA
+===================================================== -->
 
-<div id="lockedScreen">
-
-    <div class="lock-icon">
-        🔐
-    </div>
-
-    <h2>
-        Library Locked
-    </h2>
-
-    <p>
-        This library is exclusively available to students
-        with an approved Dream Hunt course enrollment.
-        Enter the access code provided by Dream Hunt.
-    </p>
+<div class="lock-wrapper">
 
 
-    <div
-        class="lock-message"
-        id="lockMessage">
-    </div>
+<!-- NO PAID COURSE -->
 
+<div
+class="lock-box no-paid"
+id="noPaidBox">
 
-    <input
-        class="code-input"
-        id="libraryCode"
-        type="text"
-        maxlength="50"
-        placeholder="ENTER ACCESS CODE"
-        autocomplete="off">
+<div class="lock-icon">
+💳
+</div>
 
+<h2>
+Paid Course Required
+</h2>
 
-    <button
-        class="unlock-btn"
-        id="unlockButton"
-        onclick="unlockLibrary()">
+<p>
+The Dream Hunt Library is available only to students
+with an approved paid course enrollment.
+Please enroll in a Dream Hunt course first.
+</p>
 
-        🔓 Unlock Library
+<button
+class="unlock-btn"
+onclick="goCourses()">
 
-    </button>
+View Courses →
+
+</button>
 
 </div>
 
 
-<!-- =========================================================
-     LIBRARY CONTENT
-========================================================= -->
+<!-- ACCESS CODE -->
 
-<div id="libraryContent">
+<div
+class="lock-box"
+id="codeBox">
 
-    <div class="library-header">
+<div class="lock-icon">
+🔐
+</div>
 
-        <div>
+<h2>
+Library Locked
+</h2>
 
-            <div class="eyebrow">
-                Unlocked
-            </div>
+<p>
+Your paid enrollment has been found.
+Enter the Library Access Code provided by Dream Hunt
+through SMS or another official channel.
+</p>
 
-            <h2>
-                Study Resources
-            </h2>
+<div
+class="message"
+id="lockMessage">
+</div>
 
-            <p>
-                Curated resources for your admission preparation.
-            </p>
+<input
+class="code-input"
+id="libraryCode"
+type="text"
+maxlength="50"
+placeholder="ENTER ACCESS CODE"
+autocomplete="off">
 
-        </div>
+<button
+class="unlock-btn"
+id="unlockButton"
+onclick="unlockLibrary()">
 
+🔓 Unlock Library
 
-        <input
-            class="search"
-            id="searchInput"
-            type="search"
-            placeholder="Search resources...">
-
-    </div>
-
-
-    <div
-        class="filters"
-        id="filters">
-
-        <button
-            class="filter active"
-            data-category="all">
-
-            All
-
-        </button>
-
-        <button
-            class="filter"
-            data-category="marked-books">
-
-            দাগানো বই
-
-        </button>
-
-        <button
-            class="filter"
-            data-category="question-bank">
-
-            Question Bank
-
-        </button>
-
-        <button
-            class="filter"
-            data-category="important-notes">
-
-            Important Notes
-
-        </button>
-
-        <button
-            class="filter"
-            data-category="formula-sheets">
-
-            Formula Sheets
-
-        </button>
-
-        <button
-            class="filter"
-            data-category="previous-questions">
-
-            Previous Questions
-
-        </button>
-
-        <button
-            class="filter"
-            data-category="short-tricks">
-
-            Short Tricks
-
-        </button>
-
-    </div>
-
-
-    <div
-        class="resource-grid"
-        id="resourceGrid">
-
-    </div>
+</button>
 
 </div>
+
+</div>
+
+
+<!-- =====================================================
+     LIBRARY
+===================================================== -->
+
+<main id="libraryContent">
+
+<div class="library-head">
+
+<div>
+
+<div class="unlocked-badge">
+✓ ACCESS GRANTED
+</div>
+
+<h2>
+Study Resources
+</h2>
+
+<p>
+Your private Dream Hunt resource collection.
+</p>
+
+</div>
+
+<input
+class="search"
+id="searchInput"
+type="search"
+placeholder="Search resources...">
+
+</div>
+
+
+<div
+class="filters"
+id="filters">
+
+<button
+class="filter active"
+data-category="all">
+
+All
+
+</button>
+
+<button
+class="filter"
+data-category="marked-books">
+
+দাগানো বই
+
+</button>
+
+<button
+class="filter"
+data-category="question-bank">
+
+Question Bank
+
+</button>
+
+<button
+class="filter"
+data-category="important-notes">
+
+Important Notes
+
+</button>
+
+<button
+class="filter"
+data-category="formula-sheets">
+
+Formula Sheets
+
+</button>
+
+<button
+class="filter"
+data-category="previous-questions">
+
+Previous Questions
+
+</button>
+
+<button
+class="filter"
+data-category="short-tricks">
+
+Short Tricks
+
+</button>
+
+</div>
+
+
+<div
+class="resource-grid"
+id="resourceGrid">
+</div>
+
+</main>
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
-    "https://rndtgjuwwsxxiiezennr.supabase.co";
+"https://rndtgjuwwsxxiiezennr.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
 
 
 let resources = [];
@@ -830,63 +1101,86 @@ let resources = [];
 let activeCategory = "all";
 
 
-/* =========================================================
-   DASHBOARD
-========================================================= */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function goDashboard(){
 
     window.location.href =
-        "dashboard.html";
+    "dashboard.html";
+
+}
+
+function goCourses(){
+
+    window.location.href =
+    "buy-courses.html";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MESSAGE
-========================================================= */
+===================================================== */
 
-function showLockMessage(
+function showMessage(
     message,
     type
 ){
 
-    const element =
-        document.getElementById(
-            "lockMessage"
-        );
+    const box =
+    document.getElementById(
+        "lockMessage"
+    );
 
-    element.textContent =
-        message;
+    box.textContent =
+    message;
 
-    element.className =
-        "lock-message show " + type;
+    box.className =
+    "message show " + type;
 
 }
 
 
-/* =========================================================
-   CHECK ACCESS
-========================================================= */
+/* =====================================================
+   SESSION
+===================================================== */
 
-async function checkExistingAccess(){
+async function getCurrentUser(){
 
     const {
-        data:sessionData
+        data,
+        error
     } =
-        await supabaseClient.auth.getSession();
+    await supabaseClient.auth.getSession();
+
+    if(error){
+
+        console.error(error);
+
+        return null;
+
+    }
+
+    return data.session?.user || null;
+
+}
 
 
-    const session =
-        sessionData.session;
+/* =====================================================
+   CHECK PAID ENROLLMENT
+===================================================== */
 
+async function checkPaidEnrollment(){
 
-    if(!session){
+    const user =
+    await getCurrentUser();
 
-        showLockMessage(
-            "Please login to access the Dream Hunt Library.",
-            "error"
-        );
+    if(!user){
+
+        window.location.href =
+        "index.html";
 
         return false;
 
@@ -897,16 +1191,86 @@ async function checkExistingAccess(){
         data,
         error
     } =
-        await supabaseClient.rpc(
-            "has_library_access"
-        );
+    await supabaseClient
+    .from("enrollments")
+    .select("id")
+    .eq("user_id", user.id)
+    .limit(1);
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Enrollment error:",
+            error
+        );
+
+        showMessage(
+            "Unable to verify your course enrollment.",
+            "error"
+        );
 
         return false;
+
+    }
+
+
+    if(!data || data.length === 0){
+
+        document
+        .getElementById("codeBox")
+        .style.display = "none";
+
+        document
+        .getElementById("noPaidBox")
+        .classList.add("show");
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   CHECK EXISTING LIBRARY ACCESS
+===================================================== */
+
+async function checkExistingAccess(){
+
+    const user =
+    await getCurrentUser();
+
+    if(!user){
+
+        window.location.href =
+        "index.html";
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.rpc(
+        "has_library_access"
+    );
+
+
+    if(error){
+
+        console.error(
+            "Access check error:",
+            error
+        );
+
+        return;
 
     }
 
@@ -915,41 +1279,37 @@ async function checkExistingAccess(){
 
         await unlockUI();
 
-        return true;
-
     }
-
-
-    return false;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    UNLOCK
-========================================================= */
+===================================================== */
 
 async function unlockLibrary(){
 
-    const code =
-        document
-            .getElementById(
-                "libraryCode"
-            )
-            .value
-            .trim()
-            .toUpperCase();
-
+    const input =
+    document.getElementById(
+        "libraryCode"
+    );
 
     const button =
-        document.getElementById(
-            "unlockButton"
-        );
+    document.getElementById(
+        "unlockButton"
+    );
+
+
+    const code =
+    input.value
+    .trim()
+    .toUpperCase();
 
 
     if(!code){
 
-        showLockMessage(
+        showMessage(
             "Please enter your access code.",
             "error"
         );
@@ -962,26 +1322,17 @@ async function unlockLibrary(){
     button.disabled = true;
 
     button.textContent =
-        "Verifying...";
+    "Verifying...";
 
 
-    const {
-        data:sessionData
-    } =
-        await supabaseClient.auth.getSession();
+    const user =
+    await getCurrentUser();
 
 
-    if(!sessionData.session){
+    if(!user){
 
-        showLockMessage(
-            "Please login first.",
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            "🔓 Unlock Library";
+        window.location.href =
+        "index.html";
 
         return;
 
@@ -992,34 +1343,36 @@ async function unlockLibrary(){
         data,
         error
     } =
-        await supabaseClient.rpc(
-            "verify_library_access",
-            {
-                p_code:code
-            }
-        );
+    await supabaseClient.rpc(
+        "verify_library_access",
+        {
+            p_code: code
+        }
+    );
 
 
     if(error){
 
-        showLockMessage(
-            error.message,
+        console.error(error);
+
+        showMessage(
+            "Something went wrong while verifying the code.",
             "error"
         );
 
         button.disabled = false;
 
         button.textContent =
-            "🔓 Unlock Library";
+        "🔓 Unlock Library";
 
         return;
 
     }
 
 
-    if(!data || !data.success){
+    if(!data || data.success !== true){
 
-        showLockMessage(
+        showMessage(
             data?.message ||
             "Access denied.",
             "error"
@@ -1028,15 +1381,15 @@ async function unlockLibrary(){
         button.disabled = false;
 
         button.textContent =
-            "🔓 Unlock Library";
+        "🔓 Unlock Library";
 
         return;
 
     }
 
 
-    showLockMessage(
-        "Access verified successfully.",
+    showMessage(
+        "Access verified. Welcome to the Dream Hunt Library.",
         "success"
     );
 
@@ -1049,24 +1402,31 @@ async function unlockLibrary(){
 }
 
 
-/* =========================================================
+/* =====================================================
    UNLOCK UI
-========================================================= */
+===================================================== */
 
 async function unlockUI(){
 
     document
-        .getElementById(
-            "lockedScreen"
-        )
-        .style.display = "none";
+    .getElementById(
+        "noPaidBox"
+    )
+    .classList.remove("show");
 
 
     document
-        .getElementById(
-            "libraryContent"
-        )
-        .style.display = "block";
+    .getElementById(
+        "codeBox"
+    )
+    .style.display = "none";
+
+
+    document
+    .getElementById(
+        "libraryContent"
+    )
+    .style.display = "block";
 
 
     await loadResources();
@@ -1074,9 +1434,9 @@ async function unlockUI(){
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD RESOURCES
-========================================================= */
+===================================================== */
 
 async function loadResources(){
 
@@ -1084,21 +1444,24 @@ async function loadResources(){
         data,
         error
     } =
-        await supabaseClient
-            .from("library_resources")
-            .select("*")
-            .eq("is_active",true)
-            .order(
-                "published_at",
-                {
-                    ascending:false
-                }
-            );
+    await supabaseClient
+    .from("library_resources")
+    .select("*")
+    .eq("is_active", true)
+    .order(
+        "published_at",
+        {
+            ascending:false
+        }
+    );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Resource error:",
+            error
+        );
 
         renderEmpty(
             "Unable to load library resources."
@@ -1110,7 +1473,7 @@ async function loadResources(){
 
 
     resources =
-        data || [];
+    data || [];
 
 
     renderResources();
@@ -1118,43 +1481,43 @@ async function loadResources(){
 }
 
 
-/* =========================================================
-   CATEGORY LABEL
-========================================================= */
+/* =====================================================
+   CATEGORY
+===================================================== */
 
 function categoryLabel(category){
 
     const labels = {
 
         "marked-books":
-            "দাগানো বই",
+        "দাগানো বই",
 
         "question-bank":
-            "Question Bank",
+        "Question Bank",
 
         "important-notes":
-            "Important Notes",
+        "Important Notes",
 
         "formula-sheets":
-            "Formula Sheets",
+        "Formula Sheets",
 
         "previous-questions":
-            "Previous Questions",
+        "Previous Questions",
 
         "short-tricks":
-            "Short Tricks"
+        "Short Tricks"
 
     };
 
     return labels[category] ||
-        category;
+    category;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    ICON
-========================================================= */
+===================================================== */
 
 function resourceIcon(category){
 
@@ -1174,70 +1537,73 @@ function resourceIcon(category){
 
     };
 
-    return icons[category] || "📚";
+    return icons[category] ||
+    "📚";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDER
-========================================================= */
+===================================================== */
 
 function renderResources(){
 
     const grid =
-        document.getElementById(
-            "resourceGrid"
-        );
+    document.getElementById(
+        "resourceGrid"
+    );
 
 
     const search =
-        document
-            .getElementById(
-                "searchInput"
-            )
-            .value
-            .toLowerCase()
-            .trim();
+    document.getElementById(
+        "searchInput"
+    )
+    .value
+    .toLowerCase()
+    .trim();
 
 
     const filtered =
-        resources.filter(
-            function(resource){
+    resources.filter(
+        resource => {
 
-                const matchesCategory =
-                    activeCategory === "all" ||
-                    resource.category ===
-                        activeCategory;
-
-
-                const text =
-                    (
-                        resource.title +
-                        " " +
-                        (resource.description || "")
-                    )
-                    .toLowerCase();
+            const categoryMatch =
+            activeCategory === "all" ||
+            resource.category ===
+            activeCategory;
 
 
-                const matchesSearch =
-                    !search ||
-                    text.includes(search);
+            const text =
+            (
+                resource.title +
+                " " +
+                (
+                    resource.description ||
+                    ""
+                )
+            )
+            .toLowerCase();
 
 
-                return (
-                    matchesCategory &&
-                    matchesSearch
-                );
+            const searchMatch =
+            !search ||
+            text.includes(search);
 
-            }
-        );
+
+            return (
+                categoryMatch &&
+                searchMatch
+            );
+
+        }
+    );
 
 
     grid.innerHTML = "";
 
 
-    if(!filtered.length){
+    if(filtered.length === 0){
 
         renderEmpty(
             "No resources found."
@@ -1249,71 +1615,74 @@ function renderResources(){
 
 
     filtered.forEach(
-        function(resource){
+        (resource,index) => {
 
             const card =
-                document.createElement(
-                    "div"
-                );
+            document.createElement(
+                "div"
+            );
 
             card.className =
-                "resource";
+            "resource";
+
+            card.style.animationDelay =
+            `${index * 60}ms`;
 
 
             const icon =
-                document.createElement(
-                    "div"
-                );
+            document.createElement(
+                "div"
+            );
 
             icon.className =
-                "resource-icon";
+            "resource-icon";
 
             icon.textContent =
-                resourceIcon(
-                    resource.category
-                );
+            resourceIcon(
+                resource.category
+            );
 
 
             const category =
-                document.createElement(
-                    "div"
-                );
+            document.createElement(
+                "div"
+            );
 
             category.className =
-                "resource-category";
+            "resource-category";
 
             category.textContent =
-                categoryLabel(
-                    resource.category
-                );
+            categoryLabel(
+                resource.category
+            );
 
 
             const title =
-                document.createElement(
-                    "h3"
-                );
+            document.createElement(
+                "h3"
+            );
 
             title.textContent =
-                resource.title;
+            resource.title;
 
 
             const description =
-                document.createElement(
-                    "p"
-                );
+            document.createElement(
+                "p"
+            );
 
             description.textContent =
-                resource.description ||
-                "Dream Hunt study resource.";
+            resource.description ||
+            "Dream Hunt study resource.";
 
 
             const button =
-                document.createElement(
-                    "button"
-                );
+            document.createElement(
+                "button"
+            );
 
             button.className =
-                "resource-btn";
+            "resource-btn";
 
 
             if(
@@ -1322,30 +1691,31 @@ function renderResources(){
             ){
 
                 button.textContent =
-                    "Open Resource →";
+                "Open Resource →";
 
 
                 button.onclick =
-                    function(){
+                () => {
 
-                        window.open(
-                            resource.file_url,
-                            "_blank"
-                        );
+                    window.open(
+                        resource.file_url,
+                        "_blank",
+                        "noopener"
+                    );
 
-                    };
+                };
 
             }else{
 
                 button.textContent =
-                    "Coming Soon";
+                "Coming Soon";
 
                 button.classList.add(
                     "disabled"
                 );
 
                 button.disabled =
-                    true;
+                true;
 
             }
 
@@ -1369,16 +1739,17 @@ function renderResources(){
 }
 
 
-/* =========================================================
+/* =====================================================
    EMPTY
-========================================================= */
+===================================================== */
 
 function renderEmpty(message){
 
     const grid =
-        document.getElementById(
-            "resourceGrid"
-        );
+    document.getElementById(
+        "resourceGrid"
+    );
+
 
     grid.innerHTML = `
 
@@ -1397,88 +1768,116 @@ function renderEmpty(message){
 }
 
 
-/* =========================================================
-   FILTERS
-========================================================= */
+/* =====================================================
+   FILTER
+===================================================== */
 
 document
-    .querySelectorAll(".filter")
-    .forEach(
-        function(button){
+.querySelectorAll(".filter")
+.forEach(
+    button => {
 
-            button.addEventListener(
-                "click",
-                function(){
+        button.addEventListener(
+            "click",
+            () => {
 
-                    document
-                        .querySelectorAll(
-                            ".filter"
-                        )
-                        .forEach(
-                            function(item){
+                document
+                .querySelectorAll(
+                    ".filter"
+                )
+                .forEach(
+                    item => {
 
-                                item.classList
-                                    .remove(
-                                        "active"
-                                    );
-
-                            }
+                        item.classList.remove(
+                            "active"
                         );
 
-
-                    button.classList.add(
-                        "active"
-                    );
+                    }
+                );
 
 
-                    activeCategory =
-                        button.dataset.category;
+                button.classList.add(
+                    "active"
+                );
 
 
-                    renderResources();
-
-                }
-            );
-
-        }
-    );
+                activeCategory =
+                button.dataset.category;
 
 
-/* =========================================================
+                renderResources();
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
    SEARCH
-========================================================= */
+===================================================== */
 
 document
-    .getElementById(
-        "searchInput"
-    )
-    .addEventListener(
-        "input",
-        renderResources
-    );
+.getElementById(
+    "searchInput"
+)
+.addEventListener(
+    "input",
+    renderResources
+);
 
 
-/* =========================================================
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
-checkExistingAccess();
+async function startLibrary(){
+
+    const user =
+    await getCurrentUser();
 
 
-/* =========================================================
+    if(!user){
+
+        window.location.href =
+        "index.html";
+
+        return;
+
+    }
+
+
+    const enrolled =
+    await checkPaidEnrollment();
+
+
+    if(!enrolled){
+
+        return;
+
+    }
+
+
+    await checkExistingAccess();
+
+}
+
+
+startLibrary();
+
+
+/* =====================================================
    AUTH STATE
-========================================================= */
+===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
-    function(
-        event,
-        session
-    ){
+    (event, session) => {
 
         if(!session){
 
             window.location.href =
-                "index.html";
+            "index.html";
 
         }
 
