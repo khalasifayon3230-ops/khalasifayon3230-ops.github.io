@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Exams | Dream Hunt</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f7fb;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#111827;
+    color:white;
+    padding:24px 16px;
+    z-index:100;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    margin-bottom:30px;
+    padding-left:10px;
+}
+
+.nav a{
+    display:block;
+    text-decoration:none;
+    color:#cbd5e1;
+    padding:13px 14px;
+    border-radius:10px;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:#1f2937;
+    color:white;
+}
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+    padding:35px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+}
+
+.header{
+    margin-bottom:30px;
+}
+
+.header h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.header p{
+    color:#6b7280;
+    font-size:14px;
+}
+
+.section{
+    margin-bottom:35px;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.section-title h2{
+    font-size:21px;
+}
+
+.badge{
+    font-size:11px;
+    padding:5px 9px;
+    border-radius:20px;
+    font-weight:700;
+}
+
+.badge.upcoming{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.badge.live{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge.previous{
+    background:#e5e7eb;
+    color:#374151;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.exam-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
+}
+
+.exam-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.exam-title{
+    font-size:18px;
+    font-weight:750;
+}
+
+.exam-date{
+    color:#6b7280;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.exam-info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin:18px 0;
+}
+
+.info{
+    background:#f8fafc;
+    padding:11px;
+    border-radius:9px;
+}
+
+.info small{
+    display:block;
+    color:#6b7280;
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+.info strong{
+    font-size:13px;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.btn-primary{
+    background:#111827;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#000;
+}
+
+.btn-disabled{
+    background:#e5e7eb;
+    color:#6b7280;
+    cursor:not-allowed;
+}
+
+.empty{
+    background:white;
+    border:1px dashed #d1d5db;
+    border-radius:15px;
+    padding:35px 20px;
+    text-align:center;
+    color:#6b7280;
+}
+
+.empty-icon{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.loading{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
+}
+
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    display:none;
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:64px;
+        padding:20px 7px;
+    }
+
+    .logo{
+        font-size:0;
+        text-align:center;
+        padding:0;
+    }
+
+    .logo::after{
+        content:"D";
+        font-size:22px;
+    }
+
+    .nav a{
+        font-size:0;
+        text-align:center;
+        padding:13px 5px;
+    }
+
+    .nav a::first-letter{
+        font-size:17px;
+    }
+
+    .main{
+        margin-left:64px;
+        padding:22px 15px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:25px;
+    }
+}
+
+@media(max-width:450px){
+
+    .main{
+        padding:18px 12px;
+    }
+
+    .exam-card{
+        padding:16px;
+    }
+
+    .exam-info{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .section-title h2{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">Dream Hunt</div>
+
+    <nav class="nav">
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+
+        <a href="profile.html">👤 My Profile</a>
+
+        <a href="enrolled-courses.html">📚 Enrolled Courses</a>
+
+        <a href="buy-courses.html">🛒 Buy Courses</a>
+
+        <a href="progress.html">📈 Progress</a>
+
+        <a href="exams.html" class="active">📝 My Exams</a>
+
+        <a href="results.html">🏆 Results</a>
+
+        <a href="notifications.html">🔔 Notifications</a>
+
+        <a href="contact.html">💬 Contact Us</a>
+
+        <a href="faq.html">❓ FAQ</a>
+
+    </nav>
+
+</aside>
+
+
+<main class="main">
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>My Exams</h1>
+
+        <p>
+            View your upcoming, live and previous admission exams.
+        </p>
+
+    </div>
+
+
+    <div id="errorBox" class="error"></div>
+
+
+    <!-- UPCOMING -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Upcoming Exams</h2>
+
+            <span class="badge upcoming">
+                UPCOMING
+            </span>
+
+        </div>
+
+        <div id="upcomingContainer" class="grid">
+
+            <div class="loading">
+                Loading exams...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LIVE -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Live Exams</h2>
+
+            <span class="badge live">
+                LIVE
+            </span>
+
+        </div>
+
+        <div id="liveContainer" class="grid">
+
+            <div class="loading">
+                Checking live exams...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PREVIOUS -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Previous Exams</h2>
+
+            <span class="badge previous">
+                PREVIOUS
+            </span>
+
+        </div>
+
+        <div id="previousContainer" class="grid">
+
+            <div class="loading">
+                Loading previous exams...
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+</main>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+async function init(){
+
+    const {
+        data: {
+            session
+        },
+        error: sessionError
+    } = await supabaseClient.auth.getSession();
+
+
+    if(sessionError || !session){
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+
+    loadExams();
+}
+
+
+function escapeHTML(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function formatDate(dateString){
+
+    if(!dateString){
+        return "Date not set";
+    }
+
+    const date = new Date(
+        dateString + "T00:00:00"
+    );
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+}
+
+
+function formatTime(timeString){
+
+    if(!timeString){
+        return "Not set";
+    }
+
+    const parts = timeString.split(":");
+
+    let hour = Number(parts[0]);
+
+    const minute = parts[1];
+
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    hour = hour % 12;
+
+    if(hour === 0){
+        hour = 12;
+    }
+
+    return `${hour}:${minute} ${ampm}`;
+}
+
+
+function createExamCard(exam, type){
+
+    const date =
+        formatDate(exam.exam_date);
+
+    const start =
+        formatTime(exam.start_time);
+
+    const end =
+        formatTime(exam.end_time);
+
+
+    let button = "";
+
+    if(type === "live"){
+
+        button = `
+            <button
+                class="btn btn-primary"
+                onclick="openExam('${exam.id}')">
+                Start Exam
+            </button>
+        `;
+
+    }else if(type === "previous"){
+
+        button = `
+            <button
+                class="btn btn-primary"
+                onclick="openResult('${exam.id}')">
+                View Exam Details
+            </button>
+        `;
+
+    }else{
+
+        button = `
+            <button
+                class="btn btn-disabled"
+                disabled>
+                Not Started
+            </button>
+        `;
+    }
+
+
+    return `
+
+        <div class="exam-card">
+
+            <div class="exam-top">
+
+                <div>
+
+                    <div class="exam-title">
+                        ${escapeHTML(exam.title)}
+                    </div>
+
+                    <div class="exam-date">
+                        ${date}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            ${
+                exam.description
+                ?
+                `<p style="
+                    color:#6b7280;
+                    font-size:13px;
+                    line-height:1.6;
+                ">
+                    ${escapeHTML(exam.description)}
+                </p>`
+                :
+                ""
+            }
+
+
+            <div class="exam-info">
+
+                <div class="info">
+
+                    <small>Start</small>
+
+                    <strong>
+                        ${start}
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>End</small>
+
+                    <strong>
+                        ${end}
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>Duration</small>
+
+                    <strong>
+                        ${exam.duration_minutes} min
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>Total Marks</small>
+
+                    <strong>
+                        ${exam.total_marks}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            ${button}
+
+        </div>
+    `;
+}
+
+
+function showEmpty(container, message){
+
+    container.innerHTML = `
+
+        <div class="empty" style="grid-column:1/-1;">
+
+            <div class="empty-icon">
+                📭
+            </div>
+
+            <div>
+                ${message}
+            </div>
+
+        </div>
+    `;
+}
+
+
+async function loadExams(){
+
+    try{
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("exams")
+            .select(`
+                id,
+                title,
+                description,
+                exam_date,
+                start_time,
+                end_time,
+                duration_minutes,
+                total_questions,
+                total_marks,
+                marks_per_question,
+                negative_per_wrong,
+                status,
+                published
+            `)
+            .eq("published", true)
+            .order("exam_date", {
+                ascending:true
+            });
+
+
+        if(error){
+            throw error;
+        }
+
+
+        const exams = data || [];
+
+
+        const today =
+            new Date();
+
+
+        const upcoming = [];
+
+        const live = [];
+
+        const previous = [];
+
+
+        exams.forEach(exam => {
+
+            const examDate =
+                new Date(
+                    `${exam.exam_date}T00:00:00`
+                );
+
+
+            if(exam.status === "live"){
+
+                live.push(exam);
+
+                return;
+            }
+
+
+            if(
+                exam.status === "completed" ||
+                examDate < new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate()
+                )
+            ){
+
+                previous.push(exam);
+
+                return;
+            }
+
+
+            upcoming.push(exam);
+
+        });
+
+
+        renderSection(
+            "upcomingContainer",
+            upcoming,
+            "No upcoming exams."
+        );
+
+
+        renderSection(
+            "liveContainer",
+            live,
+            "There are no live exams right now."
+        );
+
+
+        renderSection(
+            "previousContainer",
+            previous.reverse(),
+            "No previous exams yet."
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        document.getElementById(
+            "errorBox"
+        ).style.display = "block";
+
+        document.getElementById(
+            "errorBox"
+        ).textContent =
+            "Unable to load exams. Please try again.";
+
+        showEmpty(
+            document.getElementById(
+                "upcomingContainer"
+            ),
+            "Unable to load exams."
+        );
+
+        showEmpty(
+            document.getElementById(
+                "liveContainer"
+            ),
+            "Unable to load exams."
+        );
+
+        showEmpty(
+            document.getElementById(
+                "previousContainer"
+            ),
+            "Unable to load exams."
+        );
+    }
+}
+
+
+function renderSection(
+    containerId,
+    exams,
+    emptyMessage
+){
+
+    const container =
+        document.getElementById(
+            containerId
+        );
+
+
+    if(!exams.length){
+
+        showEmpty(
+            container,
+            emptyMessage
+        );
+
+        return;
+    }
+
+
+    let type = "upcoming";
+
+
+    if(containerId === "liveContainer"){
+        type = "live";
+    }
+
+    if(containerId === "previousContainer"){
+        type = "previous";
+    }
+
+
+    container.innerHTML =
+        exams
+        .map(exam =>
+            createExamCard(
+                exam,
+                type
+            )
+        )
+        .join("");
+}
+
+
+function openExam(examId){
+
+    window.location.href =
+        "exam.html?id=" +
+        encodeURIComponent(examId);
+}
+
+
+function openResult(examId){
+
+    window.location.href =
+        "result-details.html?id=" +
+        encodeURIComponent(examId);
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>
