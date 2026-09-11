@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | Dream Hunt</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+            padding: 20px 15px 50px;
+        }
+
+        .topbar {
+            background: #111827;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            margin-top: 5px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .course-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .course-row:last-child {
+            border-bottom: none;
+        }
+
+        .course-name {
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .course-price {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            border-top: 2px solid #111827;
+            padding-top: 18px;
+            margin-top: 15px;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .payment-method {
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .payment-method.selected {
+            border-color: #111827;
+        }
+
+        .method-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .method-header input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .method-name {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .method-details {
+            display: none;
+            padding: 0 16px 17px 46px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .payment-method.selected .method-details {
+            display: block;
+        }
+
+        .number {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin: 4px 0;
+        }
+
+        .personal {
+            display: inline-block;
+            background: #f3f4f6;
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .instruction {
+            margin-top: 9px;
+            color: #4b5563;
+        }
+
+        .trx-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .trx-input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .trx-input:focus {
+            border-color: #111827;
+        }
+
+        .notice {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 16px;
+            border-radius: 11px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 18px;
+        }
+
+        .submit-btn:hover {
+            background: #000;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #374151;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .success {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .success-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .success h2 {
+            margin-bottom: 10px;
+        }
+
+        .success p {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .pending-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-top: 15px;
+        }
+
+        .portal-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #111827;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 14px 11px 40px;
+            }
+
+            .topbar {
+                padding: 17px;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+
+            .card {
+                padding: 17px;
+            }
+
+            .course-row {
+                font-size: 14px;
+            }
+
+            .total {
+                font-size: 19px;
+            }
+
+            .method-details {
+                padding-left: 46px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topbar">
+        <div class="brand">Dream Hunt</div>
+        <div class="subtitle">
+            Course Payment & Verification
+        </div>
+    </div>
+
+
+    <!-- ORDER SECTION -->
+
+    <div class="card" id="orderCard">
+
+        <h2>Order Summary</h2>
+
+        <div id="courseList"></div>
+
+        <div class="total">
+            <span>Total</span>
+            <span id="totalAmount">৳0</span>
+        </div>
+
+    </div>
+
+
+    <!-- PAYMENT SECTION -->
+
+    <div class="card" id="paymentCard">
+
+        <h2>Select Payment Method</h2>
+
+
+        <!-- BKASH -->
+
+        <div class="payment-method">
+
+            <label class="method-header">
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="bKash"
+                >
+
+                <span class="method-name">
+                    bKash
+                </span>
+
+            </label>
+
+            <div class="method-details">
+
+                <div>
+                    <strong>Send Money</strong>
+                </div>
+
+                <div class="number">
+                    01342-210515
+                </div>
+
+                <span class="personal">
+                    Personal Account
+                </span>
+
+                <div class="instruction">
+                    Send the exact course amount to this bKash
+                    Personal number using <strong>Send Money</strong>.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAGAD -->
+
+        <div class="payment-method">
+
+            <label class="method-header">
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="Nagad"
+                >
+
+                <span class="method-name">
+                    Nagad
+                </span>
+
+            </label>
+
+            <div class="method-details">
+
+                <div>
+                    <strong>Send Money</strong>
+                </div>
+
+                <div class="number">
+                    01342-210515
+                </div>
+
+                <span class="personal">
+                    Personal Account
+                </span>
+
+                <div class="instruction">
+                    Send the exact course amount to this Nagad
+                    Personal number using <strong>Send Money</strong>.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ROCKET -->
+
+        <div class="payment-method">
+
+            <label class="method-header">
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="Rocket"
+                >
+
+                <span class="method-name">
+                    Rocket
+                </span>
+
+            </label>
+
+            <div class="method-details">
+
+                <div>
+                    <strong>Send Money</strong>
+                </div>
+
+                <div class="number">
+                    01342-210515
+                </div>
+
+                <span class="personal">
+                    Personal Account
+                </span>
+
+                <div class="instruction">
+                    Send the exact course amount to this Rocket
+                    Personal number using <strong>Send Money</strong>.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- UPAY -->
+
+        <div class="payment-method">
+
+            <label class="method-header">
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="Upay"
+                >
+
+                <span class="method-name">
+                    Upay
+                </span>
+
+            </label>
+
+            <div class="method-details">
+
+                <div>
+                    <strong>Send Money</strong>
+                </div>
+
+                <div class="number">
+                    01342-210515
+                </div>
+
+                <span class="personal">
+                    Personal Account
+                </span>
+
+                <div class="instruction">
+                    Send the exact course amount to this Upay
+                    Personal number using <strong>Send Money</strong>.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div style="margin-top:22px;">
+
+            <label class="trx-label">
+                Transaction ID (TRX ID)
+            </label>
+
+            <input
+                type="text"
+                id="trxId"
+                class="trx-input"
+                placeholder="Enter your transaction ID"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="notice">
+
+            After sending the payment, enter your
+            <strong>TRX ID</strong> and submit it.
+
+            <br><br>
+
+            Your payment will initially remain
+            <strong>Pending</strong>.
+
+            Your course will be added to
+            <strong>Enrolled Courses only after Dream Hunt verifies your payment.</strong>
+
+        </div>
+
+
+        <button
+            class="submit-btn"
+            id="submitPayment"
+        >
+            Submit Payment
+        </button>
+
+
+        <a
+            href="buy-courses.html"
+            class="back-btn"
+        >
+            ← Back to Buy Courses
+        </a>
+
+    </div>
+
+
+    <!-- SUCCESS -->
+
+    <div class="card success" id="successCard">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>
+            Payment Submitted
+        </h2>
+
+        <p>
+            Your payment information has been submitted
+            successfully.
+        </p>
+
+        <div class="pending-badge">
+            Payment Verification: Pending
+        </div>
+
+        <p style="margin-top:15px;">
+
+            Your course will be added to
+            <strong>Enrolled Courses</strong>
+            after your payment is verified.
+
+        </p>
+
+        <a
+            href="dashboard.html"
+            class="portal-btn"
+        >
+            Go to Student Portal
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+const courseNames = {
+
+    "public-university":
+        "Public University Admission",
+
+    "engineering":
+        "Engineering Admission",
+
+    "medical-dental":
+        "Medical & Dental Admission",
+
+    "agriculture-veterinary":
+        "Agriculture & Veterinary Admission",
+
+    "specialized-admission":
+        "Specialized Admission",
+
+    "abroad-prep":
+        "Abroad Preparation"
+
+};
+
+
+let currentUser = null;
+let checkoutData = null;
+
+
+async function init() {
+
+    const {
+        data: {
+            user
+        }
+    } = await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+
+    currentUser = user;
+
+
+    const storedCheckout =
+        sessionStorage.getItem(
+            "dreamHuntCheckout"
+        );
+
+
+    if (!storedCheckout) {
+
+        alert(
+            "No checkout information found."
+        );
+
+        window.location.href =
+            "buy-courses.html";
+
+        return;
+    }
+
+
+    try {
+
+        checkoutData =
+            JSON.parse(storedCheckout);
+
+    } catch (error) {
+
+        alert(
+            "Invalid checkout information."
+        );
+
+        window.location.href =
+            "buy-courses.html";
+
+        return;
+    }
+
+
+    loadOrderSummary();
+
+}
+
+
+function loadOrderSummary() {
+
+    const courseList =
+        document.getElementById(
+            "courseList"
+        );
+
+
+    courseList.innerHTML = "";
+
+
+    checkoutData.categories.forEach(
+        function(category) {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "course-row";
+
+
+            row.innerHTML = `
+
+                <div class="course-name">
+                    ${courseNames[category] || category}
+                </div>
+
+                <div class="course-price">
+                    Included
+                </div>
+
+            `;
+
+
+            courseList.appendChild(row);
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalAmount"
+    ).textContent =
+        "৳" + checkoutData.amount;
+
+}
+
+
+document
+    .querySelectorAll(
+        'input[name="paymentMethod"]'
+    )
+    .forEach(function(input) {
+
+        input.addEventListener(
+            "change",
+            function() {
+
+                document
+                    .querySelectorAll(
+                        ".payment-method"
+                    )
+                    .forEach(function(box) {
+
+                        box.classList.remove(
+                            "selected"
+                        );
+
+                    });
+
+
+                this
+                    .closest(".payment-method")
+                    .classList.add(
+                        "selected"
+                    );
+
+            }
+        );
+
+    });
+
+
+document
+    .getElementById("submitPayment")
+    .addEventListener(
+        "click",
+        submitPayment
+    );
+
+
+async function submitPayment() {
+
+    const button =
+        document.getElementById(
+            "submitPayment"
+        );
+
+
+    const selectedMethod =
+        document.querySelector(
+            'input[name="paymentMethod"]:checked'
+        );
+
+
+    const trxId =
+        document.getElementById(
+            "trxId"
+        ).value.trim();
+
+
+    if (!selectedMethod) {
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+    }
+
+
+    if (!trxId) {
+
+        alert(
+            "Please enter your Transaction ID."
+        );
+
+        return;
+    }
+
+
+    if (!checkoutData.categories ||
+        checkoutData.categories.length === 0) {
+
+        alert(
+            "No course selected."
+        );
+
+        return;
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Submitting...";
+
+
+    try {
+
+        /*
+         * Create PENDING order.
+         *
+         * IMPORTANT:
+         * No enrollment is created here.
+         */
+
+        const {
+            data: order,
+            error: orderError
+        } = await supabaseClient
+            .from("orders")
+            .insert({
+
+                user_id: currentUser.id,
+
+                package_type:
+                    checkoutData.packageType,
+
+                selected_categories:
+                    checkoutData.categories,
+
+                hsc_roll:
+                    checkoutData.hscRoll,
+
+                hsc_registration:
+                    checkoutData.hscRegistration,
+
+                amount:
+                    checkoutData.amount,
+
+                currency:
+                    "BDT",
+
+                payment_method:
+                    selectedMethod.value,
+
+                transaction_id:
+                    trxId,
+
+                payment_status:
+                    "pending"
+
+            })
+            .select()
+            .single();
+
+
+        if (orderError) {
+
+            console.error(
+                orderError
+            );
+
+            throw orderError;
+        }
+
+
+        /*
+         * Find course IDs
+         */
+
+        const {
+            data: courses,
+            error: coursesError
+        } = await supabaseClient
+            .from("courses")
+            .select("id, slug")
+            .in(
+                "slug",
+                checkoutData.categories
+            );
+
+
+        if (coursesError) {
+
+            throw coursesError;
+        }
+
+
+        if (!courses ||
+            courses.length !==
+            checkoutData.categories.length) {
+
+            throw new Error(
+                "One or more selected courses could not be found."
+            );
+        }
+
+
+        /*
+         * Create order items.
+         *
+         * Still NO enrollment.
+         */
+
+        const orderItems =
+            courses.map(function(course) {
+
+                return {
+
+                    order_id:
+                        order.id,
+
+                    course_id:
+                        course.id
+
+                };
+
+            });
+
+
+        const {
+            error: itemsError
+        } = await supabaseClient
+            .from("order_items")
+            .insert(
+                orderItems
+            );
+
+
+        if (itemsError) {
+
+            throw itemsError;
+        }
+
+
+        /*
+         * Payment submitted successfully.
+         */
+
+        document.getElementById(
+            "paymentCard"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "orderCard"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "successCard"
+        ).style.display = "block";
+
+
+        /*
+         * Checkout data no longer needed.
+         */
+
+        sessionStorage.removeItem(
+            "dreamHuntCheckout"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            "Something went wrong while submitting your payment. Please try again."
+        );
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "Submit Payment";
+
+    }
+
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>
