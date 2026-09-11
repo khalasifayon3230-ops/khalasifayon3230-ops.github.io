@@ -1,665 +1,664 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Payment | Dream Hunt</title>
 
-    <title>Payment | Dream Hunt</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #111827;
+        min-height: 100vh;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 850px;
+        margin: auto;
+        padding: 20px 15px 50px;
+    }
+
+    .topbar {
+        background: #111827;
+        color: white;
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+    }
+
+    .brand {
+        font-size: 24px;
+        font-weight: 800;
+    }
+
+    .subtitle {
+        margin-top: 5px;
+        color: #cbd5e1;
+        font-size: 14px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 18px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 18px;
+    }
+
+    .course-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 13px 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .course-row:last-child {
+        border-bottom: none;
+    }
+
+    .course-name {
+        font-weight: 600;
+        line-height: 1.4;
+    }
+
+    .course-price {
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+        border-top: 2px solid #111827;
+        padding-top: 18px;
+        margin-top: 15px;
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .payment-method {
+        border: 2px solid #e5e7eb;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: 0.2s;
+    }
+
+    .payment-method.selected {
+        border-color: #111827;
+    }
+
+    .method-header {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+    }
+
+    .method-header input {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .method-name {
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .method-details {
+        display: none;
+        padding: 0 16px 17px 46px;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .payment-method.selected .method-details {
+        display: block;
+    }
+
+    .number {
+        font-size: 19px;
+        font-weight: 800;
+        margin: 4px 0;
+    }
+
+    .personal {
+        display: inline-block;
+        background: #f3f4f6;
+        padding: 4px 9px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 12px;
+        margin-top: 3px;
+    }
+
+    .instruction {
+        margin-top: 9px;
+        color: #4b5563;
+    }
+
+    .trx-section {
+        margin-top: 22px;
+    }
+
+    .trx-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .trx-input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 16px;
+        outline: none;
+    }
+
+    .trx-input:focus {
+        border-color: #111827;
+    }
+
+    .notice {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        color: #9a3412;
+        padding: 14px;
+        border-radius: 10px;
+        margin-top: 15px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .submit-btn {
+        width: 100%;
+        border: none;
+        background: #111827;
+        color: white;
+        padding: 16px;
+        border-radius: 11px;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        margin-top: 18px;
+    }
+
+    .submit-btn:hover {
+        background: #000;
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .back-btn {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #374151;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .pending-card {
+        display: none;
+        text-align: center;
+        padding: 45px 25px;
+    }
+
+    .success-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: #dcfce7;
+        color: #166534;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    .pending-card h2 {
+        font-size: 23px;
+        margin-bottom: 12px;
+    }
+
+    .pending-text {
+        color: #4b5563;
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    .pending-badge {
+        display: inline-block;
+        margin-top: 18px;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .redirect-text {
+        margin-top: 20px;
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    .loader {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #d1d5db;
+        border-top-color: #111827;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 7px;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
         }
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
-            min-height: 100vh;
-        }
+    .error-box {
+        display: none;
+        background: #fee2e2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+        font-size: 13px;
+        line-height: 1.6;
+        white-space: pre-line;
+    }
 
+    @media (max-width: 600px) {
         .container {
-            width: 100%;
-            max-width: 850px;
-            margin: auto;
-            padding: 20px 15px 50px;
+            padding: 14px 11px 40px;
         }
 
         .topbar {
-            background: #111827;
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+            padding: 17px;
         }
 
         .brand {
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        .subtitle {
-            margin-top: 5px;
-            color: #cbd5e1;
-            font-size: 14px;
+            font-size: 21px;
         }
 
         .card {
-            background: white;
-            border-radius: 16px;
-            padding: 22px;
-            margin-bottom: 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-bottom: 18px;
+            padding: 17px;
         }
 
         .course-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 13px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .course-row:last-child {
-            border-bottom: none;
-        }
-
-        .course-name {
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .course-price {
-            font-weight: 700;
-            white-space: nowrap;
+            font-size: 14px;
         }
 
         .total {
-            display: flex;
-            justify-content: space-between;
-            border-top: 2px solid #111827;
-            padding-top: 18px;
-            margin-top: 15px;
-            font-size: 21px;
-            font-weight: 800;
-        }
-
-        .payment-method {
-            border: 2px solid #e5e7eb;
-            border-radius: 14px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            transition: 0.2s;
-        }
-
-        .payment-method.selected {
-            border-color: #111827;
-        }
-
-        .method-header {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-
-        .method-header input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .method-name {
-            font-size: 17px;
-            font-weight: 800;
+            font-size: 19px;
         }
 
         .method-details {
-            display: none;
-            padding: 0 16px 17px 46px;
-            font-size: 14px;
-            line-height: 1.7;
+            padding-left: 46px;
         }
-
-        .payment-method.selected .method-details {
-            display: block;
-        }
-
-        .number {
-            font-size: 19px;
-            font-weight: 800;
-            margin: 4px 0;
-        }
-
-        .personal {
-            display: inline-block;
-            background: #f3f4f6;
-            padding: 4px 9px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 12px;
-            margin-top: 3px;
-        }
-
-        .instruction {
-            margin-top: 9px;
-            color: #4b5563;
-        }
-
-        .trx-section {
-            margin-top: 22px;
-        }
-
-        .trx-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .trx-input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .trx-input:focus {
-            border-color: #111827;
-        }
-
-        .notice {
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            color: #9a3412;
-            padding: 14px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .submit-btn {
-            width: 100%;
-            border: none;
-            background: #111827;
-            color: white;
-            padding: 16px;
-            border-radius: 11px;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 18px;
-        }
-
-        .submit-btn:hover {
-            background: #000;
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .back-btn {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #374151;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        /* SUCCESS / PENDING SCREEN */
 
         .pending-card {
-            display: none;
-            text-align: center;
-            padding: 45px 25px;
+            padding: 35px 18px;
         }
+    }
+</style>
 
-        .success-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: #dcfce7;
-            color: #166534;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
-            font-weight: 800;
-        }
-
-        .pending-card h2 {
-            font-size: 23px;
-            margin-bottom: 12px;
-        }
-
-        .pending-text {
-            color: #4b5563;
-            line-height: 1.7;
-            font-size: 15px;
-        }
-
-        .pending-badge {
-            display: inline-block;
-            margin-top: 18px;
-            background: #fef3c7;
-            color: #92400e;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .redirect-text {
-            margin-top: 20px;
-            color: #6b7280;
-            font-size: 13px;
-        }
-
-        .loader {
-            width: 20px;
-            height: 20px;
-            border: 3px solid #d1d5db;
-            border-top-color: #111827;
-            border-radius: 50%;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 7px;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .container {
-                padding: 14px 11px 40px;
-            }
-
-            .topbar {
-                padding: 17px;
-            }
-
-            .brand {
-                font-size: 21px;
-            }
-
-            .card {
-                padding: 17px;
-            }
-
-            .course-row {
-                font-size: 14px;
-            }
-
-            .total {
-                font-size: 19px;
-            }
-
-            .method-details {
-                padding-left: 46px;
-            }
-
-            .pending-card {
-                padding: 35px 18px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <!-- HEADER -->
-
-    <div class="topbar">
-
-        <div class="brand">
-            Dream Hunt
-        </div>
-
-        <div class="subtitle">
-            Course Payment & Verification
-        </div>
-
+</head><body><div class="container"><div class="topbar">
+    <div class="brand">
+        Dream Hunt
     </div>
 
-
-    <!-- ORDER SUMMARY -->
-
-    <div class="card" id="orderCard">
-
-        <h2>
-            Order Summary
-        </h2>
-
-        <div id="courseList"></div>
-
-        <div class="total">
-
-            <span>
-                Total
-            </span>
-
-            <span id="totalAmount">
-                ৳0
-            </span>
-
-        </div>
-
+    <div class="subtitle">
+        Course Payment & Verification
     </div>
+</div>
 
 
-    <!-- PAYMENT -->
+<!-- ORDER SUMMARY -->
 
-    <div class="card" id="paymentCard">
+<div class="card" id="orderCard">
 
-        <h2>
-            Select Payment Method
-        </h2>
+    <h2>
+        Order Summary
+    </h2>
 
+    <div id="courseList"></div>
 
-        <!-- BKASH -->
+    <div class="total">
+        <span>Total</span>
 
-        <div class="payment-method">
-
-            <label class="method-header">
-
-                <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="bKash"
-                >
-
-                <span class="method-name">
-                    bKash
-                </span>
-
-            </label>
-
-            <div class="method-details">
-
-                <strong>
-                    Send Money
-                </strong>
-
-                <div class="number">
-                    01342-210515
-                </div>
-
-                <span class="personal">
-                    Personal Account
-                </span>
-
-                <div class="instruction">
-                    Send the exact amount using
-                    <strong>Send Money</strong>.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- NAGAD -->
-
-        <div class="payment-method">
-
-            <label class="method-header">
-
-                <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="Nagad"
-                >
-
-                <span class="method-name">
-                    Nagad
-                </span>
-
-            </label>
-
-            <div class="method-details">
-
-                <strong>
-                    Send Money
-                </strong>
-
-                <div class="number">
-                    01342-210515
-                </div>
-
-                <span class="personal">
-                    Personal Account
-                </span>
-
-                <div class="instruction">
-                    Send the exact amount using
-                    <strong>Send Money</strong>.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ROCKET -->
-
-        <div class="payment-method">
-
-            <label class="method-header">
-
-                <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="Rocket"
-                >
-
-                <span class="method-name">
-                    Rocket
-                </span>
-
-            </label>
-
-            <div class="method-details">
-
-                <strong>
-                    Send Money
-                </strong>
-
-                <div class="number">
-                    01342-210515
-                </div>
-
-                <span class="personal">
-                    Personal Account
-                </span>
-
-                <div class="instruction">
-                    Send the exact amount using
-                    <strong>Send Money</strong>.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- UPAY -->
-
-        <div class="payment-method">
-
-            <label class="method-header">
-
-                <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="Upay"
-                >
-
-                <span class="method-name">
-                    Upay
-                </span>
-
-            </label>
-
-            <div class="method-details">
-
-                <strong>
-                    Send Money
-                </strong>
-
-                <div class="number">
-                    01342-210515
-                </div>
-
-                <span class="personal">
-                    Personal Account
-                </span>
-
-                <div class="instruction">
-                    Send the exact amount using
-                    <strong>Send Money</strong>.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- TRX -->
-
-        <div class="trx-section">
-
-            <label
-                class="trx-label"
-                for="trxId"
-            >
-                Transaction ID (TRX ID)
-            </label>
-
-            <input
-                type="text"
-                id="trxId"
-                class="trx-input"
-                placeholder="Enter your Transaction ID"
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <div class="notice">
-
-            After sending the payment, enter your
-            <strong>TRX ID</strong> and submit it.
-
-            <br><br>
-
-            Your payment will remain
-            <strong>Pending</strong> until Dream Hunt
-            verifies it.
-
-            <br><br>
-
-            Your selected course will appear in
-            <strong>Enrolled Courses only after verification.</strong>
-
-        </div>
-
-
-        <button
-            class="submit-btn"
-            id="submitPayment"
-        >
-            Submit Payment
-        </button>
-
-
-        <a
-            href="buy-courses.html"
-            class="back-btn"
-        >
-            ← Back to Buy Courses
-        </a>
-
-    </div>
-
-
-    <!-- PENDING / SUCCESS -->
-
-    <div
-        class="card pending-card"
-        id="pendingCard"
-    >
-
-        <div class="success-icon">
-            ✓
-        </div>
-
-        <h2>
-            Payment Submitted Successfully
-        </h2>
-
-        <div class="pending-text">
-
-            Please wait while we verify your payment.
-
-            <br><br>
-
-            Your payment information has been
-            successfully submitted and is currently
-            under review.
-
-            <br><br>
-
-            Your course will appear in
-            <strong>Enrolled Courses</strong>
-            after your payment is verified.
-
-        </div>
-
-
-        <div class="pending-badge">
-            Payment Verification: Pending
-        </div>
-
-
-        <div class="redirect-text">
-
-            <span class="loader"></span>
-
-            Redirecting to Student Portal...
-
-        </div>
-
+        <span id="totalAmount">
+            ৳0
+        </span>
     </div>
 
 </div>
 
 
-<script>
+<!-- PAYMENT -->
+
+<div class="card" id="paymentCard">
+
+    <h2>
+        Select Payment Method
+    </h2>
+
+
+    <!-- BKASH -->
+
+    <div class="payment-method">
+
+        <label class="method-header">
+
+            <input
+                type="radio"
+                name="paymentMethod"
+                value="bKash"
+            >
+
+            <span class="method-name">
+                bKash
+            </span>
+
+        </label>
+
+        <div class="method-details">
+
+            <strong>
+                Send Money
+            </strong>
+
+            <div class="number">
+                01342-210515
+            </div>
+
+            <span class="personal">
+                Personal Account
+            </span>
+
+            <div class="instruction">
+                Send the exact amount using
+                <strong>Send Money</strong>.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- NAGAD -->
+
+    <div class="payment-method">
+
+        <label class="method-header">
+
+            <input
+                type="radio"
+                name="paymentMethod"
+                value="Nagad"
+            >
+
+            <span class="method-name">
+                Nagad
+            </span>
+
+        </label>
+
+        <div class="method-details">
+
+            <strong>
+                Send Money
+            </strong>
+
+            <div class="number">
+                01342-210515
+            </div>
+
+            <span class="personal">
+                Personal Account
+            </span>
+
+            <div class="instruction">
+                Send the exact amount using
+                <strong>Send Money</strong>.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ROCKET -->
+
+    <div class="payment-method">
+
+        <label class="method-header">
+
+            <input
+                type="radio"
+                name="paymentMethod"
+                value="Rocket"
+            >
+
+            <span class="method-name">
+                Rocket
+            </span>
+
+        </label>
+
+        <div class="method-details">
+
+            <strong>
+                Send Money
+            </strong>
+
+            <div class="number">
+                01342-210515
+            </div>
+
+            <span class="personal">
+                Personal Account
+            </span>
+
+            <div class="instruction">
+                Send the exact amount using
+                <strong>Send Money</strong>.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- UPAY -->
+
+    <div class="payment-method">
+
+        <label class="method-header">
+
+            <input
+                type="radio"
+                name="paymentMethod"
+                value="Upay"
+            >
+
+            <span class="method-name">
+                Upay
+            </span>
+
+        </label>
+
+        <div class="method-details">
+
+            <strong>
+                Send Money
+            </strong>
+
+            <div class="number">
+                01342-210515
+            </div>
+
+            <span class="personal">
+                Personal Account
+            </span>
+
+            <div class="instruction">
+                Send the exact amount using
+                <strong>Send Money</strong>.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TRX -->
+
+    <div class="trx-section">
+
+        <label
+            class="trx-label"
+            for="trxId"
+        >
+            Transaction ID (TRX ID)
+        </label>
+
+        <input
+            type="text"
+            id="trxId"
+            class="trx-input"
+            placeholder="Enter your Transaction ID"
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div class="notice">
+
+        After sending the payment, enter your
+        <strong>TRX ID</strong> and submit it.
+
+        <br><br>
+
+        Your payment will remain
+        <strong>Pending</strong> until Dream Hunt
+        verifies it.
+
+        <br><br>
+
+        Your selected course will appear in
+        <strong>Enrolled Courses only after verification.</strong>
+
+    </div>
+
+
+    <div
+        class="error-box"
+        id="errorBox"
+    ></div>
+
+
+    <button
+        class="submit-btn"
+        id="submitPayment"
+    >
+        Submit Payment
+    </button>
+
+
+    <a
+        href="buy-courses.html"
+        class="back-btn"
+    >
+        ← Back to Buy Courses
+    </a>
+
+</div>
+
+
+<!-- PENDING -->
+
+<div
+    class="card pending-card"
+    id="pendingCard"
+>
+
+    <div class="success-icon">
+        ✓
+    </div>
+
+    <h2>
+        Payment Submitted Successfully
+    </h2>
+
+    <div class="pending-text">
+
+        Please wait while we verify your payment.
+
+        <br><br>
+
+        Your payment information has been
+        successfully submitted and is currently
+        under review.
+
+        <br><br>
+
+        Your course will appear in
+        <strong>Enrolled Courses</strong>
+        after your payment is verified.
+
+    </div>
+
+    <div class="pending-badge">
+        Payment Verification: Pending
+    </div>
+
+    <div class="redirect-text">
+
+        <span class="loader"></span>
+
+        Redirecting to Student Portal...
+
+    </div>
+
+</div>
+
+</div><script>
+
+/* =========================================
+   SUPABASE
+========================================= */
 
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
@@ -673,6 +672,76 @@ const supabaseClient =
         SUPABASE_PUBLISHABLE_KEY
     );
 
+
+let currentUser = null;
+let checkoutData = null;
+
+
+/* =========================================
+   COURSE NAME → SLUG CONVERTER
+========================================= */
+
+const slugMap = {
+
+    "Public University":
+        "public-university",
+
+    "Public University Admission":
+        "public-university",
+
+    "Engineering":
+        "engineering",
+
+    "Engineering Admission":
+        "engineering",
+
+    "Medical & Dental":
+        "medical-dental",
+
+    "Medical & Dental Admission":
+        "medical-dental",
+
+    "Agriculture & Veterinary":
+        "agriculture-veterinary",
+
+    "Agriculture & Veterinary Admission":
+        "agriculture-veterinary",
+
+    "Specialized Admission":
+        "specialized-admission",
+
+    "Specialized":
+        "specialized-admission",
+
+    "Abroad Prep":
+        "abroad-prep",
+
+    "Abroad Preparation":
+        "abroad-prep",
+
+    "public-university":
+        "public-university",
+
+    "engineering":
+        "engineering",
+
+    "medical-dental":
+        "medical-dental",
+
+    "agriculture-veterinary":
+        "agriculture-veterinary",
+
+    "specialized-admission":
+        "specialized-admission",
+
+    "abroad-prep":
+        "abroad-prep"
+};
+
+
+/* =========================================
+   COURSE DISPLAY NAMES
+========================================= */
 
 const courseNames = {
 
@@ -693,28 +762,28 @@ const courseNames = {
 
     "abroad-prep":
         "Abroad Preparation"
-
 };
 
 
-let currentUser = null;
-let checkoutData = null;
-
-
-/* =========================
+/* =========================================
    INITIALIZE
-========================= */
+========================================= */
 
 async function init() {
 
     const {
         data: {
             user
-        }
-    } = await supabaseClient.auth.getUser();
+        },
+        error: userError
+    } =
+    await supabaseClient.auth.getUser();
 
 
-    if (!user) {
+    if (
+        userError ||
+        !user
+    ) {
 
         window.location.href =
             "index.html";
@@ -723,7 +792,8 @@ async function init() {
     }
 
 
-    currentUser = user;
+    currentUser =
+        user;
 
 
     const storedCheckout =
@@ -735,7 +805,7 @@ async function init() {
     if (!storedCheckout) {
 
         alert(
-            "No checkout information found."
+            "No checkout information found. Please select your course again."
         );
 
         window.location.href =
@@ -755,7 +825,11 @@ async function init() {
     } catch (error) {
 
         alert(
-            "Invalid checkout information."
+            "Invalid checkout information. Please select your course again."
+        );
+
+        sessionStorage.removeItem(
+            "dreamHuntCheckout"
         );
 
         window.location.href =
@@ -767,11 +841,14 @@ async function init() {
 
     if (
         !checkoutData.categories ||
+        !Array.isArray(
+            checkoutData.categories
+        ) ||
         checkoutData.categories.length === 0
     ) {
 
         alert(
-            "No course selected."
+            "No course selected. Please select a course again."
         );
 
         window.location.href =
@@ -781,14 +858,57 @@ async function init() {
     }
 
 
+    /*
+     * IMPORTANT:
+     * Convert any old course names
+     * into database slugs.
+     */
+
+    checkoutData.categories =
+        checkoutData.categories.map(
+            function(category) {
+
+                return (
+                    slugMap[category] ||
+                    category
+                );
+
+            }
+        );
+
+
+    /*
+     * Remove duplicates
+     */
+
+    checkoutData.categories =
+        [
+            ...new Set(
+                checkoutData.categories
+            )
+        ];
+
+
+    /*
+     * Save normalized checkout
+     */
+
+    sessionStorage.setItem(
+        "dreamHuntCheckout",
+        JSON.stringify(
+            checkoutData
+        )
+    );
+
+
     loadOrderSummary();
 
 }
 
 
-/* =========================
+/* =========================================
    ORDER SUMMARY
-========================= */
+========================================= */
 
 function loadOrderSummary() {
 
@@ -814,10 +934,15 @@ function loadOrderSummary() {
                 "course-row";
 
 
+            const name =
+                courseNames[category] ||
+                category;
+
+
             row.innerHTML = `
 
                 <div class="course-name">
-                    ${courseNames[category] || category}
+                    ${name}
                 </div>
 
                 <div class="course-price">
@@ -827,7 +952,9 @@ function loadOrderSummary() {
             `;
 
 
-            courseList.appendChild(row);
+            courseList.appendChild(
+                row
+            );
 
         }
     );
@@ -836,14 +963,15 @@ function loadOrderSummary() {
     document.getElementById(
         "totalAmount"
     ).textContent =
-        "৳" + checkoutData.amount;
+        "৳" +
+        checkoutData.amount;
 
 }
 
 
-/* =========================
+/* =========================================
    PAYMENT METHOD UI
-========================= */
+========================================= */
 
 document
     .querySelectorAll(
@@ -886,9 +1014,49 @@ document
     );
 
 
-/* =========================
-   SUBMIT
-========================= */
+/* =========================================
+   ERROR DISPLAY
+========================================= */
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    errorBox.textContent =
+        message;
+
+
+    errorBox.style.display =
+        "block";
+
+}
+
+
+/* =========================================
+   HIDE ERROR
+========================================= */
+
+function hideError() {
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    errorBox.style.display =
+        "none";
+
+}
+
+
+/* =========================================
+   SUBMIT PAYMENT
+========================================= */
 
 document
     .getElementById(
@@ -908,6 +1076,9 @@ async function submitPayment() {
         );
 
 
+    hideError();
+
+
     const selectedMethod =
         document.querySelector(
             'input[name="paymentMethod"]:checked'
@@ -924,11 +1095,11 @@ async function submitPayment() {
         trxInput.value.trim();
 
 
-    /* PAYMENT METHOD CHECK */
+    /* PAYMENT METHOD */
 
     if (!selectedMethod) {
 
-        alert(
+        showError(
             "Please select a payment method."
         );
 
@@ -936,11 +1107,11 @@ async function submitPayment() {
     }
 
 
-    /* TRX CHECK */
+    /* TRX */
 
     if (!trxId) {
 
-        alert(
+        showError(
             "Please enter your Transaction ID."
         );
 
@@ -952,7 +1123,7 @@ async function submitPayment() {
 
     if (trxId.length < 4) {
 
-        alert(
+        showError(
             "Please enter a valid Transaction ID."
         );
 
@@ -962,26 +1133,151 @@ async function submitPayment() {
     }
 
 
-    /* PREVENT DOUBLE CLICK */
-
-    button.disabled = true;
+    button.disabled =
+        true;
 
     button.textContent =
-        "Submitting...";
+        "Checking course information...";
 
 
     try {
 
         /*
+         * =====================================
          * STEP 1
-         * CREATE PENDING ORDER
+         * FIND COURSES FIRST
+         * =====================================
+         *
+         * We do this BEFORE creating the order.
          */
+
+        const {
+            data: courses,
+            error: coursesError
+        } =
+        await supabaseClient
+
+            .from("courses")
+
+            .select(
+                "id, name, slug, is_active"
+            )
+
+            .in(
+                "slug",
+                checkoutData.categories
+            );
+
+
+        if (coursesError) {
+
+            console.error(
+                "COURSES ERROR:",
+                coursesError
+            );
+
+            throw new Error(
+                "Could not load courses from database.\n\n" +
+                coursesError.message
+            );
+        }
+
+
+        /*
+         * =====================================
+         * CHECK MISSING COURSES
+         * =====================================
+         */
+
+        const foundSlugs =
+            (courses || [])
+            .map(
+                course =>
+                    course.slug
+            );
+
+
+        const missingSlugs =
+            checkoutData.categories
+            .filter(
+                slug =>
+                    !foundSlugs.includes(
+                        slug
+                    )
+            );
+
+
+        if (
+            missingSlugs.length > 0
+        ) {
+
+            throw new Error(
+
+                "These course slugs were not found in the database:\n\n" +
+
+                missingSlugs.join("\n") +
+
+                "\n\nSelected courses:\n" +
+
+                checkoutData.categories.join("\n")
+
+            );
+
+        }
+
+
+        /*
+         * =====================================
+         * CHECK ACTIVE COURSES
+         * =====================================
+         */
+
+        const inactiveCourses =
+            courses.filter(
+                course =>
+                    course.is_active === false
+            );
+
+
+        if (
+            inactiveCourses.length > 0
+        ) {
+
+            throw new Error(
+
+                "The following course is currently inactive:\n\n" +
+
+                inactiveCourses
+                    .map(
+                        course =>
+                            course.name
+                    )
+                    .join("\n")
+
+            );
+
+        }
+
+
+        /*
+         * =====================================
+         * STEP 2
+         * CREATE PENDING ORDER
+         * =====================================
+         */
+
+        button.textContent =
+            "Creating payment order...";
+
 
         const {
             data: order,
             error: orderError
-        } = await supabaseClient
+        } =
+        await supabaseClient
+
             .from("orders")
+
             .insert({
 
                 user_id:
@@ -1015,6 +1311,7 @@ async function submitPayment() {
                     "pending"
 
             })
+
             .select()
             .single();
 
@@ -1027,6 +1324,7 @@ async function submitPayment() {
             );
 
             throw new Error(
+                "Order could not be created.\n\n" +
                 orderError.message
             );
 
@@ -1034,58 +1332,15 @@ async function submitPayment() {
 
 
         /*
-         * STEP 2
-         * FIND SELECTED COURSES
-         */
-
-        const {
-            data: courses,
-            error: coursesError
-        } = await supabaseClient
-            .from("courses")
-            .select(
-                "id, slug"
-            )
-            .in(
-                "slug",
-                checkoutData.categories
-            );
-
-
-        if (coursesError) {
-
-            console.error(
-                "COURSE ERROR:",
-                coursesError
-            );
-
-            throw new Error(
-                coursesError.message
-            );
-
-        }
-
-
-        if (
-            !courses ||
-            courses.length !==
-            checkoutData.categories.length
-        ) {
-
-            throw new Error(
-                "One or more selected courses could not be found."
-            );
-
-        }
-
-
-        /*
+         * =====================================
          * STEP 3
          * CREATE ORDER ITEMS
-         *
-         * IMPORTANT:
-         * NO ENROLLMENT HERE.
+         * =====================================
          */
+
+        button.textContent =
+            "Saving selected courses...";
+
 
         const orderItems =
             courses.map(
@@ -1107,8 +1362,11 @@ async function submitPayment() {
 
         const {
             error: itemsError
-        } = await supabaseClient
+        } =
+        await supabaseClient
+
             .from("order_items")
+
             .insert(
                 orderItems
             );
@@ -1117,11 +1375,26 @@ async function submitPayment() {
         if (itemsError) {
 
             console.error(
-                "ORDER ITEM ERROR:",
+                "ORDER ITEMS ERROR:",
                 itemsError
             );
 
+            /*
+             * Try to remove the order
+             * if order_items failed.
+             */
+
+            await supabaseClient
+                .from("orders")
+                .delete()
+                .eq(
+                    "id",
+                    order.id
+                );
+
+
             throw new Error(
+                "Order items could not be saved.\n\n" +
                 itemsError.message
             );
 
@@ -1129,8 +1402,10 @@ async function submitPayment() {
 
 
         /*
+         * =====================================
          * STEP 4
-         * SHOW PENDING MESSAGE
+         * SUCCESS / PENDING SCREEN
+         * =====================================
          */
 
         document.getElementById(
@@ -1152,7 +1427,12 @@ async function submitPayment() {
 
 
         /*
-         * Remove checkout data
+         * IMPORTANT:
+         *
+         * NO enrollment is created here.
+         *
+         * Admin verification will create
+         * enrollment later.
          */
 
         sessionStorage.removeItem(
@@ -1161,8 +1441,9 @@ async function submitPayment() {
 
 
         /*
-         * STEP 5
-         * REDIRECT TO DASHBOARD
+         * =====================================
+         * REDIRECT
+         * =====================================
          */
 
         setTimeout(
@@ -1179,25 +1460,20 @@ async function submitPayment() {
     } catch (error) {
 
         console.error(
-            "PAYMENT SUBMISSION ERROR:",
+            "PAYMENT ERROR:",
             error
         );
 
 
-        /*
-         * SHOW REAL ERROR
-         * WHILE TESTING
-         */
-
-        alert(
-    "REAL ERROR:\n\n" +
-    error.message +
-    "\n\nCODE: " +
-    (error.code || "N/A")
-);
+        showError(
+            "Payment submission failed.\n\n" +
+            error.message
+        );
 
 
-        button.disabled = false;
+        button.disabled =
+            false;
+
 
         button.textContent =
             "Submit Payment";
@@ -1207,11 +1483,11 @@ async function submitPayment() {
 }
 
 
-/* START */
+/* =========================================
+   START
+========================================= */
 
 init();
 
-</script>
-
-</body>
+</script></body>
 </html>
