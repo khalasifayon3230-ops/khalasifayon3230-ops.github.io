@@ -7,10 +7,10 @@
 
     <title>Dream Hunt | Learn. Prepare. Achieve.</title>
 
-    <!-- SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -33,11 +33,14 @@
             font: inherit;
         }
 
-        /* NAVBAR */
+        /* =========================
+           NAVBAR
+        ========================= */
 
         nav {
             width: 100%;
-            background: #ffffff;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid #e5e7eb;
             padding: 16px 20px;
             position: sticky;
@@ -46,7 +49,7 @@
         }
 
         .nav-container {
-            max-width: 1150px;
+            max-width: 1180px;
             margin: auto;
             display: flex;
             align-items: center;
@@ -54,10 +57,11 @@
         }
 
         .logo {
-            font-size: 23px;
-            font-weight: 800;
+            font-size: 24px;
+            font-weight: 900;
             color: #111827;
             text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
         .logo span {
@@ -66,8 +70,8 @@
 
         .nav-links {
             display: flex;
-            gap: 28px;
             align-items: center;
+            gap: 27px;
         }
 
         .nav-links a {
@@ -82,39 +86,73 @@
         }
 
         .login-btn,
-        .register-btn {
+        .register-btn,
+        .dashboard-nav-btn,
+        .logout-btn {
             border: none;
             cursor: pointer;
-            background: #111827;
-            color: white !important;
-            padding: 10px 17px;
+            font-weight: 700;
             border-radius: 8px;
+        }
+
+        .login-btn {
+            background: #111827;
+            color: white;
+            padding: 10px 17px;
         }
 
         .register-btn {
             background: #4f46e5;
+            color: white;
+            padding: 10px 17px;
         }
 
-        /* HERO */
+        .user-area {
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .dashboard-nav-btn {
+            background: #4f46e5;
+            color: white;
+            padding: 9px 13px;
+        }
+
+        .logout-btn {
+            background: #111827;
+            color: white;
+            padding: 9px 13px;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
             min-height: 650px;
             display: flex;
             align-items: center;
-            padding: 70px 20px;
+            padding: 75px 20px;
             background:
-                radial-gradient(circle at 85% 20%, #ddd6fe 0, transparent 25%),
-                radial-gradient(circle at 10% 80%, #dbeafe 0, transparent 25%),
+                radial-gradient(circle at 85% 15%, #ddd6fe 0, transparent 26%),
+                radial-gradient(circle at 5% 85%, #dbeafe 0, transparent 25%),
                 #f8fafc;
         }
 
         .hero-container {
-            max-width: 1150px;
+            max-width: 1180px;
             width: 100%;
             margin: auto;
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 50px;
+            grid-template-columns: 1.12fr 0.88fr;
+            gap: 55px;
             align-items: center;
         }
 
@@ -122,17 +160,17 @@
             display: inline-block;
             background: #eef2ff;
             color: #4f46e5;
-            padding: 8px 13px;
+            padding: 8px 14px;
             border-radius: 50px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 60px;
-            line-height: 1.05;
-            letter-spacing: -2px;
+            font-size: 61px;
+            line-height: 1.04;
+            letter-spacing: -2.8px;
             margin-bottom: 22px;
         }
 
@@ -141,7 +179,7 @@
         }
 
         .hero p {
-            max-width: 560px;
+            max-width: 590px;
             font-size: 18px;
             line-height: 1.7;
             color: #6b7280;
@@ -177,31 +215,35 @@
             border: 1px solid #d1d5db;
         }
 
-        /* HERO CARD */
+        /* =========================
+           HERO CARD
+        ========================= */
 
         .hero-card {
             background: white;
             border: 1px solid #e5e7eb;
-            border-radius: 22px;
+            border-radius: 23px;
             padding: 25px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.08);
         }
 
         .card-top {
-            background: #111827;
+            background: linear-gradient(135deg, #111827, #312e81);
             color: white;
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 16px;
+            padding: 27px;
             margin-bottom: 18px;
         }
 
         .card-top small {
             color: #c7d2fe;
+            font-weight: 700;
         }
 
         .card-top h2 {
             margin-top: 10px;
             font-size: 25px;
+            line-height: 1.25;
         }
 
         .progress {
@@ -220,7 +262,7 @@
 
         .stat-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2,1fr);
             gap: 12px;
         }
 
@@ -241,79 +283,190 @@
             font-size: 12px;
         }
 
-        /* SECTION */
+        /* =========================
+           GENERAL SECTION
+        ========================= */
 
         section {
-            padding: 85px 20px;
+            padding: 90px 20px;
         }
 
         .section-container {
-            max-width: 1150px;
+            max-width: 1180px;
             margin: auto;
         }
 
         .section-heading {
             text-align: center;
-            margin-bottom: 45px;
+            margin-bottom: 48px;
         }
 
         .section-heading h2 {
-            font-size: 38px;
-            margin-bottom: 12px;
+            font-size: 39px;
+            margin-bottom: 13px;
+            letter-spacing: -1px;
         }
 
         .section-heading p {
             color: #6b7280;
-            max-width: 600px;
+            max-width: 650px;
             margin: auto;
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
-        /* COURSES */
+        /* =========================
+           PATH CARDS
+        ========================= */
 
-        .course-grid {
+        .path-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4,1fr);
             gap: 20px;
         }
 
-        .course {
+        .path-card {
             background: white;
             border: 1px solid #e5e7eb;
-            padding: 25px;
-            border-radius: 16px;
+            border-radius: 18px;
+            overflow: hidden;
             transition: 0.25s;
         }
 
-        .course:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+        .path-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.09);
+            border-color: #c7d2fe;
         }
 
-        .course-icon {
-            width: 48px;
-            height: 48px;
+        .path-image {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .path-body {
+            padding: 22px;
+        }
+
+        .path-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #eef2ff;
-            color: #4f46e5;
-            border-radius: 12px;
-            font-size: 22px;
+            margin-bottom: 14px;
+            font-size: 21px;
+        }
+
+        .path-body h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .path-body > p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .institution-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
             margin-bottom: 18px;
         }
 
-        .course h3 {
+        .institution {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 7px 9px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .explore-btn {
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #4f46e5;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .explore-btn:hover {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        /* =========================
+           INSTITUTION SHOWCASE
+        ========================= */
+
+        .showcase {
+            background: #f8fafc;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 22px;
+        }
+
+        .showcase-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 17px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 180px 1fr;
+        }
+
+        .showcase-card img {
+            width: 100%;
+            height: 100%;
+            min-height: 185px;
+            object-fit: cover;
+        }
+
+        .showcase-content {
+            padding: 22px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 6px 8px;
+            border-radius: 20px;
             margin-bottom: 10px;
         }
 
-        .course p {
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.6;
+        .showcase-content h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
         }
 
-        /* FEATURES */
+        .showcase-content p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
 
         .features {
             background: #111827;
@@ -326,7 +479,7 @@
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3,1fr);
             gap: 20px;
         }
 
@@ -334,6 +487,12 @@
             border: 1px solid #374151;
             padding: 28px;
             border-radius: 15px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
         }
 
         .feature h3 {
@@ -346,7 +505,9 @@
             font-size: 14px;
         }
 
-        /* CTA */
+        /* =========================
+           CTA
+        ========================= */
 
         .cta {
             text-align: center;
@@ -363,13 +524,25 @@
             margin-bottom: 25px;
         }
 
-        /* FOOTER */
+        /* =========================
+           FOOTER
+        ========================= */
 
         footer {
             background: #030712;
             color: white;
-            padding: 35px 20px;
+            padding: 45px 20px;
             text-align: center;
+        }
+
+        footer .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        footer .footer-logo span {
+            color: #818cf8;
         }
 
         footer p {
@@ -377,15 +550,17 @@
             font-size: 13px;
         }
 
-        /* MODAL */
+        /* =========================
+           MODAL
+        ========================= */
 
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(17, 24, 39, 0.72);
+            background: rgba(17,24,39,0.76);
             z-index: 5000;
-            padding: 25px;
+            padding: 20px;
             overflow-y: auto;
         }
 
@@ -408,16 +583,16 @@
         .modal-close {
             position: absolute;
             right: 18px;
-            top: 14px;
+            top: 12px;
             border: none;
             background: none;
-            font-size: 28px;
+            font-size: 29px;
             cursor: pointer;
             color: #6b7280;
         }
 
         .modal-title {
-            font-size: 30px;
+            font-size: 29px;
             margin-bottom: 7px;
         }
 
@@ -426,11 +601,13 @@
             margin-bottom: 25px;
         }
 
-        /* FORMS */
+        /* =========================
+           FORM
+        ========================= */
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2,1fr);
             gap: 15px;
         }
 
@@ -441,7 +618,7 @@
         }
 
         .form-group.full {
-            grid-column: 1 / -1;
+            grid-column: 1/-1;
         }
 
         .form-group label {
@@ -521,31 +698,64 @@
             color: #991b1b;
         }
 
-        /* USER AREA */
+        /* =========================
+           DETAILS MODAL
+        ========================= */
 
-        .user-area {
-            display: none;
-            align-items: center;
+        .details-box {
+            max-width: 650px;
+        }
+
+        .details-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 13px;
+            margin-bottom: 20px;
+        }
+
+        .details-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .details-box > p {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .details-list {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
             gap: 10px;
         }
 
-        .user-name {
-            font-size: 14px;
+        .details-item {
+            padding: 13px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            font-size: 13px;
             font-weight: 700;
         }
 
-        .logout-btn {
-            border: none;
-            background: #111827;
-            color: white;
-            padding: 9px 14px;
-            border-radius: 8px;
-            cursor: pointer;
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width:1050px) {
+
+            .path-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
         }
 
-        /* MOBILE */
-
-        @media (max-width: 800px) {
+        @media(max-width:800px) {
 
             .nav-links {
                 display: none;
@@ -562,7 +772,7 @@
             }
 
             .hero h1 {
-                font-size: 43px;
+                font-size: 44px;
                 letter-spacing: -1.5px;
             }
 
@@ -570,9 +780,17 @@
                 font-size: 16px;
             }
 
-            .course-grid,
+            .path-grid,
             .feature-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-card {
+                grid-template-columns: 140px 1fr;
             }
 
             .section-heading h2 {
@@ -598,473 +816,195 @@
             .modal-box {
                 padding: 24px 18px;
             }
+
+            .details-list {
+                grid-template-columns: 1fr;
+            }
+
+            .user-name {
+                display: none;
+            }
         }
+
+        @media(max-width:500px) {
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .showcase-card {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-card img {
+                height: 170px;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .user-area {
+                gap: 5px;
+            }
+
+            .dashboard-nav-btn,
+            .logout-btn {
+                padding: 8px 9px;
+                font-size: 11px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- NAVBAR -->
 
-    <nav>
-        <div class="nav-container">
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-            <a href="#" class="logo">
-                Dream<span>Hunt</span>
-            </a>
+<nav>
 
-            <div class="nav-links" id="navLinks">
+    <div class="nav-container">
 
-                <a href="#courses">Courses</a>
-                <a href="#features">Why Us</a>
-                <a href="#about">About</a>
+        <a href="#" class="logo">
+            Dream<span>Hunt</span>
+        </a>
 
-                <button class="login-btn" onclick="openLogin()">
-                    Login
-                </button>
+        <div class="nav-links" id="navLinks">
 
-                <button class="register-btn" onclick="openRegister()">
-                    Register
-                </button>
+            <a href="#paths">Paths</a>
 
-            </div>
+            <a href="#institutions">Institutions</a>
 
-            <div class="user-area" id="userArea">
+            <a href="#features">Why Us</a>
 
-                <span class="user-name" id="navUserName">
-                    Student
-                </span>
+            <a href="#about">About</a>
 
-                <button class="logout-btn" onclick="logout()">
-                    Logout
-                </button>
+            <button class="login-btn" onclick="openLogin()">
+                Login
+            </button>
 
-            </div>
-
-        </div>
-    </nav>
-
-
-    <!-- HERO -->
-
-    <header class="hero">
-
-        <div class="hero-container">
-
-            <div>
-
-                <span class="badge">
-                    Admission Preparation
-                </span>
-
-                <h1>
-                    Turn Your<br>
-                    <span>Dream Into</span><br>
-                    Achievement.
-                </h1>
-
-                <p>
-                    Dream Hunt is your learning companion for
-                    university admission preparation, competitive
-                    exams and academic excellence.
-                </p>
-
-                <div class="hero-buttons">
-
-                    <button class="primary-btn" onclick="openRegister()">
-                        Get Started
-                    </button>
-
-                    <a href="#courses" class="secondary-btn">
-                        Explore Courses
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <div class="hero-card">
-
-                <div class="card-top">
-
-                    <small>YOUR JOURNEY</small>
-
-                    <h2>
-                        Prepare. Progress. Achieve.
-                    </h2>
-
-                    <div class="progress">
-                        <div></div>
-                    </div>
-
-                </div>
-
-                <div class="stat-row">
-
-                    <div class="stat">
-                        <strong>50+</strong>
-                        <span>Courses</span>
-                    </div>
-
-                    <div class="stat">
-                        <strong>1000+</strong>
-                        <span>Students</span>
-                    </div>
-
-                    <div class="stat">
-                        <strong>10K+</strong>
-                        <span>Questions</span>
-                    </div>
-
-                    <div class="stat">
-                        <strong>24/7</strong>
-                        <span>Learning</span>
-                    </div>
-
-                </div>
-
-            </div>
+            <button class="register-btn" onclick="openRegister()">
+                Register
+            </button>
 
         </div>
 
-    </header>
 
+        <div class="user-area" id="userArea">
 
-    <!-- COURSES -->
+            <span class="user-name" id="navUserName">
+                Student
+            </span>
 
-    <section id="courses">
+            <button
+                class="dashboard-nav-btn"
+                onclick="goDashboard()">
+                Dashboard
+            </button>
 
-        <div class="section-container">
-
-            <div class="section-heading">
-
-                <h2>Choose Your Path</h2>
-
-                <p>
-                    Everything you need to prepare for your next
-                    academic milestone.
-                </p>
-
-            </div>
-
-            <div class="course-grid">
-
-                <div class="course">
-                    <div class="course-icon">🎓</div>
-
-                    <h3>University Admission</h3>
-
-                    <p>
-                        Prepare for public university admission
-                        tests with structured courses and practice.
-                    </p>
-                </div>
-
-                <div class="course">
-                    <div class="course-icon">⚙️</div>
-
-                    <h3>Engineering</h3>
-
-                    <p>
-                        Build strong concepts in Physics,
-                        Chemistry and Mathematics.
-                    </p>
-                </div>
-
-                <div class="course">
-                    <div class="course-icon">🩺</div>
-
-                    <h3>Medical Admission</h3>
-
-                    <p>
-                        Master Biology, Chemistry, Physics and
-                        other essential admission topics.
-                    </p>
-                </div>
-
-            </div>
+            <button
+                class="logout-btn"
+                onclick="logout()">
+                Logout
+            </button>
 
         </div>
 
-    </section>
+    </div>
+
+</nav>
 
 
-    <!-- FEATURES -->
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-    <section class="features" id="features">
+<header class="hero">
 
-        <div class="section-container">
+    <div class="hero-container">
 
-            <div class="section-heading">
+        <div>
 
-                <h2>Why Dream Hunt?</h2>
+            <span class="badge">
+                Admission Preparation
+            </span>
 
-                <p>
-                    A focused learning environment designed
-                    around your goal.
-                </p>
-
-            </div>
-
-            <div class="feature-grid">
-
-                <div class="feature">
-
-                    <h3>Structured Learning</h3>
-
-                    <p>
-                        Follow organized courses and study
-                        according to your preparation path.
-                    </p>
-
-                </div>
-
-                <div class="feature">
-
-                    <h3>Practice & Exams</h3>
-
-                    <p>
-                        Test your preparation through MCQs,
-                        model tests and competitive exams.
-                    </p>
-
-                </div>
-
-                <div class="feature">
-
-                    <h3>Track Your Progress</h3>
-
-                    <p>
-                        Monitor your performance and understand
-                        where you need to improve.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- CTA -->
-
-    <section class="cta" id="about">
-
-        <div class="section-container">
-
-            <h2>Your Dream Starts Here.</h2>
+            <h1>
+                Turn Your<br>
+                <span>Dream Into</span><br>
+                Achievement.
+            </h1>
 
             <p>
-                Learn today. Prepare tomorrow. Achieve your goal.
+                Dream Hunt is your learning companion for
+                university admission, engineering, medical,
+                study abroad and competitive exam preparation.
             </p>
 
-            <button class="primary-btn" onclick="openRegister()">
-                Start Learning
-            </button>
+            <div class="hero-buttons">
+
+                <button
+                    class="primary-btn"
+                    onclick="openRegister()">
+                    Get Started
+                </button>
+
+                <a
+                    href="#paths"
+                    class="secondary-btn">
+                    Explore Paths
+                </a>
+
+            </div>
 
         </div>
 
-    </section>
 
+        <div class="hero-card">
 
-    <!-- FOOTER -->
+            <div class="card-top">
 
-    <footer>
+                <small>
+                    YOUR JOURNEY
+                </small>
 
-        <p>
-            © 2026 Dream Hunt. Learn. Prepare. Achieve.
-        </p>
+                <h2>
+                    Prepare. Progress. Achieve.
+                </h2>
 
-    </footer>
-
-
-    <!-- REGISTER MODAL -->
-
-    <div class="modal" id="registerModal">
-
-        <div class="modal-box">
-
-            <button class="modal-close" onclick="closeRegister()">
-                ×
-            </button>
-
-            <h2 class="modal-title">
-                Create Your Account
-            </h2>
-
-            <p class="modal-subtitle">
-                Join Dream Hunt and start your admission journey.
-            </p>
-
-            <div class="message" id="registerMessage"></div>
-
-            <form id="registerForm">
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="regFullName" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="regPhone" required>
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Email *</label>
-                        <input type="email" id="regEmail" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="date" id="regDob">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Current Institution *</label>
-                        <input type="text" id="regInstitution" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Education Board *</label>
-
-                        <select id="regBoard" required>
-
-                            <option value="">Select Board</option>
-                            <option value="Dhaka">Dhaka</option>
-                            <option value="Chittagong">Chittagong</option>
-                            <option value="Rajshahi">Rajshahi</option>
-                            <option value="Jessore">Jessore</option>
-                            <option value="Comilla">Comilla</option>
-                            <option value="Barisal">Barisal</option>
-                            <option value="Sylhet">Sylhet</option>
-                            <option value="Dinajpur">Dinajpur</option>
-                            <option value="Mymensingh">Mymensingh</option>
-                            <option value="Madrasah">Madrasah</option>
-                            <option value="Technical">Technical</option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>Group *</label>
-
-                        <select id="regGroup" required>
-
-                            <option value="">Select Group</option>
-                            <option value="Science">Science</option>
-                            <option value="Humanities">Humanities</option>
-                            <option value="Business Studies">Business Studies</option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>HSC / Equivalent Year</label>
-                        <input type="number" id="regHscYear" placeholder="2026">
-                    </div>
-
-                    <div class="form-group">
-                        <label>SSC Institution</label>
-                        <input type="text" id="regSscInstitution">
-                    </div>
-
-                    <div class="form-group">
-                        <label>SSC Board</label>
-                        <input type="text" id="regSscBoard">
-                    </div>
-
-                    <div class="form-group">
-                        <label>SSC Passing Year</label>
-                        <input type="number" id="regSscYear">
-                    </div>
-
-                    <div class="form-group">
-                        <label>SSC GPA</label>
-                        <input type="number" id="regSscGpa" step="0.01" min="0" max="5">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Division *</label>
-
-                        <select id="regDivision" required>
-
-                            <option value="">Select Division</option>
-                            <option value="Dhaka">Dhaka</option>
-                            <option value="Chattogram">Chattogram</option>
-                            <option value="Rajshahi">Rajshahi</option>
-                            <option value="Khulna">Khulna</option>
-                            <option value="Barishal">Barishal</option>
-                            <option value="Sylhet">Sylhet</option>
-                            <option value="Rangpur">Rangpur</option>
-                            <option value="Mymensingh">Mymensingh</option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>District *</label>
-                        <input type="text" id="regDistrict" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Upazila / Thana</label>
-                        <input type="text" id="regUpazila">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Target Admission *</label>
-
-                        <select id="regTargetAdmission" required>
-
-                            <option value="">Select Category</option>
-                            <option value="Public University">Public University</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Medical">Medical</option>
-                            <option value="Other">Other</option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Target University</label>
-                        <input type="text" id="regTargetUniversity">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password *</label>
-                        <input type="password" id="regPassword" minlength="6" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Confirm Password *</label>
-                        <input type="password" id="regConfirmPassword" minlength="6" required>
-                    </div>
-
+                <div class="progress">
+                    <div></div>
                 </div>
 
-                <button type="submit" class="form-submit" id="registerSubmit">
-                    Create Account
-                </button>
+            </div>
 
-            </form>
 
-            <div class="switch-text">
+            <div class="stat-row">
 
-                Already have an account?
+                <div class="stat">
+                    <strong>50+</strong>
+                    <span>Courses</span>
+                </div>
 
-                <button onclick="switchToLogin()">
-                    Login
-                </button>
+                <div class="stat">
+                    <strong>1000+</strong>
+                    <span>Students</span>
+                </div>
+
+                <div class="stat">
+                    <strong>10K+</strong>
+                    <span>Questions</span>
+                </div>
+
+                <div class="stat">
+                    <strong>24/7</strong>
+                    <span>Learning</span>
+                </div>
 
             </div>
 
@@ -1072,534 +1012,2039 @@
 
     </div>
 
+</header>
 
-    <!-- LOGIN MODAL -->
 
-    <div class="modal" id="loginModal">
+<!-- =====================================================
+     CHOOSE YOUR PATH
+===================================================== -->
 
-        <div class="modal-box" style="max-width: 450px;">
+<section id="paths">
 
-            <button class="modal-close" onclick="closeLogin()">
-                ×
-            </button>
+    <div class="section-container">
 
-            <h2 class="modal-title">
-                Welcome Back
+        <div class="section-heading">
+
+            <h2>
+                Choose Your Path
             </h2>
 
-            <p class="modal-subtitle">
-                Login to your Dream Hunt account.
+            <p>
+                Whether your goal is a top university in Bangladesh,
+                engineering, medical or a world-class institution
+                abroad — Dream Hunt helps you prepare for the journey.
             </p>
 
-            <div class="message" id="loginMessage"></div>
+        </div>
 
-            <form id="loginForm">
+
+        <div class="path-grid">
+
+
+            <!-- UNIVERSITY -->
+
+            <div class="path-card">
+
+                <img
+                    class="path-image"
+                    src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg"
+                    alt="University campus">
+
+                <div class="path-body">
+
+                    <div class="path-icon">
+                        🎓
+                    </div>
+
+                    <h3>
+                        University
+                    </h3>
+
+                    <p>
+                        Prepare for Bangladesh's leading public
+                        universities and admission tests.
+                    </p>
+
+                    <div class="institution-list">
+
+                        <span class="institution">
+                            University of Dhaka
+                        </span>
+
+                        <span class="institution">
+                            Jahangirnagar University
+                        </span>
+
+                        <span class="institution">
+                            University of Rajshahi
+                        </span>
+
+                        <span class="institution">
+                            University of Chittagong
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="explore-btn"
+                        onclick="openPath('university')">
+                        Explore Universities →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ENGINEERING -->
+
+            <div class="path-card">
+
+                <img
+                    class="path-image"
+                    src="https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG"
+                    alt="BUET campus">
+
+                <div class="path-body">
+
+                    <div class="path-icon">
+                        ⚙️
+                    </div>
+
+                    <h3>
+                        Engineering
+                    </h3>
+
+                    <p>
+                        Build strong concepts and prepare for
+                        Bangladesh's top engineering institutions.
+                    </p>
+
+                    <div class="institution-list">
+
+                        <span class="institution">
+                            BUET
+                        </span>
+
+                        <span class="institution">
+                            CUET
+                        </span>
+
+                        <span class="institution">
+                            KUET
+                        </span>
+
+                        <span class="institution">
+                            RUET
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="explore-btn"
+                        onclick="openPath('engineering')">
+                        Explore Engineering →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MEDICAL -->
+
+            <div class="path-card">
+
+                <img
+                    class="path-image"
+                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
+                    alt="Medical education">
+
+                <div class="path-body">
+
+                    <div class="path-icon">
+                        🩺
+                    </div>
+
+                    <h3>
+                        Medical
+                    </h3>
+
+                    <p>
+                        Prepare for medical admission with focused
+                        Biology, Chemistry, Physics and MCQ practice.
+                    </p>
+
+                    <div class="institution-list">
+
+                        <span class="institution">
+                            Dhaka Medical College
+                        </span>
+
+                        <span class="institution">
+                            Sir Salimullah Medical College
+                        </span>
+
+                        <span class="institution">
+                            Chittagong Medical College
+                        </span>
+
+                        <span class="institution">
+                            Rajshahi Medical College
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="explore-btn"
+                        onclick="openPath('medical')">
+                        Explore Medical →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ABROAD -->
+
+            <div class="path-card">
+
+                <img
+                    class="path-image"
+                    src="https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL3NodXR0ZXJzdG9jay0yMzYyNjgwOTE3LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6ODI4fX19"
+                    alt="Harvard University campus">
+
+                <div class="path-body">
+
+                    <div class="path-icon">
+                        🌎
+                    </div>
+
+                    <h3>
+                        Study Abroad
+                    </h3>
+
+                    <p>
+                        Explore global universities, international
+                        admission and study-abroad preparation.
+                    </p>
+
+                    <div class="institution-list">
+
+                        <span class="institution">
+                            Harvard
+                        </span>
+
+                        <span class="institution">
+                            Oxford
+                        </span>
+
+                        <span class="institution">
+                            MIT
+                        </span>
+
+                        <span class="institution">
+                            Toronto
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="explore-btn"
+                        onclick="openPath('abroad')">
+                        Explore Abroad →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INSTITUTION SHOWCASE
+===================================================== -->
+
+<section
+    class="showcase"
+    id="institutions">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <h2>
+                Institutions Worth Chasing
+            </h2>
+
+            <p>
+                Set your target. Build your preparation.
+                Take the next step toward the institution you want.
+            </p>
+
+        </div>
+
+
+        <div class="showcase-grid">
+
+
+            <!-- DU -->
+
+            <div class="showcase-card">
+
+                <img
+                    src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg"
+                    alt="University of Dhaka">
+
+                <div class="showcase-content">
+
+                    <span class="tag">
+                        Bangladesh · University
+                    </span>
+
+                    <h3>
+                        University of Dhaka
+                    </h3>
+
+                    <p>
+                        One of Bangladesh's leading public research
+                        universities and a major target for admission
+                        aspirants.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUET -->
+
+            <div class="showcase-card">
+
+                <img
+                    src="https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG"
+                    alt="BUET">
+
+                <div class="showcase-content">
+
+                    <span class="tag">
+                        Bangladesh · Engineering
+                    </span>
+
+                    <h3>
+                        Bangladesh University of Engineering
+                        and Technology
+                    </h3>
+
+                    <p>
+                        A premier engineering and technology institution
+                        and one of the country's most competitive
+                        admission destinations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DMC -->
+
+            <div class="showcase-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=80"
+                    alt="Medical education">
+
+                <div class="showcase-content">
+
+                    <span class="tag">
+                        Bangladesh · Medical
+                    </span>
+
+                    <h3>
+                        Dhaka Medical College
+                    </h3>
+
+                    <p>
+                        A historic and highly regarded medical institution
+                        in Bangladesh, serving as a major target for
+                        medical admission candidates.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- OXFORD -->
+
+            <div class="showcase-card">
+
+                <img
+                    src="https://dreamuni.com/gallery/universty-photo-dreambig_53928054.webp"
+                    alt="University of Oxford">
+
+                <div class="showcase-content">
+
+                    <span class="tag">
+                        United Kingdom · Abroad
+                    </span>
+
+                    <h3>
+                        University of Oxford
+                    </h3>
+
+                    <p>
+                        Explore international preparation pathways for
+                        globally recognized universities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MIT -->
+
+            <div class="showcase-card">
+
+                <img
+                    src="https://geekerhertz.com/wp-content/uploads/2021/05/MIT-Campus.jpg"
+                    alt="MIT">
+
+                <div class="showcase-content">
+
+                    <span class="tag">
+                        USA · Abroad
+                    </span>
+
+                    <h3>
+                        Massachusetts Institute of Technology
+                    </h3>
+
+                    <p>
+                        A global destination for students interested
+                        in science, technology, engineering and research.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- TORONTO -->
+
+            <div class="showcase-card">
+
+                <img
+                    src="https://www.utoronto.ca/sites/default/files/styles/hero/public/2020-11/StGeorgeCampus.jpg"
+                    alt="University of Toronto">
+
+                <div class="showcase-content">
+
+                    <span class="tag">
+                        Canada · Abroad
+                    </span>
+
+                    <h3>
+                        University of Toronto
+                    </h3>
+
+                    <p>
+                        A leading Canadian university and a major
+                        international study destination.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY DREAM HUNT
+===================================================== -->
+
+<section
+    class="features"
+    id="features">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <h2>
+                Why Dream Hunt?
+            </h2>
+
+            <p>
+                Everything you need to turn preparation
+                into measurable progress.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Structured Learning
+                </h3>
+
+                <p>
+                    Follow organized courses designed around
+                    your admission target and preparation level.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Practice & Exams
+                </h3>
+
+                <p>
+                    Test yourself through MCQs, model tests,
+                    mock exams and performance-based practice.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Track Your Progress
+                </h3>
+
+                <p>
+                    Monitor your learning progress and identify
+                    the areas where you need more preparation.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Target Based
+                </h3>
+
+                <p>
+                    Set your target university or admission path
+                    and prepare with a clear direction.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Review your results and understand how your
+                    preparation is progressing over time.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🌎
+                </div>
+
+                <h3>
+                    Global Opportunities
+                </h3>
+
+                <p>
+                    Explore international universities and build
+                    a pathway toward studying abroad.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT / CTA
+===================================================== -->
+
+<section
+    class="cta"
+    id="about">
+
+    <div class="section-container">
+
+        <h2>
+            Your Dream Starts Here.
+        </h2>
+
+        <p>
+            Learn today. Prepare tomorrow. Achieve your goal.
+        </p>
+
+        <button
+            class="primary-btn"
+            onclick="openRegister()">
+            Start Learning
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        Dream<span>Hunt</span>
+    </div>
+
+    <p>
+        © 2026 Dream Hunt. Learn. Prepare. Achieve.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     PATH DETAILS MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="pathModal">
+
+    <div class="modal-box details-box">
+
+        <button
+            class="modal-close"
+            onclick="closePath()">
+            ×
+        </button>
+
+        <img
+            id="detailsImage"
+            class="details-image"
+            src=""
+            alt="">
+
+        <h2 id="detailsTitle">
+            Explore
+        </h2>
+
+        <p id="detailsDescription">
+        </p>
+
+        <div
+            class="details-list"
+            id="detailsList">
+        </div>
+
+        <button
+            class="form-submit"
+            onclick="openRegister(); closePath();">
+            Start Your Preparation
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     REGISTER MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="registerModal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeRegister()">
+            ×
+        </button>
+
+        <h2 class="modal-title">
+            Create Your Account
+        </h2>
+
+        <p class="modal-subtitle">
+            Join Dream Hunt and start your admission journey.
+        </p>
+
+        <div
+            class="message"
+            id="registerMessage">
+        </div>
+
+
+        <form id="registerForm">
+
+            <div class="form-grid">
+
 
                 <div class="form-group">
 
-                    <label>Email</label>
+                    <label>
+                        Full Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regFullName"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone Number *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="regPhone"
+                        required>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Email *
+                    </label>
 
                     <input
                         type="email"
-                        id="loginEmail"
-                        required
-                    >
+                        id="regEmail"
+                        required>
 
                 </div>
 
-                <br>
 
                 <div class="form-group">
 
-                    <label>Password</label>
+                    <label>
+                        Date of Birth
+                    </label>
 
                     <input
-                        type="password"
-                        id="loginPassword"
-                        required
-                    >
+                        type="date"
+                        id="regDob">
 
                 </div>
 
-                <button
-                    type="submit"
-                    class="form-submit"
-                    id="loginSubmit"
-                >
-                    Login
-                </button>
 
-            </form>
+                <div class="form-group">
 
-            <div class="switch-text">
+                    <label>
+                        Current Institution *
+                    </label>
 
-                Don't have an account?
+                    <input
+                        type="text"
+                        id="regInstitution"
+                        required>
 
-                <button onclick="switchToRegister()">
-                    Register
-                </button>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Education Board *
+                    </label>
+
+                    <select
+                        id="regBoard"
+                        required>
+
+                        <option value="">
+                            Select Board
+                        </option>
+
+                        <option value="Dhaka">
+                            Dhaka
+                        </option>
+
+                        <option value="Chittagong">
+                            Chittagong
+                        </option>
+
+                        <option value="Rajshahi">
+                            Rajshahi
+                        </option>
+
+                        <option value="Jessore">
+                            Jessore
+                        </option>
+
+                        <option value="Comilla">
+                            Comilla
+                        </option>
+
+                        <option value="Barisal">
+                            Barisal
+                        </option>
+
+                        <option value="Sylhet">
+                            Sylhet
+                        </option>
+
+                        <option value="Dinajpur">
+                            Dinajpur
+                        </option>
+
+                        <option value="Mymensingh">
+                            Mymensingh
+                        </option>
+
+                        <option value="Madrasah">
+                            Madrasah
+                        </option>
+
+                        <option value="Technical">
+                            Technical
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Group *
+                    </label>
+
+                    <select
+                        id="regGroup"
+                        required>
+
+                        <option value="">
+                            Select Group
+                        </option>
+
+                        <option value="Science">
+                            Science
+                        </option>
+
+                        <option value="Humanities">
+                            Humanities
+                        </option>
+
+                        <option value="Business Studies">
+                            Business Studies
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        HSC / Equivalent Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regHscYear"
+                        placeholder="2026">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        SSC Institution
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regSscInstitution">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        SSC Board
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regSscBoard">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        SSC Passing Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regSscYear">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        SSC GPA
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regSscGpa"
+                        step="0.01"
+                        min="0"
+                        max="5">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Division *
+                    </label>
+
+                    <select
+                        id="regDivision"
+                        required>
+
+                        <option value="">
+                            Select Division
+                        </option>
+
+                        <option value="Dhaka">
+                            Dhaka
+                        </option>
+
+                        <option value="Chattogram">
+                            Chattogram
+                        </option>
+
+                        <option value="Rajshahi">
+                            Rajshahi
+                        </option>
+
+                        <option value="Khulna">
+                            Khulna
+                        </option>
+
+                        <option value="Barishal">
+                            Barishal
+                        </option>
+
+                        <option value="Sylhet">
+                            Sylhet
+                        </option>
+
+                        <option value="Rangpur">
+                            Rangpur
+                        </option>
+
+                        <option value="Mymensingh">
+                            Mymensingh
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        District *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regDistrict"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Upazila / Thana
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regUpazila">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Target Admission *
+                    </label>
+
+                    <select
+                        id="regTargetAdmission"
+                        required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Public University">
+                            Public University
+                        </option>
+
+                        <option value="Engineering">
+                            Engineering
+                        </option>
+
+                        <option value="Medical">
+                            Medical
+                        </option>
+
+                        <option value="Study Abroad">
+                            Study Abroad
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Target University
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regTargetUniversity">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password *
+                    </label>
+
+                    <input
+                        type="password"
+                        id="regPassword"
+                        minlength="6"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Confirm Password *
+                    </label>
+
+                    <input
+                        type="password"
+                        id="regConfirmPassword"
+                        minlength="6"
+                        required>
+
+                </div>
 
             </div>
+
+
+            <button
+                type="submit"
+                class="form-submit"
+                id="registerSubmit">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+
+        <div class="switch-text">
+
+            Already have an account?
+
+            <button onclick="switchToLogin()">
+                Login
+            </button>
 
         </div>
 
     </div>
 
+</div>
 
-    <!-- SUPABASE + AUTH SCRIPT -->
 
-    <script>
+<!-- =====================================================
+     LOGIN MODAL
+===================================================== -->
 
-        /* ==============================
-           SUPABASE CONNECTION
-        ============================== */
+<div
+    class="modal"
+    id="loginModal">
 
-        const SUPABASE_URL =
-            "https://rndtgjuwwsxxiiezennr.supabase.co";
+    <div
+        class="modal-box"
+        style="max-width:450px;">
 
-        const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+        <button
+            class="modal-close"
+            onclick="closeLogin()">
+            ×
+        </button>
 
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
+        <h2 class="modal-title">
+            Welcome Back
+        </h2>
 
+        <p class="modal-subtitle">
+            Login to your Dream Hunt account.
+        </p>
 
-        /* ==============================
-           MODAL FUNCTIONS
-        ============================== */
+        <div
+            class="message"
+            id="loginMessage">
+        </div>
 
-        function openRegister() {
 
-            document
-                .getElementById("registerModal")
-                .classList.add("active");
+        <form id="loginForm">
 
-        }
+            <div class="form-group">
 
+                <label>
+                    Email
+                </label>
 
-        function closeRegister() {
+                <input
+                    type="email"
+                    id="loginEmail"
+                    required>
 
-            document
-                .getElementById("registerModal")
-                .classList.remove("active");
+            </div>
 
-        }
 
+            <br>
 
-        function openLogin() {
 
-            document
-                .getElementById("loginModal")
-                .classList.add("active");
+            <div class="form-group">
 
-        }
+                <label>
+                    Password
+                </label>
 
+                <input
+                    type="password"
+                    id="loginPassword"
+                    required>
 
-        function closeLogin() {
+            </div>
 
-            document
-                .getElementById("loginModal")
-                .classList.remove("active");
 
-        }
+            <button
+                type="submit"
+                class="form-submit"
+                id="loginSubmit">
 
+                Login
 
-        function switchToLogin() {
+            </button>
 
-            closeRegister();
-            openLogin();
+        </form>
 
-        }
 
+        <div class="switch-text">
 
-        function switchToRegister() {
+            Don't have an account?
 
-            closeLogin();
-            openRegister();
+            <button onclick="switchToRegister()">
+                Register
+            </button>
 
-        }
+        </div>
 
+    </div>
 
-        /* ==============================
-           MESSAGE FUNCTION
-        ============================== */
+</div>
 
-        function showMessage(elementId, message, type) {
 
-            const element =
-                document.getElementById(elementId);
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
-            element.textContent = message;
+<script>
 
-            element.className =
-                "message show " + type;
 
-        }
+/* =====================================================
+   SUPABASE
+===================================================== */
 
+const SUPABASE_URL =
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
 
-        /* ==============================
-           REGISTER
-        ============================== */
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
-        document
-            .getElementById("registerForm")
-            .addEventListener("submit", async function (event) {
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-                event.preventDefault();
 
-                const submitButton =
-                    document.getElementById("registerSubmit");
+/* =====================================================
+   MODALS
+===================================================== */
 
-                submitButton.disabled = true;
-                submitButton.textContent = "Creating Account...";
+function openRegister() {
 
+    document
+        .getElementById("registerModal")
+        .classList.add("active");
 
-                const fullName =
-                    document.getElementById("regFullName").value.trim();
+}
 
-                const phone =
-                    document.getElementById("regPhone").value.trim();
 
-                const email =
-                    document.getElementById("regEmail").value.trim();
+function closeRegister() {
 
-                const dob =
-                    document.getElementById("regDob").value;
+    document
+        .getElementById("registerModal")
+        .classList.remove("active");
 
-                const institution =
-                    document.getElementById("regInstitution").value.trim();
+}
 
-                const board =
-                    document.getElementById("regBoard").value;
 
-                const group =
-                    document.getElementById("regGroup").value;
+function openLogin() {
 
-                const hscYear =
-                    document.getElementById("regHscYear").value;
+    document
+        .getElementById("loginModal")
+        .classList.add("active");
 
-                const sscInstitution =
-                    document.getElementById("regSscInstitution").value.trim();
+}
 
-                const sscBoard =
-                    document.getElementById("regSscBoard").value.trim();
 
-                const sscYear =
-                    document.getElementById("regSscYear").value;
+function closeLogin() {
 
-                const sscGpa =
-                    document.getElementById("regSscGpa").value;
+    document
+        .getElementById("loginModal")
+        .classList.remove("active");
 
-                const division =
-                    document.getElementById("regDivision").value;
+}
 
-                const district =
-                    document.getElementById("regDistrict").value.trim();
 
-                const upazila =
-                    document.getElementById("regUpazila").value.trim();
+function switchToLogin() {
 
-                const targetAdmission =
-                    document.getElementById("regTargetAdmission").value;
+    closeRegister();
+    openLogin();
 
-                const targetUniversity =
-                    document.getElementById("regTargetUniversity").value.trim();
+}
 
-                const password =
-                    document.getElementById("regPassword").value;
 
-                const confirmPassword =
-                    document.getElementById("regConfirmPassword").value;
+function switchToRegister() {
 
+    closeLogin();
+    openRegister();
 
-                /* PASSWORD CHECK */
+}
 
-                if (password !== confirmPassword) {
 
-                    showMessage(
-                        "registerMessage",
-                        "Passwords do not match.",
-                        "error"
-                    );
+/* =====================================================
+   PATH DETAILS
+===================================================== */
 
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Create Account";
+const pathData = {
 
-                    return;
-                }
+    university: {
 
+        title: "University Admission",
 
-                if (password.length < 6) {
+        image:
+            "https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg",
 
-                    showMessage(
-                        "registerMessage",
-                        "Password must contain at least 6 characters.",
-                        "error"
-                    );
+        description:
+            "Prepare for leading public universities in Bangladesh with structured admission preparation.",
 
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Create Account";
+        institutions: [
+            "University of Dhaka",
+            "Jahangirnagar University",
+            "University of Rajshahi",
+            "University of Chittagong",
+            "Jagannath University",
+            "University of Barishal"
+        ]
 
-                    return;
-                }
+    },
 
 
-                /* CREATE SUPABASE ACCOUNT */
+    engineering: {
 
-                const { data, error } =
-                    await supabaseClient.auth.signUp({
+        title: "Engineering Admission",
 
-                        email: email,
+        image:
+            "https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG",
 
-                        password: password,
+        description:
+            "Build strong foundations in Physics, Chemistry and Mathematics for engineering admission.",
 
-                        options: {
+        institutions: [
+            "BUET",
+            "CUET",
+            "KUET",
+            "RUET",
+            "IUT",
+            "MIST"
+        ]
 
-                            emailRedirectTo:
-                                window.location.origin,
+    },
 
-                            data: {
 
-                                full_name: fullName,
-                                phone: phone,
-                                date_of_birth: dob,
-                                institution_name: institution,
-                                board: board,
-                                group_name: group,
-                                hsc_year: hscYear,
-                                ssc_institution: sscInstitution,
-                                ssc_board: sscBoard,
-                                ssc_year: sscYear,
-                                ssc_gpa: sscGpa,
-                                division: division,
-                                district: district,
-                                upazila: upazila,
-                                target_admission: targetAdmission,
-                                target_university: targetUniversity
+    medical: {
 
-                            }
+        title: "Medical Admission",
 
-                        }
+        image:
+            "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80",
 
-                    });
+        description:
+            "Prepare for medical admission through focused subject preparation, MCQs and model tests.",
 
+        institutions: [
+            "Dhaka Medical College",
+            "Sir Salimullah Medical College",
+            "Chittagong Medical College",
+            "Rajshahi Medical College",
+            "Mymensingh Medical College",
+            "Sylhet MAG Osmani Medical College"
+        ]
 
-                if (error) {
+    },
 
-                    showMessage(
-                        "registerMessage",
-                        error.message,
-                        "error"
-                    );
 
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Create Account";
+    abroad: {
 
-                    return;
-                }
+        title: "Study Abroad",
 
+        image:
+            "https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL3NodXR0ZXJzdG9jay0yMzYyNjgwOTE3LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6ODI4fX19",
 
-                /* SUCCESS */
+        description:
+            "Explore international university pathways and prepare for your global academic journey.",
+
+        institutions: [
+            "Harvard University",
+            "University of Oxford",
+            "MIT",
+            "University of Toronto",
+            "University of Cambridge",
+            "Stanford University"
+        ]
+
+    }
+
+};
+
+
+function openPath(type) {
+
+    const data = pathData[type];
+
+    document.getElementById("detailsImage").src =
+        data.image;
+
+    document.getElementById("detailsTitle").textContent =
+        data.title;
+
+    document.getElementById("detailsDescription").textContent =
+        data.description;
+
+    const list =
+        document.getElementById("detailsList");
+
+    list.innerHTML = "";
+
+    data.institutions.forEach(function(name) {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "details-item";
+
+        item.textContent =
+            "🎓 " + name;
+
+        list.appendChild(item);
+
+    });
+
+    document
+        .getElementById("pathModal")
+        .classList.add("active");
+
+}
+
+
+function closePath() {
+
+    document
+        .getElementById("pathModal")
+        .classList.remove("active");
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    elementId,
+    message,
+    type
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    element.textContent =
+        message;
+
+    element.className =
+        "message show " + type;
+
+}
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+document
+    .getElementById("registerForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const submitButton =
+                document.getElementById(
+                    "registerSubmit"
+                );
+
+            submitButton.disabled =
+                true;
+
+            submitButton.textContent =
+                "Creating Account...";
+
+
+            const fullName =
+                document
+                    .getElementById("regFullName")
+                    .value
+                    .trim();
+
+            const phone =
+                document
+                    .getElementById("regPhone")
+                    .value
+                    .trim();
+
+            const email =
+                document
+                    .getElementById("regEmail")
+                    .value
+                    .trim();
+
+            const dob =
+                document
+                    .getElementById("regDob")
+                    .value;
+
+            const institution =
+                document
+                    .getElementById("regInstitution")
+                    .value
+                    .trim();
+
+            const board =
+                document
+                    .getElementById("regBoard")
+                    .value;
+
+            const group =
+                document
+                    .getElementById("regGroup")
+                    .value;
+
+            const hscYear =
+                document
+                    .getElementById("regHscYear")
+                    .value;
+
+            const sscInstitution =
+                document
+                    .getElementById("regSscInstitution")
+                    .value
+                    .trim();
+
+            const sscBoard =
+                document
+                    .getElementById("regSscBoard")
+                    .value
+                    .trim();
+
+            const sscYear =
+                document
+                    .getElementById("regSscYear")
+                    .value;
+
+            const sscGpa =
+                document
+                    .getElementById("regSscGpa")
+                    .value;
+
+            const division =
+                document
+                    .getElementById("regDivision")
+                    .value;
+
+            const district =
+                document
+                    .getElementById("regDistrict")
+                    .value
+                    .trim();
+
+            const upazila =
+                document
+                    .getElementById("regUpazila")
+                    .value
+                    .trim();
+
+            const targetAdmission =
+                document
+                    .getElementById("regTargetAdmission")
+                    .value;
+
+            const targetUniversity =
+                document
+                    .getElementById("regTargetUniversity")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("regPassword")
+                    .value;
+
+            const confirmPassword =
+                document
+                    .getElementById("regConfirmPassword")
+                    .value;
+
+
+            /* PASSWORD CHECK */
+
+            if (password !== confirmPassword) {
 
                 showMessage(
                     "registerMessage",
-                    "Account created successfully! Please check your email and verify your account before logging in.",
-                    "success"
+                    "Passwords do not match.",
+                    "error"
                 );
 
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Create Account";
+
+                return;
+            }
+
+
+            if (password.length < 6) {
+
+                showMessage(
+                    "registerMessage",
+                    "Password must contain at least 6 characters.",
+                    "error"
+                );
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Create Account";
+
+                return;
+            }
+
+
+            /* SUPABASE SIGN UP */
+
+            const { data, error } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        emailRedirectTo:
+                            window.location.origin,
+
+                        data: {
+
+                            full_name:
+                                fullName,
+
+                            phone:
+                                phone,
+
+                            date_of_birth:
+                                dob,
+
+                            institution_name:
+                                institution,
+
+                            board:
+                                board,
+
+                            group_name:
+                                group,
+
+                            hsc_year:
+                                hscYear,
+
+                            ssc_institution:
+                                sscInstitution,
+
+                            ssc_board:
+                                sscBoard,
+
+                            ssc_year:
+                                sscYear,
+
+                            ssc_gpa:
+                                sscGpa,
+
+                            division:
+                                division,
+
+                            district:
+                                district,
+
+                            upazila:
+                                upazila,
+
+                            target_admission:
+                                targetAdmission,
+
+                            target_university:
+                                targetUniversity
+
+                        }
+
+                    }
+
+                });
+
+
+            if (error) {
+
+                showMessage(
+                    "registerMessage",
+                    error.message,
+                    "error"
+                );
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Create Account";
+
+                return;
+            }
+
+
+            showMessage(
+                "registerMessage",
+                "Account created successfully! Please check your email and verify your account before logging in.",
+                "success"
+            );
+
+
+            document
+                .getElementById("registerForm")
+                .reset();
+
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "Create Account";
+
+        }
+    );
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const submitButton =
+                document.getElementById(
+                    "loginSubmit"
+                );
+
+            submitButton.disabled =
+                true;
+
+            submitButton.textContent =
+                "Logging in...";
+
+
+            const email =
                 document
-                    .getElementById("registerForm")
-                    .reset();
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
 
-                submitButton.disabled = false;
-                submitButton.textContent = "Create Account";
-
-            });
-
-
-        /* ==============================
-           LOGIN
-        ============================== */
-
-        document
-            .getElementById("loginForm")
-            .addEventListener("submit", async function (event) {
-
-                event.preventDefault();
-
-                const submitButton =
-                    document.getElementById("loginSubmit");
-
-                submitButton.disabled = true;
-                submitButton.textContent = "Logging in...";
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
 
 
-                const email =
-                    document
-                        .getElementById("loginEmail")
-                        .value
-                        .trim();
+            const { data, error } =
+                await supabaseClient.auth
+                    .signInWithPassword({
 
-                const password =
-                    document
-                        .getElementById("loginPassword")
-                        .value;
+                        email:
+                            email,
 
-
-                const { data, error } =
-                    await supabaseClient.auth.signInWithPassword({
-
-                        email: email,
-                        password: password
+                        password:
+                            password
 
                     });
 
 
-                if (error) {
-
-                    showMessage(
-                        "loginMessage",
-                        error.message,
-                        "error"
-                    );
-
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Login";
-
-                    return;
-                }
-
+            if (error) {
 
                 showMessage(
                     "loginMessage",
-                    "Login successful!",
-                    "success"
+                    error.message,
+                    "error"
                 );
 
+                submitButton.disabled =
+                    false;
 
-                document
-                    .getElementById("loginForm")
-                    .reset();
-
-
-                setTimeout(function () {
-
-                    closeLogin();
-
-                    updateUserUI(data.user);
-
-                }, 700);
-
-
-                submitButton.disabled = false;
-                submitButton.textContent = "Login";
-
-            });
-
-
-        /* ==============================
-           UPDATE NAVIGATION
-        ============================== */
-
-        function updateUserUI(user) {
-
-            const navLinks =
-                document.getElementById("navLinks");
-
-            const userArea =
-                document.getElementById("userArea");
-
-            const userName =
-                document.getElementById("navUserName");
-
-
-            if (user) {
-
-                const name =
-                    user.user_metadata?.full_name ||
-                    user.email;
-
-                userName.textContent = name;
-
-                navLinks.style.display = "none";
-
-                userArea.style.display = "flex";
-
-            } else {
-
-                navLinks.style.display = "flex";
-
-                userArea.style.display = "none";
-
-            }
-
-        }
-
-
-        /* ==============================
-           LOGOUT
-        ============================== */
-
-        async function logout() {
-
-            const { error } =
-                await supabaseClient.auth.signOut();
-
-            if (error) {
-
-                alert(error.message);
+                submitButton.textContent =
+                    "Login";
 
                 return;
-
             }
 
-            updateUserUI(null);
 
-            alert("You have been logged out.");
+            showMessage(
+                "loginMessage",
+                "Login successful! Redirecting to your dashboard...",
+                "success"
+            );
+
+
+            document
+                .getElementById("loginForm")
+                .reset();
+
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "Login";
+
+
+            /* =========================
+               DASHBOARD REDIRECT
+            ========================= */
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }, 700);
 
         }
+    );
 
 
-        /* ==============================
-           CHECK CURRENT SESSION
-        ============================== */
+/* =====================================================
+   USER UI
+===================================================== */
 
-        async function checkSession() {
+function updateUserUI(user) {
 
-            const { data } =
-                await supabaseClient.auth.getSession();
+    const navLinks =
+        document.getElementById(
+            "navLinks"
+        );
 
-            updateUserUI(data.session?.user || null);
+    const userArea =
+        document.getElementById(
+            "userArea"
+        );
 
-        }
-
-
-        /* ==============================
-           AUTH STATE LISTENER
-        ============================== */
-
-        supabaseClient.auth.onAuthStateChange(
-            function (event, session) {
-
-                updateUserUI(
-                    session?.user || null
-                );
-
-            }
+    const userName =
+        document.getElementById(
+            "navUserName"
         );
 
 
-        /* ==============================
-           START
-        ============================== */
+    if (user) {
 
-        checkSession();
+        const name =
+            user.user_metadata?.full_name ||
+            user.email;
 
-    </script>
+        userName.textContent =
+            name;
+
+        navLinks.style.display =
+            "none";
+
+        userArea.style.display =
+            "flex";
+
+    } else {
+
+        navLinks.style.display =
+            "flex";
+
+        userArea.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout() {
+
+    const { error } =
+        await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+
+    updateUserUI(null);
+
+    alert(
+        "You have been logged out."
+    );
+
+}
+
+
+/* =====================================================
+   SESSION
+===================================================== */
+
+async function checkSession() {
+
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+    updateUserUI(
+        data.session?.user || null
+    );
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        updateUserUI(
+            session?.user || null
+        );
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkSession();
+
+
+/* =====================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+===================================================== */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        const registerModal =
+            document.getElementById(
+                "registerModal"
+            );
+
+        const loginModal =
+            document.getElementById(
+                "loginModal"
+            );
+
+        const pathModal =
+            document.getElementById(
+                "pathModal"
+            );
+
+
+        if (event.target === registerModal) {
+            closeRegister();
+        }
+
+        if (event.target === loginModal) {
+            closeLogin();
+        }
+
+        if (event.target === pathModal) {
+            closePath();
+        }
+
+    }
+);
+
+</script>
 
 </body>
-
-</html>
+                        </html> 
