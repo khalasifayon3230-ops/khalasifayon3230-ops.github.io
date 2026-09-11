@@ -31,6 +31,7 @@ body{
     background:#111827;
     color:white;
     padding:24px 16px;
+    overflow-y:auto;
 }
 
 .logo{
@@ -68,7 +69,7 @@ body{
 }
 
 .header{
-    margin-bottom:28px;
+    margin-bottom:25px;
 }
 
 .header h1{
@@ -144,11 +145,11 @@ body{
 .result-info{
     display:flex;
     align-items:center;
-    gap:24px;
+    gap:22px;
 }
 
 .result-box{
-    min-width:85px;
+    min-width:80px;
 }
 
 .result-box small{
@@ -156,7 +157,7 @@ body{
     color:#9ca3af;
     font-size:10px;
     text-transform:uppercase;
-    margin-bottom:4px;
+    margin-bottom:5px;
 }
 
 .result-box strong{
@@ -164,6 +165,7 @@ body{
 }
 
 .status{
+    display:inline-block;
     padding:6px 10px;
     border-radius:20px;
     font-size:10px;
@@ -180,6 +182,16 @@ body{
     color:#166534;
 }
 
+.status.progress{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.status.notpublished{
+    background:#e5e7eb;
+    color:#4b5563;
+}
+
 .view-btn{
     border:none;
     background:#111827;
@@ -189,6 +201,7 @@ body{
     font-size:12px;
     font-weight:700;
     cursor:pointer;
+    white-space:nowrap;
 }
 
 .view-btn:hover{
@@ -216,6 +229,7 @@ body{
 .empty p{
     color:#6b7280;
     font-size:13px;
+    line-height:1.6;
 }
 
 .loading{
@@ -258,6 +272,10 @@ body{
         padding:13px 5px;
     }
 
+    .nav a::first-letter{
+        font-size:17px;
+    }
+
     .main{
         margin-left:64px;
         padding:22px 15px;
@@ -290,6 +308,10 @@ body{
         font-size:25px;
     }
 
+    .header p{
+        line-height:1.5;
+    }
+
     .exam-card{
         padding:15px;
     }
@@ -301,6 +323,7 @@ body{
 
     .result-info{
         padding-left:0;
+        width:100%;
     }
 
     .result-box{
@@ -329,6 +352,8 @@ body{
         <a href="progress.html">📈 Progress</a>
         <a href="exams.html">📝 My Exams</a>
         <a href="results.html" class="active">🏆 Results</a>
+        <a href="my-target.html">🎯 My Target</a>
+        <a href="admission-updates.html">🎓 Admission Updates</a>
         <a href="notifications.html">🔔 Notifications</a>
         <a href="contact.html">💬 Contact Us</a>
         <a href="faq.html">❓ FAQ</a>
@@ -344,10 +369,10 @@ body{
 
     <div class="header">
 
-        <h1>Previous Exams</h1>
+        <h1>Results</h1>
 
         <p>
-            View your previous admission exam results.
+            View your published admission exam results.
         </p>
 
     </div>
@@ -360,9 +385,9 @@ body{
 
         Results will appear here from
         <strong>21 September 2026</strong>.
-        If you did not participate in an exam,
-        your status will be shown as
-        <strong>ABSENT</strong>.
+
+        Results are shown only after
+        Dream Hunt publishes them.
 
     </div>
 
@@ -370,7 +395,7 @@ body{
     <div id="examList" class="exam-list">
 
         <div class="loading">
-            Loading previous exams...
+            Loading results...
         </div>
 
     </div>
@@ -419,7 +444,9 @@ async function init(){
     }
 
 
-    await loadResults(session.user.id);
+    await loadResults(
+        session.user.id
+    );
 }
 
 
@@ -443,6 +470,10 @@ function escapeHTML(value){
 
 function formatDate(dateString){
 
+    if(!dateString){
+        return "—";
+    }
+
     const date =
         new Date(
             dateString + "T00:00:00"
@@ -464,8 +495,8 @@ async function loadResults(userId){
     try{
 
         /*
-         * We read the exam schedule first.
-         * This allows us to identify ABSENT students.
+         * Only exams whose results
+         * have been published are loaded.
          */
 
         const {
@@ -480,9 +511,16 @@ async function loadResults(userId){
                 exam_date,
                 total_marks,
                 published,
-                status
+                result_published
             `)
-            .eq("published", true)
+            .eq(
+                "published",
+                true
+            )
+            .eq(
+                "result_published",
+                true
+            )
             .gte(
                 "exam_date",
                 RESULT_START_DATE
@@ -512,15 +550,15 @@ async function loadResults(userId){
         }
 
 
-        /*
-         * Get this student's attempts.
-         */
-
         const examIds =
             examData.map(
                 exam => exam.id
             );
 
+
+        /*
+         * Get only this student's attempts.
+         */
 
         const {
             data: attempts,
@@ -557,9 +595,27 @@ async function loadResults(userId){
         (attempts || []).forEach(
             attempt => {
 
-                attemptMap[
-                    attempt.exam_id
-                ] = attempt;
+                /*
+                 * If duplicate attempts exist,
+                 * prefer the submitted attempt.
+                 */
+
+                const existing =
+                    attemptMap[
+                        attempt.exam_id
+                    ];
+
+
+                if(
+                    !existing ||
+                    attempt.status === "submitted"
+                ){
+
+                    attemptMap[
+                        attempt.exam_id
+                    ] = attempt;
+
+                }
 
             }
         );
@@ -573,18 +629,25 @@ async function loadResults(userId){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Results Error:",
+            error
+        );
+
 
         const errorBox =
             document.getElementById(
                 "errorBox"
             );
 
+
         errorBox.style.display =
             "block";
 
+
         errorBox.textContent =
             "Unable to load results. Please try again.";
+
 
         document.getElementById(
             "examList"
@@ -616,17 +679,22 @@ function renderResults(
 
 
                 let statusHTML;
+
                 let mark = "—";
+
                 let rank = "—";
+
                 let button = "";
 
 
+                /*
+                 * SUBMITTED
+                 */
+
                 if(
                     attempt &&
-                    (
-                        attempt.status ===
-                        "submitted"
-                    )
+                    attempt.status ===
+                    "submitted"
                 ){
 
                     statusHTML = `
@@ -636,39 +704,89 @@ function renderResults(
                     `;
 
 
-                    mark =
-                        `${escapeHTML(
-                            attempt.total_mark
-                        )} / ${escapeHTML(
-                            exam.total_marks
-                        )}`;
+                    if(
+                        attempt.total_mark !==
+                        null &&
+                        attempt.total_mark !==
+                        undefined
+                    ){
+
+                        mark =
+                            `${escapeHTML(
+                                attempt.total_mark
+                            )} / ${escapeHTML(
+                                exam.total_marks
+                            )}`;
+
+                    }
 
 
-                    rank =
-                        attempt.merit_position
-                        ?
-                        `#${escapeHTML(
-                            attempt.merit_position
-                        )}`
-                        :
-                        "—";
+                    if(
+                        attempt.merit_position !==
+                        null &&
+                        attempt.merit_position !==
+                        undefined
+                    ){
+
+                        rank =
+                            `#${escapeHTML(
+                                attempt.merit_position
+                            )}`;
+
+                    }
 
 
                     button = `
                         <button
                             class="view-btn"
-                            onclick="viewDetails('${escapeHTML(exam.id)}')">
-                            View
+                            onclick="viewDetails('${escapeHTML(
+                                exam.id
+                            )}')">
+                            View Result
                         </button>
                     `;
 
-                }else{
+                }
+
+
+                /*
+                 * IN PROGRESS
+                 */
+
+                else if(
+                    attempt &&
+                    attempt.status ===
+                    "in_progress"
+                ){
+
+                    statusHTML = `
+                        <span class="status progress">
+                            IN PROGRESS
+                        </span>
+                    `;
+
+                    mark = "—";
+
+                    rank = "—";
+
+                }
+
+
+                /*
+                 * NO ATTEMPT = ABSENT
+                 */
+
+                else{
 
                     statusHTML = `
                         <span class="status absent">
                             ABSENT
                         </span>
                     `;
+
+                    mark = "—";
+
+                    rank = "—";
 
                 }
 
@@ -680,7 +798,9 @@ function renderResults(
                         <div class="exam-row">
 
                             <div class="serial">
-                                ${String(index + 1).padStart(2,"0")}
+                                ${String(
+                                    index + 1
+                                ).padStart(2,"0")}
                             </div>
 
 
@@ -758,16 +878,17 @@ function showEmpty(){
         <div class="empty">
 
             <div class="empty-icon">
-                📋
+                🏆
             </div>
 
             <h3>
-                No Previous Exams
+                No Results Published Yet
             </h3>
 
             <p>
-                Your previous exam results
-                will appear here after
+                Your exam results will appear
+                here once Dream Hunt publishes them.
+                Results start from
                 21 September 2026.
             </p>
 
@@ -781,7 +902,9 @@ function viewDetails(examId){
 
     window.location.href =
         "result-details.html?id=" +
-        encodeURIComponent(examId);
+        encodeURIComponent(
+            examId
+        );
 }
 
 
