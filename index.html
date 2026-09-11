@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dream Hunt | Learn. Prepare. Achieve.</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color" content="#07111f">
 
 <meta name="description"
-content="Dream Hunt — structured admission preparation for HSC 26 students. Learn. Prepare. Achieve.">
+      content="Dream Hunt — Complete Admission Preparation Platform for Public University, Engineering, Agricultural, Medical, Dental, Textile, Specialized and Abroad Study.">
+
+<title>Dream Hunt | Complete Admission Preparation</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
 /* =========================================================
-   DREAM HUNT — MASTER HOMEPAGE
+   DREAM HUNT
+   FLAGSHIP EDTECH HOMEPAGE
    ========================================================= */
 
 :root{
-    --bg:#050816;
-    --bg2:#080d1c;
-    --card:rgba(255,255,255,.055);
+    --bg:#050b14;
+    --bg2:#081321;
+    --surface:rgba(13,25,42,.72);
+    --surface2:rgba(17,32,53,.88);
+
+    --text:#f4f8ff;
+    --muted:#91a3ba;
+
+    --primary:#65b7ff;
+    --primary2:#8fd2ff;
+
+    --cyan:#62e8ff;
+    --green:#71e0ae;
+    --gold:#ffd37a;
+    --purple:#b89cff;
+
     --border:rgba(255,255,255,.09);
-    --text:#f8fafc;
-    --muted:#94a3b8;
-    --primary:#6366f1;
-    --cyan:#22d3ee;
-    --purple:#8b5cf6;
-    --green:#22c55e;
-    --gold:#fbbf24;
-    --danger:#fb7185;
+
+    --shadow:
+        0 24px 80px rgba(0,0,0,.38);
+
+    --radius:24px;
+
+    --nav-height:74px;
 }
 
 *{
@@ -44,16 +61,37 @@ html{
 }
 
 body{
-    background:var(--bg);
-    color:var(--text);
     font-family:
         Inter,
+        ui-sans-serif,
         system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(57,139,218,.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 35%,
+            rgba(91,77,190,.10),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color:var(--text);
+
     overflow-x:hidden;
+
+    line-height:1.6;
+}
+
+body.modal-open{
+    overflow:hidden;
 }
 
 button,
@@ -67,103 +105,328 @@ button{
 }
 
 a{
-    text-decoration:none;
     color:inherit;
+    text-decoration:none;
 }
 
 
 /* =========================================================
-   AMBIENT BACKGROUND
+   GLOBAL BACKGROUND
    ========================================================= */
 
-body::before{
-    content:"";
+#background{
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:-20;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(99,102,241,.13),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 85% 60%,
-            rgba(34,211,238,.08),
-            transparent 28%
-        );
-}
-
-.ambient{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-10;
+    z-index:-5;
     overflow:hidden;
 }
 
-.ambient-orb{
+.grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+        );
+}
+
+.glow{
     position:absolute;
     width:420px;
     height:420px;
     border-radius:50%;
-    filter:blur(110px);
+    filter:blur(90px);
     opacity:.12;
-    animation:ambientMove 16s ease-in-out infinite alternate;
+    transition:
+        transform 1.4s cubic-bezier(.2,.8,.2,1);
 }
 
-.ambient-orb.a{
-    background:#6366f1;
-    left:-180px;
-    top:20%;
+.glow.one{
+    background:#1687d9;
+    top:-180px;
+    left:-100px;
 }
 
-.ambient-orb.b{
-    background:#06b6d4;
-    right:-180px;
-    top:50%;
-    animation-delay:3s;
+.glow.two{
+    background:#7750e8;
+    right:-170px;
+    top:25%;
 }
 
-.ambient-orb.c{
-    background:#a855f7;
-    left:40%;
-    bottom:-280px;
-    animation-delay:6s;
+.glow.three{
+    background:#00b8c9;
+    left:25%;
+    bottom:-260px;
 }
 
-@keyframes ambientMove{
-    from{
-        transform:translate(0,0) scale(.8);
+.knowledge-particle{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:rgba(150,220,255,.65);
+    border-radius:50%;
+    box-shadow:0 0 10px rgba(100,200,255,.55);
+
+    animation:
+        particleFloat linear infinite;
+}
+
+@keyframes particleFloat{
+
+    0%{
+        transform:
+            translate3d(0,40px,0)
+            scale(.5);
+        opacity:0;
     }
-    to{
-        transform:translate(130px,-80px) scale(1.2);
+
+    15%{
+        opacity:.7;
+    }
+
+    85%{
+        opacity:.7;
+    }
+
+    100%{
+        transform:
+            translate3d(20px,-100vh,0)
+            scale(1.2);
+        opacity:0;
     }
 }
 
 
 /* =========================================================
-   30 SECOND CINEMATIC INTRO
+   TOP NAV
+   ========================================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+
+    height:var(--nav-height);
+
+    display:flex;
+    align-items:center;
+
+    padding:0 5%;
+
+    z-index:1000;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(5,11,20,.92),
+            rgba(5,11,20,.60)
+        );
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+    transition:.4s ease;
+}
+
+.navbar.scrolled{
+    background:rgba(5,11,20,.92);
+    box-shadow:0 12px 40px rgba(0,0,0,.22);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:-.6px;
+
+    white-space:nowrap;
+}
+
+.logo-mark{
+    width:37px;
+    height:37px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(101,183,255,.22),
+            rgba(98,232,255,.06)
+        );
+
+    border:1px solid rgba(116,201,255,.28);
+
+    box-shadow:
+        inset 0 0 25px rgba(77,175,255,.08),
+        0 0 25px rgba(77,175,255,.08);
+
+    position:relative;
+}
+
+.logo-mark::before{
+    content:"";
+    width:13px;
+    height:13px;
+
+    border:2px solid var(--cyan);
+    border-radius:50%;
+
+    box-shadow:
+        0 0 14px rgba(98,232,255,.55);
+}
+
+.logo-mark::after{
+    content:"";
+    position:absolute;
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+    background:white;
+
+    box-shadow:
+        0 0 10px var(--cyan);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:5px;
+
+    margin-left:auto;
+}
+
+.nav-links a{
+    color:#9eafc4;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    font-size:14px;
+    font-weight:600;
+
+    transition:.25s ease;
+}
+
+.nav-links a:hover{
+    color:white;
+    background:rgba(255,255,255,.055);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-left:10px;
+}
+
+.nav-login{
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.035);
+
+    color:#dbe8f7;
+
+    padding:9px 14px;
+    border-radius:10px;
+
+    font-size:13px;
+    font-weight:700;
+
+    transition:.25s ease;
+}
+
+.nav-login:hover{
+    border-color:rgba(101,183,255,.35);
+}
+
+.nav-register{
+    border:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #69bcff,
+            #67d9ef
+        );
+
+    color:#04111d;
+
+    padding:10px 15px;
+    border-radius:10px;
+
+    font-size:13px;
+    font-weight:800;
+
+    box-shadow:
+        0 8px 25px rgba(83,185,255,.18);
+
+    transition:.25s ease;
+}
+
+.nav-register:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(83,185,255,.3);
+}
+
+.menu-button{
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    background:rgba(255,255,255,.04);
+    color:white;
+}
+
+
+/* =========================================================
+   INTRO
    ========================================================= */
 
 #intro{
     position:fixed;
     inset:0;
-    z-index:99999;
+
+    z-index:5000;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #111c46 0%,
-            #070b20 48%,
-            #02030a 100%
-        );
+    background:#030810;
 
     transition:
         opacity 1.1s ease,
@@ -175,603 +438,138 @@ body::before{
     visibility:hidden;
 }
 
-.intro-grid{
-    position:absolute;
-    inset:0;
-
-    background-image:
-        linear-gradient(
-            rgba(129,140,248,.06) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(129,140,248,.06) 1px,
-            transparent 1px
-        );
-
-    background-size:55px 55px;
-
-    animation:introGrid 8s linear infinite;
+.intro-inner{
+    text-align:center;
+    width:min(700px,90%);
 }
 
-@keyframes introGrid{
-    from{
-        transform:translateY(0);
-    }
-    to{
-        transform:translateY(55px);
-    }
-}
+.intro-orbit{
+    width:125px;
+    height:125px;
 
-.intro-center{
+    margin:0 auto 30px;
+
     position:relative;
-    width:300px;
-    height:300px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border:1px solid rgba(101,183,255,.18);
+    border-radius:50%;
+
+    animation:
+        orbitRotate 7s linear infinite;
 }
 
-.atom-core{
-    width:68px;
-    height:68px;
+.intro-orbit::before,
+.intro-orbit::after{
+    content:"";
+    position:absolute;
+
+    inset:18px;
+
+    border:1px solid rgba(98,232,255,.16);
+    border-radius:50%;
+}
+
+.intro-orbit::after{
+    inset:39px;
+    border-color:rgba(255,255,255,.12);
+}
+
+.intro-core{
+    position:absolute;
+
+    width:25px;
+    height:25px;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
     border-radius:50%;
 
     background:
         radial-gradient(
-            circle at 30% 25%,
-            white,
-            #818cf8 20%,
-            #4f46e5 50%,
-            #312e81 80%
+            circle,
+            white 0 8%,
+            var(--cyan) 25%,
+            #1984d5 70%,
+            transparent 72%
         );
 
     box-shadow:
-        0 0 25px #6366f1,
-        0 0 100px rgba(99,102,241,.45);
-
-    animation:corePulse 1.8s infinite ease-in-out;
+        0 0 35px rgba(98,232,255,.75);
 }
 
-@keyframes corePulse{
-    0%,100%{
-        transform:scale(.85);
-    }
-    50%{
-        transform:scale(1.15);
-    }
-}
-
-.orbit{
+.electron{
     position:absolute;
-    border:1px solid rgba(165,180,252,.45);
+
+    width:8px;
+    height:8px;
+
     border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+        0 0 16px var(--cyan);
+
+    top:50%;
+    left:-4px;
+
+    transform:translateY(-50%);
 }
 
-.orbit.o1{
-    width:230px;
-    height:90px;
-    transform:rotate(25deg);
-    animation:orbit1 4s linear infinite;
-}
-
-.orbit.o2{
-    width:230px;
-    height:90px;
-    transform:rotate(-35deg);
-    animation:orbit2 5s linear infinite;
-}
-
-.orbit.o3{
-    width:180px;
-    height:180px;
-    animation:orbit3 7s linear infinite;
-}
-
-@keyframes orbit1{
-    to{
-        transform:rotate(385deg);
-    }
-}
-
-@keyframes orbit2{
-    to{
-        transform:rotate(325deg);
-    }
-}
-
-@keyframes orbit3{
+@keyframes orbitRotate{
     to{
         transform:rotate(360deg);
     }
 }
 
-.electron{
-    position:absolute;
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:#67e8f9;
-    box-shadow:0 0 20px #22d3ee;
-
-    animation:electron 2.2s linear infinite;
-}
-
-@keyframes electron{
-    from{
-        transform:
-            rotate(0deg)
-            translateX(115px)
-            rotate(0deg);
-    }
-
-    to{
-        transform:
-            rotate(360deg)
-            translateX(115px)
-            rotate(-360deg);
-    }
-}
-
-.intro-particle{
-    position:absolute;
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#a5b4fc;
-
-    animation:introParticle 4s ease-in-out infinite;
-}
-
-.intro-particle:nth-child(1){
-    left:3%;
-    top:20%;
-}
-
-.intro-particle:nth-child(2){
-    right:7%;
-    top:28%;
-    animation-delay:.7s;
-}
-
-.intro-particle:nth-child(3){
-    left:14%;
-    bottom:15%;
-    animation-delay:1.2s;
-}
-
-.intro-particle:nth-child(4){
-    right:15%;
-    bottom:20%;
-    animation-delay:1.8s;
-}
-
-@keyframes introParticle{
-    0%,100%{
-        transform:translate(0,0) scale(.5);
-        opacity:.2;
-    }
-
-    50%{
-        transform:translate(35px,-45px) scale(1.6);
-        opacity:1;
-    }
-}
-
-.intro-copy{
-    position:absolute;
-    bottom:65px;
-    width:100%;
-    text-align:center;
-}
-
-.intro-copy .micro{
-    font-size:10px;
+.intro-title{
+    font-size:clamp(38px,7vw,72px);
     font-weight:900;
-    letter-spacing:4px;
-    color:#a5b4fc;
-    text-transform:uppercase;
+
+    letter-spacing:-3px;
+
+    margin-bottom:8px;
 }
 
-.intro-copy h2{
-    margin-top:8px;
-    font-size:32px;
-    letter-spacing:-1.5px;
+.intro-subtitle{
+    color:#8da1b9;
+    font-size:14px;
 }
 
-#introStatus{
-    min-height:18px;
-    margin-top:9px;
-    color:#64748b;
-    font-size:11px;
+.intro-status{
+    margin-top:25px;
+
+    font-size:12px;
+    color:#6e829c;
+
+    min-height:20px;
+
+    letter-spacing:.4px;
 }
 
+.intro-line{
+    width:180px;
+    height:1px;
 
-/* =========================================================
-   LIVE WORLD / RANDOM EVENTS
-   ========================================================= */
-
-#liveWorld{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:6000;
-    overflow:hidden;
-}
-
-.live{
-    position:absolute;
-    pointer-events:none;
-    user-select:none;
-    will-change:transform,opacity;
-}
-
-.live.fish{
-    font-size:38px;
-    animation:fishLive var(--duration) linear forwards;
-}
-
-@keyframes fishLive{
-    0%{
-        transform:
-            translateX(-140px)
-            translateY(0)
-            scaleX(1)
-            rotate(-4deg);
-        opacity:0;
-    }
-
-    8%{
-        opacity:1;
-    }
-
-    30%{
-        transform:
-            translateX(30vw)
-            translateY(-45px)
-            scaleX(1)
-            rotate(3deg);
-    }
-
-    55%{
-        transform:
-            translateX(58vw)
-            translateY(35px)
-            scaleX(-1)
-            rotate(-3deg);
-    }
-
-    80%{
-        transform:
-            translateX(88vw)
-            translateY(-25px)
-            scaleX(-1);
-    }
-
-    100%{
-        transform:
-            translateX(calc(100vw + 180px))
-            translateY(20px)
-            scaleX(1);
-        opacity:0;
-    }
-}
-
-.live.bird{
-    font-size:30px;
-    animation:birdLive var(--duration) linear forwards;
-}
-
-@keyframes birdLive{
-    0%{
-        transform:
-            translateX(-120px)
-            translateY(30px);
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    40%{
-        transform:
-            translateX(38vw)
-            translateY(-55px);
-    }
-
-    70%{
-        transform:
-            translateX(72vw)
-            translateY(25px);
-    }
-
-    100%{
-        transform:
-            translateX(calc(100vw + 150px))
-            translateY(-35px);
-        opacity:0;
-    }
-}
-
-.live.ball{
-    font-size:48px;
-    animation:ballLive var(--duration) cubic-bezier(.2,.7,.2,1) forwards;
-}
-
-@keyframes ballLive{
-    0%{
-        transform:
-            translateX(-120px)
-            translateY(0)
-            rotate(0deg);
-        opacity:0;
-    }
-
-    8%{
-        opacity:1;
-    }
-
-    35%{
-        transform:
-            translateX(35vw)
-            translateY(-120px)
-            rotate(500deg);
-    }
-
-    65%{
-        transform:
-            translateX(68vw)
-            translateY(70px)
-            rotate(1000deg);
-    }
-
-    100%{
-        transform:
-            translateX(calc(100vw + 150px))
-            translateY(-20px)
-            rotate(1500deg);
-        opacity:0;
-    }
-}
-
-.live.cloud{
-    font-size:70px;
-    opacity:.65;
-    animation:cloudLive var(--duration) linear forwards;
-}
-
-@keyframes cloudLive{
-    from{
-        transform:translateX(-180px);
-        opacity:0;
-    }
-
-    12%{
-        opacity:.65;
-    }
-
-    to{
-        transform:translateX(calc(100vw + 200px));
-        opacity:0;
-    }
-}
-
-.live.meteor{
-    width:140px;
-    height:3px;
+    margin:15px auto 0;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            white
+            var(--cyan),
+            transparent
         );
 
-    transform:rotate(-30deg);
-
-    animation:meteorLive var(--duration) linear forwards;
+    animation:loadingLine 2s ease infinite;
 }
 
-@keyframes meteorLive{
-    0%{
-        left:110%;
-        top:5%;
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    100%{
-        left:-20%;
-        top:65%;
-        opacity:0;
-    }
-}
-
-.live.particle{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#67e8f9;
-    box-shadow:0 0 18px #22d3ee;
-
-    animation:particleLive var(--duration) ease-out forwards;
-}
-
-@keyframes particleLive{
-    0%{
-        transform:translate(0,0) scale(.2);
-        opacity:0;
-    }
-
-    15%{
-        opacity:1;
-    }
-
-    100%{
-        transform:
-            translate(
-                var(--x),
-                var(--y)
-            )
-            scale(1.5);
-        opacity:0;
-    }
-}
-
-.live.mountain-pop{
-    left:-5%;
-    bottom:-15px;
-
-    width:110%;
-
-    color:#0f172a;
-
-    font-size:220px;
-
-    opacity:0;
-
-    animation:mountainPop var(--duration) ease-in-out forwards;
-}
-
-@keyframes mountainPop{
-    0%{
-        transform:translateY(180px);
-        opacity:0;
-    }
-
-    20%{
-        transform:translateY(0);
-        opacity:.35;
-    }
-
-    70%{
-        opacity:.35;
-    }
-
-    100%{
-        transform:translateY(180px);
-        opacity:0;
-    }
-}
-
-.live.reaction{
-    font-size:48px;
-    animation:reactionPop var(--duration) ease-out forwards;
-}
-
-@keyframes reactionPop{
-    0%{
-        transform:scale(.1) rotate(-20deg);
-        opacity:0;
-    }
-
-    20%{
-        transform:scale(1.2) rotate(10deg);
-        opacity:1;
-    }
-
-    60%{
-        transform:scale(1) rotate(0);
-        opacity:1;
-    }
-
-    100%{
-        transform:scale(1.8) rotate(20deg);
-        opacity:0;
-    }
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-
-    height:72px;
-
-    z-index:5000;
-
-    background:
-        rgba(5,8,22,.58);
-
-    backdrop-filter:blur(18px);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.07);
-}
-
-.nav-inner{
-    max-width:1240px;
-    height:100%;
-    margin:auto;
-    padding:0 20px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.brand{
-    font-size:23px;
-    font-weight:1000;
-    letter-spacing:-1.2px;
-}
-
-.brand span{
-    color:#818cf8;
-}
-
-.nav-links{
-    display:flex;
-    gap:24px;
-    align-items:center;
-
-    color:#cbd5e1;
-    font-size:12px;
-    font-weight:750;
-}
-
-.nav-links a{
-    transition:.25s;
-}
-
-.nav-links a:hover{
-    color:#fff;
-}
-
-.nav-actions{
-    display:flex;
-    gap:8px;
-}
-
-.nav-btn{
-    padding:9px 14px;
-    border-radius:9px;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    background:rgba(255,255,255,.05);
-
-    color:#fff;
-
-    font-size:11px;
-    font-weight:900;
-}
-
-.nav-btn.primary{
-    background:#6366f1;
-    border-color:#6366f1;
+@keyframes loadingLine{
+    0%,100%{opacity:.25;transform:scaleX(.4)}
+    50%{opacity:1;transform:scaleX(1)}
 }
 
 
@@ -779,66 +577,101 @@ body::before{
    COMMON
    ========================================================= */
 
-.section{
+main{
     position:relative;
-    padding:110px 20px;
-    overflow:hidden;
+}
+
+section{
+    position:relative;
+    padding:110px 5%;
 }
 
 .container{
-    max-width:1150px;
+    width:min(1180px,100%);
     margin:auto;
 }
 
-.section-heading{
-    max-width:760px;
-    margin:0 auto 50px;
-    text-align:center;
+.section-head{
+    max-width:730px;
+    margin-bottom:45px;
 }
 
 .eyebrow{
-    color:#818cf8;
-    font-size:10px;
-    font-weight:950;
-    letter-spacing:3px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:7px 11px;
+
+    border-radius:100px;
+
+    border:1px solid rgba(101,183,255,.16);
+
+    background:rgba(101,183,255,.045);
+
+    color:#91cdf7;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:1px;
     text-transform:uppercase;
+
+    margin-bottom:17px;
 }
 
-.section-heading h2{
-    margin-top:12px;
+.eyebrow-dot{
+    width:6px;
+    height:6px;
 
-    font-size:
-        clamp(35px,6vw,62px);
+    border-radius:50%;
+    background:var(--cyan);
 
-    line-height:1;
-
-    letter-spacing:-3.5px;
+    box-shadow:0 0 10px var(--cyan);
 }
 
-.section-heading p{
-    margin:17px auto 0;
+.section-title{
+    font-size:clamp(31px,4.3vw,54px);
+    line-height:1.08;
 
-    color:#94a3b8;
+    letter-spacing:-2px;
+    font-weight:850;
 
-    line-height:1.8;
+    margin-bottom:16px;
+}
 
-    font-size:14px;
+.section-description{
+    color:var(--muted);
+    font-size:15px;
+    max-width:650px;
+}
 
-    max-width:680px;
+.gradient-text{
+    background:
+        linear-gradient(
+            100deg,
+            #fff,
+            #9ed8ff 45%,
+            #7ce9ee
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
 .reveal{
     opacity:0;
-    transform:translateY(35px);
+    transform:translateY(28px);
 
     transition:
-        opacity .9s ease,
-        transform .9s cubic-bezier(.2,.8,.2,1);
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.8,.2,1);
 }
 
 .reveal.visible{
     opacity:1;
-    transform:translateY(0);
+    transform:none;
 }
 
 
@@ -849,287 +682,600 @@ body::before{
 .hero{
     min-height:100vh;
 
+    display:flex;
+    align-items:center;
+
+    padding-top:145px;
+    padding-bottom:100px;
+
+    overflow:hidden;
+}
+
+.hero-layout{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.08fr)
+        minmax(350px,.92fr);
+
+    gap:70px;
+
+    align-items:center;
+}
+
+.hero-copy{
+    position:relative;
+    z-index:2;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    border:1px solid rgba(113,224,174,.18);
+
+    background:rgba(113,224,174,.045);
+
+    padding:8px 13px;
+
+    border-radius:100px;
+
+    color:#9cebc4;
+
+    font-size:11px;
+    font-weight:800;
+
+    margin-bottom:23px;
+
+    transition:.4s ease;
+}
+
+.hero-badge .live-dot{
+    width:6px;
+    height:6px;
+
+    background:#70e1ad;
+    border-radius:50%;
+
+    box-shadow:
+        0 0 12px rgba(112,225,173,.8);
+
+    animation:pulse 1.7s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.5);
+        opacity:.5;
+    }
+}
+
+.hero h1{
+    font-size:
+        clamp(
+            48px,
+            7vw,
+            88px
+        );
+
+    line-height:.98;
+
+    letter-spacing:-5px;
+
+    font-weight:900;
+
+    max-width:850px;
+
+    margin-bottom:27px;
+}
+
+.hero-text{
+    color:#91a4bb;
+
+    font-size:
+        clamp(15px,1.5vw,18px);
+
+    max-width:650px;
+
+    line-height:1.75;
+
+    margin-bottom:34px;
+}
+
+.hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.primary-button,
+.secondary-button{
+    min-height:49px;
+
+    border-radius:13px;
+
+    padding:0 20px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    font-weight:800;
+    font-size:13px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+.primary-button{
+    border:0;
+
+    color:#04111c;
+
+    background:
+        linear-gradient(
+            135deg,
+            #79c5ff,
+            #6de0eb
+        );
+
+    box-shadow:
+        0 13px 35px rgba(74,185,240,.19);
+}
+
+.primary-button:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 18px 45px rgba(74,185,240,.32);
+}
+
+.secondary-button{
+    border:1px solid rgba(255,255,255,.11);
+
+    color:#d8e4f1;
+
+    background:rgba(255,255,255,.035);
+}
+
+.secondary-button:hover{
+    transform:translateY(-3px);
+    border-color:rgba(101,183,255,.3);
+}
+
+.hero-trust{
+    margin-top:25px;
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    color:#647991;
+    font-size:11px;
+}
+
+.trust-line{
+    width:40px;
+    height:1px;
+    background:#304258;
+}
+
+
+/* =========================================================
+   HERO ADMISSION PATHWAY VISUAL
+   ========================================================= */
+
+.hero-visual{
+    min-height:540px;
+
     position:relative;
 
     display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.pathway-orbit{
+    width:min(470px,90vw);
+    aspect-ratio:1;
+
+    border-radius:50%;
+
+    position:relative;
+
+    border:
+        1px solid
+        rgba(101,183,255,.13);
+
+    box-shadow:
+        inset 0 0 80px rgba(66,150,222,.035),
+        0 0 80px rgba(53,132,205,.04);
+
+    animation:
+        visualFloat 7s ease-in-out infinite;
+}
+
+.pathway-orbit::before{
+    content:"";
+
+    position:absolute;
+    inset:40px;
+
+    border-radius:50%;
+
+    border:
+        1px dashed
+        rgba(101,183,255,.13);
+}
+
+.pathway-orbit::after{
+    content:"";
+
+    position:absolute;
+    inset:100px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(98,232,255,.08);
+}
+
+@keyframes visualFloat{
+    50%{
+        transform:translateY(-9px);
+    }
+}
+
+.path-core{
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:120px;
+    height:120px;
+
+    border-radius:30px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,67,101,.82),
+            rgba(9,22,38,.92)
+        );
+
+    border:1px solid rgba(123,202,255,.23);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        inset 0 0 30px rgba(93,192,255,.05);
+}
+
+.path-core-symbol{
+    font-size:30px;
+    margin-bottom:3px;
+}
+
+.path-core strong{
+    font-size:12px;
+    letter-spacing:.5px;
+}
+
+.path-core span{
+    color:#758aa2;
+    font-size:9px;
+    margin-top:2px;
+}
+
+.path-node{
+    position:absolute;
+
+    width:86px;
+    min-height:86px;
+
+    border-radius:22px;
+
+    display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
 
     text-align:center;
 
-    padding:
-        130px 20px
-        90px;
-}
-
-.hero-grid{
-    position:absolute;
-    inset:0;
-
-    background-image:
-        linear-gradient(
-            rgba(148,163,184,.045) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(148,163,184,.045) 1px,
-            transparent 1px
-        );
-
-    background-size:60px 60px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            black 20%,
-            transparent 90%
-        );
-}
-
-.hero-content{
-    position:relative;
-    z-index:20;
-    max-width:920px;
-}
-
-.hero-badge{
-    display:inline-flex;
-
-    padding:8px 14px;
-
-    border-radius:999px;
-
     background:
-        rgba(99,102,241,.1);
+        rgba(10,24,41,.82);
 
-    border:
-        1px solid rgba(129,140,248,.28);
+    border:1px solid rgba(255,255,255,.09);
 
-    color:#c7d2fe;
+    backdrop-filter:blur(14px);
 
-    font-size:10px;
-    font-weight:900;
-    letter-spacing:1.5px;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.2);
 
-    text-transform:uppercase;
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        background .35s ease;
 }
 
-.hero h1{
-    margin-top:24px;
-
-    font-size:
-        clamp(52px,9vw,100px);
-
-    line-height:.91;
-
-    letter-spacing:-7px;
-
-    font-weight:1000;
+.path-node:hover{
+    transform:scale(1.09);
+    border-color:rgba(101,183,255,.32);
+    background:rgba(17,38,61,.92);
 }
 
-.hero h1 .gradient{
-    background:
-        linear-gradient(
-            100deg,
-            #fff,
-            #a5b4fc,
-            #67e8f9,
-            #fff
-        );
-
-    background-size:300%;
-
-    -webkit-background-clip:text;
-    color:transparent;
-
-    animation:gradientFlow 5s linear infinite;
+.path-node .icon{
+    font-size:22px;
+    margin-bottom:5px;
 }
 
-@keyframes gradientFlow{
-    from{
-        background-position:0;
-    }
-
-    to{
-        background-position:300%;
-    }
+.path-node strong{
+    font-size:9px;
+    letter-spacing:.2px;
 }
 
-.hero-description{
-    max-width:680px;
-
-    margin:25px auto 0;
-
-    color:#94a3b8;
-
-    line-height:1.85;
-
-    font-size:15px;
+.path-node small{
+    color:#627991;
+    font-size:7px;
 }
 
-.hero-buttons{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
-
-    margin-top:32px;
+.node-public{
+    top:2%;
+    left:50%;
+    transform:translateX(-50%);
 }
 
-.btn{
-    padding:14px 20px;
-
-    border-radius:11px;
-
-    border:none;
-
-    font-size:12px;
-    font-weight:950;
-
-    transition:.3s;
+.node-engineering{
+    top:22%;
+    right:1%;
 }
 
-.btn:hover{
-    transform:translateY(-4px);
+.node-medical{
+    bottom:18%;
+    right:4%;
 }
 
-.btn.primary{
-    background:#fff;
-    color:#050816;
+.node-agri{
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
 }
 
-.btn.dark{
-    color:#fff;
-    background:
-        rgba(255,255,255,.06);
-
-    border:
-        1px solid rgba(255,255,255,.1);
+.node-textile{
+    bottom:18%;
+    left:4%;
 }
 
-.hero-note{
-    margin-top:20px;
+.node-abroad{
+    top:22%;
+    left:1%;
+}
 
-    color:#64748b;
-
-    font-size:10px;
+.node-special{
+    top:48%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    opacity:.45;
+    scale:.7;
 }
 
 
 /* =========================================================
-   WHY DREAM HUNT
+   STATS
    ========================================================= */
 
-.why{
-    background:
-        linear-gradient(
-            to bottom,
-            #050816,
-            #070b1b
-        );
+.stats-strip{
+    padding-top:20px;
+    padding-bottom:85px;
 }
 
-.feature-grid{
+.stats-grid{
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(4,1fr);
 
-    gap:16px;
+    gap:12px;
 }
 
-.feature-card{
-    position:relative;
+.stat-card{
+    padding:25px;
 
-    padding:27px;
-
-    border-radius:20px;
+    border:1px solid var(--border);
 
     background:
-        rgba(255,255,255,.035);
+        linear-gradient(
+            145deg,
+            rgba(18,34,54,.62),
+            rgba(9,20,34,.62)
+        );
 
-    border:
-        1px solid rgba(255,255,255,.08);
+    border-radius:18px;
 
-    transition:.35s;
-
+    position:relative;
     overflow:hidden;
 }
 
-.feature-card::after{
+.stat-card::after{
     content:"";
 
     position:absolute;
 
-    width:140px;
-    height:140px;
+    width:80px;
+    height:80px;
 
     border-radius:50%;
 
-    background:#6366f1;
+    background:rgba(101,183,255,.06);
 
-    filter:blur(80px);
+    filter:blur(25px);
 
-    opacity:.08;
-
-    right:-60px;
-    bottom:-60px;
+    right:-20px;
+    top:-20px;
 }
 
-.feature-card:hover{
-    transform:translateY(-7px);
-
-    border-color:
-        rgba(129,140,248,.28);
+.stat-number{
+    font-size:31px;
+    font-weight:850;
+    letter-spacing:-1px;
 }
 
-.feature-icon{
-    width:48px;
-    height:48px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:
-        rgba(99,102,241,.12);
-
-    font-size:23px;
-
-    margin-bottom:20px;
-}
-
-.feature-card h3{
-    font-size:18px;
-    letter-spacing:-.7px;
-}
-
-.feature-card p{
-    margin-top:9px;
-
-    color:#94a3b8;
-
-    font-size:12px;
-
-    line-height:1.8;
+.stat-label{
+    margin-top:3px;
+    color:#71859c;
+    font-size:11px;
 }
 
 
 /* =========================================================
-   COURSE CATEGORIES
+   PATHWAYS
    ========================================================= */
 
-.courses{
+.pathways{
+    padding-top:85px;
+}
+
+.pathway-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+}
+
+.pathway-card{
+    min-height:220px;
+
+    padding:25px;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.075);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,32,51,.82),
+            rgba(8,19,33,.78)
+        );
+
+    position:relative;
+    overflow:hidden;
+
+    transition:
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .4s ease;
+}
+
+.pathway-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    border-radius:50%;
+
     background:
         radial-gradient(
-            circle at 50% 20%,
-            rgba(99,102,241,.1),
-            transparent 35%
+            circle,
+            rgba(101,183,255,.12),
+            transparent 65%
         );
+
+    right:-80px;
+    bottom:-80px;
+
+    transition:.5s ease;
 }
+
+.pathway-card:hover{
+    transform:
+        translateY(-8px)
+        rotateX(1deg);
+
+    border-color:
+        rgba(101,183,255,.25);
+
+    box-shadow:
+        0 25px 65px rgba(0,0,0,.27);
+}
+
+.pathway-card:hover::before{
+    transform:scale(1.5);
+}
+
+.pathway-icon{
+    width:48px;
+    height:48px;
+
+    border-radius:15px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:23px;
+
+    background:
+        rgba(101,183,255,.065);
+
+    border:
+        1px solid
+        rgba(101,183,255,.13);
+
+    margin-bottom:21px;
+}
+
+.pathway-card h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.pathway-card p{
+    color:#72869d;
+    font-size:12px;
+    line-height:1.7;
+}
+
+.pathway-link{
+    position:absolute;
+
+    bottom:21px;
+    left:25px;
+
+    color:#7bc8ff;
+
+    font-size:10px;
+    font-weight:800;
+
+    opacity:.75;
+
+    transition:.3s;
+}
+
+.pathway-card:hover .pathway-link{
+    opacity:1;
+    transform:translateX(4px);
+}
+
+
+/* =========================================================
+   COURSES
+   ========================================================= */
 
 .course-grid{
     display:grid;
@@ -1137,191 +1283,120 @@ body::before{
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:16px;
+    gap:15px;
 }
 
 .course-card{
-    position:relative;
+    padding:28px;
 
-    padding:27px;
-
-    min-height:280px;
-
-    border-radius:22px;
+    border-radius:23px;
 
     background:
         linear-gradient(
-            145deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.025)
+            150deg,
+            rgba(18,36,57,.86),
+            rgba(8,19,33,.8)
         );
 
-    border:
-        1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.075);
 
+    position:relative;
     overflow:hidden;
 
     transition:
-        transform .35s,
-        border-color .35s;
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .4s ease;
 }
 
 .course-card:hover{
-    transform:translateY(-8px);
-
-    border-color:
-        rgba(129,140,248,.35);
+    transform:translateY(-7px);
+    border-color:rgba(101,183,255,.25);
+    box-shadow:var(--shadow);
 }
 
-.course-number{
-    color:#6366f1;
+.course-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-    font-size:10px;
-
-    font-weight:1000;
-
-    letter-spacing:2px;
+    margin-bottom:24px;
 }
 
-.course-card h3{
-    margin-top:12px;
+.course-icon{
+    width:45px;
+    height:45px;
+
+    border-radius:14px;
+
+    display:grid;
+    place-items:center;
 
     font-size:21px;
 
-    letter-spacing:-1px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.075);
+}
+
+.course-status{
+    color:#71869d;
+    font-size:9px;
+    font-weight:800;
+
+    letter-spacing:.6px;
+    text-transform:uppercase;
+}
+
+.course-card h3{
+    font-size:19px;
+    margin-bottom:9px;
 }
 
 .course-card p{
-    margin-top:10px;
-
-    color:#94a3b8;
-
+    color:#788ba2;
     font-size:12px;
-
-    line-height:1.8;
+    line-height:1.7;
 }
 
-.course-list{
-    margin-top:18px;
-
+.course-tags{
     display:flex;
-
     flex-wrap:wrap;
-
     gap:6px;
+
+    margin-top:19px;
 }
 
-.course-list span{
-    padding:6px 8px;
+.course-tag{
+    padding:5px 8px;
 
     border-radius:7px;
 
-    background:
-        rgba(255,255,255,.055);
+    background:rgba(255,255,255,.04);
 
-    color:#cbd5e1;
+    border:1px solid rgba(255,255,255,.06);
+
+    color:#7f94ab;
 
     font-size:9px;
 }
 
-.course-glow{
-    position:absolute;
+.course-bottom{
+    margin-top:24px;
 
-    width:160px;
-    height:160px;
-
-    border-radius:50%;
-
-    background:#6366f1;
-
-    filter:blur(90px);
-
-    opacity:.09;
-
-    right:-60px;
-    bottom:-70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-
-/* =========================================================
-   COURSE PRICING
-   ========================================================= */
-
-.pricing{
-    padding-top:30px;
+.course-path{
+    color:#6e849d;
+    font-size:9px;
 }
 
-.price-box{
-    max-width:1000px;
-
-    margin:auto;
-
-    padding:32px;
-
-    border-radius:26px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(99,102,241,.1),
-            rgba(34,211,238,.04)
-        );
-
-    border:
-        1px solid rgba(129,140,248,.2);
-}
-
-.price-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:10px;
-}
-
-.price-item{
-    padding:20px 10px;
-
-    text-align:center;
-
-    border-radius:15px;
-
-    background:
-        rgba(0,0,0,.16);
-
-    border:
-        1px solid rgba(255,255,255,.06);
-}
-
-.price-item strong{
-    display:block;
-
-    font-size:28px;
-
-    letter-spacing:-1.5px;
-}
-
-.price-item span{
-    display:block;
-
-    margin-top:5px;
-
-    color:#94a3b8;
-
+.explore{
+    color:#83cbff;
     font-size:10px;
-}
-
-.price-description{
-    margin-top:20px;
-
-    text-align:center;
-
-    color:#94a3b8;
-
-    font-size:11px;
-
-    line-height:1.8;
+    font-weight:800;
 }
 
 
@@ -1329,263 +1404,194 @@ body::before{
    EXAM SYSTEM
    ========================================================= */
 
-.exam-system{
-    background:#070b18;
+.exam-section{
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(101,183,255,.018),
+            transparent
+        );
 }
 
-.exam-grid{
+.exam-layout{
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        .85fr
+        1.15fr;
 
-    gap:16px;
+    gap:55px;
+
+    align-items:center;
 }
 
-.exam-card{
-    padding:30px;
+.exam-timeline{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
 
-    border-radius:20px;
+.exam-item{
+    display:grid;
 
-    border:
-        1px solid rgba(255,255,255,.08);
+    grid-template-columns:76px 1fr;
 
-    background:
-        rgba(255,255,255,.035);
+    gap:16px;
+
+    align-items:center;
+
+    padding:18px;
+
+    border-radius:17px;
+
+    border:1px solid rgba(255,255,255,.065);
+
+    background:rgba(14,28,46,.58);
+
+    transition:.35s ease;
+}
+
+.exam-item:hover{
+    transform:translateX(7px);
+    border-color:rgba(101,183,255,.23);
+}
+
+.exam-number{
+    font-size:24px;
+    font-weight:900;
 
     text-align:center;
 
-    transition:.3s;
+    color:#bde4ff;
 }
 
-.exam-card:hover{
-    transform:translateY(-7px);
+.exam-info h3{
+    font-size:14px;
 }
 
-.exam-icon{
-    font-size:36px;
+.exam-info p{
+    color:#71859b;
+    font-size:10px;
+    margin-top:2px;
 }
 
-.exam-card h3{
-    margin-top:14px;
-
-    font-size:20px;
-}
-
-.exam-card p{
+.exam-progress{
     margin-top:8px;
 
-    color:#94a3b8;
+    height:3px;
 
-    font-size:12px;
+    border-radius:20px;
 
-    line-height:1.7;
+    background:rgba(255,255,255,.06);
+
+    overflow:hidden;
 }
 
-.exam-mark{
-    display:inline-block;
+.exam-progress span{
+    display:block;
+    height:100%;
 
-    margin-top:17px;
-
-    padding:7px 11px;
-
-    border-radius:999px;
+    width:var(--progress);
 
     background:
-        rgba(99,102,241,.12);
+        linear-gradient(
+            90deg,
+            #65b7ff,
+            #70e1db
+        );
 
-    color:#a5b4fc;
+    border-radius:20px;
 
-    font-size:10px;
+    transform-origin:left;
+    animation:progressIn 1.3s ease both;
+}
 
-    font-weight:900;
+@keyframes progressIn{
+    from{transform:scaleX(0)}
 }
 
 
 /* =========================================================
-   RESOURCES
+   RESOURCE VAULT
    ========================================================= */
-
-.resources{
-    background:
-        linear-gradient(
-            180deg,
-            #070b18,
-            #050816
-        );
-}
 
 .resource-grid{
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(3,1fr);
 
-    gap:12px;
-
-    max-width:900px;
-
-    margin:auto;
+    gap:14px;
 }
 
-.resource{
-    padding:20px;
+.resource-card{
+    padding:25px;
 
-    border-radius:15px;
+    border-radius:21px;
 
     background:
-        rgba(255,255,255,.035);
+        rgba(12,27,45,.72);
 
-    border:
-        1px solid rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.07);
 
-    display:flex;
+    transition:.35s ease;
+}
 
-    align-items:center;
-
-    gap:15px;
+.resource-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(98,232,255,.22);
 }
 
 .resource-icon{
-    width:45px;
-    height:45px;
-
-    flex:none;
-
-    border-radius:12px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-        rgba(99,102,241,.1);
-
-    font-size:21px;
+    font-size:27px;
+    margin-bottom:19px;
 }
 
-.resource h4{
-    font-size:14px;
+.resource-card h3{
+    font-size:15px;
+    margin-bottom:7px;
 }
 
-.resource p{
-    margin-top:4px;
-
-    color:#64748b;
-
-    font-size:10px;
+.resource-card p{
+    color:#71859d;
+    font-size:11px;
+    line-height:1.7;
 }
 
 
 /* =========================================================
-   LIMITED SEATS
+   LIBRARY FEATURE
    ========================================================= */
 
-.urgency{
-    padding:80px 20px;
-}
-
-.urgency-box{
-    max-width:950px;
-
-    margin:auto;
-
-    padding:38px;
-
-    border-radius:25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(127,29,29,.25),
-            rgba(99,102,241,.08)
-        );
-
-    border:
-        1px solid rgba(248,113,113,.18);
-
-    text-align:center;
-}
-
-.urgency-badge{
-    display:inline-block;
-
-    padding:7px 11px;
-
-    border-radius:999px;
-
-    background:
-        rgba(248,113,113,.1);
-
-    color:#fda4af;
-
-    font-size:9px;
-
-    font-weight:950;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-}
-
-.urgency-box h2{
-    margin-top:14px;
-
-    font-size:
-        clamp(30px,5vw,48px);
-
-    letter-spacing:-2.5px;
-}
-
-.urgency-box p{
-    max-width:650px;
-
-    margin:12px auto 0;
-
-    color:#94a3b8;
-
-    line-height:1.8;
-
-    font-size:12px;
-}
-
-
-/* =========================================================
-   LIBRARY
-   ========================================================= */
-
-.library{
-    padding-top:80px;
-}
-
-.library-card{
+.library-box{
     position:relative;
 
-    max-width:1000px;
+    padding:55px;
 
-    margin:auto;
-
-    padding:55px 35px;
-
-    border-radius:28px;
+    border-radius:30px;
 
     overflow:hidden;
 
-    text-align:center;
+    border:1px solid rgba(101,183,255,.13);
 
     background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(98,232,255,.08),
+            transparent 30%
+        ),
         linear-gradient(
             135deg,
-            rgba(99,102,241,.11),
-            rgba(255,255,255,.035)
+            rgba(20,42,66,.85),
+            rgba(8,19,33,.9)
         );
 
-    border:
-        1px solid rgba(129,140,248,.2);
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.24);
 }
 
-.library-card::before{
+.library-box::before{
     content:"";
 
     position:absolute;
@@ -1593,148 +1599,332 @@ body::before{
     width:300px;
     height:300px;
 
+    right:-120px;
+    bottom:-170px;
+
     border-radius:50%;
 
-    background:#6366f1;
+    border:1px solid rgba(101,183,255,.11);
 
-    filter:blur(130px);
-
-    opacity:.13;
-
-    right:-100px;
-    top:-100px;
+    box-shadow:
+        0 0 0 45px rgba(101,183,255,.02),
+        0 0 0 90px rgba(101,183,255,.015);
 }
 
-.lock{
-    width:65px;
-    height:65px;
+.library-layout{
+    display:grid;
+
+    grid-template-columns:
+        1fr .8fr;
+
+    gap:45px;
+
+    align-items:center;
+}
+
+.library-box h2{
+    font-size:clamp(29px,4vw,46px);
+    letter-spacing:-1.8px;
+
+    line-height:1.1;
+
+    margin-bottom:15px;
+}
+
+.library-box p{
+    color:#7d90a7;
+    font-size:13px;
+    max-width:620px;
+
+    margin-bottom:25px;
+}
+
+.library-features{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+
+    margin-bottom:27px;
+}
+
+.library-feature{
+    padding:7px 10px;
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.045);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    color:#8ca0b7;
+
+    font-size:9px;
+}
+
+.vault{
+    width:220px;
+    height:220px;
 
     margin:auto;
 
-    border-radius:19px;
+    border-radius:32px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:grid;
+    place-items:center;
+
+    position:relative;
+
+    border:1px solid rgba(101,183,255,.17);
 
     background:
-        rgba(99,102,241,.14);
+        radial-gradient(
+            circle,
+            rgba(101,183,255,.08),
+            rgba(8,19,33,.5)
+        );
 
-    font-size:28px;
-
-    animation:lockFloat 3s ease-in-out infinite;
+    box-shadow:
+        inset 0 0 50px rgba(101,183,255,.04);
 }
 
-@keyframes lockFloat{
-    0%,100%{
-        transform:translateY(0);
-    }
+.vault::before{
+    content:"";
 
+    position:absolute;
+
+    width:145px;
+    height:145px;
+
+    border-radius:50%;
+
+    border:1px dashed rgba(101,183,255,.18);
+
+    animation:
+        orbitRotate 14s linear infinite;
+}
+
+.vault-icon{
+    font-size:55px;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(101,183,255,.3)
+        );
+
+    animation:
+        vaultFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes vaultFloat{
     50%{
         transform:translateY(-7px);
     }
 }
 
-.library-card h2{
-    margin-top:18px;
 
-    font-size:
-        clamp(34px,6vw,58px);
+/* =========================================================
+   PRICING
+   ========================================================= */
 
-    letter-spacing:-3px;
+.pricing-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
 }
 
-.library-card p{
-    max-width:650px;
+.price-card{
+    padding:26px 22px;
 
-    margin:13px auto 24px;
+    border-radius:22px;
 
-    color:#94a3b8;
+    border:1px solid rgba(255,255,255,.07);
 
-    line-height:1.8;
+    background:
+        rgba(12,26,43,.72);
 
-    font-size:13px;
+    position:relative;
+
+    transition:.35s ease;
 }
 
-.library-btn{
-    display:inline-block;
+.price-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(101,183,255,.23);
+}
 
-    padding:13px 20px;
+.price-card.featured{
+    border-color:rgba(101,183,255,.31);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22,49,76,.9),
+            rgba(10,24,40,.86)
+        );
+
+    box-shadow:
+        0 25px 70px rgba(50,130,190,.12);
+}
+
+.popular{
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    padding:5px 8px;
+
+    border-radius:7px;
+
+    background:rgba(101,183,255,.1);
+
+    color:#86ceff;
+
+    font-size:8px;
+    font-weight:900;
+
+    text-transform:uppercase;
+}
+
+.price-card h3{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.price{
+    font-size:36px;
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+
+    margin:10px 0 3px;
+}
+
+.price span{
+    font-size:10px;
+    color:#70859d;
+    font-weight:500;
+}
+
+.price-description{
+    color:#6f849b;
+    font-size:10px;
+
+    min-height:35px;
+
+    margin-bottom:18px;
+}
+
+.price-list{
+    list-style:none;
+
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+
+    margin-bottom:22px;
+}
+
+.price-list li{
+    color:#8a9eb4;
+    font-size:10px;
+
+    display:flex;
+    gap:7px;
+}
+
+.price-list li::before{
+    content:"✓";
+    color:#72dbb1;
+    font-weight:900;
+}
+
+.price-button{
+    width:100%;
+
+    height:42px;
 
     border-radius:10px;
 
-    background:#6366f1;
+    border:1px solid rgba(255,255,255,.08);
 
-    font-size:11px;
+    color:#c7d7e7;
 
-    font-weight:950;
+    background:rgba(255,255,255,.035);
+
+    font-size:10px;
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.featured .price-button{
+    border:0;
+
+    color:#04111d;
+
+    background:
+        linear-gradient(
+            135deg,
+            #72c2ff,
+            #6de0eb
+        );
+}
+
+.price-button:hover{
+    transform:translateY(-2px);
 }
 
 
 /* =========================================================
-   FINAL CTA
+   CTA
    ========================================================= */
 
-.final{
-    min-height:75vh;
+.cta{
+    padding-top:70px;
+    padding-bottom:120px;
+}
 
-    display:flex;
+.cta-box{
+    padding:
+        clamp(40px,6vw,75px)
+        30px;
 
-    align-items:center;
-
-    justify-content:center;
+    border-radius:32px;
 
     text-align:center;
 
     background:
         radial-gradient(
-            circle at center,
-            #24205b,
-            #0b1024 50%,
-            #02040b 100%
-        );
+            circle at 50% 0%,
+            rgba(101,183,255,.13),
+            transparent 40%
+        ),
+        rgba(13,28,46,.74);
+
+    border:1px solid rgba(101,183,255,.13);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.2);
 }
 
-.final-inner{
-    max-width:850px;
+.cta-box h2{
+    font-size:clamp(31px,5vw,57px);
+    line-height:1.05;
+    letter-spacing:-2.5px;
+
+    margin-bottom:15px;
 }
 
-.final h2{
-    margin-top:15px;
-
-    font-size:
-        clamp(50px,9vw,100px);
-
-    line-height:.92;
-
-    letter-spacing:-7px;
-
-    font-weight:1000;
-
-    background:
-        linear-gradient(
-            100deg,
-            #fff,
-            #a5b4fc,
-            #67e8f9,
-            #fff
-        );
-
-    background-size:300%;
-
-    -webkit-background-clip:text;
-
-    color:transparent;
-
-    animation:gradientFlow 5s linear infinite;
-}
-
-.final p{
-    margin:20px auto 0;
-
-    color:#cbd5e1;
-
-    font-size:14px;
+.cta-box p{
+    color:#7d91a8;
+    font-size:13px;
+    max-width:570px;
+    margin:0 auto 26px;
 }
 
 
@@ -1743,149 +1933,204 @@ body::before{
    ========================================================= */
 
 footer{
-    padding:35px 20px;
+    padding:35px 5% 45px;
 
-    background:#01030a;
-
-    border-top:
-        1px solid rgba(255,255,255,.06);
-
-    text-align:center;
-
-    color:#64748b;
-
-    font-size:10px;
-
-    line-height:1.8;
+    border-top:1px solid rgba(255,255,255,.06);
 }
 
-footer strong{
-    color:#cbd5e1;
+.footer-inner{
+    width:min(1180px,100%);
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:20px;
+}
+
+.footer-brand{
+    color:#8ca0b7;
+    font-size:11px;
+}
+
+.footer-brand strong{
+    color:#eaf4ff;
+}
+
+.footer-links{
+    display:flex;
+    gap:18px;
+
+    color:#657991;
+    font-size:10px;
+}
+
+.footer-links a:hover{
+    color:#a9c7df;
 }
 
 
 /* =========================================================
-   AUTH MODALS
+   LIVE LEARNING SIGNAL
+   ========================================================= */
+
+.live-signal{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:800;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 12px;
+
+    border-radius:100px;
+
+    background:rgba(6,16,28,.84);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(14px);
+
+    color:#71879e;
+
+    font-size:9px;
+
+    opacity:0;
+
+    transform:translateY(10px);
+
+    transition:.5s ease;
+
+    pointer-events:none;
+}
+
+.live-signal.show{
+    opacity:1;
+    transform:none;
+}
+
+.live-signal-dot{
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+    background:#70e1ad;
+
+    box-shadow:
+        0 0 12px rgba(112,225,173,.75);
+}
+
+
+/* =========================================================
+   MODAL
    ========================================================= */
 
 .modal{
     position:fixed;
     inset:0;
 
-    z-index:20000;
+    z-index:3000;
 
-    display:none;
-
+    display:flex;
     align-items:center;
     justify-content:center;
 
     padding:20px;
 
     background:
-        rgba(0,0,0,.76);
+        rgba(1,6,12,.78);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
 }
 
-.modal.show{
-    display:flex;
+.modal.active{
+    opacity:1;
+    visibility:visible;
 }
 
 .modal-box{
     width:min(560px,100%);
-
     max-height:90vh;
 
     overflow-y:auto;
 
-    padding:28px;
+    border-radius:25px;
 
-    border-radius:22px;
+    border:1px solid rgba(255,255,255,.1);
 
-    background:#0f172a;
-
-    border:
-        1px solid rgba(255,255,255,.1);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,36,57,.98),
+            rgba(7,17,30,.98)
+        );
 
     box-shadow:
-        0 40px 100px rgba(0,0,0,.5);
+        0 40px 120px rgba(0,0,0,.55);
 
-    animation:modalIn .3s ease;
+    padding:30px;
+
+    transform:
+        translateY(20px)
+        scale(.97);
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1);
 }
 
-@keyframes modalIn{
-    from{
-        opacity:0;
-        transform:
-            translateY(20px)
-            scale(.96);
-    }
-
-    to{
-        opacity:1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
+.modal.active .modal-box{
+    transform:none;
 }
 
-.modal-header{
+.modal-head{
     display:flex;
-
-    align-items:center;
+    align-items:flex-start;
     justify-content:space-between;
 
-    margin-bottom:20px;
+    gap:20px;
+
+    margin-bottom:25px;
 }
 
-.modal-header h2{
+.modal-head h2{
     font-size:25px;
-
     letter-spacing:-1px;
 }
 
-.close{
-    width:32px;
-    height:32px;
+.modal-head p{
+    color:#6e839a;
+    font-size:10px;
+    margin-top:4px;
+}
 
-    border:none;
+.close-modal{
+    width:34px;
+    height:34px;
 
     border-radius:9px;
 
-    background:
-        rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
 
-    color:white;
+    color:#9bb0c5;
+    background:rgba(255,255,255,.035);
 
     font-size:18px;
-}
 
-.message{
-    display:none;
-
-    padding:10px;
-
-    border-radius:8px;
-
-    margin-bottom:12px;
-
-    font-size:11px;
-
-    line-height:1.5;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.error{
-    color:#fecaca;
-    background:#450a0a;
-}
-
-.message.success{
-    color:#bbf7d0;
-    background:#052e16;
+    flex-shrink:0;
 }
 
 .form-grid{
@@ -1894,11 +2139,13 @@ footer strong{
     grid-template-columns:
         repeat(2,1fr);
 
-    gap:10px;
+    gap:11px;
 }
 
 .field{
-    margin-bottom:7px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
 }
 
 .field.full{
@@ -1906,87 +2153,177 @@ footer strong{
 }
 
 .field label{
-    display:block;
-
-    margin-bottom:5px;
-
-    color:#94a3b8;
-
-    font-size:10px;
-
-    font-weight:850;
+    color:#8499b0;
+    font-size:9px;
+    font-weight:700;
 }
 
 .field input,
 .field select{
     width:100%;
+    height:43px;
 
-    padding:11px;
+    border-radius:10px;
 
-    border-radius:9px;
+    border:1px solid rgba(255,255,255,.08);
 
-    border:
-        1px solid rgba(255,255,255,.1);
+    background:
+        rgba(4,13,24,.72);
+
+    color:#e9f4ff;
+
+    padding:0 12px;
 
     outline:none;
 
-    background:
-        rgba(255,255,255,.05);
+    font-size:11px;
 
-    color:#fff;
-
-    font-size:12px;
+    transition:.25s;
 }
 
-.field select option{
-    background:#0f172a;
+.field select{
+    appearance:none;
 }
 
 .field input:focus,
 .field select:focus{
-    border-color:#6366f1;
+    border-color:rgba(101,183,255,.42);
 
     box-shadow:
         0 0 0 3px
-        rgba(99,102,241,.1);
+        rgba(101,183,255,.06);
 }
 
-.submit{
+.form-submit{
     width:100%;
 
-    padding:13px;
+    height:46px;
 
-    margin-top:10px;
+    margin-top:17px;
 
-    border:none;
+    border:0;
 
-    border-radius:10px;
+    border-radius:11px;
 
-    background:#6366f1;
+    background:
+        linear-gradient(
+            135deg,
+            #73c3ff,
+            #6de0eb
+        );
 
-    color:#fff;
+    color:#04111d;
 
     font-size:12px;
+    font-weight:900;
 
-    font-weight:950;
+    transition:.3s;
 }
 
-.switch{
-    margin-top:14px;
+.form-submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(77,184,239,.2);
+}
 
+.form-submit.loading{
+    opacity:.6;
+    pointer-events:none;
+}
+
+.switch-auth{
     text-align:center;
 
-    color:#64748b;
+    margin-top:17px;
+
+    color:#71869d;
 
     font-size:10px;
 }
 
-.switch span{
-    color:#818cf8;
+.switch-auth button{
+    border:0;
+    background:none;
 
-    cursor:pointer;
+    color:#83cbff;
 
-    font-weight:900;
+    font-weight:800;
+}
+
+.form-message{
+    min-height:18px;
+
+    margin-top:10px;
+
+    text-align:center;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+.mobile-menu{
+    position:fixed;
+
+    top:82px;
+    left:14px;
+    right:14px;
+
+    z-index:1100;
+
+    padding:12px;
+
+    border-radius:17px;
+
+    background:
+        rgba(7,17,30,.96);
+
+    border:1px solid rgba(255,255,255,.09);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.4);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-10px);
+
+    transition:.3s;
+}
+
+.mobile-menu.active{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+}
+
+.mobile-menu a,
+.mobile-menu button{
+    width:100%;
+
+    display:block;
+
+    text-align:left;
+
+    padding:12px;
+
+    border:0;
+    border-radius:9px;
+
+    background:none;
+
+    color:#9eb0c3;
+
+    font-size:12px;
+    font-weight:700;
+}
+
+.mobile-menu a:hover,
+.mobile-menu button:hover{
+    background:rgba(255,255,255,.045);
+    color:white;
 }
 
 
@@ -1994,80 +2331,258 @@ footer strong{
    RESPONSIVE
    ========================================================= */
 
-@media(max-width:900px){
+@media(max-width:1050px){
 
     .nav-links{
         display:none;
     }
 
-    .feature-grid,
-    .course-grid,
-    .exam-grid{
+    .nav-actions{
+        display:none;
+    }
+
+    .menu-button{
+        display:block;
+        margin-left:auto;
+    }
+
+    .hero-layout{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+    .hero-copy{
+        text-align:center;
+    }
+
+    .hero-badge{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .hero h1{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .hero-text{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .hero-actions{
+        justify-content:center;
+    }
+
+    .hero-trust{
+        justify-content:center;
+    }
+
+    .hero-visual{
+        min-height:440px;
+    }
+
+    .pathway-grid{
         grid-template-columns:
             repeat(2,1fr);
     }
 
-    .price-grid{
+    .course-grid{
         grid-template-columns:
             repeat(2,1fr);
     }
 
+    .pricing-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .exam-layout{
+        grid-template-columns:1fr;
+    }
+
+    .library-layout{
+        grid-template-columns:1fr;
+    }
+
+    .resource-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
 }
 
 @media(max-width:650px){
 
+    :root{
+        --nav-height:66px;
+    }
+
+    section{
+        padding:
+            75px 5%;
+    }
+
+    .navbar{
+        padding:0 4%;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .logo-mark{
+        width:34px;
+        height:34px;
+    }
+
     .hero{
-        padding-top:115px;
+        min-height:auto;
+
+        padding-top:120px;
+        padding-bottom:65px;
     }
 
     .hero h1{
-        letter-spacing:-4px;
+        font-size:
+            clamp(43px,13vw,65px);
+
+        letter-spacing:-3px;
     }
 
-    .section{
-        padding:80px 18px;
+    .hero-text{
+        font-size:14px;
     }
 
-    .feature-grid,
-    .course-grid,
-    .exam-grid,
-    .resource-grid{
-        grid-template-columns:1fr;
+    .hero-actions{
+        flex-direction:column;
     }
 
-    .price-box{
-        padding:20px;
+    .primary-button,
+    .secondary-button{
+        width:100%;
     }
 
-    .price-grid{
+    .hero-visual{
+        min-height:360px;
+    }
+
+    .pathway-orbit{
+        width:340px;
+    }
+
+    .path-core{
+        width:88px;
+        height:88px;
+        border-radius:22px;
+    }
+
+    .path-core-symbol{
+        font-size:22px;
+    }
+
+    .path-node{
+        width:67px;
+        min-height:67px;
+        border-radius:16px;
+    }
+
+    .path-node .icon{
+        font-size:17px;
+        margin-bottom:2px;
+    }
+
+    .path-node strong{
+        font-size:7px;
+    }
+
+    .path-node small{
+        display:none;
+    }
+
+    .node-public{
+        top:0;
+    }
+
+    .node-engineering{
+        right:-1%;
+    }
+
+    .node-medical{
+        right:1%;
+    }
+
+    .node-textile{
+        left:1%;
+    }
+
+    .node-abroad{
+        left:-1%;
+    }
+
+    .stats-grid{
         grid-template-columns:
             repeat(2,1fr);
     }
 
-    .price-item strong{
-        font-size:23px;
+    .stat-card{
+        padding:18px;
     }
 
-    .nav-btn{
-        padding:8px 10px;
-        font-size:9px;
+    .stat-number{
+        font-size:25px;
     }
 
-    .hero-buttons{
+    .pathway-grid,
+    .course-grid,
+    .resource-grid{
+        grid-template-columns:1fr;
+    }
+
+    .pathway-card{
+        min-height:185px;
+    }
+
+    .pricing-grid{
+        grid-template-columns:1fr;
+    }
+
+    .library-box{
+        padding:35px 23px;
+    }
+
+    .vault{
+        width:180px;
+        height:180px;
+    }
+
+    .footer-inner{
         flex-direction:column;
-        align-items:center;
+        align-items:flex-start;
     }
 
-    .btn{
-        width:220px;
+    .footer-links{
+        flex-wrap:wrap;
     }
 
-    .library-card{
-        padding:40px 20px;
+    .live-signal{
+        right:12px;
+        bottom:12px;
+    }
+
+    .modal{
+        padding:10px;
+        align-items:flex-end;
     }
 
     .modal-box{
-        padding:20px;
+        max-height:94vh;
+        border-radius:23px 23px 0 0;
+        padding:23px 17px;
     }
 
     .form-grid{
@@ -2077,35 +2592,6 @@ footer strong{
     .field.full{
         grid-column:auto;
     }
-
-    .live.fish{
-        font-size:30px;
-    }
-
-    .live.ball{
-        font-size:38px;
-    }
-
-}
-
-@media(max-width:420px){
-
-    .brand{
-        font-size:20px;
-    }
-
-    .hero h1{
-        font-size:47px;
-    }
-
-    .hero-description{
-        font-size:12px;
-    }
-
-    .section-heading h2{
-        letter-spacing:-2px;
-    }
-
 }
 
 
@@ -2123,7 +2609,6 @@ footer strong{
         scroll-behavior:auto !important;
         transition-duration:.01ms !important;
     }
-
 }
 
 </style>
@@ -2133,1616 +2618,2437 @@ footer strong{
 <body>
 
 
-<!-- =========================================================
+<!-- =======================================================
      INTRO
-========================================================= -->
+     ======================================================= -->
 
 <div id="intro">
 
-    <div class="intro-grid"></div>
+    <div class="intro-inner">
 
-    <div class="intro-center">
+        <div class="intro-orbit">
 
-        <div class="orbit o1"></div>
-        <div class="orbit o2"></div>
-        <div class="orbit o3"></div>
+            <div class="intro-core"></div>
 
-        <div class="electron"></div>
+            <div class="electron"></div>
 
-        <div class="atom-core"></div>
+        </div>
 
-        <div class="intro-particle"></div>
-        <div class="intro-particle"></div>
-        <div class="intro-particle"></div>
-        <div class="intro-particle"></div>
-
-    </div>
-
-    <div class="intro-copy">
-
-        <div class="micro">
+        <div class="intro-title">
             Dream Hunt
         </div>
 
-        <h2>
-            Initializing Your Journey
-        </h2>
-
-        <div id="introStatus">
-            Molecular system starting...
+        <div class="intro-subtitle">
+            Complete Admission Preparation Platform
         </div>
+
+        <div
+            class="intro-status"
+            id="introStatus">
+            Initializing your learning environment...
+        </div>
+
+        <div class="intro-line"></div>
 
     </div>
 
 </div>
 
 
-<!-- =========================================================
-     AMBIENT
-========================================================= -->
+<!-- =======================================================
+     BACKGROUND
+     ======================================================= -->
 
-<div class="ambient">
+<div id="background">
 
-    <div class="ambient-orb a"></div>
-    <div class="ambient-orb b"></div>
-    <div class="ambient-orb c"></div>
+    <div class="grid"></div>
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+
+    <div id="particles"></div>
 
 </div>
 
 
-<!-- =========================================================
-     RANDOM LIVE WORLD
-========================================================= -->
-
-<div id="liveWorld"></div>
-
-
-<!-- =========================================================
+<!-- =======================================================
      NAVBAR
-========================================================= -->
+     ======================================================= -->
 
-<nav class="navbar">
+<header class="navbar" id="navbar">
 
-    <div class="nav-inner">
+    <a
+        href="#top"
+        class="logo">
 
-        <a
-            class="brand"
-            href="#top">
+        <span class="logo-mark"></span>
 
-            Dream<span>Hunt</span>
+        <span>Dream Hunt</span>
 
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="#pathways">
+            Pathways
         </a>
 
+        <a href="#courses">
+            Courses
+        </a>
 
-        <div class="nav-links">
+        <a href="#exams">
+            Exams
+        </a>
+
+        <a href="#resources">
+            Resources
+        </a>
+
+        <a href="#library">
+            Library
+        </a>
+
+        <a href="#pricing">
+            Plans
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="nav-login"
+            onclick="openModal('loginModal')">
+
+            Login
+
+        </button>
+
+        <button
+            class="nav-register"
+            onclick="openModal('registerModal')">
+
+            Register
+
+        </button>
+
+    </div>
+
+
+    <button
+        class="menu-button"
+        id="menuButton">
+
+        ☰
+
+    </button>
+
+</header>
+
+
+<!-- =======================================================
+     MOBILE MENU
+     ======================================================= -->
+
+<div
+    class="mobile-menu"
+    id="mobileMenu">
+
+    <a href="#pathways">
+        Admission Pathways
+    </a>
+
+    <a href="#courses">
+        Courses
+    </a>
+
+    <a href="#exams">
+        Exam System
+    </a>
+
+    <a href="#resources">
+        Resources
+    </a>
+
+    <a href="#library">
+        Library
+    </a>
+
+    <a href="#pricing">
+        Plans
+    </a>
+
+    <button onclick="openModal('loginModal')">
+        Login
+    </button>
+
+    <button onclick="openModal('registerModal')">
+        Register
+    </button>
+
+</div>
+
+
+<!-- =======================================================
+     MAIN
+     ======================================================= -->
+
+<main id="top">
+
+
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+
+<section class="hero">
+
+    <div class="container hero-layout">
+
+        <div class="hero-copy reveal">
+
+            <div class="hero-badge">
+
+                <span class="live-dot"></span>
+
+                ADMISSION PREPARATION • 2026
+
+            </div>
+
+
+            <h1>
+
+                Prepare for
+                <span class="gradient-text">
+                    the place
+                </span>
+                you belong.
+
+            </h1>
+
+
+            <p class="hero-text">
+
+                One focused learning ecosystem for
+                Public University, Engineering,
+                Agricultural, Medical, Dental,
+                Textile, Specialized institutions
+                and Abroad Study.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('registerModal')">
+
+                    Start Your Journey
+                    <span>→</span>
+
+                </button>
+
+
+                <a
+                    href="#pathways"
+                    class="secondary-button">
+
+                    Explore Admission Paths
+
+                </a>
+
+            </div>
+
+
+            <div class="hero-trust">
+
+                <span class="trust-line"></span>
+
+                <span>
+                    Learn smarter • Practice harder •
+                    Perform better
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PATHWAY VISUAL -->
+
+        <div class="hero-visual reveal">
+
+            <div class="pathway-orbit">
+
+                <div class="path-core">
+
+                    <div class="path-core-symbol">
+                        🎓
+                    </div>
+
+                    <strong>
+                        DREAM HUNT
+                    </strong>
+
+                    <span>
+                        ADMISSION HUB
+                    </span>
+
+                </div>
+
+
+                <div class="path-node node-public">
+
+                    <div class="icon">🏛️</div>
+
+                    <strong>
+                        PUBLIC
+                    </strong>
+
+                    <small>
+                        UNIVERSITY
+                    </small>
+
+                </div>
+
+
+                <div class="path-node node-engineering">
+
+                    <div class="icon">⚙️</div>
+
+                    <strong>
+                        ENGINEERING
+                    </strong>
+
+                    <small>
+                        TECHNOLOGY
+                    </small>
+
+                </div>
+
+
+                <div class="path-node node-medical">
+
+                    <div class="icon">🩺</div>
+
+                    <strong>
+                        MEDICAL
+                    </strong>
+
+                    <small>
+                        MBBS
+                    </small>
+
+                </div>
+
+
+                <div class="path-node node-agri">
+
+                    <div class="icon">🌾</div>
+
+                    <strong>
+                        AGRICULTURAL
+                    </strong>
+
+                    <small>
+                        AGRI & VET
+                    </small>
+
+                </div>
+
+
+                <div class="path-node node-textile">
+
+                    <div class="icon">🧵</div>
+
+                    <strong>
+                        TEXTILE
+                    </strong>
+
+                    <small>
+                        BUTEX
+                    </small>
+
+                </div>
+
+
+                <div class="path-node node-abroad">
+
+                    <div class="icon">🌍</div>
+
+                    <strong>
+                        ABROAD
+                    </strong>
+
+                    <small>
+                        STUDY
+                    </small>
+
+                </div>
+
+
+                <div class="path-node node-special">
+
+                    <div class="icon">✦</div>
+
+                    <strong>
+                        SPECIALIZED
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     STATS
+     ======================================================= -->
+
+<section class="stats-strip">
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+            <div class="stat-card reveal">
+
+                <div
+                    class="stat-number"
+                    data-count="6">
+
+                    0
+
+                </div>
+
+                <div class="stat-label">
+                    Major Admission Pathways
+                </div>
+
+            </div>
+
+
+            <div class="stat-card reveal">
+
+                <div
+                    class="stat-number"
+                    data-count="36">
+
+                    0
+
+                </div>
+
+                <div class="stat-label">
+                    Exam & Admission Targets
+                </div>
+
+            </div>
+
+
+            <div class="stat-card reveal">
+
+                <div
+                    class="stat-number"
+                    data-count="1990">
+
+                    0
+
+                </div>
+
+                <div class="stat-label">
+                    Question Bank Starting Point
+                </div>
+
+            </div>
+
+
+            <div class="stat-card reveal">
+
+                <div
+                    class="stat-number"
+                    data-count="100">
+
+                    0
+
+                </div>
+
+                <div class="stat-label">
+                    Focused on Your Performance
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     ADMISSION PATHWAYS
+     ======================================================= -->
+
+<section
+    class="pathways"
+    id="pathways">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                ADMISSION PATHWAYS
+
+            </div>
+
+            <h2 class="section-title">
+
+                One platform.
+                <span class="gradient-text">
+                    Every direction.
+                </span>
+
+            </h2>
+
+            <p class="section-description">
+
+                Choose the admission pathway that matches
+                your ambition. Dream Hunt brings your
+                preparation, practice and performance
+                into one structured environment.
+
+            </p>
+
+        </div>
+
+
+        <div class="pathway-grid">
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    Public University
+                </h3>
+
+                <p>
+                    University admission preparation,
+                    unit-based practice, previous questions
+                    and competitive exam strategy.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Engineering
+                </h3>
+
+                <p>
+                    Mathematics, Physics, Chemistry and
+                    engineering-focused admission practice
+                    with intensive problem solving.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    🌾
+                </div>
+
+                <h3>
+                    Agricultural
+                </h3>
+
+                <p>
+                    Agricultural university and veterinary
+                    admission preparation with subject-focused
+                    MCQ practice.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    🩺
+                </div>
+
+                <h3>
+                    Medical
+                </h3>
+
+                <p>
+                    Medical admission preparation with
+                    Biology, Chemistry, Physics, English
+                    and General Knowledge.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    🦷
+                </div>
+
+                <h3>
+                    Dental
+                </h3>
+
+                <p>
+                    Focused preparation for dental admission
+                    with high-volume MCQ practice and
+                    performance analysis.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    🧵
+                </div>
+
+                <h3>
+                    Textile
+                </h3>
+
+                <p>
+                    Textile-focused admission preparation,
+                    quantitative practice and subject-based
+                    question solving.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Specialized
+                </h3>
+
+                <p>
+                    BUP, Maritime and other specialized
+                    admission pathways gathered into one
+                    preparation ecosystem.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-icon">
+                    🌍
+                </div>
+
+                <h3>
+                    Abroad Study
+                </h3>
+
+                <p>
+                    International study preparation covering
+                    admission planning, academic readiness,
+                    scholarships and global pathways.
+                </p>
+
+                <div class="pathway-link">
+                    Explore pathway →
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     COURSES
+     ======================================================= -->
+
+<section id="courses">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                LEARNING SYSTEM
+
+            </div>
+
+            <h2 class="section-title">
+
+                Preparation built
+                <span class="gradient-text">
+                    around the exam.
+                </span>
+
+            </h2>
+
+            <p class="section-description">
+
+                Not random classes. Not endless content.
+                A structured system designed around the
+                way admission candidates actually prepare.
+
+            </p>
+
+        </div>
+
+
+        <div class="course-grid">
+
+
+            <article class="course-card reveal">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🏛️
+                    </div>
+
+                    <span class="course-status">
+                        Admission
+                    </span>
+
+                </div>
+
+                <h3>
+                    Public University
+                </h3>
+
+                <p>
+                    Unit-wise preparation, university-specific
+                    questions and competitive practice.
+                </p>
+
+                <div class="course-tags">
+
+                    <span class="course-tag">
+                        DU
+                    </span>
+
+                    <span class="course-tag">
+                        JU
+                    </span>
+
+                    <span class="course-tag">
+                        RU
+                    </span>
+
+                    <span class="course-tag">
+                        CU
+                    </span>
+
+                    <span class="course-tag">
+                        GST
+                    </span>
+
+                </div>
+
+                <div class="course-bottom">
+
+                    <span class="course-path">
+                        University pathway
+                    </span>
+
+                    <span class="explore">
+                        Explore →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <article class="course-card reveal">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        ⚙️
+                    </div>
+
+                    <span class="course-status">
+                        Intensive
+                    </span>
+
+                </div>
+
+                <h3>
+                    Engineering
+                </h3>
+
+                <p>
+                    Problem-solving intensive preparation
+                    for engineering admission examinations.
+                </p>
+
+                <div class="course-tags">
+
+                    <span class="course-tag">
+                        BUET
+                    </span>
+
+                    <span class="course-tag">
+                        CUET
+                    </span>
+
+                    <span class="course-tag">
+                        KUET
+                    </span>
+
+                    <span class="course-tag">
+                        RUET
+                    </span>
+
+                </div>
+
+                <div class="course-bottom">
+
+                    <span class="course-path">
+                        Engineering pathway
+                    </span>
+
+                    <span class="explore">
+                        Explore →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <article class="course-card reveal">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🩺
+                    </div>
+
+                    <span class="course-status">
+                        Medical
+                    </span>
+
+                </div>
+
+                <h3>
+                    Medical & Dental
+                </h3>
+
+                <p>
+                    Science-focused admission preparation
+                    for MBBS and BDS aspirants.
+                </p>
+
+                <div class="course-tags">
+
+                    <span class="course-tag">
+                        MBBS
+                    </span>
+
+                    <span class="course-tag">
+                        BDS
+                    </span>
+
+                    <span class="course-tag">
+                        Biology
+                    </span>
+
+                    <span class="course-tag">
+                        Chemistry
+                    </span>
+
+                </div>
+
+                <div class="course-bottom">
+
+                    <span class="course-path">
+                        Health pathway
+                    </span>
+
+                    <span class="explore">
+                        Explore →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <article class="course-card reveal">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🌾
+                    </div>
+
+                    <span class="course-status">
+                        Admission
+                    </span>
+
+                </div>
+
+                <h3>
+                    Agricultural & Veterinary
+                </h3>
+
+                <p>
+                    Targeted preparation for agricultural and
+                    veterinary admission pathways.
+                </p>
+
+                <div class="course-tags">
+
+                    <span class="course-tag">
+                        Agriculture
+                    </span>
+
+                    <span class="course-tag">
+                        Veterinary
+                    </span>
+
+                    <span class="course-tag">
+                        MCQ
+                    </span>
+
+                </div>
+
+                <div class="course-bottom">
+
+                    <span class="course-path">
+                        Agriculture pathway
+                    </span>
+
+                    <span class="explore">
+                        Explore →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <article class="course-card reveal">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🧵
+                    </div>
+
+                    <span class="course-status">
+                        Specialized
+                    </span>
+
+                </div>
+
+                <h3>
+                    Textile & Specialized
+                </h3>
+
+                <p>
+                    Dedicated preparation for textile and
+                    specialized admission institutions.
+                </p>
+
+                <div class="course-tags">
+
+                    <span class="course-tag">
+                        BUTEX
+                    </span>
+
+                    <span class="course-tag">
+                        BUP
+                    </span>
+
+                    <span class="course-tag">
+                        Maritime
+                    </span>
+
+                </div>
+
+                <div class="course-bottom">
+
+                    <span class="course-path">
+                        Specialized pathway
+                    </span>
+
+                    <span class="explore">
+                        Explore →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <article class="course-card reveal">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🌍
+                    </div>
+
+                    <span class="course-status">
+                        Global
+                    </span>
+
+                </div>
+
+                <h3>
+                    Abroad Study
+                </h3>
+
+                <p>
+                    Build your international study pathway
+                    with academic and admission preparation.
+                </p>
+
+                <div class="course-tags">
+
+                    <span class="course-tag">
+                        USA
+                    </span>
+
+                    <span class="course-tag">
+                        UK
+                    </span>
+
+                    <span class="course-tag">
+                        Canada
+                    </span>
+
+                    <span class="course-tag">
+                        Australia
+                    </span>
+
+                </div>
+
+                <div class="course-bottom">
+
+                    <span class="course-path">
+                        Global pathway
+                    </span>
+
+                    <span class="explore">
+                        Explore →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     EXAM SYSTEM
+     ======================================================= -->
+
+<section
+    class="exam-section"
+    id="exams">
+
+    <div class="container">
+
+        <div class="exam-layout">
+
+
+            <div class="reveal">
+
+                <div class="eyebrow">
+
+                    <span class="eyebrow-dot"></span>
+
+                    PERFORMANCE SYSTEM
+
+                </div>
+
+                <h2 class="section-title">
+
+                    Practice until
+                    <span class="gradient-text">
+                        pressure feels normal.
+                    </span>
+
+                </h2>
+
+                <p class="section-description">
+
+                    Dream Hunt's exam cycle turns preparation
+                    into measurable performance. Regular
+                    testing helps you identify weakness,
+                    improve speed and compete with yourself.
+
+                </p>
+
+            </div>
+
+
+            <div class="exam-timeline">
+
+
+                <div class="exam-item reveal">
+
+                    <div class="exam-number">
+                        50
+                    </div>
+
+                    <div class="exam-info">
+
+                        <h3>
+                            Daily Exam
+                        </h3>
+
+                        <p>
+                            Consistent daily practice
+                        </p>
+
+                        <div class="exam-progress">
+                            <span
+                                style="--progress:45%">
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="exam-item reveal">
+
+                    <div class="exam-number">
+                        100
+                    </div>
+
+                    <div class="exam-info">
+
+                        <h3>
+                            Weekly Exam
+                        </h3>
+
+                        <p>
+                            Weekly competitive assessment
+                        </p>
+
+                        <div class="exam-progress">
+                            <span
+                                style="--progress:68%">
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="exam-item reveal">
+
+                    <div class="exam-number">
+                        300
+                    </div>
+
+                    <div class="exam-info">
+
+                        <h3>
+                            15-Day Grand Exam
+                        </h3>
+
+                        <p>
+                            Full-scale admission simulation
+                        </p>
+
+                        <div class="exam-progress">
+                            <span
+                                style="--progress:92%">
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     RESOURCES
+     ======================================================= -->
+
+<section id="resources">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                KNOWLEDGE VAULT
+
+            </div>
+
+            <h2 class="section-title">
+
+                Everything you need
+                <span class="gradient-text">
+                    in one place.
+                </span>
+
+            </h2>
+
+            <p class="section-description">
+
+                Build your preparation from proven questions,
+                compact revision materials and constantly
+                updated admission information.
+
+            </p>
+
+        </div>
+
+
+        <div class="resource-grid">
+
+
+            <div class="resource-card reveal">
+
+                <div class="resource-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Question Bank — 1990+
+                </h3>
+
+                <p>
+                    A historical question archive designed
+                    to help students understand recurring
+                    patterns and question styles.
+                </p>
+
+            </div>
+
+
+            <div class="resource-card reveal">
+
+                <div class="resource-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Marked Books
+                </h3>
+
+                <p>
+                    Carefully marked and organized study
+                    resources for faster revision.
+                </p>
+
+            </div>
+
+
+            <div class="resource-card reveal">
+
+                <div class="resource-icon">
+                    ∑
+                </div>
+
+                <h3>
+                    Formula Sheets
+                </h3>
+
+                <p>
+                    Important formulas organized together
+                    for efficient revision and quick recall.
+                </p>
+
+            </div>
+
+
+            <div class="resource-card reveal">
+
+                <div class="resource-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Short Tricks
+                </h3>
+
+                <p>
+                    Practical approaches for solving common
+                    admission questions faster.
+                </p>
+
+            </div>
+
+
+            <div class="resource-card reveal">
+
+                <div class="resource-icon">
+                    📰
+                </div>
+
+                <h3>
+                    Current Affairs
+                </h3>
+
+                <p>
+                    Relevant current affairs and important
+                    topics for admission preparation.
+                </p>
+
+            </div>
+
+
+            <div class="resource-card reveal">
+
+                <div class="resource-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Ranking & Performance
+                </h3>
+
+                <p>
+                    Track your performance and understand
+                    where you stand after every assessment.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     LIBRARY
+     ======================================================= -->
+
+<section id="library">
+
+    <div class="container">
+
+        <div class="library-box reveal">
+
+            <div class="library-layout">
+
+
+                <div>
+
+                    <div class="eyebrow">
+
+                        <span class="eyebrow-dot"></span>
+
+                        PRIVATE LEARNING LIBRARY
+
+                    </div>
+
+                    <h2>
+
+                        Your preparation.
+                        <span class="gradient-text">
+                            Your vault.
+                        </span>
+
+                    </h2>
+
+                    <p>
+
+                        Access Dream Hunt's organized resource
+                        library, course materials and approved
+                        learning resources from one secure place.
+
+                    </p>
+
+
+                    <div class="library-features">
+
+                        <span class="library-feature">
+                            Question Bank
+                        </span>
+
+                        <span class="library-feature">
+                            Books
+                        </span>
+
+                        <span class="library-feature">
+                            Formula Sheets
+                        </span>
+
+                        <span class="library-feature">
+                            Current Affairs
+                        </span>
+
+                        <span class="library-feature">
+                            Course Resources
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="library.html"
+                        class="primary-button">
+
+                        Open Dream Hunt Library
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <div class="vault">
+
+                        <div class="vault-icon">
+                            🔐
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     PRICING
+     ======================================================= -->
+
+<section id="pricing">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                ADMISSION PLANS
+
+            </div>
+
+            <h2 class="section-title">
+
+                Choose your
+                <span class="gradient-text">
+                    preparation range.
+                </span>
+
+            </h2>
+
+            <p class="section-description">
+
+                Select the admission categories you want
+                to prepare for. Upgrade your coverage when
+                your target expands.
+
+            </p>
+
+        </div>
+
+
+        <div class="pricing-grid">
+
+
+            <div class="price-card reveal">
+
+                <h3>
+                    Single Category
+                </h3>
+
+                <div class="price">
+                    ৳300
+                    <span>
+                        / admission plan
+                    </span>
+                </div>
+
+                <p class="price-description">
+                    Choose any one admission category.
+                </p>
+
+                <ul class="price-list">
+
+                    <li>
+                        1 Admission Category
+                    </li>
+
+                    <li>
+                        Category-focused exams
+                    </li>
+
+                    <li>
+                        Relevant resources
+                    </li>
+
+                    <li>
+                        Performance tracking
+                    </li>
+
+                </ul>
+
+                <button
+                    class="price-button"
+                    onclick="openModal('registerModal')">
+
+                    Choose Plan
+
+                </button>
+
+            </div>
+
+
+            <div class="price-card reveal">
+
+                <h3>
+                    Dual Category
+                </h3>
+
+                <div class="price">
+                    ৳500
+                    <span>
+                        / admission plan
+                    </span>
+                </div>
+
+                <p class="price-description">
+                    Combine any two preparation pathways.
+                </p>
+
+                <ul class="price-list">
+
+                    <li>
+                        2 Admission Categories
+                    </li>
+
+                    <li>
+                        Combined preparation
+                    </li>
+
+                    <li>
+                        Relevant resources
+                    </li>
+
+                    <li>
+                        Performance tracking
+                    </li>
+
+                </ul>
+
+                <button
+                    class="price-button"
+                    onclick="openModal('registerModal')">
+
+                    Choose Plan
+
+                </button>
+
+            </div>
+
+
+            <div class="price-card featured reveal">
+
+                <div class="popular">
+                    Popular
+                </div>
+
+                <h3>
+                    Triple Category
+                </h3>
+
+                <div class="price">
+                    ৳800
+                    <span>
+                        / admission plan
+                    </span>
+                </div>
+
+                <p class="price-description">
+                    Prepare across three admission pathways.
+                </p>
+
+                <ul class="price-list">
+
+                    <li>
+                        3 Admission Categories
+                    </li>
+
+                    <li>
+                        Combined exam preparation
+                    </li>
+
+                    <li>
+                        Extended resources
+                    </li>
+
+                    <li>
+                        Performance tracking
+                    </li>
+
+                </ul>
+
+                <button
+                    class="price-button"
+                    onclick="openModal('registerModal')">
+
+                    Start Preparing
+
+                </button>
+
+            </div>
+
+
+            <div class="price-card reveal">
+
+                <h3>
+                    Complete
+                </h3>
+
+                <div class="price">
+                    ৳1000
+                    <span>
+                        / admission plan
+                    </span>
+                </div>
+
+                <p class="price-description">
+                    Full Dream Hunt admission coverage.
+                </p>
+
+                <ul class="price-list">
+
+                    <li>
+                        All major pathways
+                    </li>
+
+                    <li>
+                        Full exam access
+                    </li>
+
+                    <li>
+                        Complete resource access
+                    </li>
+
+                    <li>
+                        Performance tracking
+                    </li>
+
+                </ul>
+
+                <button
+                    class="price-button"
+                    onclick="openModal('registerModal')">
+
+                    Get Complete Access
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL CTA
+     ======================================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-box reveal">
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                YOUR ADMISSION JOURNEY STARTS HERE
+
+            </div>
+
+            <h2>
+
+                Don't just dream
+                <span class="gradient-text">
+                    about the seat.
+                </span>
+
+            </h2>
+
+            <p>
+
+                Build the preparation that takes you there.
+
+            </p>
+
+            <button
+                class="primary-button"
+                onclick="openModal('registerModal')">
+
+                Create Your Dream Hunt Account
+                <span>→</span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =======================================================
+     LIVE SIGNAL
+     ======================================================= -->
+
+<div
+    class="live-signal"
+    id="liveSignal">
+
+    <span class="live-signal-dot"></span>
+
+    <span id="liveSignalText">
+        Learning environment active
+    </span>
+
+</div>
+
+
+<!-- =======================================================
+     FOOTER
+     ======================================================= -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div class="footer-brand">
+
+            © 2026
+            <strong>Dream Hunt</strong>.
+            Complete Admission Preparation Platform.
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#pathways">
+                Pathways
+            </a>
 
             <a href="#courses">
                 Courses
             </a>
 
-            <a href="#exams">
-                Exams
+            <a href="#resources">
+                Resources
             </a>
 
-            <a href="#library">
+            <a href="library.html">
                 Library
             </a>
 
-            <a href="#why">
-                Why Dream Hunt
+            <a href="#pricing">
+                Plans
             </a>
 
         </div>
 
-
-        <div class="nav-actions">
-
-            <button
-                class="nav-btn"
-                onclick="openLogin()">
-
-                Login
-
-            </button>
-
-            <button
-                class="nav-btn primary"
-                onclick="openRegister()">
-
-                Register
-
-            </button>
-
-        </div>
-
     </div>
-
-</nav>
-
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
-<section
-    class="hero"
-    id="top">
-
-    <div class="hero-grid"></div>
-
-    <div class="hero-content reveal">
-
-        <div class="hero-badge">
-            HSC 26 · ADMISSION PREPARATION
-        </div>
-
-        <h1>
-
-            Prepare For
-
-            <br>
-
-            The
-            <span class="gradient">
-                Impossible.
-            </span>
-
-        </h1>
-
-        <p class="hero-description">
-
-            Dream Hunt is an admission preparation ecosystem
-            built for students who want more than ordinary
-            preparation — structured courses, competitive
-            exams, powerful resources and a system designed
-            to keep you moving toward your dream.
-
-        </p>
-
-
-        <div class="hero-buttons">
-
-            <button
-                class="btn primary"
-                onclick="openRegister()">
-
-                Start Your Journey →
-
-            </button>
-
-            <a
-                href="#courses"
-                class="btn dark">
-
-                Explore Courses
-
-            </a>
-
-        </div>
-
-
-        <div class="hero-note">
-
-            Learn. Prepare. Achieve.
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     WHY DREAM HUNT
-========================================================= -->
-
-<section
-    class="section why"
-    id="why">
-
-<div class="container">
-
-    <div class="section-heading reveal">
-
-        <div class="eyebrow">
-            THE DREAM HUNT SYSTEM
-        </div>
-
-        <h2>
-            Preparation,
-            <br>
-            Without The Guesswork.
-        </h2>
-
-        <p>
-
-            Everything is designed around the reality
-            of Bangladesh admission preparation.
-
-        </p>
-
-    </div>
-
-
-    <div class="feature-grid">
-
-        <div class="feature-card reveal">
-
-            <div class="feature-icon">
-                🎯
-            </div>
-
-            <h3>
-                Admission Focused
-            </h3>
-
-            <p>
-
-                Questions and preparation designed around
-                actual admission-test standards across
-                major admission categories.
-
-            </p>
-
-        </div>
-
-
-        <div class="feature-card reveal">
-
-            <div class="feature-icon">
-                📚
-            </div>
-
-            <h3>
-                One Learning Ecosystem
-            </h3>
-
-            <p>
-
-                Courses, exams, results, progress,
-                admission information and learning
-                resources in one student portal.
-
-            </p>
-
-        </div>
-
-
-        <div class="feature-card reveal">
-
-            <div class="feature-icon">
-                🧠
-            </div>
-
-            <h3>
-                Learn From Questions
-            </h3>
-
-            <p>
-
-                Previous questions, marked questions,
-                formulas, shortcuts and high-value
-                admission resources.
-
-            </p>
-
-        </div>
-
-
-        <div class="feature-card reveal">
-
-            <div class="feature-icon">
-                ⚡
-            </div>
-
-            <h3>
-                Competitive Environment
-            </h3>
-
-            <p>
-
-                Regular exams, marks, merit positions
-                and performance tracking help you
-                understand where you stand.
-
-            </p>
-
-        </div>
-
-
-        <div class="feature-card reveal">
-
-            <div class="feature-icon">
-                📰
-            </div>
-
-            <h3>
-                Stay Updated
-            </h3>
-
-            <p>
-
-                Current affairs, admission news,
-                important updates and hot topics
-                that matter for preparation.
-
-            </p>
-
-        </div>
-
-
-        <div class="feature-card reveal">
-
-            <div class="feature-icon">
-                🚀
-            </div>
-
-            <h3>
-                Built For Ambition
-            </h3>
-
-            <p>
-
-                Whether your target is public university,
-                engineering, medical or beyond —
-                prepare with purpose.
-
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     COURSES
-========================================================= -->
-
-<section
-    class="section courses"
-    id="courses">
-
-<div class="container">
-
-    <div class="section-heading reveal">
-
-        <div class="eyebrow">
-            ADMISSION COURSES
-        </div>
-
-        <h2>
-            Choose Your
-            <br>
-            Battlefield.
-        </h2>
-
-        <p>
-
-            Select the admission categories that match
-            your goals and build your preparation around them.
-
-        </p>
-
-    </div>
-
-
-    <div class="course-grid">
-
-
-        <!-- PUBLIC -->
-
-        <div class="course-card reveal">
-
-            <div class="course-number">
-                01 · CATEGORY
-            </div>
-
-            <h3>
-                Public University
-            </h3>
-
-            <p>
-
-                University admission preparation covering
-                major public university admission systems
-                and relevant units.
-
-            </p>
-
-            <div class="course-list">
-
-                <span>DU</span>
-                <span>JU</span>
-                <span>RU</span>
-                <span>CU</span>
-                <span>JnU</span>
-                <span>KU</span>
-                <span>SUST</span>
-                <span>Other Units</span>
-
-            </div>
-
-            <div class="course-glow"></div>
-
-        </div>
-
-
-        <!-- ENGINEERING -->
-
-        <div class="course-card reveal">
-
-            <div class="course-number">
-                02 · CATEGORY
-            </div>
-
-            <h3>
-                Engineering
-            </h3>
-
-            <p>
-
-                Engineering admission preparation with
-                engineering-standard mathematics, physics,
-                chemistry and relevant admission patterns.
-
-            </p>
-
-            <div class="course-list">
-
-                <span>BUET</span>
-                <span>CUET</span>
-                <span>KUET</span>
-                <span>RUET</span>
-                <span>MIST</span>
-                <span>Other Engineering</span>
-
-            </div>
-
-            <div class="course-glow"></div>
-
-        </div>
-
-
-        <!-- MEDICAL -->
-
-        <div class="course-card reveal">
-
-            <div class="course-number">
-                03 · CATEGORY
-            </div>
-
-            <h3>
-                Medical & Dental
-            </h3>
-
-            <p>
-
-                Medical and dental admission-focused
-                preparation built around the competitive
-                national admission pattern.
-
-            </p>
-
-            <div class="course-list">
-
-                <span>Medical</span>
-                <span>Dental</span>
-                <span>Biology</span>
-                <span>Chemistry</span>
-                <span>Physics</span>
-                <span>GK</span>
-
-            </div>
-
-            <div class="course-glow"></div>
-
-        </div>
-
-
-        <!-- AGRICULTURE -->
-
-        <div class="course-card reveal">
-
-            <div class="course-number">
-                04 · CATEGORY
-            </div>
-
-            <h3>
-                Agriculture & Veterinary
-            </h3>
-
-            <p>
-
-                Agriculture, veterinary and related
-                admission preparation for students
-                targeting agricultural institutions.
-
-            </p>
-
-            <div class="course-list">
-
-                <span>BAU</span>
-                <span>SAU</span>
-                <span>CVASU</span>
-                <span>Agriculture</span>
-                <span>Veterinary</span>
-
-            </div>
-
-            <div class="course-glow"></div>
-
-        </div>
-
-
-        <!-- SPECIALIZED -->
-
-        <div class="course-card reveal">
-
-            <div class="course-number">
-                05 · CATEGORY
-            </div>
-
-            <h3>
-                Specialized Admission
-            </h3>
-
-            <p>
-
-                Preparation for specialized institutions
-                and admission systems beyond the conventional
-                university categories.
-
-            </p>
-
-            <div class="course-list">
-
-                <span>BUP</span>
-                <span>MIST</span>
-                <span>Maritime</span>
-                <span>Specialized</span>
-
-            </div>
-
-            <div class="course-glow"></div>
-
-        </div>
-
-
-        <!-- ABROAD -->
-
-        <div class="course-card reveal">
-
-            <div class="course-number">
-                06 · CATEGORY
-            </div>
-
-            <h3>
-                Abroad Prep
-            </h3>
-
-            <p>
-
-                A pathway for students who want to prepare
-                for international study opportunities and
-                future academic goals.
-
-            </p>
-
-            <div class="course-list">
-
-                <span>Global</span>
-                <span>Academic</span>
-                <span>Preparation</span>
-                <span>Future Ready</span>
-
-            </div>
-
-            <div class="course-glow"></div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     PRICING
-========================================================= -->
-
-<section class="section pricing">
-
-<div class="price-box reveal">
-
-    <div class="section-heading"
-         style="margin-bottom:25px;">
-
-        <div class="eyebrow">
-            SIMPLE REGISTRATION
-        </div>
-
-        <h2>
-            Choose How Much
-            <br>
-            You Want To Hunt.
-        </h2>
-
-    </div>
-
-
-    <div class="price-grid">
-
-        <div class="price-item">
-
-            <strong>
-                ৳300
-            </strong>
-
-            <span>
-                1 Category
-            </span>
-
-        </div>
-
-
-        <div class="price-item">
-
-            <strong>
-                ৳500
-            </strong>
-
-            <span>
-                2 Categories
-            </span>
-
-        </div>
-
-
-        <div class="price-item">
-
-            <strong>
-                ৳800
-            </strong>
-
-            <span>
-                3 Categories
-            </span>
-
-        </div>
-
-
-        <div class="price-item">
-
-            <strong>
-                ৳1000
-            </strong>
-
-            <span>
-                All 6 Categories
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <p class="price-description">
-
-        Public University · Engineering · Medical & Dental ·
-        Agriculture & Veterinary · Specialized Admission · Abroad Prep
-
-    </p>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     EXAM SYSTEM
-========================================================= -->
-
-<section
-    class="section exam-system"
-    id="exams">
-
-<div class="container">
-
-    <div class="section-heading reveal">
-
-        <div class="eyebrow">
-            THE EXAM ENGINE
-        </div>
-
-        <h2>
-            Don't Just Study.
-            <br>
-            Compete.
-        </h2>
-
-        <p>
-
-            Your preparation should be measurable.
-            That's why Dream Hunt revolves around
-            continuous competitive testing.
-
-        </p>
-
-    </div>
-
-
-    <div class="exam-grid">
-
-
-        <div class="exam-card reveal">
-
-            <div class="exam-icon">
-                ⚡
-            </div>
-
-            <h3>
-                Daily Exam
-            </h3>
-
-            <p>
-
-                Short, focused competitive testing
-                to keep your preparation active every day.
-
-            </p>
-
-            <div class="exam-mark">
-                50 MARKS
-            </div>
-
-        </div>
-
-
-        <div class="exam-card reveal">
-
-            <div class="exam-icon">
-                📈
-            </div>
-
-            <h3>
-                Weekly Exam
-            </h3>
-
-            <p>
-
-                A broader weekly evaluation designed
-                to test retention and competitive speed.
-
-            </p>
-
-            <div class="exam-mark">
-                100 MARKS
-            </div>
-
-        </div>
-
-
-        <div class="exam-card reveal">
-
-            <div class="exam-icon">
-                🏆
-            </div>
-
-            <h3>
-                Mega Exam
-            </h3>
-
-            <p>
-
-                Every 15 days, face a major examination
-                that brings the preparation together.
-
-            </p>
-
-            <div class="exam-mark">
-                300 MARKS
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     WHAT YOU GET
-========================================================= -->
-
-<section
-    class="section resources">
-
-<div class="container">
-
-    <div class="section-heading reveal">
-
-        <div class="eyebrow">
-            YOUR RESOURCE ARSENAL
-        </div>
-
-        <h2>
-            Everything That
-            <br>
-            Actually Helps.
-        </h2>
-
-    </div>
-
-
-    <div class="resource-grid">
-
-
-        <div class="resource reveal">
-
-            <div class="resource-icon">
-                📖
-            </div>
-
-            <div>
-
-                <h4>
-                    1990 থেকে Question Bank
-                </h4>
-
-                <p>
-                    Historical admission questions
-                    and important patterns.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="resource reveal">
-
-            <div class="resource-icon">
-                🖍️
-            </div>
-
-            <div>
-
-                <h4>
-                    Marked / Annotated Books
-                </h4>
-
-                <p>
-                    High-value areas marked for
-                    focused revision.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="resource reveal">
-
-            <div class="resource-icon">
-                ∑
-            </div>
-
-            <div>
-
-                <h4>
-                    Formula Sheets
-                </h4>
-
-                <p>
-                    Important formulas gathered
-                    together for fast revision.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="resource reveal">
-
-            <div class="resource-icon">
-                🧩
-            </div>
-
-            <div>
-
-                <h4>
-                    Short Tricks
-                </h4>
-
-                <p>
-                    Useful approaches for faster
-                    admission problem solving.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="resource reveal">
-
-            <div class="resource-icon">
-                📰
-            </div>
-
-            <div>
-
-                <h4>
-                    Current Affairs
-                </h4>
-
-                <p>
-                    Relevant current events and
-                    admission GK.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="resource reveal">
-
-            <div class="resource-icon">
-                🔥
-            </div>
-
-            <div>
-
-                <h4>
-                    Hot Topics
-                </h4>
-
-                <p>
-                    Important areas selected for
-                    focused preparation.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     LIMITED SEATS
-========================================================= -->
-
-<section class="urgency">
-
-<div class="urgency-box reveal">
-
-    <div class="urgency-badge">
-        LIMITED SEATS
-    </div>
-
-    <h2>
-        Don't Wait Until
-        The Competition Starts.
-    </h2>
-
-    <p>
-
-        The goal isn't simply to finish a syllabus.
-        The goal is to enter the admission season
-        knowing exactly where you stand.
-
-    </p>
-
-    <div class="hero-buttons">
-
-        <button
-            class="btn primary"
-            onclick="openRegister()">
-
-            Register For Dream Hunt →
-
-        </button>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     LIBRARY GATEWAY
-========================================================= -->
-
-<section
-    class="section library"
-    id="library">
-
-<div class="library-card reveal">
-
-    <div class="lock">
-        🔐
-    </div>
-
-    <div
-        class="eyebrow"
-        style="margin-top:18px;">
-
-        PRIVATE RESOURCE VAULT
-
-    </div>
-
-    <h2>
-        Dream Hunt Library
-    </h2>
-
-    <p>
-
-        Marked books, question banks, notes, formula
-        sheets, previous questions and short tricks —
-        available inside the private student library.
-
-        <br><br>
-
-        Library resources are not publicly exposed.
-        Access requires an approved paid-course enrollment
-        and a Dream Hunt access code.
-
-    </p>
-
-    <a
-        href="library.html"
-        class="library-btn">
-
-        Enter Library →
-
-    </a>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     FINAL CTA
-========================================================= -->
-
-<section class="section final">
-
-<div class="final-inner reveal">
-
-    <div class="eyebrow">
-        THIS IS YOUR STARTING POINT
-    </div>
-
-    <h2>
-        Dream.
-        <br>
-        Hunt.
-    </h2>
-
-    <p>
-
-        Learn. Prepare. Achieve.
-
-    </p>
-
-
-    <div class="hero-buttons">
-
-        <button
-            class="btn primary"
-            onclick="openRegister()">
-
-            Create Your Account →
-
-        </button>
-
-        <a
-            href="#courses"
-            class="btn dark">
-
-            Explore Again
-
-        </a>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
-
-    <strong>
-        Dream Hunt
-    </strong>
-
-    · Learn. Prepare. Achieve.
-
-    <br>
-
-    © 2026 Dream Hunt. All rights reserved.
 
 </footer>
 
 
-<!-- =========================================================
+<!-- =======================================================
      REGISTER MODAL
-========================================================= -->
+     ======================================================= -->
 
 <div
     class="modal"
     id="registerModal">
 
-<div class="modal-box">
+    <div class="modal-box">
 
-    <div class="modal-header">
+        <div class="modal-head">
 
-        <h2>
-            Create Your Account
-        </h2>
+            <div>
 
-        <button
-            class="close"
-            onclick="closeRegister()">
+                <h2>
+                    Create Account
+                </h2>
 
-            ×
-
-        </button>
-
-    </div>
-
-
-    <div
-        id="registerMessage"
-        class="message">
-    </div>
-
-
-    <form id="registerForm">
-
-        <div class="form-grid">
-
-
-            <div class="field full">
-
-                <label>
-                    Full Name *
-                </label>
-
-                <input
-                    id="regFullName"
-                    required
-                    placeholder="Your full name">
+                <p>
+                    Start your Dream Hunt admission journey.
+                </p>
 
             </div>
 
+            <button
+                class="close-modal"
+                onclick="closeModal('registerModal')">
 
-            <div class="field">
+                ×
 
-                <label>
-                    Email *
-                </label>
-
-                <input
-                    id="regEmail"
-                    type="email"
-                    required
-                    placeholder="Email address">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Phone *
-                </label>
-
-                <input
-                    id="regPhone"
-                    required
-                    placeholder="01XXXXXXXXX">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Date of Birth
-                </label>
-
-                <input
-                    id="regDob"
-                    type="date">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Institution *
-                </label>
-
-                <input
-                    id="regInstitution"
-                    required
-                    placeholder="College / Institution">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Board *
-                </label>
-
-                <input
-                    id="regBoard"
-                    required
-                    placeholder="Dhaka">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Group *
-                </label>
-
-                <select
-                    id="regGroup"
-                    required>
-
-                    <option value="">
-                        Select group
-                    </option>
-
-                    <option>
-                        Science
-                    </option>
-
-                    <option>
-                        Humanities
-                    </option>
-
-                    <option>
-                        Business Studies
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    HSC Year
-                </label>
-
-                <input
-                    id="regHscYear"
-                    type="number"
-                    placeholder="2026">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    SSC Institution
-                </label>
-
-                <input
-                    id="regSscInstitution"
-                    placeholder="SSC institution">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    SSC Board
-                </label>
-
-                <input
-                    id="regSscBoard"
-                    placeholder="Board">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    SSC Year
-                </label>
-
-                <input
-                    id="regSscYear"
-                    type="number">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    SSC GPA
-                </label>
-
-                <input
-                    id="regSscGpa"
-                    type="number"
-                    step="0.01"
-                    placeholder="5.00">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Division *
-                </label>
-
-                <input
-                    id="regDivision"
-                    required
-                    placeholder="Division">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    District *
-                </label>
-
-                <input
-                    id="regDistrict"
-                    required
-                    placeholder="District">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Upazila
-                </label>
-
-                <input
-                    id="regUpazila"
-                    placeholder="Upazila">
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Target Admission
-                </label>
-
-                <select
-                    id="regTargetAdmission">
-
-                    <option value="">
-                        Select target
-                    </option>
-
-                    <option>
-                        Public University
-                    </option>
-
-                    <option>
-                        Engineering
-                    </option>
-
-                    <option>
-                        Medical & Dental
-                    </option>
-
-                    <option>
-                        Agriculture & Veterinary
-                    </option>
-
-                    <option>
-                        Specialized Admission
-                    </option>
-
-                    <option>
-                        Abroad Prep
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="field full">
-
-                <label>
-                    Target University
-                </label>
-
-                <input
-                    id="regTargetUniversity"
-                    placeholder="Your dream university">
-
-            </div>
-
-
-            <div class="field full">
-
-                <label>
-                    Password *
-                </label>
-
-                <input
-                    id="regPassword"
-                    type="password"
-                    minlength="6"
-                    required
-                    placeholder="At least 6 characters">
-
-            </div>
+            </button>
 
         </div>
 
 
-        <button
-            class="submit"
-            type="submit"
-            id="registerSubmit">
+        <form id="registerForm">
 
-            Create Dream Hunt Account
-
-        </button>
-
-    </form>
+            <div class="form-grid">
 
 
-    <div class="switch">
+                <div class="field full">
 
-        Already have an account?
+                    <label>
+                        FULL NAME
+                    </label>
 
-        <span onclick="switchToLogin()">
-            Login
-        </span>
+                    <input
+                        type="text"
+                        id="regName"
+                        required
+                        placeholder="Your full name">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        EMAIL
+                    </label>
+
+                    <input
+                        type="email"
+                        id="regEmail"
+                        required
+                        placeholder="you@example.com">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        PHONE
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="regPhone"
+                        required
+                        placeholder="01XXXXXXXXX">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        DATE OF BIRTH
+                    </label>
+
+                    <input
+                        type="date"
+                        id="regDob">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        HSC YEAR
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regHscYear"
+                        placeholder="2026">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        COLLEGE / INSTITUTION
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regInstitution"
+                        placeholder="Institution name">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        BOARD
+                    </label>
+
+                    <select id="regBoard">
+
+                        <option value="">
+                            Select Board
+                        </option>
+
+                        <option>
+                            Dhaka
+                        </option>
+
+                        <option>
+                            Chattogram
+                        </option>
+
+                        <option>
+                            Rajshahi
+                        </option>
+
+                        <option>
+                            Cumilla
+                        </option>
+
+                        <option>
+                            Jashore
+                        </option>
+
+                        <option>
+                            Barishal
+                        </option>
+
+                        <option>
+                            Sylhet
+                        </option>
+
+                        <option>
+                            Dinajpur
+                        </option>
+
+                        <option>
+                            Mymensingh
+                        </option>
+
+                        <option>
+                            Madrasah
+                        </option>
+
+                        <option>
+                            Technical
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        GROUP
+                    </label>
+
+                    <select id="regGroup">
+
+                        <option value="">
+                            Select Group
+                        </option>
+
+                        <option>
+                            Science
+                        </option>
+
+                        <option>
+                            Humanities
+                        </option>
+
+                        <option>
+                            Business Studies
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        SSC INSTITUTION
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regSscInstitution"
+                        placeholder="School name">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        SSC YEAR
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regSscYear"
+                        placeholder="2024">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        SSC GPA
+                    </label>
+
+                    <input
+                        type="number"
+                        step=".01"
+                        id="regSscGpa"
+                        placeholder="5.00">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        DIVISION
+                    </label>
+
+                    <select id="regDivision">
+
+                        <option value="">
+                            Select Division
+                        </option>
+
+                        <option>
+                            Dhaka
+                        </option>
+
+                        <option>
+                            Chattogram
+                        </option>
+
+                        <option>
+                            Rajshahi
+                        </option>
+
+                        <option>
+                            Khulna
+                        </option>
+
+                        <option>
+                            Barishal
+                        </option>
+
+                        <option>
+                            Sylhet
+                        </option>
+
+                        <option>
+                            Rangpur
+                        </option>
+
+                        <option>
+                            Mymensingh
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        DISTRICT
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regDistrict"
+                        placeholder="District">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        UPAZILA
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regUpazila"
+                        placeholder="Upazila">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        TARGET PATHWAY
+                    </label>
+
+                    <select id="regTarget">
+
+                        <option value="">
+                            Select pathway
+                        </option>
+
+                        <option>
+                            Public University
+                        </option>
+
+                        <option>
+                            Engineering
+                        </option>
+
+                        <option>
+                            Agricultural
+                        </option>
+
+                        <option>
+                            Medical
+                        </option>
+
+                        <option>
+                            Dental
+                        </option>
+
+                        <option>
+                            Textile
+                        </option>
+
+                        <option>
+                            Specialized
+                        </option>
+
+                        <option>
+                            Abroad Study
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        TARGET UNIVERSITY / INSTITUTION
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regUniversity"
+                        placeholder="Your target university or institution">
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="regPassword"
+                        required
+                        minlength="6"
+                        placeholder="Minimum 6 characters">
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="form-submit"
+                id="registerButton"
+                type="submit">
+
+                Create Dream Hunt Account
+
+            </button>
+
+
+            <div
+                class="form-message"
+                id="registerMessage">
+            </div>
+
+
+            <div class="switch-auth">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    onclick="
+                        closeModal('registerModal');
+                        openModal('loginModal');
+                    ">
+
+                    Login
+
+                </button>
+
+            </div>
+
+
+        </form>
 
     </div>
 
 </div>
 
-</div>
 
-
-<!-- =========================================================
+<!-- =======================================================
      LOGIN MODAL
-========================================================= -->
+     ======================================================= -->
 
 <div
     class="modal"
     id="loginModal">
 
-<div class="modal-box">
+    <div class="modal-box">
 
-    <div class="modal-header">
+        <div class="modal-head">
 
-        <h2>
-            Welcome Back
-        </h2>
+            <div>
 
-        <button
-            class="close"
-            onclick="closeLogin()">
+                <h2>
+                    Welcome Back
+                </h2>
 
-            ×
+                <p>
+                    Continue your admission preparation.
+                </p>
 
-        </button>
+            </div>
 
-    </div>
+            <button
+                class="close-modal"
+                onclick="closeModal('loginModal')">
 
+                ×
 
-    <div
-        id="loginMessage"
-        class="message">
-    </div>
-
-
-    <form id="loginForm">
-
-
-        <div class="field">
-
-            <label>
-                Email
-            </label>
-
-            <input
-                id="loginEmail"
-                type="email"
-                required
-                placeholder="Email address">
+            </button>
 
         </div>
 
 
-        <div class="field">
-
-            <label>
-                Password
-            </label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                required
-                placeholder="Password">
-
-        </div>
+        <form id="loginForm">
 
 
-        <button
-            class="submit"
-            type="submit"
-            id="loginSubmit">
+            <div class="field">
 
-            Login to Student Portal
+                <label>
+                    EMAIL
+                </label>
 
-        </button>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    required
+                    placeholder="you@example.com">
 
-    </form>
+            </div>
 
 
-    <div class="switch">
+            <div
+                class="field"
+                style="margin-top:12px">
 
-        Don't have an account?
+                <label>
+                    PASSWORD
+                </label>
 
-        <span onclick="switchToRegister()">
-            Register
-        </span>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    required
+                    placeholder="Your password">
+
+            </div>
+
+
+            <button
+                class="form-submit"
+                id="loginButton"
+                type="submit">
+
+                Login to Dream Hunt
+
+            </button>
+
+
+            <div
+                class="form-message"
+                id="loginMessage">
+            </div>
+
+
+            <div class="switch-auth">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    onclick="
+                        closeModal('loginModal');
+                        openModal('registerModal');
+                    ">
+
+                    Register
+
+                </button>
+
+            </div>
+
+
+        </form>
 
     </div>
-
-</div>
 
 </div>
 
 
 <script>
+
+/* =========================================================
+   DREAM HUNT JAVASCRIPT ENGINE
+   ========================================================= */
+
 
 /* =========================================================
    SUPABASE
@@ -3751,18 +5057,18 @@ footer strong{
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_KEY =
     "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
+        SUPABASE_KEY
     );
 
 
 /* =========================================================
-   30 SECOND INTRO
+   INTRO
    ========================================================= */
 
 const intro =
@@ -3773,515 +5079,673 @@ const introStatus =
 
 const introMessages = [
 
-    "Molecular system starting...",
+    "Building your learning environment...",
 
-    "Connecting knowledge pathways...",
+    "Preparing admission pathways...",
 
-    "Calibrating curiosity...",
+    "Loading university preparation systems...",
 
-    "Building preparation engine...",
+    "Connecting your practice environment...",
 
-    "Synchronizing ambition...",
+    "Organizing your knowledge vault...",
 
-    "Generating possibilities...",
+    "Calibrating performance tools...",
 
-    "Loading Dream Hunt ecosystem..."
+    "Dream Hunt is ready."
 
 ];
 
 let introIndex = 0;
 
-const introTimer =
-    setInterval(
-        () => {
+const introInterval =
+    setInterval(() => {
 
-            introIndex++;
+        introIndex++;
 
-            if(
-                introIndex <
-                introMessages.length
-            ){
+        if(
+            introIndex <
+            introMessages.length
+        ){
 
-                introStatus.textContent =
-                    introMessages[
-                        introIndex
-                    ];
+            introStatus.textContent =
+                introMessages[introIndex];
 
-            }
+        }
 
-        },
-        4000
-    );
+    }, 700);
 
 
-setTimeout(
+setTimeout(() => {
+
+    clearInterval(introInterval);
+
+    intro.classList.add("hide");
+
+}, 4800);
+
+
+/* =========================================================
+   BACKGROUND PARTICLES
+   ========================================================= */
+
+const particleContainer =
+    document.getElementById("particles");
+
+const particleCount =
+    window.innerWidth < 650 ? 22 : 42;
+
+for(
+    let i=0;
+    i<particleCount;
+    i++
+){
+
+    const p =
+        document.createElement("span");
+
+    p.className =
+        "knowledge-particle";
+
+    p.style.left =
+        Math.random()*100 + "%";
+
+    p.style.bottom =
+        Math.random()*-20 + "%";
+
+    p.style.animationDuration =
+        (10 + Math.random()*18) + "s";
+
+    p.style.animationDelay =
+        (-Math.random()*20) + "s";
+
+    particleContainer.appendChild(p);
+
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+const navbar =
+    document.getElementById("navbar");
+
+window.addEventListener(
+    "scroll",
     () => {
 
-        clearInterval(introTimer);
-
-        introStatus.textContent =
-            "Dream Hunt is ready.";
-
-        setTimeout(
-            () => {
-
-                intro.classList.add("hide");
-
-            },
-            900
+        navbar.classList.toggle(
+            "scrolled",
+            window.scrollY > 30
         );
 
     },
-    30000
+    {passive:true}
 );
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+menuButton.addEventListener(
+    "click",
+    () => {
+
+        mobileMenu.classList.toggle(
+            "active"
+        );
+
+    }
+);
+
+
+document
+    .querySelectorAll(".mobile-menu a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                mobileMenu.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   REVEAL ENGINE
+   ========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12,
+            rootMargin:"0px 0px -30px 0px"
+        }
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+
+/* =========================================================
+   COUNTERS
+   ========================================================= */
+
+function animateCounter(
+    element
+){
+
+    const target =
+        Number(
+            element.dataset.count
+        );
+
+    const duration =
+        target > 500
+            ? 1600
+            : 1000;
+
+    const start =
+        performance.now();
+
+    function update(now){
+
+        const progress =
+            Math.min(
+                (now-start)/duration,
+                1
+            );
+
+        const eased =
+            1-Math.pow(
+                1-progress,
+                3
+            );
+
+        const value =
+            Math.floor(
+                target*eased
+            );
+
+        element.textContent =
+            target >= 1000
+                ? value + "+"
+                : value + (target === 100 ? "%" : "");
+
+        if(progress<1){
+
+            requestAnimationFrame(update);
+
+        }else{
+
+            element.textContent =
+                target >= 1000
+                    ? target + "+"
+                    : target + (target === 100 ? "%" : "");
+
+        }
+
+    }
+
+    requestAnimationFrame(update);
+
+}
+
+
+const counterObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(
+                    entry.isIntersecting
+                ){
+
+                    animateCounter(
+                        entry.target
+                    );
+
+                    counterObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.5
+        }
+    );
+
+
+document
+    .querySelectorAll(".stat-number")
+    .forEach(counter => {
+
+        counterObserver.observe(counter);
+
+    });
 
 
 /* =========================================================
    MODALS
    ========================================================= */
 
-function openLogin(){
+function openModal(
+    id
+){
 
-    document
-        .getElementById("loginModal")
-        .classList.add("show");
+    const modal =
+        document.getElementById(id);
 
-}
+    if(!modal) return;
 
-function closeLogin(){
+    modal.classList.add("active");
 
-    document
-        .getElementById("loginModal")
-        .classList.remove("show");
+    document.body.classList.add(
+        "modal-open"
+    );
 
-}
-
-function openRegister(){
-
-    document
-        .getElementById("registerModal")
-        .classList.add("show");
-
-}
-
-function closeRegister(){
-
-    document
-        .getElementById("registerModal")
-        .classList.remove("show");
-
-}
-
-function switchToLogin(){
-
-    closeRegister();
-
-    openLogin();
-
-}
-
-function switchToRegister(){
-
-    closeLogin();
-
-    openRegister();
+    mobileMenu.classList.remove(
+        "active"
+    );
 
 }
 
 
-/* =========================================================
-   OUTSIDE MODAL CLICK
-   ========================================================= */
+function closeModal(
+    id
+){
+
+    const modal =
+        document.getElementById(id);
+
+    if(!modal) return;
+
+    modal.classList.remove("active");
+
+    if(
+        !document.querySelector(
+            ".modal.active"
+        )
+    ){
+
+        document.body.classList.remove(
+            "modal-open"
+        );
+
+    }
+
+}
+
 
 document
     .querySelectorAll(".modal")
-    .forEach(
-        modal => {
+    .forEach(modal => {
 
-            modal.addEventListener(
-                "click",
-                e => {
+        modal.addEventListener(
+            "click",
+            event => {
 
-                    if(
-                        e.target === modal
-                    ){
+                if(
+                    event.target === modal
+                ){
 
-                        modal.classList.remove(
-                            "show"
-                        );
-
-                    }
+                    closeModal(
+                        modal.id
+                    );
 
                 }
-            );
+
+            }
+        );
+
+    });
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Escape"
+        ){
+
+            document
+                .querySelectorAll(
+                    ".modal.active"
+                )
+                .forEach(modal => {
+
+                    closeModal(
+                        modal.id
+                    );
+
+                });
 
         }
-    );
 
-
-/* =========================================================
-   AUTH MESSAGE
-   ========================================================= */
-
-function showMessage(
-    id,
-    text,
-    type
-){
-
-    const box =
-        document.getElementById(id);
-
-    box.textContent = text;
-
-    box.className =
-        "message show " +
-        type;
-
-}
+    }
+);
 
 
 /* =========================================================
    REGISTER
    ========================================================= */
 
-document
-    .getElementById("registerForm")
-    .addEventListener(
-        "submit",
-        async e => {
+const registerForm =
+    document.getElementById(
+        "registerForm"
+    );
 
-            e.preventDefault();
+registerForm.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+        const button =
+            document.getElementById(
+                "registerButton"
+            );
+
+        const message =
+            document.getElementById(
+                "registerMessage"
+            );
+
+        button.classList.add("loading");
+
+        button.textContent =
+            "Creating your account...";
+
+        message.textContent = "";
+        message.style.color =
+            "#91a3ba";
 
 
-            const button =
+        const email =
+            document.getElementById(
+                "regEmail"
+            ).value.trim();
+
+        const password =
+            document.getElementById(
+                "regPassword"
+            ).value;
+
+        const metadata = {
+
+            full_name:
                 document.getElementById(
-                    "registerSubmit"
-                );
+                    "regName"
+                ).value.trim(),
 
-            button.disabled = true;
+            phone:
+                document.getElementById(
+                    "regPhone"
+                ).value.trim(),
 
-            button.textContent =
-                "Creating Account...";
+            date_of_birth:
+                document.getElementById(
+                    "regDob"
+                ).value,
+
+            institution:
+                document.getElementById(
+                    "regInstitution"
+                ).value.trim(),
+
+            board:
+                document.getElementById(
+                    "regBoard"
+                ).value,
+
+            group:
+                document.getElementById(
+                    "regGroup"
+                ).value,
+
+            hsc_year:
+                document.getElementById(
+                    "regHscYear"
+                ).value,
+
+            ssc_institution:
+                document.getElementById(
+                    "regSscInstitution"
+                ).value.trim(),
+
+            ssc_year:
+                document.getElementById(
+                    "regSscYear"
+                ).value,
+
+            ssc_gpa:
+                document.getElementById(
+                    "regSscGpa"
+                ).value,
+
+            division:
+                document.getElementById(
+                    "regDivision"
+                ).value,
+
+            district:
+                document.getElementById(
+                    "regDistrict"
+                ).value.trim(),
+
+            upazila:
+                document.getElementById(
+                    "regUpazila"
+                ).value.trim(),
+
+            target_admission:
+                document.getElementById(
+                    "regTarget"
+                ).value,
+
+            target_university:
+                document.getElementById(
+                    "regUniversity"
+                ).value.trim()
+
+        };
 
 
-            const fullName =
-                document
-                    .getElementById(
-                        "regFullName"
-                    )
-                    .value
-                    .trim();
-
-            const email =
-                document
-                    .getElementById(
-                        "regEmail"
-                    )
-                    .value
-                    .trim();
-
-            const phone =
-                document
-                    .getElementById(
-                        "regPhone"
-                    )
-                    .value
-                    .trim();
-
-            const dob =
-                document
-                    .getElementById(
-                        "regDob"
-                    )
-                    .value || null;
-
-            const institution =
-                document
-                    .getElementById(
-                        "regInstitution"
-                    )
-                    .value
-                    .trim();
-
-            const board =
-                document
-                    .getElementById(
-                        "regBoard"
-                    )
-                    .value
-                    .trim();
-
-            const group =
-                document
-                    .getElementById(
-                        "regGroup"
-                    )
-                    .value;
-
-            const hscYear =
-                document
-                    .getElementById(
-                        "regHscYear"
-                    )
-                    .value || null;
-
-            const sscInstitution =
-                document
-                    .getElementById(
-                        "regSscInstitution"
-                    )
-                    .value
-                    .trim();
-
-            const sscBoard =
-                document
-                    .getElementById(
-                        "regSscBoard"
-                    )
-                    .value
-                    .trim();
-
-            const sscYear =
-                document
-                    .getElementById(
-                        "regSscYear"
-                    )
-                    .value || null;
-
-            const sscGpa =
-                document
-                    .getElementById(
-                        "regSscGpa"
-                    )
-                    .value || null;
-
-            const division =
-                document
-                    .getElementById(
-                        "regDivision"
-                    )
-                    .value
-                    .trim();
-
-            const district =
-                document
-                    .getElementById(
-                        "regDistrict"
-                    )
-                    .value
-                    .trim();
-
-            const upazila =
-                document
-                    .getElementById(
-                        "regUpazila"
-                    )
-                    .value
-                    .trim();
-
-            const targetAdmission =
-                document
-                    .getElementById(
-                        "regTargetAdmission"
-                    )
-                    .value;
-
-            const targetUniversity =
-                document
-                    .getElementById(
-                        "regTargetUniversity"
-                    )
-                    .value
-                    .trim();
-
-            const password =
-                document
-                    .getElementById(
-                        "regPassword"
-                    )
-                    .value;
-
+        try{
 
             const {
+                data,
                 error
             } =
                 await supabaseClient.auth.signUp({
 
                     email,
-
                     password,
 
                     options:{
-
-                        data:{
-
-                            full_name:
-                                fullName,
-
-                            phone,
-
-                            date_of_birth:
-                                dob,
-
-                            institution_name:
-                                institution,
-
-                            board,
-
-                            group_name:
-                                group,
-
-                            hsc_year:
-                                hscYear
-                                    ? Number(hscYear)
-                                    : null,
-
-                            ssc_institution:
-                                sscInstitution,
-
-                            ssc_board:
-                                sscBoard,
-
-                            ssc_year:
-                                sscYear
-                                    ? Number(sscYear)
-                                    : null,
-
-                            ssc_gpa:
-                                sscGpa
-                                    ? Number(sscGpa)
-                                    : null,
-
-                            division,
-
-                            district,
-
-                            upazila,
-
-                            target_admission:
-                                targetAdmission,
-
-                            target_university:
-                                targetUniversity
-
-                        }
-
+                        data:metadata
                     }
 
                 });
 
 
             if(error){
+                throw error;
+            }
 
-                showMessage(
-                    "registerMessage",
-                    error.message,
-                    "error"
+
+            if(
+                data.user &&
+                !data.session
+            ){
+
+                message.textContent =
+                    "Account created. Please verify your email, then login.";
+
+                message.style.color =
+                    "#7fe0b0";
+
+            }else{
+
+                message.textContent =
+                    "Account created successfully.";
+
+                message.style.color =
+                    "#7fe0b0";
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    1000
                 );
-
-                button.disabled = false;
-
-                button.textContent =
-                    "Create Dream Hunt Account";
-
-                return;
 
             }
 
 
-            showMessage(
-                "registerMessage",
-                "Account created. Please verify your email before logging in.",
-                "success"
-            );
+            registerForm.reset();
 
 
-            button.disabled = false;
+        }catch(error){
 
-            button.textContent =
-                "Create Dream Hunt Account";
+            message.textContent =
+                error.message ||
+                "Registration failed. Please try again.";
+
+            message.style.color =
+                "#ff9b9b";
 
         }
-    );
+
+
+        button.classList.remove(
+            "loading"
+        );
+
+        button.textContent =
+            "Create Dream Hunt Account";
+
+    }
+);
 
 
 /* =========================================================
    LOGIN
    ========================================================= */
 
-document
-    .getElementById("loginForm")
-    .addEventListener(
-        "submit",
-        async e => {
-
-            e.preventDefault();
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
 
 
-            const button =
-                document.getElementById(
-                    "loginSubmit"
-                );
+loginForm.addEventListener(
+    "submit",
+    async event => {
 
-            button.disabled = true;
+        event.preventDefault();
 
-            button.textContent =
-                "Logging in...";
+        const button =
+            document.getElementById(
+                "loginButton"
+            );
+
+        const message =
+            document.getElementById(
+                "loginMessage"
+            );
+
+        button.classList.add("loading");
+
+        button.textContent =
+            "Signing you in...";
+
+        message.textContent = "";
 
 
-            const email =
-                document
-                    .getElementById(
-                        "loginEmail"
-                    )
-                    .value
-                    .trim();
+        const email =
+            document.getElementById(
+                "loginEmail"
+            ).value.trim();
 
-            const password =
-                document
-                    .getElementById(
-                        "loginPassword"
-                    )
-                    .value;
+        const password =
+            document.getElementById(
+                "loginPassword"
+            ).value;
 
+
+        try{
 
             const {
+                data,
                 error
             } =
                 await supabaseClient.auth
                     .signInWithPassword({
 
                         email,
-
                         password
 
                     });
 
 
             if(error){
-
-                showMessage(
-                    "loginMessage",
-                    error.message,
-                    "error"
-                );
-
-                button.disabled = false;
-
-                button.textContent =
-                    "Login to Student Portal";
-
-                return;
-
+                throw error;
             }
 
 
-            showMessage(
-                "loginMessage",
-                "Login successful. Opening Student Portal...",
-                "success"
-            );
+            message.textContent =
+                "Login successful. Opening dashboard...";
+
+            message.style.color =
+                "#7fe0b0";
 
 
             setTimeout(
@@ -4291,432 +5755,358 @@ document
                         "dashboard.html";
 
                 },
-                600
+                700
             );
 
+
+        }catch(error){
+
+            message.textContent =
+                error.message ||
+                "Login failed. Check your email and password.";
+
+            message.style.color =
+                "#ff9b9b";
+
         }
-    );
 
 
-/* =========================================================
-   SCROLL REVEAL
-   ========================================================= */
-
-const revealElements =
-    document.querySelectorAll(
-        ".reveal"
-    );
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(
-                entry => {
-
-                    if(
-                        entry.isIntersecting
-                    ){
-
-                        entry.target.classList
-                            .add("visible");
-
-                    }
-
-                }
-            );
-
-        },
-        {
-            threshold:.12
-        }
-    );
-
-
-revealElements.forEach(
-    element => {
-
-        observer.observe(
-            element
+        button.classList.remove(
+            "loading"
         );
+
+        button.textContent =
+            "Login to Dream Hunt";
 
     }
 );
 
 
 /* =========================================================
-   RANDOM LIVE WORLD
+   LIVE EDUCATION SIGNAL
    ========================================================= */
 
-const liveWorld =
+const liveSignal =
     document.getElementById(
-        "liveWorld"
+        "liveSignal"
+    );
+
+const liveSignalText =
+    document.getElementById(
+        "liveSignalText"
     );
 
 
-const eventTypes = [
+const learningSignals = [
 
-    "fish",
+    "Admission environment active",
 
-    "fish",
+    "Knowledge system synchronized",
 
-    "bird",
+    "Practice environment active",
 
-    "bird",
+    "Performance tracking ready",
 
-    "ball",
+    "Learning pathway active",
 
-    "ball",
+    "Resource vault ready",
 
-    "cloud",
-
-    "meteor",
-
-    "particle",
-
-    "reaction",
-
-    "mountain"
+    "Dream Hunt is online"
 
 ];
 
 
-const eventContent = {
-
-    fish:[
-        "🐟",
-        "🐠",
-        "🐡",
-        "🐟"
-    ],
-
-    bird:[
-        "🦅",
-        "🐦",
-        "🕊️"
-    ],
-
-    ball:[
-        "⚽",
-        "🏏",
-        "🎾",
-        "🏀"
-    ],
-
-    cloud:[
-        "☁️",
-        "☁️",
-        "☁️"
-    ],
-
-    reaction:[
-        "⚛️",
-        "🧬",
-        "🧪",
-        "🔬",
-        "∑"
-    ]
-
-};
+let signalIndex = 0;
 
 
-function randomItem(array){
+function showLearningSignal(){
 
-    return array[
-        Math.floor(
-            Math.random() *
-            array.length
-        )
-    ];
+    liveSignalText.textContent =
+        learningSignals[
+            signalIndex %
+            learningSignals.length
+        ];
 
-}
+    signalIndex++;
 
+    liveSignal.classList.add(
+        "show"
+    );
 
-function spawnLiveEvent(){
+    setTimeout(
+        () => {
 
-    const type =
-        randomItem(
-            eventTypes
-        );
-
-
-    const el =
-        document.createElement(
-            "div"
-        );
-
-
-    el.className =
-        "live " +
-        type;
-
-
-    if(
-        type === "mountain"
-    ){
-
-        el.textContent =
-            "⛰️";
-
-        el.style.fontSize =
-            (
-                170 +
-                Math.random() * 100
-            ) + "px";
-
-    }
-
-
-    else if(
-        type === "meteor"
-    ){
-
-        el.style.top =
-            (
-                5 +
-                Math.random() * 35
-            ) + "%";
-
-    }
-
-
-    else if(
-        type === "particle"
-    ){
-
-        el.style.left =
-            (
-                20 +
-                Math.random() * 60
-            ) + "%";
-
-        el.style.top =
-            (
-                25 +
-                Math.random() * 50
-            ) + "%";
-
-        el.style.setProperty(
-            "--x",
-            (
-                -200 +
-                Math.random() * 400
-            ) + "px"
-        );
-
-        el.style.setProperty(
-            "--y",
-            (
-                -180 +
-                Math.random() * 360
-            ) + "px"
-        );
-
-    }
-
-
-    else{
-
-        el.textContent =
-            randomItem(
-                eventContent[type]
+            liveSignal.classList.remove(
+                "show"
             );
 
-        el.style.top =
-            (
-                10 +
-                Math.random() * 75
-            ) + "%";
-
-    }
-
-
-    const duration =
-        (
-            4 +
-            Math.random() * 4
-        );
-
-
-    el.style.setProperty(
-        "--duration",
-        duration + "s"
-    );
-
-
-    /*
-     * Random depth.
-     * Some objects go behind content,
-     * some in front.
-     */
-
-    const depth =
-        Math.random();
-
-
-    if(depth < .33){
-
-        el.style.zIndex = "5";
-
-    }
-    else if(depth < .66){
-
-        el.style.zIndex = "250";
-
-    }
-    else{
-
-        el.style.zIndex = "7000";
-
-    }
-
-
-    liveWorld.appendChild(
-        el
-    );
-
-
-    setTimeout(
-        () => {
-
-            el.remove();
-
         },
-        (
-            duration * 1000
-        ) + 1000
+        2600
     );
 
 }
 
 
-/* =========================================================
-   RANDOM TIMING
-   ========================================================= */
+setTimeout(
+    showLearningSignal,
+    6500
+);
 
-function scheduleRandomEvent(){
-
-    const delay =
-        3500 +
-        Math.random() * 9000;
-
-
-    setTimeout(
-        () => {
-
-            spawnLiveEvent();
-
-            scheduleRandomEvent();
-
-        },
-        delay
-    );
-
-}
-
-
-scheduleRandomEvent();
-
-
-/* =========================================================
-   OCCASIONAL BURST
-   ========================================================= */
 
 setInterval(
-    () => {
+    showLearningSignal,
+    9500
+);
 
-        /*
-         * Sometimes several particles
-         * appear together — but not always.
-         */
 
-        if(
-            Math.random() > .58
-        ){
+/* =========================================================
+   SUBTLE PARALLAX
+   ========================================================= */
 
-            for(
-                let i = 0;
-                i < 8;
-                i++
+const glows =
+    document.querySelectorAll(
+        ".glow"
+    );
+
+
+if(
+    window.matchMedia(
+        "(pointer:fine)"
+    ).matches
+){
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener(
+        "mousemove",
+        event => {
+
+            mouseX =
+                (event.clientX /
+                window.innerWidth -
+                .5);
+
+            mouseY =
+                (event.clientY /
+                window.innerHeight -
+                .5);
+
+        },
+        {passive:true}
+    );
+
+
+    function animateBackground(){
+
+        glows.forEach(
+            (glow,index) => {
+
+                const factor =
+                    (index+1)*10;
+
+                glow.style.transform =
+                    `translate(
+                        ${mouseX*factor}px,
+                        ${mouseY*factor}px
+                    )`;
+
+            }
+        );
+
+        requestAnimationFrame(
+            animateBackground
+        );
+
+    }
+
+    animateBackground();
+
+}
+
+
+/* =========================================================
+   CARD MAGNETIC DEPTH
+   ========================================================= */
+
+if(
+    window.matchMedia(
+        "(pointer:fine)"
+    ).matches
+){
+
+    document
+        .querySelectorAll(
+            ".pathway-card, .course-card"
+        )
+        .forEach(card => {
+
+            card.addEventListener(
+                "mousemove",
+                event => {
+
+                    const rect =
+                        card.getBoundingClientRect();
+
+                    const x =
+                        event.clientX -
+                        rect.left;
+
+                    const y =
+                        event.clientY -
+                        rect.top;
+
+                    const centerX =
+                        rect.width/2;
+
+                    const centerY =
+                        rect.height/2;
+
+                    const rotateY =
+                        ((x-centerX) /
+                        centerX) * 2.5;
+
+                    const rotateX =
+                        -((y-centerY) /
+                        centerY) * 2.5;
+
+                    card.style.transform =
+                        `perspective(800px)
+                         rotateX(${rotateX}deg)
+                         rotateY(${rotateY}deg)
+                         translateY(-6px)`;
+
+                }
+            );
+
+
+            card.addEventListener(
+                "mouseleave",
+                () => {
+
+                    card.style.transform =
+                        "";
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   SMART SMOOTH ANCHOR
+   ========================================================= */
+
+document
+    .querySelectorAll(
+        'a[href^="#"]'
+    )
+    .forEach(anchor => {
+
+        anchor.addEventListener(
+            "click",
+            event => {
+
+                const id =
+                    anchor.getAttribute(
+                        "href"
+                    );
+
+                if(
+                    id === "#"
+                ) return;
+
+                const target =
+                    document.querySelector(
+                        id
+                    );
+
+                if(!target) return;
+
+                event.preventDefault();
+
+                const offset =
+                    80;
+
+                const top =
+                    target.getBoundingClientRect()
+                        .top +
+                    window.scrollY -
+                    offset;
+
+                window.scrollTo({
+
+                    top,
+                    behavior:"smooth"
+
+                });
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   AUTH SESSION CHECK
+   ========================================================= */
+
+supabaseClient.auth
+    .getSession()
+    .then(
+        ({data}) => {
+
+            if(
+                data &&
+                data.session
             ){
 
-                setTimeout(
-                    spawnLiveEvent,
-                    i * 120
+                console.log(
+                    "Dream Hunt session active."
                 );
 
             }
 
         }
-
-    },
-    18000
-);
+    );
 
 
 /* =========================================================
-   RANDOM HERO BADGE
+   AUTH STATE LISTENER
    ========================================================= */
 
-const badgeWords = [
+supabaseClient.auth
+    .onAuthStateChange(
+        (event, session) => {
 
-    "HSC 26 · ADMISSION PREPARATION",
+            if(
+                event === "SIGNED_IN" &&
+                session
+            ){
 
-    "LEARN · PREPARE · ACHIEVE",
-
-    "YOUR DREAM STARTS HERE",
-
-    "PREPARE BEYOND ORDINARY",
-
-    "KNOWLEDGE · DISCIPLINE · AMBITION"
-
-];
-
-
-setInterval(
-    () => {
-
-        const badge =
-            document.querySelector(
-                ".hero-badge"
-            );
-
-        if(badge){
-
-            badge.textContent =
-                randomItem(
-                    badgeWords
+                console.log(
+                    "Dream Hunt user signed in."
                 );
 
-        }
+            }
 
-    },
-    6500
-);
+        }
+    );
 
 
 /* =========================================================
-   ESCAPE
+   FINISH
    ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    e => {
-
-        if(
-            e.key === "Escape"
-        ){
-
-            closeLogin();
-
-            closeRegister();
-
-        }
-
-    }
+console.log(
+    "%cDream Hunt%c — Admission Preparation Platform",
+    "font-weight:900;color:#74c6ff;",
+    "color:#91a3ba;"
 );
 
 </script>
 
 </body>
-</html>
+   </html>
