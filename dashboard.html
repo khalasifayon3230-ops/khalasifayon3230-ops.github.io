@@ -1,487 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Dream Hunt | Student Dashboard</title>
-
-    <!-- SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body {
-            background: #f5f7fb;
-            color: #1f2937;
-        }
-
-        /* =========================
-           SIDEBAR
-        ========================= */
-
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 260px;
-            height: 100vh;
-            background: #111827;
-            color: white;
-            padding: 25px 18px;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 35px;
-            letter-spacing: 0.5px;
-        }
-
-        .logo span {
-            color: #60a5fa;
-        }
-
-        .menu-title {
-            font-size: 11px;
-            color: #9ca3af;
-            text-transform: uppercase;
-            margin: 20px 12px 8px;
-            letter-spacing: 1px;
-        }
-
-        .menu a {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            text-decoration: none;
-            color: #d1d5db;
-            padding: 12px 13px;
-            border-radius: 10px;
-            margin-bottom: 4px;
-            font-size: 14px;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .menu a:hover,
-        .menu a.active {
-            background: #1f2937;
-            color: white;
-        }
-
-        .menu a.active {
-            border-left: 3px solid #60a5fa;
-        }
-
-        .logout {
-            margin-top: 25px;
-            border-top: 1px solid #374151;
-            padding-top: 20px;
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .main {
-            margin-left: 260px;
-            min-height: 100vh;
-        }
-
-        .topbar {
-            height: 75px;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 35px;
-        }
-
-        .page-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .student-mini {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #2563eb;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .student-mini div:last-child {
-            font-size: 13px;
-        }
-
-        .student-mini strong {
-            display: block;
-            font-size: 14px;
-        }
-
-        .student-mini span {
-            color: #6b7280;
-        }
-
-        .content {
-            padding: 35px;
-        }
-
-        /* =========================
-           WELCOME
-        ========================= */
-
-        .welcome {
-            background: linear-gradient(135deg, #111827, #2563eb);
-            color: white;
-            border-radius: 18px;
-            padding: 30px;
-            margin-bottom: 28px;
-        }
-
-        .welcome h1 {
-            font-size: 27px;
-            margin-bottom: 8px;
-        }
-
-        .welcome p {
-            color: #dbeafe;
-            font-size: 14px;
-        }
-
-        .target-info {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .target-badge {
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.18);
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
-        /* =========================
-           STATS
-        ========================= */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 28px;
-        }
-
-        .stat-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 15px;
-            padding: 22px;
-        }
-
-        .stat-icon {
-            font-size: 25px;
-            margin-bottom: 14px;
-        }
-
-        .stat-card h3 {
-            font-size: 25px;
-            margin-bottom: 5px;
-        }
-
-        .stat-card p {
-            font-size: 13px;
-            color: #6b7280;
-        }
-
-        /* =========================
-           GRID
-        ========================= */
-
-        .grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 22px;
-        }
-
-        .card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 16px;
-            padding: 25px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-        }
-
-        .card-header h2 {
-            font-size: 18px;
-        }
-
-        .view-all {
-            color: #2563eb;
-            text-decoration: none;
-            font-size: 13px;
-        }
-
-        /* =========================
-           COURSES
-        ========================= */
-
-        .course {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-
-        .course:last-child {
-            margin-bottom: 0;
-        }
-
-        .course-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .course-name {
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .percentage {
-            color: #2563eb;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .progress-bar {
-            height: 7px;
-            background: #e5e7eb;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background: #2563eb;
-            border-radius: 10px;
-        }
-
-        .course small {
-            display: block;
-            margin-top: 8px;
-            color: #6b7280;
-            font-size: 12px;
-        }
-
-        /* =========================
-           EXAMS
-        ========================= */
-
-        .exam {
-            padding: 15px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .exam:last-child {
-            border-bottom: none;
-        }
-
-        .exam strong {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .exam span {
-            font-size: 12px;
-            color: #6b7280;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #eff6ff;
-            color: #2563eb;
-            padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 11px;
-            margin-top: 8px;
-        }
-
-        /* =========================
-           QUICK ACTIONS
-        ========================= */
-
-        .quick-actions {
-            margin-top: 22px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .action {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 20px;
-            text-decoration: none;
-            color: #111827;
-            transition: 0.2s;
-        }
-
-        .action:hover {
-            transform: translateY(-2px);
-            border-color: #2563eb;
-        }
-
-        .action-icon {
-            font-size: 25px;
-            margin-bottom: 10px;
-        }
-
-        .action strong {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .action small {
-            color: #6b7280;
-            font-size: 11px;
-        }
-
-        /* =========================
-           LOADING
-        ========================= */
-
-        #loadingScreen {
-            position: fixed;
-            inset: 0;
-            background: #f5f7fb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            font-weight: 700;
-            color: #2563eb;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 1000px) {
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-        @media (max-width: 700px) {
-
-            .sidebar {
-                width: 75px;
-                padding: 20px 10px;
-            }
-
-            .logo {
-                font-size: 0;
-            }
-
-            .logo span {
-                font-size: 22px;
-            }
-
-            .menu-title,
-            .menu a span,
-            .logout span {
-                display: none;
-            }
-
-            .menu a {
-                justify-content: center;
-                font-size: 20px;
-            }
-
-            .main {
-                margin-left: 75px;
-            }
-
-            .topbar {
-                padding: 0 18px;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .student-mini div:last-child {
-                display: none;
-            }
-
-            .target-info {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-        }
-
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dream Hunt | Student Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:260px;
+    height:100vh;
+    background:#111827;
+    color:white;
+    padding:24px 17px;
+    overflow-y:auto;
+    z-index:1000;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    text-align:center;
+    margin-bottom:32px;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+.menu-title{
+    font-size:10px;
+    color:#9ca3af;
+    text-transform:uppercase;
+    margin:20px 12px 8px;
+    letter-spacing:1px;
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:#d1d5db;
+    padding:12px 13px;
+    border-radius:10px;
+    margin-bottom:4px;
+    font-size:14px;
+    transition:.2s;
+}
+
+.menu a:hover{
+    background:#1f2937;
+    color:white;
+}
+
+.menu a.active{
+    background:#1f2937;
+    color:white;
+    border-left:3px solid #60a5fa;
+}
+
+.logout{
+    margin-top:22px;
+    border-top:1px solid #374151;
+    padding-top:18px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:260px;
+    min-height:100vh;
+}
+
+.topbar{
+    height:75px;
+    background:white;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px;
+}
+
+.page-title{
+    font-size:20px;
+    font-weight:700;
+}
+
+.student-mini{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.student-mini strong{
+    display:block;
+    font-size:14px;
+}
+
+.student-mini span{
+    color:#6b7280;
+    font-size:12px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:35px;
+    max-width:1250px;
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome{
+    background:linear-gradient(135deg,#111827,#2563eb);
+    color:white;
+    border-radius:18px;
+    padding:30px;
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.welcome p{
+    color:#dbeafe;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.target-info{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.target-badge{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    padding:8px 13px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    padding:21px;
+}
+
+.stat-icon{
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.stat-card h3{
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+.stat-card p{
+    color:#6b7280;
+    font-size:12px;
+}
+
+/* =========================
+   MAIN CARDS
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:23px;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.card-header h2{
+    font-size:18px;
+}
+
+.view-all{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:600;
+}
+
+/* =========================
+   EXAM
+========================= */
+
+.exam{
+    padding:15px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.exam:last-child{
+    border-bottom:none;
+}
+
+.exam strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.exam span{
+    color:#6b7280;
+    font-size:12px;
+}
+
+.badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#eff6ff;
+    color:#2563eb;
+    font-size:10px;
+    font-weight:700;
+}
+
+.exam-live{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.exam-empty{
+    color:#6b7280;
+    font-size:13px;
+    line-height:1.6;
+    padding:15px 0;
+}
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-title{
+    margin-top:25px;
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.quick-actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.action{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:20px;
+    text-decoration:none;
+    color:#111827;
+    transition:.2s;
+}
+
+.action:hover{
+    transform:translateY(-2px);
+    border-color:#2563eb;
+}
+
+.action-icon{
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.action strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.action small{
+    color:#6b7280;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.loading{
+    color:#6b7280;
+    font-size:13px;
+    padding:15px 0;
+}
+
+.empty{
+    color:#6b7280;
+    font-size:13px;
+    padding:15px 0;
+}
+
+#loadingScreen{
+    position:fixed;
+    inset:0;
+    background:#f5f7fb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    font-weight:700;
+    color:#2563eb;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+    display:none;
+    background:#fee2e2;
+    color:#991b1b;
+    padding:13px;
+    border-radius:10px;
+    margin-bottom:18px;
+    font-size:12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .quick-actions{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:70px;
+        padding:20px 8px;
+    }
+
+    .logo{
+        font-size:0;
+        margin-bottom:25px;
+    }
+
+    .logo::after{
+        content:"D";
+        font-size:22px;
+        font-weight:800;
+    }
+
+    .menu-title{
+        display:none;
+    }
+
+    .menu a{
+        justify-content:center;
+        padding:13px 5px;
+        font-size:20px;
+    }
+
+    .menu a span{
+        display:none;
+    }
+
+    .main{
+        margin-left:70px;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .page-title{
+        font-size:16px;
+    }
+
+    .student-mini div:last-child{
+        display:none;
+    }
+
+    .content{
+        padding:20px 14px;
+    }
+
+    .welcome{
+        padding:23px;
+    }
+
+    .welcome h1{
+        font-size:23px;
+    }
+
+    .stats{
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:16px;
+    }
+
+    .stat-card h3{
+        font-size:21px;
+    }
+
+    .quick-actions{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:420px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .welcome{
+        border-radius:14px;
+    }
+
+    .target-info{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
-
-<!-- =========================
-     LOADING
-========================= -->
 
 <div id="loadingScreen">
     Loading Dream Hunt...
@@ -499,7 +536,8 @@
     </div>
 
 
-    <div class="menu">
+    <nav class="menu">
+
 
         <div class="menu-title">
             Main
@@ -531,11 +569,6 @@
         </a>
 
 
-        <a href="progress.html">
-            📈 <span>Progress</span>
-        </a>
-
-
         <div class="menu-title">
             Examination
         </div>
@@ -552,6 +585,21 @@
 
 
         <div class="menu-title">
+            Admission
+        </div>
+
+
+        <a href="my-target.html">
+            🎯 <span>My Target</span>
+        </a>
+
+
+        <a href="admission-updates.html">
+            🎓 <span>Admission Updates</span>
+        </a>
+
+
+        <div class="menu-title">
             Support
         </div>
 
@@ -559,12 +607,11 @@
         <a href="notifications.html">
             🔔 <span>Notifications</span>
         </a>
-        <a
-             href="settings.html">
+
+
+        <a href="settings.html">
             ⚙️ <span>Settings</span>
-      
         </a>
-        
 
 
         <a href="contact.html">
@@ -585,7 +632,8 @@
 
         </div>
 
-    </div>
+
+    </nav>
 
 </aside>
 
@@ -597,444 +645,336 @@
 <main class="main">
 
 
-    <!-- TOPBAR -->
+<header class="topbar">
 
-    <header class="topbar">
+    <div class="page-title">
+        Student Dashboard
+    </div>
 
-        <div class="page-title">
-            Student Dashboard
+
+    <div class="student-mini">
+
+        <div
+            class="avatar"
+            id="studentAvatar">
+            S
         </div>
 
 
-        <div class="student-mini">
+        <div>
 
-            <div
-                class="avatar"
-                id="studentAvatar">
-                S
-            </div>
+            <strong id="studentName">
+                Student
+            </strong>
 
-
-            <div>
-
-                <strong id="studentName">
-                    Student
-                </strong>
-
-                <span>
-                    Dream Hunt Student
-                </span>
-
-            </div>
+            <span>
+                Dream Hunt Student
+            </span>
 
         </div>
 
-    </header>
+    </div>
+
+</header>
 
 
-    <!-- CONTENT -->
-
-    <section class="content">
+<section class="content">
 
 
-        <!-- =========================
-             WELCOME
-        ========================= -->
-
-        <div class="welcome">
-
-            <h1>
-                Welcome,
-                <span id="welcomeName">
-                    Student
-                </span>
-                👋
-            </h1>
+<div id="errorBox" class="error"></div>
 
 
-            <p>
-                Continue your preparation, track your progress
-                and move closer to your dream university.
-            </p>
+<!-- =========================
+     WELCOME
+========================= -->
+
+<div class="welcome">
+
+    <h1>
+        Welcome,
+        <span id="welcomeName">
+            Student
+        </span>
+        👋
+    </h1>
 
 
-            <div class="target-info">
-
-                <div class="target-badge">
-                    🎯 Target:
-                    <strong id="targetAdmission">
-                        Not Set
-                    </strong>
-                </div>
+    <p>
+        Continue your preparation and move closer
+        to your dream university.
+    </p>
 
 
-                <div class="target-badge">
-                    🏛️ University:
-                    <strong id="targetUniversity">
-                        Not Set
-                    </strong>
-                </div>
+    <div class="target-info">
 
-            </div>
-
+        <div class="target-badge">
+            🎯 Target:
+            <strong id="targetAdmission">
+                Not Set
+            </strong>
         </div>
 
 
-        <!-- =========================
-             STATISTICS
-        ========================= -->
-
-        <div class="stats">
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📚
-                </div>
-
-                <h3>
-                    0
-                </h3>
-
-                <p>
-                    Enrolled Courses
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📝
-                </div>
-
-                <h3>
-                    0
-                </h3>
-
-                <p>
-                    Exams Completed
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📊
-                </div>
-
-                <h3>
-                    0%
-                </h3>
-
-                <p>
-                    Overall Progress
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🏆
-                </div>
-
-                <h3>
-                    0
-                </h3>
-
-                <p>
-                    Average Score
-                </p>
-
-            </div>
-
+        <div class="target-badge">
+            🏛️ University:
+            <strong id="targetUniversity">
+                Not Set
+            </strong>
         </div>
 
+    </div>
 
-        <!-- =========================
-             MAIN GRID
-        ========================= -->
+</div>
 
-        <div class="grid">
 
+<!-- =========================
+     STATISTICS
+========================= -->
 
-            <!-- LEARNING PROGRESS -->
+<div class="stats">
 
-            <div class="card">
 
-                <div class="card-header">
+<div class="stat-card">
 
-                    <h2>
-                        Learning Progress
-                    </h2>
+    <div class="stat-icon">
+        📚
+    </div>
 
-                    <a
-                        href="progress.html"
-                        class="view-all">
-                        View Progress
-                    </a>
+    <h3 id="courseCount">
+        0
+    </h3>
 
-                </div>
+    <p>
+        Enrolled Courses
+    </p>
 
+</div>
 
-                <div class="course">
 
-                    <div class="course-top">
+<div class="stat-card">
 
-                        <span class="course-name">
-                            Physics Admission Preparation
-                        </span>
+    <div class="stat-icon">
+        📝
+    </div>
 
-                        <span class="percentage">
-                            72%
-                        </span>
+    <h3 id="examCount">
+        0
+    </h3>
 
-                    </div>
+    <p>
+        Exams Completed
+    </p>
 
+</div>
 
-                    <div class="progress-bar">
 
-                        <div
-                            class="progress"
-                            style="width:72%">
-                        </div>
+<div class="stat-card">
 
-                    </div>
+    <div class="stat-icon">
+        🏆
+    </div>
 
+    <h3 id="averageScore">
+        0
+    </h3>
 
-                    <small>
-                        18 of 25 lessons completed
-                    </small>
+    <p>
+        Average Score
+    </p>
 
-                </div>
+</div>
 
 
-                <div class="course">
+<div class="stat-card">
 
-                    <div class="course-top">
+    <div class="stat-icon">
+        📢
+    </div>
 
-                        <span class="course-name">
-                            Chemistry Admission Preparation
-                        </span>
+    <h3 id="notificationCount">
+        0
+    </h3>
 
-                        <span class="percentage">
-                            48%
-                        </span>
+    <p>
+        Notifications
+    </p>
 
-                    </div>
+</div>
 
 
-                    <div class="progress-bar">
+</div>
 
-                        <div
-                            class="progress"
-                            style="width:48%">
-                        </div>
 
-                    </div>
+<!-- =========================
+     MAIN GRID
+========================= -->
 
+<div class="grid">
 
-                    <small>
-                        12 of 25 lessons completed
-                    </small>
 
-                </div>
+<!-- RECENT RESULTS -->
 
+<div class="card">
 
-                <div class="course">
+    <div class="card-header">
 
-                    <div class="course-top">
+        <h2>
+            Recent Results
+        </h2>
 
-                        <span class="course-name">
-                            Mathematics Admission Preparation
-                        </span>
+        <a
+            href="results.html"
+            class="view-all">
+            View All
+        </a>
 
-                        <span class="percentage">
-                            30%
-                        </span>
+    </div>
 
-                    </div>
 
+    <div id="recentResults">
 
-                    <div class="progress-bar">
-
-                        <div
-                            class="progress"
-                            style="width:30%">
-                        </div>
-
-                    </div>
-
-
-                    <small>
-                        7 of 24 lessons completed
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <!-- UPCOMING EXAMS -->
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <h2>
-                        Upcoming Exams
-                    </h2>
-
-                    <a
-                        href="exams.html"
-                        class="view-all">
-                        View All
-                    </a>
-
-                </div>
-
-
-                <div class="exam">
-
-                    <strong>
-                        Physics Model Test - 01
-                    </strong>
-
-                    <span>
-                        📅 Coming Soon
-                    </span>
-
-                    <div class="badge">
-                        Upcoming
-                    </div>
-
-                </div>
-
-
-                <div class="exam">
-
-                    <strong>
-                        Chemistry Model Test - 01
-                    </strong>
-
-                    <span>
-                        📅 Coming Soon
-                    </span>
-
-                    <div class="badge">
-                        Upcoming
-                    </div>
-
-                </div>
-
-
-                <div class="exam">
-
-                    <strong>
-                        Full Admission Mock Test
-                    </strong>
-
-                    <span>
-                        📅 Coming Soon
-                    </span>
-
-                    <div class="badge">
-                        Upcoming
-                    </div>
-
-                </div>
-
-            </div>
-
+        <div class="loading">
+            Loading results...
         </div>
 
+    </div>
 
-        <!-- =========================
-             QUICK ACTIONS
-        ========================= -->
-
-        <div class="quick-actions">
+</div>
 
 
-            <a
-                href="buy-courses.html"
-                class="action">
+<!-- UPCOMING EXAMS -->
 
-                <div class="action-icon">
-                    🛒
-                </div>
+<div class="card">
 
-                <strong>
-                    Buy Courses
-                </strong>
+    <div class="card-header">
 
-                <small>
-                    Explore admission courses
-                </small>
+        <h2>
+            Upcoming Exams
+        </h2>
 
-            </a>
+        <a
+            href="exams.html"
+            class="view-all">
+            View All
+        </a>
 
-
-            <a
-                href="exams.html"
-                class="action">
-
-                <div class="action-icon">
-                    📝
-                </div>
-
-                <strong>
-                    Take an Exam
-                </strong>
-
-                <small>
-                    Test your preparation
-                </small>
-
-            </a>
+    </div>
 
 
-            <a
-                href="contact.html"
-                class="action">
+    <div id="upcomingExams">
 
-                <div class="action-icon">
-                    💬
-                </div>
-
-                <strong>
-                    Contact Us
-                </strong>
-
-                <small>
-                    Need help? Talk to us
-                </small>
-
-            </a>
-
+        <div class="loading">
+            Loading exams...
         </div>
 
+    </div>
 
-    </section>
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     QUICK ACTIONS
+========================= -->
+
+<h2 class="quick-title">
+    Quick Access
+</h2>
+
+
+<div class="quick-actions">
+
+
+<a
+    href="enrolled-courses.html"
+    class="action">
+
+    <div class="action-icon">
+        📚
+    </div>
+
+    <strong>
+        My Courses
+    </strong>
+
+    <small>
+        View your enrolled courses
+    </small>
+
+</a>
+
+
+<a
+    href="exams.html"
+    class="action">
+
+    <div class="action-icon">
+        📝
+    </div>
+
+    <strong>
+        My Exams
+    </strong>
+
+    <small>
+        View and take available exams
+    </small>
+
+</a>
+
+
+<a
+    href="my-target.html"
+    class="action">
+
+    <div class="action-icon">
+        🎯
+    </div>
+
+    <strong>
+        My Target
+    </strong>
+
+    <small>
+        Explore your target universities
+    </small>
+
+</a>
+
+
+<a
+    href="admission-updates.html"
+    class="action">
+
+    <div class="action-icon">
+        🎓
+    </div>
+
+    <strong>
+        Admission Updates
+    </strong>
+
+    <small>
+        Check latest admission information
+    </small>
+
+</a>
+
+
+</div>
+
+
+</section>
 
 </main>
 
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
 <script>
 
-
 /* =====================================================
-   SUPABASE CONFIG
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -1053,41 +993,50 @@ const supabaseClient =
 
 
 /* =====================================================
-   LOAD STUDENT
+   ESCAPE HTML
 ===================================================== */
 
-async function loadStudent() {
+function escapeHTML(value){
 
-    try {
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
+
+async function loadDashboard(){
+
+    try{
 
         const {
-            data: sessionData,
-            error: sessionError
-        } = await supabaseClient.auth.getSession();
+            data:{
+                session
+            },
+            error:sessionError
+        } =
+        await supabaseClient.auth.getSession();
 
 
-        if (sessionError) {
-
-            console.error(sessionError);
-
-            window.location.href =
-                "index.html";
-
-            return;
-
-        }
-
-
-        const session =
-            sessionData.session;
-
-
-        /*
-         * SECURITY:
-         * No active login = no dashboard.
-         */
-
-        if (!session || !session.user) {
+        if(
+            sessionError ||
+            !session ||
+            !session.user
+        ){
 
             window.location.href =
                 "index.html";
@@ -1102,18 +1051,13 @@ async function loadStudent() {
 
 
         /* =========================
-           BASIC AUTH DATA
+           USER INFORMATION
         ========================= */
 
         let fullName =
             user.user_metadata?.full_name ||
             user.email?.split("@")[0] ||
             "Student";
-
-
-        let email =
-            user.email ||
-            "";
 
 
         let targetAdmission =
@@ -1126,41 +1070,28 @@ async function loadStudent() {
             "Not Set";
 
 
-        /*
-         * Try to load profile from
-         * public.profiles
-         */
+        /* =========================
+           PROFILE
+        ========================= */
 
         const {
-            data: profile,
-            error: profileError
-        } = await supabaseClient
+            data:profile
+        } =
+        await supabaseClient
             .from("profiles")
             .select(`
                 full_name,
                 target_admission,
                 target_university
             `)
-            .eq("id", user.id)
+            .eq(
+                "id",
+                user.id
+            )
             .maybeSingle();
 
 
-        if (profileError) {
-
-            console.warn(
-                "Profile could not be loaded:",
-                profileError.message
-            );
-
-        }
-
-
-        /*
-         * If profile exists,
-         * use database information.
-         */
-
-        if (profile) {
+        if(profile){
 
             fullName =
                 profile.full_name ||
@@ -1180,7 +1111,7 @@ async function loadStudent() {
 
 
         /* =========================
-           UPDATE UI
+           BASIC UI
         ========================= */
 
         document.getElementById(
@@ -1207,54 +1138,569 @@ async function loadStudent() {
             targetUniversity;
 
 
-        /* =========================
-           AVATAR
-        ========================= */
-
-        const firstLetter =
+        document.getElementById(
+            "studentAvatar"
+        ).textContent =
             fullName
                 .trim()
                 .charAt(0)
                 .toUpperCase();
 
 
-        document.getElementById(
-            "studentAvatar"
-        ).textContent =
-            firstLetter;
-
-
-        /*
-         * Save email locally for future
-         * dashboard pages.
-         */
-
-        console.log(
-            "Logged in student:",
-            fullName,
-            email
-        );
-
-
         /* =========================
-           SHOW DASHBOARD
+           LOAD DASHBOARD DATA
         ========================= */
+
+        await Promise.all([
+
+            loadCourses(user.id),
+
+            loadResults(user.id),
+
+            loadUpcomingExams(),
+
+            loadNotifications()
+
+        ]);
+
 
         document.getElementById(
             "loadingScreen"
         ).style.display =
             "none";
 
-    }
 
-    catch (error) {
+    }
+    catch(error){
 
         console.error(error);
 
-        window.location.href =
-            "index.html";
+        document.getElementById(
+            "loadingScreen"
+        ).style.display =
+            "none";
+
+        const errorBox =
+            document.getElementById(
+                "errorBox"
+            );
+
+        errorBox.style.display =
+            "block";
+
+        errorBox.textContent =
+            "Some dashboard information could not be loaded.";
 
     }
+
+}
+
+
+/* =====================================================
+   ENROLLED COURSES
+===================================================== */
+
+async function loadCourses(userId){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("enrollments")
+            .select("id")
+            .eq(
+                "user_id",
+                userId
+            );
+
+
+        if(error){
+
+            console.warn(
+                "Courses:",
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "courseCount"
+        ).textContent =
+            data?.length || 0;
+
+
+    }
+    catch(error){
+
+        console.warn(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+async function loadResults(userId){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("exam_attempts")
+            .select(`
+                id,
+                exam_id,
+                status,
+                total_mark,
+                merit_position,
+                submitted_at
+            `)
+            .eq(
+                "user_id",
+                userId
+            )
+            .eq(
+                "status",
+                "submitted"
+            )
+            .order(
+                "submitted_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            console.warn(
+                "Results:",
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        const results =
+            data || [];
+
+
+        document.getElementById(
+            "examCount"
+        ).textContent =
+            results.length;
+
+
+        /* =========================
+           AVERAGE SCORE
+        ========================= */
+
+        if(results.length){
+
+            const total =
+                results.reduce(
+                    (
+                        sum,
+                        item
+                    ) =>
+                        sum +
+                        Number(
+                            item.total_mark || 0
+                        ),
+                    0
+                );
+
+
+            const average =
+                total /
+                results.length;
+
+
+            document.getElementById(
+                "averageScore"
+            ).textContent =
+                average.toFixed(1);
+
+        }
+        else{
+
+            document.getElementById(
+                "averageScore"
+            ).textContent =
+                "0";
+
+        }
+
+
+        /*
+         * Recent result cards need
+         * exam names, so fetch exams.
+         */
+
+        if(!results.length){
+
+            document.getElementById(
+                "recentResults"
+            ).innerHTML = `
+
+                <div class="empty">
+                    No exam results yet.
+                    Your results will appear here
+                    after you complete an exam.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const examIds =
+            results
+                .slice(0,4)
+                .map(
+                    item =>
+                        item.exam_id
+                );
+
+
+        const {
+            data:exams
+        } =
+        await supabaseClient
+            .from("exams")
+            .select(`
+                id,
+                title,
+                total_marks,
+                exam_date
+            `)
+            .in(
+                "id",
+                examIds
+            );
+
+
+        const examMap = {};
+
+
+        (exams || []).forEach(
+            exam => {
+
+                examMap[
+                    exam.id
+                ] = exam;
+
+            }
+        );
+
+
+        document.getElementById(
+            "recentResults"
+        ).innerHTML =
+
+            results
+                .slice(0,4)
+                .map(
+                    result => {
+
+                        const exam =
+                            examMap[
+                                result.exam_id
+                            ];
+
+
+                        if(!exam){
+                            return "";
+                        }
+
+
+                        return `
+
+                            <div class="exam">
+
+                                <strong>
+                                    ${escapeHTML(
+                                        exam.title
+                                    )}
+                                </strong>
+
+                                <span>
+                                    Score:
+                                    ${escapeHTML(
+                                        result.total_mark
+                                    )}
+                                    /
+                                    ${escapeHTML(
+                                        exam.total_marks
+                                    )}
+                                </span>
+
+                                <br>
+
+                                <span>
+                                    Rank:
+                                    ${
+                                        result.merit_position
+                                        ?
+                                        "#" +
+                                        escapeHTML(
+                                            result.merit_position
+                                        )
+                                        :
+                                        "—"
+                                    }
+                                </span>
+
+                                <div class="badge">
+                                    Result Published
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+    }
+    catch(error){
+
+        console.warn(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   UPCOMING EXAMS
+===================================================== */
+
+async function loadUpcomingExams(){
+
+    try{
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("exams")
+            .select(`
+                id,
+                title,
+                exam_date,
+                total_marks,
+                status,
+                published
+            `)
+            .eq(
+                "published",
+                true
+            )
+            .gte(
+                "exam_date",
+                today
+            )
+            .order(
+                "exam_date",
+                {
+                    ascending:true
+                }
+            )
+            .limit(3);
+
+
+        if(error){
+
+            console.warn(
+                "Upcoming exams:",
+                error.message
+            );
+
+            document.getElementById(
+                "upcomingExams"
+            ).innerHTML = `
+
+                <div class="exam-empty">
+                    Upcoming exams could not be loaded.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const exams =
+            data || [];
+
+
+        if(!exams.length){
+
+            document.getElementById(
+                "upcomingExams"
+            ).innerHTML = `
+
+                <div class="exam-empty">
+                    No upcoming exams right now.
+                    Check My Exams for the latest schedule.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "upcomingExams"
+        ).innerHTML =
+
+            exams
+                .map(
+                    exam => `
+
+                        <div class="exam">
+
+                            <strong>
+                                ${escapeHTML(
+                                    exam.title
+                                )}
+                            </strong>
+
+                            <span>
+                                📅
+                                ${formatDate(
+                                    exam.exam_date
+                                )}
+                            </span>
+
+                            <div class="badge">
+                                ${escapeHTML(
+                                    exam.total_marks
+                                )}
+                                Marks
+                            </div>
+
+                        </div>
+
+                    `
+                )
+                .join("");
+
+
+    }
+    catch(error){
+
+        console.warn(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("notifications")
+            .select("id")
+            .eq(
+                "is_active",
+                true
+            );
+
+
+        if(error){
+
+            console.warn(
+                "Notifications:",
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "notificationCount"
+        ).textContent =
+            data?.length || 0;
+
+
+    }
+    catch(error){
+
+        console.warn(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(dateString){
+
+    if(!dateString){
+        return "Date unavailable";
+    }
+
+
+    const date =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
 
 }
 
@@ -1263,9 +1709,9 @@ async function loadStudent() {
    LOGOUT
 ===================================================== */
 
-async function logout(event) {
+async function logout(event){
 
-    if (event) {
+    if(event){
         event.preventDefault();
     }
 
@@ -1273,10 +1719,10 @@ async function logout(event) {
     const {
         error
     } =
-        await supabaseClient.auth.signOut();
+    await supabaseClient.auth.signOut();
 
 
-    if (error) {
+    if(error){
 
         alert(
             "Logout failed: " +
@@ -1287,11 +1733,6 @@ async function logout(event) {
 
     }
 
-
-    /*
-     * After logout,
-     * return to homepage.
-     */
 
     window.location.href =
         "index.html";
@@ -1304,17 +1745,15 @@ async function logout(event) {
 ===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
-    function(event, session) {
+    function(
+        event,
+        session
+    ){
 
-        /*
-         * If user signs out from
-         * another tab/window.
-         */
-
-        if (
-            event === "SIGNED_OUT" ||
-            !session
-        ) {
+        if(
+            event ===
+            "SIGNED_OUT"
+        ){
 
             window.location.href =
                 "index.html";
@@ -1329,8 +1768,7 @@ supabaseClient.auth.onAuthStateChange(
    START
 ===================================================== */
 
-loadStudent();
-
+loadDashboard();
 
 </script>
 
