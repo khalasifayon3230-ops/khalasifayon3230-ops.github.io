@@ -1190,9 +1190,11 @@ async function submitPayment() {
          */
 
         alert(
-            "Payment submission failed:\n\n" +
-            error.message
-        );
+    "REAL ERROR:\n\n" +
+    error.message +
+    "\n\nCODE: " +
+    (error.code || "N/A")
+);
 
 
         button.disabled = false;
