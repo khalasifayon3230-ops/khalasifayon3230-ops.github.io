@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Admission Updates | Dream Hunt</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+    overflow-x:hidden;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#101828;
+    color:white;
+    padding:24px 16px;
+    z-index:20;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    padding:0 12px 25px;
+}
+
+.logo span{
+    color:#6ee7b7;
+}
+
+.nav a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    padding:12px 14px;
+    border-radius:10px;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:#1d2939;
+    color:white;
+}
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1150px;
+    margin:auto;
+}
+
+.header{
+    background:white;
+    border-radius:20px;
+    padding:28px;
+    margin-bottom:20px;
+    box-shadow:0 8px 25px rgba(16,24,40,.06);
+}
+
+.header h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.header p{
+    color:#667085;
+    line-height:1.6;
+}
+
+.controls{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    border:1px solid #d0d5dd;
+    background:white;
+    border-radius:12px;
+    padding:13px 15px;
+    outline:none;
+    font-size:14px;
+}
+
+.filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.filter{
+    border:none;
+    background:white;
+    padding:11px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    color:#475467;
+}
+
+.filter.active{
+    background:#101828;
+    color:white;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 7px 22px rgba(16,24,40,.06);
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.badge{
+    display:inline-block;
+    background:#ecfdf3;
+    color:#027a48;
+    font-size:11px;
+    font-weight:700;
+    padding:6px 9px;
+    border-radius:7px;
+}
+
+.session{
+    font-size:12px;
+    color:#667085;
+}
+
+.card h2{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
+.short{
+    color:#667085;
+    font-size:13px;
+    margin-bottom:13px;
+}
+
+.description{
+    color:#475467;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:16px;
+}
+
+.dates{
+    background:#f8fafc;
+    border-radius:12px;
+    padding:13px;
+    margin-bottom:15px;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.links{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.btn{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    background:#101828;
+    color:white;
+    padding:10px 8px;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.btn.secondary{
+    background:#eef2f6;
+    color:#344054;
+}
+
+.empty{
+    background:white;
+    border-radius:18px;
+    padding:50px 20px;
+    text-align:center;
+    color:#667085;
+}
+
+.loading{
+    background:white;
+    padding:40px;
+    text-align:center;
+    border-radius:18px;
+    color:#667085;
+}
+
+@media(max-width:850px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .sidebar{
+        width:64px;
+        padding:18px 7px;
+    }
+
+    .logo{
+        font-size:0;
+        text-align:center;
+        padding:0 0 20px;
+    }
+
+    .logo span{
+        font-size:20px;
+    }
+
+    .nav a{
+        font-size:0;
+        text-align:center;
+        padding:12px 5px;
+    }
+
+    .main{
+        margin-left:64px;
+        padding:16px 12px;
+    }
+
+    .header{
+        padding:20px;
+    }
+
+    .header h1{
+        font-size:24px;
+    }
+
+    .links{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">
+<span>DH</span> Dream Hunt
+</div>
+
+<nav class="nav">
+
+<a href="dashboard.html">🏠 Dashboard</a>
+
+<a href="profile.html">👤 My Profile</a>
+
+<a href="enrolled-courses.html">📚 Enrolled Courses</a>
+
+<a href="buy-courses.html">🛒 Buy Courses</a>
+
+<a href="progress.html">📈 Progress</a>
+
+<a href="exams.html">📝 My Exams</a>
+
+<a href="results.html">🏆 Results</a>
+
+<a href="my-target.html">🎯 My Target</a>
+
+<a
+href="admission-updates.html"
+class="active">
+🎓 Admission Updates
+</a>
+
+<a href="notifications.html">🔔 Notifications</a>
+
+<a href="contact.html">📞 Contact Us</a>
+
+<a href="faq.html">❓ Help / FAQ</a>
+
+</nav>
+
+</aside>
+
+
+<main class="main">
+
+<div class="container">
+
+<section class="header">
+
+<h1>🎓 Admission Updates</h1>
+
+<p>
+Find official admission notices, application portals,
+admit cards, seat plans and results from universities
+and institutions.
+</p>
+
+</section>
+
+
+<div class="controls">
+
+<input
+id="search"
+class="search"
+type="search"
+placeholder="Search university or institution..."
+oninput="render()"
+>
+
+<div class="filters">
+
+<button
+class="filter active"
+onclick="setCategory('all',this)">
+All
+</button>
+
+<button
+class="filter"
+onclick="setCategory('public-university',this)">
+Public University
+</button>
+
+<button
+class="filter"
+onclick="setCategory('engineering',this)">
+Engineering
+</button>
+
+<button
+class="filter"
+onclick="setCategory('medical-dental',this)">
+Medical & Dental
+</button>
+
+<button
+class="filter"
+onclick="setCategory('agriculture-veterinary',this)">
+Agriculture
+</button>
+
+<button
+class="filter"
+onclick="setCategory('specialized-admission',this)">
+Specialized
+</button>
+
+</div>
+
+</div>
+
+
+<div id="content">
+
+<div class="loading">
+Loading admission updates...
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://rndtgjuwwsxxiiezennr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
+
+
+let updates = [];
+
+let currentCategory = "all";
+
+
+async function init(){
+
+    const {
+        data:{user}
+    } = await supabaseClient.auth.getUser();
+
+
+    if(!user){
+
+        window.location.href =
+        "index.html";
+
+        return;
+    }
+
+
+    const {data,error} =
+    await supabaseClient
+    .from("admission_updates")
+    .select("*")
+    .eq("is_active",true)
+    .order("exam_date",{ascending:true});
+
+
+    if(error){
+
+        console.error(error);
+
+        document.getElementById("content").innerHTML = `
+
+            <div class="empty">
+
+                <h3>
+                    Unable to load admission updates
+                </h3>
+
+                <p>
+                    Please try again later.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    updates = data || [];
+
+    render();
+
+}
+
+
+function setCategory(category,button){
+
+    currentCategory = category;
+
+    document
+    .querySelectorAll(".filter")
+    .forEach(
+        item =>
+        item.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    render();
+
+}
+
+
+function render(){
+
+    const search =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
+
+
+    let list =
+    updates.filter(item => {
+
+        const categoryMatch =
+        currentCategory === "all" ||
+        item.category === currentCategory;
+
+
+        const searchMatch =
+        !search ||
+        item.institution_name
+        .toLowerCase()
+        .includes(search) ||
+
+        (item.short_name || "")
+        .toLowerCase()
+        .includes(search);
+
+
+        return categoryMatch && searchMatch;
+
+    });
+
+
+    if(list.length === 0){
+
+        document.getElementById("content").innerHTML = `
+
+            <div class="empty">
+
+                <h3>
+                    No Admission Updates
+                </h3>
+
+                <p>
+                    No admission information is currently
+                    available for your search.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    let html =
+    `<div class="grid">`;
+
+
+    list.forEach(item => {
+
+        html += `
+
+        <article class="card">
+
+            <div class="top">
+
+                <span class="badge">
+                    ${categoryName(item.category)}
+                </span>
+
+                <span class="session">
+                    ${escapeHTML(
+                        item.admission_session ||
+                        "Current Session"
+                    )}
+                </span>
+
+            </div>
+
+
+            <h2>
+                ${escapeHTML(item.institution_name)}
+            </h2>
+
+
+            <div class="short">
+                ${escapeHTML(item.short_name || "")}
+            </div>
+
+
+            <div class="description">
+                ${escapeHTML(
+                    item.description ||
+                    "Official admission information."
+                )}
+            </div>
+
+
+            <div class="dates">
+
+                📅 Application:
+                ${formatDate(item.application_start)}
+                —
+                ${formatDate(item.application_end)}
+
+                <br>
+
+                📝 Exam:
+                ${formatDate(item.exam_date)}
+
+            </div>
+
+
+            <div class="links">
+
+                ${linkButton(
+                    item.admission_notice_url,
+                    "📢 Notice"
+                )}
+
+                ${linkButton(
+                    item.application_url,
+                    "📝 Apply"
+                )}
+
+                ${linkButton(
+                    item.admit_card_url,
+                    "🎫 Admit Card"
+                )}
+
+                ${linkButton(
+                    item.seat_plan_url,
+                    "📍 Seat Plan"
+                )}
+
+                ${linkButton(
+                    item.result_url,
+                    "🏆 Result"
+                )}
+
+                ${linkButton(
+                    item.official_website_url,
+                    "🌐 Official Site"
+                )}
+
+            </div>
+
+        </article>
+
+        `;
+
+    });
+
+
+    html += `</div>`;
+
+
+    document.getElementById("content").innerHTML =
+    html;
+
+}
+
+
+function linkButton(url,text){
+
+    if(!url){
+
+        return `
+        <span
+        class="btn secondary"
+        style="opacity:.5;cursor:not-allowed">
+        ${text}
+        </span>
+        `;
+
+    }
+
+
+    return `
+
+    <a
+    class="btn"
+    href="${escapeHTML(url)}"
+    target="_blank"
+    rel="noopener noreferrer">
+
+    ${text}
+
+    </a>
+
+    `;
+
+}
+
+
+function formatDate(date){
+
+    if(!date)
+        return "Not announced";
+
+
+    const d =
+    new Date(date + "T00:00:00");
+
+
+    return d.toLocaleDateString(
+        "en-GB",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+function categoryName(category){
+
+    const names = {
+
+        "public-university":
+        "Public University",
+
+        "engineering":
+        "Engineering",
+
+        "medical-dental":
+        "Medical & Dental",
+
+        "agriculture-veterinary":
+        "Agriculture & Veterinary",
+
+        "specialized-admission":
+        "Specialized Admission",
+
+        "abroad-prep":
+        "Abroad Prep"
+
+    };
+
+
+    return names[category] ||
+    "Admission";
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value || "")
+
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+init();
+
+</script>
+
+</body>
+
+</html>
