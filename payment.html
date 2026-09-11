@@ -1,664 +1,907 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Payment | Dream Hunt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Enrolled Courses | Dream Hunt</title>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fb;
-        color: #111827;
-        min-height: 100vh;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 850px;
-        margin: auto;
-        padding: 20px 15px 50px;
-    }
-
-    .topbar {
-        background: #111827;
-        color: white;
-        padding: 20px;
-        border-radius: 16px;
-        margin-bottom: 20px;
-    }
-
-    .brand {
-        font-size: 24px;
-        font-weight: 800;
-    }
-
-    .subtitle {
-        margin-top: 5px;
-        color: #cbd5e1;
-        font-size: 14px;
-    }
-
-    .card {
-        background: white;
-        border-radius: 16px;
-        padding: 22px;
-        margin-bottom: 18px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-    }
-
-    h2 {
-        font-size: 20px;
-        margin-bottom: 18px;
-    }
-
-    .course-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 15px;
-        padding: 13px 0;
-        border-bottom: 1px solid #e5e7eb;
-    }
-
-    .course-row:last-child {
-        border-bottom: none;
-    }
-
-    .course-name {
-        font-weight: 600;
-        line-height: 1.4;
-    }
-
-    .course-price {
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    .total {
-        display: flex;
-        justify-content: space-between;
-        border-top: 2px solid #111827;
-        padding-top: 18px;
-        margin-top: 15px;
-        font-size: 21px;
-        font-weight: 800;
-    }
-
-    .payment-method {
-        border: 2px solid #e5e7eb;
-        border-radius: 14px;
-        margin-bottom: 12px;
-        overflow: hidden;
-        transition: 0.2s;
-    }
-
-    .payment-method.selected {
-        border-color: #111827;
-    }
-
-    .method-header {
-        padding: 16px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        cursor: pointer;
-    }
-
-    .method-header input {
-        width: 18px;
-        height: 18px;
-        cursor: pointer;
-    }
-
-    .method-name {
-        font-size: 17px;
-        font-weight: 800;
-    }
-
-    .method-details {
-        display: none;
-        padding: 0 16px 17px 46px;
-        font-size: 14px;
-        line-height: 1.7;
-    }
-
-    .payment-method.selected .method-details {
-        display: block;
-    }
-
-    .number {
-        font-size: 19px;
-        font-weight: 800;
-        margin: 4px 0;
-    }
-
-    .personal {
-        display: inline-block;
-        background: #f3f4f6;
-        padding: 4px 9px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 12px;
-        margin-top: 3px;
-    }
-
-    .instruction {
-        margin-top: 9px;
-        color: #4b5563;
-    }
-
-    .trx-section {
-        margin-top: 22px;
-    }
-
-    .trx-label {
-        display: block;
-        font-size: 14px;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .trx-input {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid #d1d5db;
-        border-radius: 10px;
-        font-size: 16px;
-        outline: none;
-    }
-
-    .trx-input:focus {
-        border-color: #111827;
-    }
-
-    .notice {
-        background: #fff7ed;
-        border: 1px solid #fed7aa;
-        color: #9a3412;
-        padding: 14px;
-        border-radius: 10px;
-        margin-top: 15px;
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    .submit-btn {
-        width: 100%;
-        border: none;
-        background: #111827;
-        color: white;
-        padding: 16px;
-        border-radius: 11px;
-        font-size: 16px;
-        font-weight: 800;
-        cursor: pointer;
-        margin-top: 18px;
-    }
-
-    .submit-btn:hover {
-        background: #000;
-    }
-
-    .submit-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    .back-btn {
-        display: block;
-        text-align: center;
-        margin-top: 15px;
-        color: #374151;
-        text-decoration: none;
-        font-size: 14px;
-    }
-
-    .pending-card {
-        display: none;
-        text-align: center;
-        padding: 45px 25px;
-    }
-
-    .success-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: #dcfce7;
-        color: #166534;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 32px;
-        font-weight: 800;
-    }
-
-    .pending-card h2 {
-        font-size: 23px;
-        margin-bottom: 12px;
-    }
-
-    .pending-text {
-        color: #4b5563;
-        line-height: 1.7;
-        font-size: 15px;
-    }
-
-    .pending-badge {
-        display: inline-block;
-        margin-top: 18px;
-        background: #fef3c7;
-        color: #92400e;
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 800;
-    }
-
-    .redirect-text {
-        margin-top: 20px;
-        color: #6b7280;
-        font-size: 13px;
-    }
-
-    .loader {
-        width: 20px;
-        height: 20px;
-        border: 3px solid #d1d5db;
-        border-top-color: #111827;
-        border-radius: 50%;
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 7px;
-        animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    .error-box {
-        display: none;
-        background: #fee2e2;
-        border: 1px solid #fecaca;
-        color: #991b1b;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 15px;
-        font-size: 13px;
-        line-height: 1.6;
-        white-space: pre-line;
-    }
-
-    @media (max-width: 600px) {
-        .container {
-            padding: 14px 11px 40px;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .topbar {
-            padding: 17px;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #111827;
+            color: white;
+            padding: 24px 16px;
+            z-index: 100;
+            overflow-y: auto;
         }
 
         .brand {
-            font-size: 21px;
+            font-size: 22px;
+            font-weight: 800;
+            padding: 0 12px 28px;
+            letter-spacing: -0.5px;
         }
 
-        .card {
-            padding: 17px;
+        .brand span {
+            color: #38bdf8;
         }
 
-        .course-row {
+        .menu-title {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 12px 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #cbd5e1;
+            padding: 11px 12px;
+            margin: 3px 0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #1e293b;
+            color: white;
+        }
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .topbar h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .topbar p {
+            color: #64748b;
             font-size: 14px;
         }
 
-        .total {
-            font-size: 19px;
+        .back-btn {
+            text-decoration: none;
+            background: white;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
-        .method-details {
-            padding-left: 46px;
+        /* =========================
+           GENERAL STATE
+        ========================= */
+
+        .state-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 50px 25px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
         }
 
-        .pending-card {
-            padding: 35px 18px;
+        .state-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #eff6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 30px;
         }
-    }
-</style>
 
-</head><body><div class="container"><div class="topbar">
-    <div class="brand">
-        Dream Hunt
-    </div>
+        .state-card h2 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
 
-    <div class="subtitle">
-        Course Payment & Verification
-    </div>
-</div>
+        .state-card p {
+            color: #64748b;
+            max-width: 550px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            margin-top: 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-size: 20px;
+        }
+
+        .count-badge {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* =========================
+           PAYMENT STATUS CARD
+        ========================= */
+
+        .payment-card {
+            background: white;
+            border: 1px solid #fde68a;
+            border-left: 5px solid #f59e0b;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 7px 25px rgba(15, 23, 42, 0.04);
+        }
+
+        .payment-card.rejected-card {
+            border-color: #fecaca;
+            border-left-color: #ef4444;
+        }
+
+        .payment-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .payment-header h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .payment-header p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status.verified {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* =========================
+           DETAILS GRID
+        ========================= */
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .detail {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 11px 13px;
+        }
+
+        .detail small {
+            display: block;
+            color: #64748b;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .detail strong {
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        /* =========================
+           SELECTED COURSE CHIPS
+        ========================= */
+
+        .selected-courses {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 15px;
+        }
+
+        .selected-courses h4 {
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .course-chip {
+            display: inline-block;
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 7px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 3px;
+        }
+
+        /* =========================
+           ENROLLED COURSE
+        ========================= */
+
+        .course-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .course-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .course-title-wrap h3 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .course-title-wrap p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .enrolled-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 7px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .course-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .facility-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .facility-box h4 {
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .facility-box ul {
+            list-style: none;
+        }
+
+        .facility-box li {
+            color: #475569;
+            font-size: 12px;
+            padding: 5px 0;
+            line-height: 1.5;
+        }
+
+        .facility-box li::before {
+            content: "✓";
+            color: #16a34a;
+            font-weight: bold;
+            margin-right: 7px;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 17px;
+            flex-wrap: wrap;
+        }
+
+        .continue-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 11px 18px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .slip-btn {
+            background: white;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 11px 18px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .slip-btn:hover {
+            background: #f8fafc;
+        }
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress-wrap {
+            margin-top: 15px;
+            margin-bottom: 18px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 7px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 10px;
+        }
+
+        /* =========================
+           PAYMENT SLIP MODAL
+        ========================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .slip {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 18px;
+            padding: 28px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .slip-brand {
+            text-align: center;
+            padding-bottom: 18px;
+            border-bottom: 2px dashed #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .slip-brand h2 {
+            font-size: 25px;
+            color: #111827;
+        }
+
+        .slip-brand p {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .slip-status {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .slip-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 11px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 13px;
+        }
+
+        .slip-row span:first-child {
+            color: #64748b;
+        }
+
+        .slip-row span:last-child {
+            text-align: right;
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .slip-footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .close-btn {
+            background: #f1f5f9;
+            color: #334155;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 9px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+        }
+
+        .spinner {
+            width: 35px;
+            height: 35px;
+            border: 3px solid #e2e8f0;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 64px;
+                padding: 20px 7px;
+            }
+
+            .brand {
+                font-size: 0;
+                text-align: center;
+                padding: 0 0 20px;
+            }
+
+            .brand span {
+                font-size: 20px;
+            }
+
+            .menu-title {
+                display: none;
+            }
+
+            .nav-link {
+                justify-content: center;
+                padding: 12px 5px;
+            }
+
+            .nav-link span:not(.nav-icon) {
+                display: none;
+            }
+
+            .nav-icon {
+                font-size: 17px;
+            }
+
+            .main {
+                margin-left: 64px;
+                padding: 20px 14px;
+            }
+
+            .topbar h1 {
+                font-size: 24px;
+            }
+
+            .details-grid,
+            .course-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+
+            .main {
+                padding: 16px 10px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .topbar h1 {
+                font-size: 21px;
+            }
+
+            .topbar p {
+                font-size: 12px;
+            }
+
+            .back-btn {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .payment-header,
+            .course-top {
+                flex-direction: column;
+            }
+
+            .course-card,
+            .payment-card {
+                padding: 16px;
+            }
+
+            .course-actions {
+                flex-direction: column;
+            }
+
+            .continue-btn,
+            .slip-btn {
+                width: 100%;
+            }
+
+            .slip {
+                padding: 20px;
+            }
+
+            .slip-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .slip-row span:last-child {
+                text-align: left;
+            }
+        }
+
+        /* =========================
+           PRINT
+        ========================= */
+
+        @media print {
+
+            body * {
+                visibility: hidden;
+            }
+
+            .slip,
+            .slip * {
+                visibility: visible;
+            }
+
+            .slip {
+                position: absolute;
+                left: 0;
+                top: 0;
+                max-width: 100%;
+                box-shadow: none;
+            }
+
+            .modal {
+                position: absolute;
+                background: white;
+            }
+
+            .modal-actions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            Dream<span>Hunt</span>
+        </div>
+
+        <div class="menu-title">
+            Main
+        </div>
+
+        <a class="nav-link" href="dashboard.html">
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="profile.html">
+            <span class="nav-icon">👤</span>
+            <span>My Profile</span>
+        </a>
 
 
-<!-- ORDER SUMMARY -->
+        <div class="menu-title">
+            Learning
+        </div>
 
-<div class="card" id="orderCard">
+        <a class="nav-link active" href="enrolled-courses.html">
+            <span class="nav-icon">📚</span>
+            <span>Enrolled Courses</span>
+        </a>
 
-    <h2>
-        Order Summary
-    </h2>
+        <a class="nav-link" href="buy-courses.html">
+            <span class="nav-icon">🛒</span>
+            <span>Buy Courses</span>
+        </a>
 
-    <div id="courseList"></div>
-
-    <div class="total">
-        <span>Total</span>
-
-        <span id="totalAmount">
-            ৳0
-        </span>
-    </div>
-
-</div>
-
-
-<!-- PAYMENT -->
-
-<div class="card" id="paymentCard">
-
-    <h2>
-        Select Payment Method
-    </h2>
+        <a class="nav-link" href="progress.html">
+            <span class="nav-icon">📊</span>
+            <span>Progress</span>
+        </a>
 
 
-    <!-- BKASH -->
+        <div class="menu-title">
+            Examination
+        </div>
 
-    <div class="payment-method">
+        <a class="nav-link" href="exams.html">
+            <span class="nav-icon">📝</span>
+            <span>My Exams</span>
+        </a>
 
-        <label class="method-header">
+        <a class="nav-link" href="results.html">
+            <span class="nav-icon">🏆</span>
+            <span>Results</span>
+        </a>
 
-            <input
-                type="radio"
-                name="paymentMethod"
-                value="bKash"
-            >
 
-            <span class="method-name">
-                bKash
-            </span>
+        <div class="menu-title">
+            Account
+        </div>
 
-        </label>
+        <a class="nav-link" href="notifications.html">
+            <span class="nav-icon">🔔</span>
+            <span>Notifications</span>
+        </a>
 
-        <div class="method-details">
+        <a class="nav-link" href="contact.html">
+            <span class="nav-icon">💬</span>
+            <span>Contact Us</span>
+        </a>
 
-            <strong>
-                Send Money
-            </strong>
+        <a class="nav-link" href="index.html" id="logoutBtn">
+            <span class="nav-icon">↪</span>
+            <span>Logout</span>
+        </a>
 
-            <div class="number">
-                01342-210515
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+        <div class="container">
+
+            <div class="topbar">
+
+                <div>
+                    <h1>
+                        Enrolled Courses
+                    </h1>
+
+                    <p>
+                        Manage your Dream Hunt admission preparation courses.
+                    </p>
+                </div>
+
+                <a
+                    href="dashboard.html"
+                    class="back-btn"
+                >
+                    ← Dashboard
+                </a>
+
             </div>
 
-            <span class="personal">
-                Personal Account
-            </span>
 
-            <div class="instruction">
-                Send the exact amount using
-                <strong>Send Money</strong>.
+            <div id="content">
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                    Loading your courses...
+
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+    </main>
 
 
-    <!-- NAGAD -->
-
-    <div class="payment-method">
-
-        <label class="method-header">
-
-            <input
-                type="radio"
-                name="paymentMethod"
-                value="Nagad"
-            >
-
-            <span class="method-name">
-                Nagad
-            </span>
-
-        </label>
-
-        <div class="method-details">
-
-            <strong>
-                Send Money
-            </strong>
-
-            <div class="number">
-                01342-210515
-            </div>
-
-            <span class="personal">
-                Personal Account
-            </span>
-
-            <div class="instruction">
-                Send the exact amount using
-                <strong>Send Money</strong>.
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ROCKET -->
-
-    <div class="payment-method">
-
-        <label class="method-header">
-
-            <input
-                type="radio"
-                name="paymentMethod"
-                value="Rocket"
-            >
-
-            <span class="method-name">
-                Rocket
-            </span>
-
-        </label>
-
-        <div class="method-details">
-
-            <strong>
-                Send Money
-            </strong>
-
-            <div class="number">
-                01342-210515
-            </div>
-
-            <span class="personal">
-                Personal Account
-            </span>
-
-            <div class="instruction">
-                Send the exact amount using
-                <strong>Send Money</strong>.
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- UPAY -->
-
-    <div class="payment-method">
-
-        <label class="method-header">
-
-            <input
-                type="radio"
-                name="paymentMethod"
-                value="Upay"
-            >
-
-            <span class="method-name">
-                Upay
-            </span>
-
-        </label>
-
-        <div class="method-details">
-
-            <strong>
-                Send Money
-            </strong>
-
-            <div class="number">
-                01342-210515
-            </div>
-
-            <span class="personal">
-                Personal Account
-            </span>
-
-            <div class="instruction">
-                Send the exact amount using
-                <strong>Send Money</strong>.
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- TRX -->
-
-    <div class="trx-section">
-
-        <label
-            class="trx-label"
-            for="trxId"
-        >
-            Transaction ID (TRX ID)
-        </label>
-
-        <input
-            type="text"
-            id="trxId"
-            class="trx-input"
-            placeholder="Enter your Transaction ID"
-            autocomplete="off"
-        >
-
-    </div>
-
-
-    <div class="notice">
-
-        After sending the payment, enter your
-        <strong>TRX ID</strong> and submit it.
-
-        <br><br>
-
-        Your payment will remain
-        <strong>Pending</strong> until Dream Hunt
-        verifies it.
-
-        <br><br>
-
-        Your selected course will appear in
-        <strong>Enrolled Courses only after verification.</strong>
-
-    </div>
-
+    <!-- =========================
+         PAYMENT SLIP MODAL
+    ========================= -->
 
     <div
-        class="error-box"
-        id="errorBox"
-    ></div>
-
-
-    <button
-        class="submit-btn"
-        id="submitPayment"
+        class="modal"
+        id="slipModal"
     >
-        Submit Payment
-    </button>
 
+        <div
+            class="slip"
+            id="slipContent"
+        >
 
-    <a
-        href="buy-courses.html"
-        class="back-btn"
-    >
-        ← Back to Buy Courses
-    </a>
-
-</div>
-
-
-<!-- PENDING -->
-
-<div
-    class="card pending-card"
-    id="pendingCard"
->
-
-    <div class="success-icon">
-        ✓
-    </div>
-
-    <h2>
-        Payment Submitted Successfully
-    </h2>
-
-    <div class="pending-text">
-
-        Please wait while we verify your payment.
-
-        <br><br>
-
-        Your payment information has been
-        successfully submitted and is currently
-        under review.
-
-        <br><br>
-
-        Your course will appear in
-        <strong>Enrolled Courses</strong>
-        after your payment is verified.
+        </div>
 
     </div>
 
-    <div class="pending-badge">
-        Payment Verification: Pending
-    </div>
 
-    <div class="redirect-text">
+<script>
 
-        <span class="loader"></span>
-
-        Redirecting to Student Portal...
-
-    </div>
-
-</div>
-
-</div><script>
-
-/* =========================================
-   SUPABASE
-========================================= */
+/* =========================================================
+   SUPABASE CONFIGURATION
+========================================================= */
 
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
@@ -673,75 +916,9 @@ const supabaseClient =
     );
 
 
-let currentUser = null;
-let checkoutData = null;
-
-
-/* =========================================
-   COURSE NAME → SLUG CONVERTER
-========================================= */
-
-const slugMap = {
-
-    "Public University":
-        "public-university",
-
-    "Public University Admission":
-        "public-university",
-
-    "Engineering":
-        "engineering",
-
-    "Engineering Admission":
-        "engineering",
-
-    "Medical & Dental":
-        "medical-dental",
-
-    "Medical & Dental Admission":
-        "medical-dental",
-
-    "Agriculture & Veterinary":
-        "agriculture-veterinary",
-
-    "Agriculture & Veterinary Admission":
-        "agriculture-veterinary",
-
-    "Specialized Admission":
-        "specialized-admission",
-
-    "Specialized":
-        "specialized-admission",
-
-    "Abroad Prep":
-        "abroad-prep",
-
-    "Abroad Preparation":
-        "abroad-prep",
-
-    "public-university":
-        "public-university",
-
-    "engineering":
-        "engineering",
-
-    "medical-dental":
-        "medical-dental",
-
-    "agriculture-veterinary":
-        "agriculture-veterinary",
-
-    "specialized-admission":
-        "specialized-admission",
-
-    "abroad-prep":
-        "abroad-prep"
-};
-
-
-/* =========================================
-   COURSE DISPLAY NAMES
-========================================= */
+/* =========================================================
+   COURSE NAMES
+========================================================= */
 
 const courseNames = {
 
@@ -765,729 +942,1730 @@ const courseNames = {
 };
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
+/* =========================================================
+   COURSE DESCRIPTIONS
+========================================================= */
 
-async function init() {
+const courseDescriptions = {
 
-    const {
-        data: {
-            user
-        },
-        error: userError
-    } =
-    await supabaseClient.auth.getUser();
+    "public-university":
+        "Complete preparation for Bangladesh public university admission examinations.",
 
+    "engineering":
+        "Admission-focused preparation for BUET, CUET, KUET, RUET, MIST, BUTEX and other engineering institutions.",
+
+    "medical-dental":
+        "Admission preparation for MBBS, BDS and government medical and dental examinations.",
+
+    "agriculture-veterinary":
+        "Preparation for agriculture universities, agriculture cluster and veterinary admission.",
+
+    "specialized-admission":
+        "Preparation for BUP, Maritime University, Textile University, Aviation and other specialized institutions.",
+
+    "abroad-prep":
+        "Preparation support for international university admission and study abroad pathways."
+};
+
+
+/* =========================================================
+   COURSE FACILITIES
+========================================================= */
+
+const courseFacilities = {
+
+    "public-university": [
+
+        "Dhaka University — A, B, C, D Unit & IBA",
+
+        "Jahangirnagar University — A, B, C, C1, D, E",
+
+        "Rajshahi University — A, B, C",
+
+        "Chittagong University — A, B, C, D, B1, D1",
+
+        "Jagannath University — A, B, C, D, E",
+
+        "Khulna University — A, B, C, D",
+
+        "GST — A, B, C",
+
+        "SUST & other applicable universities",
+
+        "Previous Years' Questions",
+
+        "Current Affairs & Admission GK"
+    ],
+
+
+    "engineering": [
+
+        "BUET Admission",
+
+        "CUET Admission",
+
+        "KUET Admission",
+
+        "RUET Admission",
+
+        "MIST Admission",
+
+        "BUTEX Admission",
+
+        "Engineering Question Bank",
+
+        "Formula & Shortcut Sheet",
+
+        "Problem Solving Practice",
+
+        "Time-pressure Tests"
+    ],
+
+
+    "medical-dental": [
+
+        "MBBS Admission",
+
+        "BDS Admission",
+
+        "Government Medical",
+
+        "Government Dental",
+
+        "Biology MCQ",
+
+        "Chemistry MCQ",
+
+        "Physics MCQ",
+
+        "GK & Current Affairs",
+
+        "Medical Model Tests",
+
+        "Competitive Ranking"
+    ],
+
+
+    "agriculture-veterinary": [
+
+        "Agriculture University Admission",
+
+        "Agriculture Cluster",
+
+        "Veterinary Admission",
+
+        "Agriculture MCQ",
+
+        "Previous Years' Questions",
+
+        "Important Topics",
+
+        "Current Affairs",
+
+        "Question Bank",
+
+        "Model Tests",
+
+        "Performance Ranking"
+    ],
+
+
+    "specialized-admission": [
+
+        "BUP Admission",
+
+        "Maritime University",
+
+        "Textile University",
+
+        "Aviation-related Admission",
+
+        "Question Bank",
+
+        "Pattern Analysis",
+
+        "Current Affairs",
+
+        "Model Tests",
+
+        "Performance Ranking",
+
+        "Result Analysis"
+    ],
+
+
+    "abroad-prep": [
+
+        "University Guidance",
+
+        "Test Preparation",
+
+        "Study Resources",
+
+        "Application Guidance",
+
+        "Progress Tracking",
+
+        "Admission Updates",
+
+        "International University Guidance",
+
+        "Preparation Resources"
+    ]
+};
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
 
     if (
-        userError ||
-        !user
+        value === null ||
+        value === undefined
     ) {
-
-        window.location.href =
-            "index.html";
-
-        return;
+        return "";
     }
 
-
-    currentUser =
-        user;
-
-
-    const storedCheckout =
-        sessionStorage.getItem(
-            "dreamHuntCheckout"
-        );
-
-
-    if (!storedCheckout) {
-
-        alert(
-            "No checkout information found. Please select your course again."
-        );
-
-        window.location.href =
-            "buy-courses.html";
-
-        return;
-    }
-
-
-    try {
-
-        checkoutData =
-            JSON.parse(
-                storedCheckout
-            );
-
-    } catch (error) {
-
-        alert(
-            "Invalid checkout information. Please select your course again."
-        );
-
-        sessionStorage.removeItem(
-            "dreamHuntCheckout"
-        );
-
-        window.location.href =
-            "buy-courses.html";
-
-        return;
-    }
-
-
-    if (
-        !checkoutData.categories ||
-        !Array.isArray(
-            checkoutData.categories
-        ) ||
-        checkoutData.categories.length === 0
-    ) {
-
-        alert(
-            "No course selected. Please select a course again."
-        );
-
-        window.location.href =
-            "buy-courses.html";
-
-        return;
-    }
-
-
-    /*
-     * IMPORTANT:
-     * Convert any old course names
-     * into database slugs.
-     */
-
-    checkoutData.categories =
-        checkoutData.categories.map(
-            function(category) {
-
-                return (
-                    slugMap[category] ||
-                    category
-                );
-
-            }
-        );
-
-
-    /*
-     * Remove duplicates
-     */
-
-    checkoutData.categories =
-        [
-            ...new Set(
-                checkoutData.categories
-            )
-        ];
-
-
-    /*
-     * Save normalized checkout
-     */
-
-    sessionStorage.setItem(
-        "dreamHuntCheckout",
-        JSON.stringify(
-            checkoutData
-        )
-    );
-
-
-    loadOrderSummary();
-
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-/* =========================================
-   ORDER SUMMARY
-========================================= */
+/* =========================================================
+   DATE FORMAT
+========================================================= */
 
-function loadOrderSummary() {
+function formatDate(date) {
 
-    const courseList =
-        document.getElementById(
-            "courseList"
+    if (!date) {
+        return "—";
+    }
+
+    return new Date(date).toLocaleString(
+        "en-BD",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+}
+
+
+/* =========================================================
+   MONEY FORMAT
+========================================================= */
+
+function formatAmount(amount) {
+
+    return "৳" +
+        Number(amount || 0)
+            .toLocaleString("en-BD");
+}
+
+
+/* =========================================================
+   CATEGORY NORMALIZER
+========================================================= */
+
+function normalizeCategories(categories) {
+
+    if (!Array.isArray(categories)) {
+        return [];
+    }
+
+
+    const slugMap = {
+
+        "Public University":
+            "public-university",
+
+        "Public University Admission":
+            "public-university",
+
+        "Engineering":
+            "engineering",
+
+        "Engineering Admission":
+            "engineering",
+
+        "Medical":
+            "medical-dental",
+
+        "Medical & Dental":
+            "medical-dental",
+
+        "Medical & Dental Admission":
+            "medical-dental",
+
+        "Agriculture":
+            "agriculture-veterinary",
+
+        "Agriculture & Veterinary":
+            "agriculture-veterinary",
+
+        "Agriculture & Veterinary Admission":
+            "agriculture-veterinary",
+
+        "Specialized":
+            "specialized-admission",
+
+        "Specialized Admission":
+            "specialized-admission",
+
+        "Abroad":
+            "abroad-prep",
+
+        "Abroad Prep":
+            "abroad-prep",
+
+        "Abroad Preparation":
+            "abroad-prep"
+    };
+
+
+    return categories
+        .map(
+            item =>
+                slugMap[item] || item
+        )
+        .filter(
+            item =>
+                courseNames[item]
+        );
+}
+
+
+/* =========================================================
+   STATUS CLASS
+========================================================= */
+
+function getStatusClass(status) {
+
+    if (status === "verified") {
+        return "verified";
+    }
+
+    if (status === "rejected") {
+        return "rejected";
+    }
+
+    return "pending";
+}
+
+
+/* =========================================================
+   STATUS TEXT
+========================================================= */
+
+function getStatusText(status) {
+
+    if (status === "verified") {
+        return "Verified";
+    }
+
+    if (status === "rejected") {
+        return "Rejected";
+    }
+
+    return "Pending";
+}
+
+
+/* =========================================================
+   PAYMENT SLIP
+   IMPORTANT:
+   This function is ONLY called for verified orders.
+========================================================= */
+
+function showPaymentSlip(order) {
+
+    if (
+        !order ||
+        order.payment_status !== "verified"
+    ) {
+
+        return;
+    }
+
+
+    const categories =
+        normalizeCategories(
+            order.selected_categories
         );
 
 
-    courseList.innerHTML = "";
-
-
-    checkoutData.categories.forEach(
-        function(category) {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "course-row";
-
-
-            const name =
-                courseNames[category] ||
-                category;
-
-
-            row.innerHTML = `
-
-                <div class="course-name">
-                    ${name}
-                </div>
-
-                <div class="course-price">
-                    Included
-                </div>
-
-            `;
-
-
-            courseList.appendChild(
-                row
-            );
-
-        }
-    );
+    const names =
+        categories.map(
+            slug =>
+                courseNames[slug]
+        );
 
 
     document.getElementById(
-        "totalAmount"
-    ).textContent =
-        "৳" +
-        checkoutData.amount;
+        "slipContent"
+    ).innerHTML = `
 
+        <div class="slip-brand">
+
+            <h2>
+                DREAM HUNT
+            </h2>
+
+            <p>
+                Admission Preparation Platform
+            </p>
+
+        </div>
+
+
+        <div class="slip-status">
+
+            <span class="status verified">
+                ✓ Payment Verified
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Student
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.student_name || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Email
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.email || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Package
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.package_type || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Selected Courses
+            </span>
+
+            <span>
+
+                ${
+                    names.length
+                    ? names
+                        .map(
+                            name =>
+                                escapeHTML(name)
+                        )
+                        .join("<br>")
+                    : "—"
+                }
+
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Amount
+            </span>
+
+            <span>
+                ${formatAmount(
+                    order.amount
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Payment Method
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.payment_method || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                TRX ID
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.transaction_id || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                HSC Roll
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.hsc_roll || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                HSC Registration
+            </span>
+
+            <span>
+                ${escapeHTML(
+                    order.hsc_registration || "—"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-row">
+
+            <span>
+                Payment Verified
+            </span>
+
+            <span>
+                ${formatDate(
+                    order.created_at
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="slip-footer">
+
+            This is an official digital payment
+            receipt for a verified Dream Hunt enrollment.
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="close-btn"
+                onclick="closeSlip()"
+            >
+                Close
+            </button>
+
+            <button
+                class="primary-btn"
+                style="margin-top:0"
+                onclick="window.print()"
+            >
+                Print
+            </button>
+
+        </div>
+    `;
+
+
+    document
+        .getElementById("slipModal")
+        .classList.add("show");
 }
 
 
-/* =========================================
-   PAYMENT METHOD UI
-========================================= */
+/* =========================================================
+   CLOSE SLIP
+========================================================= */
+
+function closeSlip() {
+
+    document
+        .getElementById("slipModal")
+        .classList.remove("show");
+}
+
+
+/* =========================================================
+   CLOSE MODAL ON BACKDROP
+========================================================= */
 
 document
-    .querySelectorAll(
-        'input[name="paymentMethod"]'
-    )
-    .forEach(
-        function(input) {
+    .getElementById("slipModal")
+    .addEventListener(
+        "click",
+        function(event) {
 
-            input.addEventListener(
-                "change",
-                function() {
+            if (
+                event.target === this
+            ) {
 
-                    document
-                        .querySelectorAll(
-                            ".payment-method"
-                        )
-                        .forEach(
-                            function(box) {
-
-                                box.classList.remove(
-                                    "selected"
-                                );
-
-                            }
-                        );
-
-
-                    this
-                        .closest(
-                            ".payment-method"
-                        )
-                        .classList.add(
-                            "selected"
-                        );
-
-                }
-            );
-
+                closeSlip();
+            }
         }
     );
 
 
-/* =========================================
-   ERROR DISPLAY
-========================================= */
+/* =========================================================
+   PENDING PAYMENT RENDER
+   NO PAYMENT SLIP HERE.
+========================================================= */
 
-function showError(message) {
+function renderPendingOrders(
+    orders
+) {
 
-    const errorBox =
-        document.getElementById(
-            "errorBox"
-        );
-
-
-    errorBox.textContent =
-        message;
+    if (!orders.length) {
+        return "";
+    }
 
 
-    errorBox.style.display =
-        "block";
+    let html = `
 
-}
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Pending Payments
+                </h2>
+
+                <span class="count-badge">
+                    ${orders.length}
+                    ${
+                        orders.length === 1
+                        ? "Payment"
+                        : "Payments"
+                    }
+                </span>
+
+            </div>
+    `;
 
 
-/* =========================================
-   HIDE ERROR
-========================================= */
+    orders.forEach(
+        order => {
 
-function hideError() {
-
-    const errorBox =
-        document.getElementById(
-            "errorBox"
-        );
+            const categories =
+                normalizeCategories(
+                    order.selected_categories
+                );
 
 
-    errorBox.style.display =
-        "none";
+            const names =
+                categories.map(
+                    slug =>
+                        courseNames[slug]
+                );
 
-}
+
+            html += `
+
+                <div class="payment-card">
+
+                    <div class="payment-header">
+
+                        <div>
+
+                            <h3>
+                                ${escapeHTML(
+                                    order.package_type ||
+                                    "Course Package"
+                                )}
+                            </h3>
+
+                            <p>
+                                Your payment has been submitted
+                                and is waiting for approval.
+                            </p>
+
+                        </div>
 
 
-/* =========================================
-   SUBMIT PAYMENT
-========================================= */
+                        <span class="status pending">
+                            🟡 Pending
+                        </span>
 
-document
-    .getElementById(
-        "submitPayment"
-    )
-    .addEventListener(
-        "click",
-        submitPayment
+                    </div>
+
+
+                    <div class="details-grid">
+
+                        <div class="detail">
+
+                            <small>
+                                Amount
+                            </small>
+
+                            <strong>
+                                ${formatAmount(
+                                    order.amount
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Payment Method
+                            </small>
+
+                            <strong>
+                                ${escapeHTML(
+                                    order.payment_method ||
+                                    "—"
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                TRX ID
+                            </small>
+
+                            <strong>
+                                ${escapeHTML(
+                                    order.transaction_id ||
+                                    "—"
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Submitted
+                            </small>
+
+                            <strong>
+                                ${formatDate(
+                                    order.created_at
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                HSC Roll
+                            </small>
+
+                            <strong>
+                                ${escapeHTML(
+                                    order.hsc_roll ||
+                                    "—"
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                HSC Registration
+                            </small>
+
+                            <strong>
+                                ${escapeHTML(
+                                    order.hsc_registration ||
+                                    "—"
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="selected-courses">
+
+                        <h4>
+                            Selected Courses
+                        </h4>
+
+                        ${
+                            names.length
+                            ? names
+                                .map(
+                                    name =>
+                                        `<span class="course-chip">${escapeHTML(name)}</span>`
+                                )
+                                .join("")
+                            : `
+                                <span class="course-chip">
+                                    Course information unavailable
+                                </span>
+                            `
+                        }
+
+                    </div>
+
+
+                    <div
+                        style="
+                            margin-top:15px;
+                            color:#92400e;
+                            background:#fffbeb;
+                            border:1px solid #fde68a;
+                            border-radius:10px;
+                            padding:11px 13px;
+                            font-size:12px;
+                            line-height:1.6;
+                        "
+                    >
+
+                        ⏳
+                        Payment verification is pending.
+                        Your course will appear in
+                        <strong>Enrolled Courses</strong>
+                        after approval.
+
+                    </div>
+
+                </div>
+            `;
+        }
     );
 
 
-async function submitPayment() {
+    html += `
+        </section>
+    `;
 
-    const button =
+
+    return html;
+}
+
+
+/* =========================================================
+   REJECTED PAYMENTS
+   NO PAYMENT SLIP HERE.
+========================================================= */
+
+function renderRejectedOrders(
+    orders
+) {
+
+    if (!orders.length) {
+        return "";
+    }
+
+
+    let html = `
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Payment Updates
+                </h2>
+
+            </div>
+    `;
+
+
+    orders.forEach(
+        order => {
+
+            const categories =
+                normalizeCategories(
+                    order.selected_categories
+                );
+
+
+            const names =
+                categories.map(
+                    slug =>
+                        courseNames[slug]
+                );
+
+
+            html += `
+
+                <div class="payment-card rejected-card">
+
+                    <div class="payment-header">
+
+                        <div>
+
+                            <h3>
+                                ${escapeHTML(
+                                    order.package_type ||
+                                    "Course Package"
+                                )}
+                            </h3>
+
+                            <p>
+                                This payment was rejected.
+                                Please contact Dream Hunt support
+                                if you believe this was a mistake.
+                            </p>
+
+                        </div>
+
+
+                        <span class="status rejected">
+                            🔴 Rejected
+                        </span>
+
+                    </div>
+
+
+                    <div class="details-grid">
+
+                        <div class="detail">
+
+                            <small>
+                                Amount
+                            </small>
+
+                            <strong>
+                                ${formatAmount(
+                                    order.amount
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Payment Method
+                            </small>
+
+                            <strong>
+                                ${escapeHTML(
+                                    order.payment_method ||
+                                    "—"
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                TRX ID
+                            </small>
+
+                            <strong>
+                                ${escapeHTML(
+                                    order.transaction_id ||
+                                    "—"
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Submitted
+                            </small>
+
+                            <strong>
+                                ${formatDate(
+                                    order.created_at
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="selected-courses">
+
+                        <h4>
+                            Submitted Courses
+                        </h4>
+
+                        ${
+                            names.map(
+                                name =>
+                                    `<span class="course-chip">${escapeHTML(name)}</span>`
+                            ).join("")
+                        }
+
+                    </div>
+
+
+                    <div
+                        style="
+                            margin-top:15px;
+                            color:#991b1b;
+                            background:#fff1f2;
+                            border:1px solid #fecaca;
+                            border-radius:10px;
+                            padding:11px 13px;
+                            font-size:12px;
+                            line-height:1.6;
+                        "
+                    >
+
+                        ❌
+                        No course access has been granted
+                        for this payment.
+
+                    </div>
+
+                </div>
+            `;
+        }
+    );
+
+
+    html += `
+        </section>
+    `;
+
+
+    return html;
+}
+
+
+/* =========================================================
+   ENROLLED COURSES
+   ONLY VERIFIED ENROLLMENTS APPEAR HERE.
+========================================================= */
+
+function renderEnrolledCourses(
+    enrollments,
+    verifiedOrders
+) {
+
+    if (!enrollments.length) {
+        return "";
+    }
+
+
+    let html = `
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    My Enrolled Courses
+                </h2>
+
+                <span class="count-badge">
+                    ${enrollments.length}
+                    ${
+                        enrollments.length === 1
+                        ? "Course"
+                        : "Courses"
+                    }
+                </span>
+
+            </div>
+    `;
+
+
+    enrollments.forEach(
+        enrollment => {
+
+            const course =
+                enrollment.courses;
+
+
+            if (!course) {
+                return;
+            }
+
+
+            const slug =
+                course.slug;
+
+
+            const facilities =
+                courseFacilities[slug] ||
+                [];
+
+
+            /*
+                Find the verified order that
+                contains this course.
+            */
+
+            const matchingOrder =
+                verifiedOrders.find(
+                    order => {
+
+                        const categories =
+                            normalizeCategories(
+                                order.selected_categories
+                            );
+
+                        return categories.includes(
+                            slug
+                        );
+                    }
+                );
+
+
+            const progress =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Number(
+                            enrollment.progress_percent ||
+                            0
+                        )
+                    )
+                );
+
+
+            html += `
+
+                <div class="course-card">
+
+                    <div class="course-top">
+
+                        <div class="course-title-wrap">
+
+                            <h3>
+                                ${escapeHTML(
+                                    course.name
+                                )}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(
+                                    course.description ||
+                                    courseDescriptions[slug] ||
+                                    ""
+                                )}
+                            </p>
+
+                        </div>
+
+
+                        <span class="enrolled-badge">
+                            ✓ Enrolled
+                        </span>
+
+                    </div>
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="progress-wrap">
+
+                        <div class="progress-label">
+
+                            <span>
+                                Course Progress
+                            </span>
+
+                            <strong>
+                                ${progress}%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="
+                                    width:${progress}%;
+                                "
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="course-details">
+
+                        <div class="facility-box">
+
+                            <h4>
+                                Course Coverage
+                            </h4>
+
+                            <ul>
+
+                                ${
+                                    facilities
+                                        .map(
+                                            item =>
+                                                `<li>${escapeHTML(item)}</li>`
+                                        )
+                                        .join("")
+                                }
+
+                            </ul>
+
+                        </div>
+
+
+                        <div class="facility-box">
+
+                            <h4>
+                                Your Course Includes
+                            </h4>
+
+                            <ul>
+
+                                <li>
+                                    Admission-focused preparation
+                                </li>
+
+                                <li>
+                                    Previous Years' Questions
+                                </li>
+
+                                <li>
+                                    Important & Marked Questions
+                                </li>
+
+                                <li>
+                                    Formula & Shortcuts
+                                </li>
+
+                                <li>
+                                    Daily & Weekly Exams
+                                </li>
+
+                                <li>
+                                    Mega Exams
+                                </li>
+
+                                <li>
+                                    Performance Ranking
+                                </li>
+
+                                <li>
+                                    Personal Progress Tracking
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="course-actions">
+
+                        <button
+                            class="continue-btn"
+                            onclick="openCourse('${escapeHTML(slug)}')"
+                        >
+                            Continue Learning
+                        </button>
+
+
+                        ${
+                            matchingOrder
+                            ? `
+                                <button
+                                    class="slip-btn"
+                                    onclick='showPaymentSlip(${JSON.stringify(matchingOrder).replace(/'/g, "&#039;")})'
+                                >
+                                    🧾 Payment Slip
+                                </button>
+                            `
+                            : ""
+                        }
+
+                    </div>
+
+                </div>
+            `;
+        }
+    );
+
+
+    html += `
+        </section>
+    `;
+
+
+    return html;
+}
+
+
+/* =========================================================
+   COURSE ACCESS
+========================================================= */
+
+function openCourse(
+    slug
+) {
+
+    /*
+        Real course content pages
+        will be connected later.
+    */
+
+    alert(
+        "Your " +
+        (courseNames[slug] || "course") +
+        " is active. Course learning content will be available here soon."
+    );
+}
+
+
+/* =========================================================
+   LOAD PAGE
+========================================================= */
+
+async function loadPage() {
+
+    const content =
         document.getElementById(
-            "submitPayment"
+            "content"
         );
-
-
-    hideError();
-
-
-    const selectedMethod =
-        document.querySelector(
-            'input[name="paymentMethod"]:checked'
-        );
-
-
-    const trxInput =
-        document.getElementById(
-            "trxId"
-        );
-
-
-    const trxId =
-        trxInput.value.trim();
-
-
-    /* PAYMENT METHOD */
-
-    if (!selectedMethod) {
-
-        showError(
-            "Please select a payment method."
-        );
-
-        return;
-    }
-
-
-    /* TRX */
-
-    if (!trxId) {
-
-        showError(
-            "Please enter your Transaction ID."
-        );
-
-        trxInput.focus();
-
-        return;
-    }
-
-
-    if (trxId.length < 4) {
-
-        showError(
-            "Please enter a valid Transaction ID."
-        );
-
-        trxInput.focus();
-
-        return;
-    }
-
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "Checking course information...";
 
 
     try {
 
-        /*
-         * =====================================
-         * STEP 1
-         * FIND COURSES FIRST
-         * =====================================
-         *
-         * We do this BEFORE creating the order.
-         */
+        /* =========================
+           AUTH CHECK
+        ========================= */
 
         const {
-            data: courses,
-            error: coursesError
+            data: {
+                user
+            }
         } =
-        await supabaseClient
-
-            .from("courses")
-
-            .select(
-                "id, name, slug, is_active"
-            )
-
-            .in(
-                "slug",
-                checkoutData.categories
-            );
-
-
-        if (coursesError) {
-
-            console.error(
-                "COURSES ERROR:",
-                coursesError
-            );
-
-            throw new Error(
-                "Could not load courses from database.\n\n" +
-                coursesError.message
-            );
-        }
-
-
-        /*
-         * =====================================
-         * CHECK MISSING COURSES
-         * =====================================
-         */
-
-        const foundSlugs =
-            (courses || [])
-            .map(
-                course =>
-                    course.slug
-            );
-
-
-        const missingSlugs =
-            checkoutData.categories
-            .filter(
-                slug =>
-                    !foundSlugs.includes(
-                        slug
-                    )
-            );
-
-
-        if (
-            missingSlugs.length > 0
-        ) {
-
-            throw new Error(
-
-                "These course slugs were not found in the database:\n\n" +
-
-                missingSlugs.join("\n") +
-
-                "\n\nSelected courses:\n" +
-
-                checkoutData.categories.join("\n")
-
-            );
-
-        }
-
-
-        /*
-         * =====================================
-         * CHECK ACTIVE COURSES
-         * =====================================
-         */
-
-        const inactiveCourses =
-            courses.filter(
-                course =>
-                    course.is_active === false
-            );
-
-
-        if (
-            inactiveCourses.length > 0
-        ) {
-
-            throw new Error(
-
-                "The following course is currently inactive:\n\n" +
-
-                inactiveCourses
-                    .map(
-                        course =>
-                            course.name
-                    )
-                    .join("\n")
-
-            );
-
-        }
-
-
-        /*
-         * =====================================
-         * STEP 2
-         * CREATE PENDING ORDER
-         * =====================================
-         */
-
-        button.textContent =
-            "Creating payment order...";
-
-
-        const {
-            data: order,
-            error: orderError
-        } =
-        await supabaseClient
-
-            .from("orders")
-
-            .insert({
-
-                user_id:
-                    currentUser.id,
-
-                package_type:
-                    checkoutData.packageType,
-
-                selected_categories:
-                    checkoutData.categories,
-
-                hsc_roll:
-                    checkoutData.hscRoll,
-
-                hsc_registration:
-                    checkoutData.hscRegistration,
-
-                amount:
-                    checkoutData.amount,
-
-                currency:
-                    "BDT",
-
-                payment_method:
-                    selectedMethod.value,
-
-                transaction_id:
-                    trxId,
-
-                payment_status:
-                    "pending"
-
-            })
-
-            .select()
-            .single();
-
-
-        if (orderError) {
-
-            console.error(
-                "ORDER ERROR:",
-                orderError
-            );
-
-            throw new Error(
-                "Order could not be created.\n\n" +
-                orderError.message
-            );
-
-        }
-
-
-        /*
-         * =====================================
-         * STEP 3
-         * CREATE ORDER ITEMS
-         * =====================================
-         */
-
-        button.textContent =
-            "Saving selected courses...";
-
-
-        const orderItems =
-            courses.map(
-                function(course) {
-
-                    return {
-
-                        order_id:
-                            order.id,
-
-                        course_id:
-                            course.id
-
-                    };
-
-                }
-            );
-
-
-        const {
-            error: itemsError
-        } =
-        await supabaseClient
-
-            .from("order_items")
-
-            .insert(
-                orderItems
-            );
-
-
-        if (itemsError) {
-
-            console.error(
-                "ORDER ITEMS ERROR:",
-                itemsError
-            );
-
-            /*
-             * Try to remove the order
-             * if order_items failed.
-             */
-
             await supabaseClient
-                .from("orders")
-                .delete()
+                .auth
+                .getUser();
+
+
+        if (!user) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        const {
+            data: profile,
+            error: profileError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(`
+                    full_name
+                `)
                 .eq(
                     "id",
-                    order.id
+                    user.id
+                )
+                .maybeSingle();
+
+
+        if (profileError) {
+            console.warn(
+                "Profile warning:",
+                profileError
+            );
+        }
+
+
+        /* =========================
+           ORDERS
+        ========================= */
+
+        const {
+            data: orders,
+            error: ordersError
+        } =
+            await supabaseClient
+                .from("orders")
+                .select(`
+                    id,
+                    user_id,
+                    package_type,
+                    selected_categories,
+                    hsc_roll,
+                    hsc_registration,
+                    amount,
+                    currency,
+                    payment_method,
+                    transaction_id,
+                    payment_status,
+                    created_at
+                `)
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
                 );
 
 
-            throw new Error(
-                "Order items could not be saved.\n\n" +
-                itemsError.message
-            );
-
+        if (ordersError) {
+            throw ordersError;
         }
 
 
-        /*
-         * =====================================
-         * STEP 4
-         * SUCCESS / PENDING SCREEN
-         * =====================================
-         */
+        /* =========================
+           ADD STUDENT INFORMATION
+        ========================= */
 
-        document.getElementById(
-            "orderCard"
-        ).style.display =
-            "none";
+        const enrichedOrders =
+            (orders || [])
+                .map(
+                    order => ({
 
+                        ...order,
 
-        document.getElementById(
-            "paymentCard"
-        ).style.display =
-            "none";
+                        student_name:
+                            profile?.full_name ||
+                            user.user_metadata?.full_name ||
+                            "Student",
 
-
-        document.getElementById(
-            "pendingCard"
-        ).style.display =
-            "block";
+                        email:
+                            user.email || ""
+                    })
+                );
 
 
-        /*
-         * IMPORTANT:
-         *
-         * NO enrollment is created here.
-         *
-         * Admin verification will create
-         * enrollment later.
-         */
+        /* =========================
+           ENROLLMENTS
+        ========================= */
 
-        sessionStorage.removeItem(
-            "dreamHuntCheckout"
-        );
+        const {
+            data: enrollments,
+            error: enrollmentError
+        } =
+            await supabaseClient
+                .from("enrollments")
+                .select(`
+                    id,
+                    user_id,
+                    course_id,
+                    order_id,
+                    status,
+                    progress_percent,
+                    enrolled_at,
+                    courses (
+                        id,
+                        name,
+                        slug,
+                        category,
+                        description,
+                        is_active
+                    )
+                `)
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .order(
+                    "enrolled_at",
+                    {
+                        ascending: false
+                    }
+                );
 
 
-        /*
-         * =====================================
-         * REDIRECT
-         * =====================================
-         */
+        if (enrollmentError) {
+            throw enrollmentError;
+        }
 
-        setTimeout(
-            function() {
 
-                window.location.href =
-                    "dashboard.html";
+        /* =========================
+           FILTER ORDERS
+        ========================= */
 
-            },
-            3500
-        );
+        const pendingOrders =
+            enrichedOrders.filter(
+                order =>
+                    order.payment_status ===
+                    "pending"
+            );
+
+
+        const rejectedOrders =
+            enrichedOrders.filter(
+                order =>
+                    order.payment_status ===
+                    "rejected"
+            );
+
+
+        const verifiedOrders =
+            enrichedOrders.filter(
+                order =>
+                    order.payment_status ===
+                    "verified"
+            );
+
+
+        /* =========================
+           ACTIVE ENROLLMENTS
+        ========================= */
+
+        const activeEnrollments =
+            (enrollments || [])
+                .filter(
+                    enrollment =>
+                        enrollment.status ===
+                            "active" ||
+                        enrollment.status ===
+                            "enrolled"
+                );
+
+
+        /* =========================
+           ABSOLUTE EMPTY STATE
+        ========================= */
+
+        if (
+            !pendingOrders.length &&
+            !rejectedOrders.length &&
+            !activeEnrollments.length
+        ) {
+
+            content.innerHTML = `
+
+                <div class="state-card">
+
+                    <div class="state-icon">
+                        📚
+                    </div>
+
+                    <h2>
+                        You Have No Enrolled Courses
+                    </h2>
+
+                    <p>
+                        You haven't enrolled in any
+                        Dream Hunt course yet.
+                        Explore our admission programs
+                        and start your preparation today.
+                    </p>
+
+                    <a
+                        href="buy-courses.html"
+                        class="primary-btn"
+                    >
+                        Browse Courses
+                    </a>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        /* =========================
+           BUILD PAGE
+        ========================= */
+
+        let html = "";
+
+
+        /* =========================
+           ENROLLED
+        ========================= */
+
+        if (
+            activeEnrollments.length
+        ) {
+
+            html +=
+                renderEnrolledCourses(
+                    activeEnrollments,
+                    verifiedOrders
+                );
+        }
+
+
+        /* =========================
+           PENDING
+        ========================= */
+
+        if (
+            pendingOrders.length
+        ) {
+
+            html +=
+                renderPendingOrders(
+                    pendingOrders
+                );
+        }
+
+
+        /* =========================
+           REJECTED
+        ========================= */
+
+        if (
+            rejectedOrders.length
+        ) {
+
+            html +=
+                renderRejectedOrders(
+                    rejectedOrders
+                );
+        }
+
+
+        /* =========================
+           OUTPUT
+        ========================= */
+
+        content.innerHTML =
+            html;
 
 
     } catch (error) {
 
         console.error(
-            "PAYMENT ERROR:",
+            "Enrolled Courses Error:",
             error
         );
 
 
-        showError(
-            "Payment submission failed.\n\n" +
-            error.message
-        );
+        content.innerHTML = `
 
+            <div class="error">
 
-        button.disabled =
-            false;
+                <strong>
+                    Something went wrong.
+                </strong>
 
+                <br><br>
 
-        button.textContent =
-            "Submit Payment";
+                We couldn't load your
+                enrollment information.
 
+                <br>
+
+                Please refresh the page
+                and try again.
+
+            </div>
+        `;
     }
-
 }
 
 
-/* =========================================
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+    .getElementById(
+        "logoutBtn"
+    )
+    .addEventListener(
+        "click",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            window.location.href =
+                "index.html";
+        }
+    );
+
+
+/* =========================================================
    START
-========================================= */
+========================================================= */
 
-init();
+loadPage();
 
-</script></body>
-</html>
+</script>
+
+</body>
+    </html>
