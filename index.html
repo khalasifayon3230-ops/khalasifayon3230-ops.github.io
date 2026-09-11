@@ -7,6 +7,9 @@
 
     <title>Dream Hunt | Learn. Prepare. Achieve.</title>
 
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         * {
             margin: 0;
@@ -22,6 +25,12 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #f7f8fc;
             color: #111827;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
         }
 
         /* NAVBAR */
@@ -72,11 +81,18 @@
             color: #4f46e5;
         }
 
-        .login-btn {
+        .login-btn,
+        .register-btn {
+            border: none;
+            cursor: pointer;
             background: #111827;
             color: white !important;
             padding: 10px 17px;
             border-radius: 8px;
+        }
+
+        .register-btn {
+            background: #4f46e5;
         }
 
         /* HERO */
@@ -146,6 +162,8 @@
             border-radius: 9px;
             font-size: 15px;
             font-weight: 700;
+            border: none;
+            cursor: pointer;
         }
 
         .primary-btn {
@@ -295,7 +313,7 @@
             line-height: 1.6;
         }
 
-        /* WHY US */
+        /* FEATURES */
 
         .features {
             background: #111827;
@@ -359,6 +377,172 @@
             font-size: 13px;
         }
 
+        /* MODAL */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.72);
+            z-index: 5000;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 720px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 18px;
+            top: 14px;
+            border: none;
+            background: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .modal-title {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .modal-subtitle {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        /* FORMS */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px #eef2ff;
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #4f46e5;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 17px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .switch-text button {
+            border: none;
+            background: none;
+            color: #4f46e5;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        .message.error {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        /* USER AREA */
+
+        .user-area {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 9px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         /* MOBILE */
 
         @media (max-width: 800px) {
@@ -398,6 +582,22 @@
             .cta h2 {
                 font-size: 31px;
             }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .modal {
+                padding: 10px;
+            }
+
+            .modal-box {
+                padding: 24px 18px;
+            }
         }
     </style>
 </head>
@@ -413,11 +613,32 @@
                 Dream<span>Hunt</span>
             </a>
 
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
+
                 <a href="#courses">Courses</a>
                 <a href="#features">Why Us</a>
                 <a href="#about">About</a>
-                <a href="#" class="login-btn">Login</a>
+
+                <button class="login-btn" onclick="openLogin()">
+                    Login
+                </button>
+
+                <button class="register-btn" onclick="openRegister()">
+                    Register
+                </button>
+
+            </div>
+
+            <div class="user-area" id="userArea">
+
+                <span class="user-name" id="navUserName">
+                    Student
+                </span>
+
+                <button class="logout-btn" onclick="logout()">
+                    Logout
+                </button>
+
             </div>
 
         </div>
@@ -450,12 +671,12 @@
 
                 <div class="hero-buttons">
 
-                    <a href="#courses" class="primary-btn">
-                        Explore Courses
-                    </a>
+                    <button class="primary-btn" onclick="openRegister()">
+                        Get Started
+                    </button>
 
-                    <a href="#features" class="secondary-btn">
-                        Learn More
+                    <a href="#courses" class="secondary-btn">
+                        Explore Courses
                     </a>
 
                 </div>
@@ -527,11 +748,9 @@
 
             </div>
 
-
             <div class="course-grid">
 
                 <div class="course">
-
                     <div class="course-icon">🎓</div>
 
                     <h3>University Admission</h3>
@@ -540,12 +759,9 @@
                         Prepare for public university admission
                         tests with structured courses and practice.
                     </p>
-
                 </div>
 
-
                 <div class="course">
-
                     <div class="course-icon">⚙️</div>
 
                     <h3>Engineering</h3>
@@ -554,12 +770,9 @@
                         Build strong concepts in Physics,
                         Chemistry and Mathematics.
                     </p>
-
                 </div>
 
-
                 <div class="course">
-
                     <div class="course-icon">🩺</div>
 
                     <h3>Medical Admission</h3>
@@ -568,7 +781,6 @@
                         Master Biology, Chemistry, Physics and
                         other essential admission topics.
                     </p>
-
                 </div>
 
             </div>
@@ -595,7 +807,6 @@
 
             </div>
 
-
             <div class="feature-grid">
 
                 <div class="feature">
@@ -609,7 +820,6 @@
 
                 </div>
 
-
                 <div class="feature">
 
                     <h3>Practice & Exams</h3>
@@ -620,7 +830,6 @@
                     </p>
 
                 </div>
-
 
                 <div class="feature">
 
@@ -652,9 +861,9 @@
                 Learn today. Prepare tomorrow. Achieve your goal.
             </p>
 
-            <a href="#courses" class="primary-btn">
+            <button class="primary-btn" onclick="openRegister()">
                 Start Learning
-            </a>
+            </button>
 
         </div>
 
@@ -670,6 +879,726 @@
         </p>
 
     </footer>
+
+
+    <!-- REGISTER MODAL -->
+
+    <div class="modal" id="registerModal">
+
+        <div class="modal-box">
+
+            <button class="modal-close" onclick="closeRegister()">
+                ×
+            </button>
+
+            <h2 class="modal-title">
+                Create Your Account
+            </h2>
+
+            <p class="modal-subtitle">
+                Join Dream Hunt and start your admission journey.
+            </p>
+
+            <div class="message" id="registerMessage"></div>
+
+            <form id="registerForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="regFullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="regPhone" required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Email *</label>
+                        <input type="email" id="regEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="regDob">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Institution *</label>
+                        <input type="text" id="regInstitution" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Education Board *</label>
+
+                        <select id="regBoard" required>
+
+                            <option value="">Select Board</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Chittagong">Chittagong</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Jessore">Jessore</option>
+                            <option value="Comilla">Comilla</option>
+                            <option value="Barisal">Barisal</option>
+                            <option value="Sylhet">Sylhet</option>
+                            <option value="Dinajpur">Dinajpur</option>
+                            <option value="Mymensingh">Mymensingh</option>
+                            <option value="Madrasah">Madrasah</option>
+                            <option value="Technical">Technical</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Group *</label>
+
+                        <select id="regGroup" required>
+
+                            <option value="">Select Group</option>
+                            <option value="Science">Science</option>
+                            <option value="Humanities">Humanities</option>
+                            <option value="Business Studies">Business Studies</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>HSC / Equivalent Year</label>
+                        <input type="number" id="regHscYear" placeholder="2026">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SSC Institution</label>
+                        <input type="text" id="regSscInstitution">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SSC Board</label>
+                        <input type="text" id="regSscBoard">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SSC Passing Year</label>
+                        <input type="number" id="regSscYear">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SSC GPA</label>
+                        <input type="number" id="regSscGpa" step="0.01" min="0" max="5">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Division *</label>
+
+                        <select id="regDivision" required>
+
+                            <option value="">Select Division</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Chattogram">Chattogram</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Khulna">Khulna</option>
+                            <option value="Barishal">Barishal</option>
+                            <option value="Sylhet">Sylhet</option>
+                            <option value="Rangpur">Rangpur</option>
+                            <option value="Mymensingh">Mymensingh</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>District *</label>
+                        <input type="text" id="regDistrict" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upazila / Thana</label>
+                        <input type="text" id="regUpazila">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Admission *</label>
+
+                        <select id="regTargetAdmission" required>
+
+                            <option value="">Select Category</option>
+                            <option value="Public University">Public University</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Other">Other</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Target University</label>
+                        <input type="text" id="regTargetUniversity">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <input type="password" id="regPassword" minlength="6" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm Password *</label>
+                        <input type="password" id="regConfirmPassword" minlength="6" required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="form-submit" id="registerSubmit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="switch-text">
+
+                Already have an account?
+
+                <button onclick="switchToLogin()">
+                    Login
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOGIN MODAL -->
+
+    <div class="modal" id="loginModal">
+
+        <div class="modal-box" style="max-width: 450px;">
+
+            <button class="modal-close" onclick="closeLogin()">
+                ×
+            </button>
+
+            <h2 class="modal-title">
+                Welcome Back
+            </h2>
+
+            <p class="modal-subtitle">
+                Login to your Dream Hunt account.
+            </p>
+
+            <div class="message" id="loginMessage"></div>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        required
+                    >
+
+                </div>
+
+                <br>
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="form-submit"
+                    id="loginSubmit"
+                >
+                    Login
+                </button>
+
+            </form>
+
+            <div class="switch-text">
+
+                Don't have an account?
+
+                <button onclick="switchToRegister()">
+                    Register
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUPABASE + AUTH SCRIPT -->
+
+    <script>
+
+        /* ==============================
+           SUPABASE CONNECTION
+        ============================== */
+
+        const SUPABASE_URL =
+            "https://rndtgjuwwsxxiiezennr.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        /* ==============================
+           MODAL FUNCTIONS
+        ============================== */
+
+        function openRegister() {
+
+            document
+                .getElementById("registerModal")
+                .classList.add("active");
+
+        }
+
+
+        function closeRegister() {
+
+            document
+                .getElementById("registerModal")
+                .classList.remove("active");
+
+        }
+
+
+        function openLogin() {
+
+            document
+                .getElementById("loginModal")
+                .classList.add("active");
+
+        }
+
+
+        function closeLogin() {
+
+            document
+                .getElementById("loginModal")
+                .classList.remove("active");
+
+        }
+
+
+        function switchToLogin() {
+
+            closeRegister();
+            openLogin();
+
+        }
+
+
+        function switchToRegister() {
+
+            closeLogin();
+            openRegister();
+
+        }
+
+
+        /* ==============================
+           MESSAGE FUNCTION
+        ============================== */
+
+        function showMessage(elementId, message, type) {
+
+            const element =
+                document.getElementById(elementId);
+
+            element.textContent = message;
+
+            element.className =
+                "message show " + type;
+
+        }
+
+
+        /* ==============================
+           REGISTER
+        ============================== */
+
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                const submitButton =
+                    document.getElementById("registerSubmit");
+
+                submitButton.disabled = true;
+                submitButton.textContent = "Creating Account...";
+
+
+                const fullName =
+                    document.getElementById("regFullName").value.trim();
+
+                const phone =
+                    document.getElementById("regPhone").value.trim();
+
+                const email =
+                    document.getElementById("regEmail").value.trim();
+
+                const dob =
+                    document.getElementById("regDob").value;
+
+                const institution =
+                    document.getElementById("regInstitution").value.trim();
+
+                const board =
+                    document.getElementById("regBoard").value;
+
+                const group =
+                    document.getElementById("regGroup").value;
+
+                const hscYear =
+                    document.getElementById("regHscYear").value;
+
+                const sscInstitution =
+                    document.getElementById("regSscInstitution").value.trim();
+
+                const sscBoard =
+                    document.getElementById("regSscBoard").value.trim();
+
+                const sscYear =
+                    document.getElementById("regSscYear").value;
+
+                const sscGpa =
+                    document.getElementById("regSscGpa").value;
+
+                const division =
+                    document.getElementById("regDivision").value;
+
+                const district =
+                    document.getElementById("regDistrict").value.trim();
+
+                const upazila =
+                    document.getElementById("regUpazila").value.trim();
+
+                const targetAdmission =
+                    document.getElementById("regTargetAdmission").value;
+
+                const targetUniversity =
+                    document.getElementById("regTargetUniversity").value.trim();
+
+                const password =
+                    document.getElementById("regPassword").value;
+
+                const confirmPassword =
+                    document.getElementById("regConfirmPassword").value;
+
+
+                /* PASSWORD CHECK */
+
+                if (password !== confirmPassword) {
+
+                    showMessage(
+                        "registerMessage",
+                        "Passwords do not match.",
+                        "error"
+                    );
+
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Create Account";
+
+                    return;
+                }
+
+
+                if (password.length < 6) {
+
+                    showMessage(
+                        "registerMessage",
+                        "Password must contain at least 6 characters.",
+                        "error"
+                    );
+
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Create Account";
+
+                    return;
+                }
+
+
+                /* CREATE SUPABASE ACCOUNT */
+
+                const { data, error } =
+                    await supabaseClient.auth.signUp({
+
+                        email: email,
+
+                        password: password,
+
+                        options: {
+
+                            emailRedirectTo:
+                                window.location.origin,
+
+                            data: {
+
+                                full_name: fullName,
+                                phone: phone,
+                                date_of_birth: dob,
+                                institution_name: institution,
+                                board: board,
+                                group_name: group,
+                                hsc_year: hscYear,
+                                ssc_institution: sscInstitution,
+                                ssc_board: sscBoard,
+                                ssc_year: sscYear,
+                                ssc_gpa: sscGpa,
+                                division: division,
+                                district: district,
+                                upazila: upazila,
+                                target_admission: targetAdmission,
+                                target_university: targetUniversity
+
+                            }
+
+                        }
+
+                    });
+
+
+                if (error) {
+
+                    showMessage(
+                        "registerMessage",
+                        error.message,
+                        "error"
+                    );
+
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Create Account";
+
+                    return;
+                }
+
+
+                /* SUCCESS */
+
+                showMessage(
+                    "registerMessage",
+                    "Account created successfully! Please check your email and verify your account before logging in.",
+                    "success"
+                );
+
+                document
+                    .getElementById("registerForm")
+                    .reset();
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Create Account";
+
+            });
+
+
+        /* ==============================
+           LOGIN
+        ============================== */
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                const submitButton =
+                    document.getElementById("loginSubmit");
+
+                submitButton.disabled = true;
+                submitButton.textContent = "Logging in...";
+
+
+                const email =
+                    document
+                        .getElementById("loginEmail")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("loginPassword")
+                        .value;
+
+
+                const { data, error } =
+                    await supabaseClient.auth.signInWithPassword({
+
+                        email: email,
+                        password: password
+
+                    });
+
+
+                if (error) {
+
+                    showMessage(
+                        "loginMessage",
+                        error.message,
+                        "error"
+                    );
+
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Login";
+
+                    return;
+                }
+
+
+                showMessage(
+                    "loginMessage",
+                    "Login successful!",
+                    "success"
+                );
+
+
+                document
+                    .getElementById("loginForm")
+                    .reset();
+
+
+                setTimeout(function () {
+
+                    closeLogin();
+
+                    updateUserUI(data.user);
+
+                }, 700);
+
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Login";
+
+            });
+
+
+        /* ==============================
+           UPDATE NAVIGATION
+        ============================== */
+
+        function updateUserUI(user) {
+
+            const navLinks =
+                document.getElementById("navLinks");
+
+            const userArea =
+                document.getElementById("userArea");
+
+            const userName =
+                document.getElementById("navUserName");
+
+
+            if (user) {
+
+                const name =
+                    user.user_metadata?.full_name ||
+                    user.email;
+
+                userName.textContent = name;
+
+                navLinks.style.display = "none";
+
+                userArea.style.display = "flex";
+
+            } else {
+
+                navLinks.style.display = "flex";
+
+                userArea.style.display = "none";
+
+            }
+
+        }
+
+
+        /* ==============================
+           LOGOUT
+        ============================== */
+
+        async function logout() {
+
+            const { error } =
+                await supabaseClient.auth.signOut();
+
+            if (error) {
+
+                alert(error.message);
+
+                return;
+
+            }
+
+            updateUserUI(null);
+
+            alert("You have been logged out.");
+
+        }
+
+
+        /* ==============================
+           CHECK CURRENT SESSION
+        ============================== */
+
+        async function checkSession() {
+
+            const { data } =
+                await supabaseClient.auth.getSession();
+
+            updateUserUI(data.session?.user || null);
+
+        }
+
+
+        /* ==============================
+           AUTH STATE LISTENER
+        ============================== */
+
+        supabaseClient.auth.onAuthStateChange(
+            function (event, session) {
+
+                updateUserUI(
+                    session?.user || null
+                );
+
+            }
+        );
+
+
+        /* ==============================
+           START
+        ============================== */
+
+        checkSession();
+
+    </script>
 
 </body>
 
