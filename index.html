@@ -5,9 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Dream Hunt | Learn. Prepare. Achieve.</title>
 
@@ -32,12 +31,15 @@ html{
 body{
     font-family:
         Inter,
-        Arial,
-        Helvetica,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
         sans-serif;
 
-    background:#f7f8fc;
-    color:#111827;
+    background:#050816;
+    color:#fff;
     overflow-x:hidden;
 }
 
@@ -53,6 +55,7 @@ button{
 
 a{
     color:inherit;
+    text-decoration:none;
 }
 
 
@@ -60,131 +63,370 @@ a{
    LOADER
 ========================================================= */
 
-#loader{
+#introLoader{
 
     position:fixed;
+
     inset:0;
+
+    z-index:99999;
 
     background:
         radial-gradient(
             circle at center,
-            #172554 0,
-            #080b16 45%,
-            #020617 100%
+            #111b42 0%,
+            #050816 55%,
+            #02030b 100%
         );
 
-    z-index:99999;
-
     display:flex;
+
     align-items:center;
     justify-content:center;
 
+    overflow:hidden;
+
     transition:
-        opacity .7s ease,
-        visibility .7s ease;
+        opacity 1.2s ease,
+        visibility 1.2s ease;
 }
 
-#loader.hide{
+#introLoader.hide{
+
     opacity:0;
     visibility:hidden;
 }
 
-.loader-content{
-    text-align:center;
-    color:white;
+.loader-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(99,102,241,.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(99,102,241,.08) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+
+    animation:gridMove 8s linear infinite;
 }
 
-.molecule{
+@keyframes gridMove{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(50px);
+    }
+}
+
+.loader-core{
+
+    width:280px;
+    height:280px;
+
     position:relative;
-    width:120px;
-    height:120px;
-    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+}
+
+.orbit{
+
+    position:absolute;
+
+    border:1px solid rgba(129,140,248,.4);
+
+    border-radius:50%;
+
+    animation:orbitRotate linear infinite;
+}
+
+.orbit.one{
+
+    width:230px;
+    height:90px;
+
+    transform:rotate(25deg);
+
+    animation-duration:4s;
+}
+
+.orbit.two{
+
+    width:230px;
+    height:90px;
+
+    transform:rotate(-35deg);
+
+    animation-duration:5s;
+}
+
+.orbit.three{
+
+    width:180px;
+    height:180px;
+
+    animation-duration:7s;
+}
+
+@keyframes orbitRotate{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 .atom{
-    position:absolute;
-    width:18px;
-    height:18px;
+
+    width:70px;
+    height:70px;
+
     border-radius:50%;
-    background:#818cf8;
-    box-shadow:0 0 25px #818cf8;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff,
+            #818cf8 20%,
+            #4f46e5 45%,
+            #312e81 75%
+        );
+
+    box-shadow:
+        0 0 25px #6366f1,
+        0 0 80px rgba(99,102,241,.55);
+
+    animation:
+        atomPulse 1.8s ease-in-out infinite;
 }
 
-.atom.a1{
-    left:51px;
-    top:0;
+@keyframes atomPulse{
+
+    0%,100%{
+        transform:scale(.85);
+    }
+
+    50%{
+        transform:scale(1.15);
+    }
 }
 
-.atom.a2{
-    left:5px;
-    top:73px;
-}
+.electron{
 
-.atom.a3{
-    right:5px;
-    top:73px;
-}
-
-.atom.center{
-    width:28px;
-    height:28px;
-    left:46px;
-    top:46px;
-    background:#c4b5fd;
-    box-shadow:0 0 35px #c4b5fd;
-}
-
-.bond{
     position:absolute;
-    height:2px;
-    background:#6366f1;
-    transform-origin:left center;
-    opacity:.7;
+
+    width:13px;
+    height:13px;
+
+    border-radius:50%;
+
+    background:#67e8f9;
+
+    box-shadow:
+        0 0 18px #22d3ee;
+
+    animation:electronMove 2s linear infinite;
 }
 
-.bond.one{
-    width:72px;
-    left:60px;
-    top:58px;
-    transform:rotate(-125deg);
+@keyframes electronMove{
+
+    0%{
+        transform:
+            rotate(0deg)
+            translateX(115px)
+            rotate(0deg);
+    }
+
+    100%{
+        transform:
+            rotate(360deg)
+            translateX(115px)
+            rotate(-360deg);
+    }
 }
 
-.bond.two{
-    width:72px;
-    left:58px;
-    top:59px;
-    transform:rotate(125deg);
+.chemical{
+
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#a5b4fc;
+
+    animation:chemicalFloat 3s ease-in-out infinite;
 }
 
-.bond.three{
-    width:78px;
-    left:61px;
-    top:60px;
-    transform:rotate(180deg);
+.chemical:nth-child(1){
+    left:8%;
+    top:20%;
 }
 
-.loader-title{
-    margin-top:24px;
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:-.5px;
+.chemical:nth-child(2){
+    right:10%;
+    top:30%;
+    animation-delay:.7s;
+}
+
+.chemical:nth-child(3){
+    left:20%;
+    bottom:20%;
+    animation-delay:1.2s;
+}
+
+.chemical:nth-child(4){
+    right:20%;
+    bottom:15%;
+    animation-delay:1.8s;
+}
+
+@keyframes chemicalFloat{
+
+    0%,100%{
+        transform:translate(0,0) scale(.6);
+        opacity:.3;
+    }
+
+    50%{
+        transform:translate(30px,-40px) scale(1.5);
+        opacity:1;
+    }
 }
 
 .loader-text{
-    margin-top:8px;
-    color:#a5b4fc;
-    font-size:13px;
+
+    position:absolute;
+
+    bottom:70px;
+
+    text-align:center;
+
+    width:100%;
 }
 
-.loader-dots{
-    margin-top:15px;
+.loader-text .small{
+
+    font-size:10px;
+
     letter-spacing:4px;
-    animation:pulseDots 1.4s infinite;
+
+    text-transform:uppercase;
+
+    color:#a5b4fc;
+
+    font-weight:900;
 }
 
-@keyframes pulseDots{
-    0%,100%{opacity:.3}
-    50%{opacity:1}
+.loader-text h2{
+
+    font-size:32px;
+
+    margin-top:8px;
+
+    letter-spacing:-1.5px;
+}
+
+.loader-status{
+
+    margin-top:10px;
+
+    font-size:11px;
+
+    color:#94a3b8;
+
+    min-height:18px;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background-glow{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-5;
+
+    overflow:hidden;
+}
+
+.glow{
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    opacity:.2;
+
+    animation:glowMove 12s ease-in-out infinite alternate;
+}
+
+.glow.a{
+
+    background:#4f46e5;
+
+    left:-180px;
+    top:10%;
+}
+
+.glow.b{
+
+    background:#06b6d4;
+
+    right:-200px;
+    top:45%;
+
+    animation-delay:2s;
+}
+
+.glow.c{
+
+    background:#7c3aed;
+
+    left:35%;
+    bottom:-250px;
+
+    animation-delay:4s;
+}
+
+@keyframes glowMove{
+
+    from{
+        transform:translate(0,0) scale(.8);
+    }
+
+    to{
+        transform:translate(150px,-100px) scale(1.2);
+    }
 }
 
 
@@ -192,128 +434,113 @@ a{
    NAVBAR
 ========================================================= */
 
-nav{
+.navbar{
 
-    position:sticky;
+    position:fixed;
+
     top:0;
+    left:0;
+    right:0;
+
     z-index:5000;
 
-    background:rgba(255,255,255,.88);
+    height:74px;
+
+    background:
+        rgba(5,8,22,.58);
 
     backdrop-filter:blur(18px);
 
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
 }
 
-.nav-container{
+.nav-inner{
 
-    max-width:1200px;
+    max-width:1250px;
+
+    height:100%;
+
     margin:auto;
 
-    min-height:74px;
-
-    padding:0 20px;
+    padding:0 22px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 }
 
 .logo{
 
-    text-decoration:none;
+    font-size:23px;
 
-    font-size:25px;
-    font-weight:950;
+    font-weight:1000;
 
-    letter-spacing:-1px;
+    letter-spacing:-1.2px;
 }
 
 .logo span{
-    color:#6366f1;
+    color:#818cf8;
 }
 
 .nav-links{
 
     display:flex;
+
     align-items:center;
+
     gap:25px;
+
+    font-size:12px;
+
+    font-weight:750;
+
+    color:#cbd5e1;
 }
 
 .nav-links a{
 
-    text-decoration:none;
-
-    color:#4b5563;
-
-    font-size:13px;
-    font-weight:750;
-
-    transition:.2s;
+    transition:.25s;
 }
 
 .nav-links a:hover{
-    color:#4f46e5;
+
+    color:#fff;
+
+    transform:translateY(-1px);
 }
 
 .nav-actions{
+
     display:flex;
+
     gap:8px;
 }
 
-.login-btn,
-.register-btn{
+.nav-btn{
 
-    border:none;
+    padding:9px 14px;
+
     border-radius:9px;
 
-    padding:10px 16px;
+    border:1px solid rgba(255,255,255,.12);
 
-    font-weight:800;
-}
+    background:rgba(255,255,255,.06);
 
-.login-btn{
-    background:#111827;
     color:white;
+
+    font-size:11px;
+
+    font-weight:850;
 }
 
-.register-btn{
-    background:#4f46e5;
-    color:white;
-}
+.nav-btn.primary{
 
-.user-area{
+    background:#6366f1;
 
-    display:none;
-
-    align-items:center;
-    gap:8px;
-}
-
-.user-name{
-    font-size:13px;
-    font-weight:800;
-}
-
-.dashboard-nav-btn,
-.logout-btn{
-
-    border:none;
-    border-radius:8px;
-
-    padding:9px 13px;
-
-    font-weight:800;
-}
-
-.dashboard-nav-btn{
-    background:#4f46e5;
-    color:white;
-}
-
-.logout-btn{
-    background:#111827;
-    color:white;
+    border-color:#6366f1;
 }
 
 
@@ -323,1096 +550,1812 @@ nav{
 
 .hero{
 
-    min-height:720px;
+    min-height:100vh;
 
     position:relative;
-    overflow:hidden;
 
     display:flex;
+
     align-items:center;
 
-    background:
+    justify-content:center;
 
-        radial-gradient(
-            circle at 85% 15%,
-            rgba(99,102,241,.25),
-            transparent 25%
-        ),
+    text-align:center;
 
-        radial-gradient(
-            circle at 5% 80%,
-            rgba(59,130,246,.17),
-            transparent 28%
-        ),
+    overflow:hidden;
 
-        #f8fafc;
+    padding:
+        130px 20px
+        100px;
 }
 
 .hero-grid{
-
-    max-width:1200px;
-    width:100%;
-
-    margin:auto;
-    padding:90px 20px;
-
-    display:grid;
-
-    grid-template-columns:
-        1.05fr
-        .95fr;
-
-    gap:65px;
-
-    align-items:center;
-}
-
-.hero-copy{
-    animation:heroIn .9s ease both;
-}
-
-@keyframes heroIn{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.badge{
-
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-
-    padding:8px 13px;
-
-    border-radius:50px;
-
-    background:#eef2ff;
-    color:#4f46e5;
-
-    font-size:12px;
-    font-weight:900;
-
-    margin-bottom:22px;
-}
-
-.badge-dot{
-
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#6366f1;
-
-    box-shadow:
-        0 0 0 5px rgba(99,102,241,.12);
-
-    animation:blink 1.7s infinite;
-}
-
-@keyframes blink{
-    50%{opacity:.35}
-}
-
-.hero h1{
-
-    font-size:64px;
-
-    line-height:1.01;
-
-    letter-spacing:-3.5px;
-
-    max-width:700px;
-
-    margin-bottom:23px;
-}
-
-.hero h1 span{
-    color:#4f46e5;
-}
-
-.hero-description{
-
-    max-width:610px;
-
-    color:#6b7280;
-
-    font-size:17px;
-
-    line-height:1.75;
-
-    margin-bottom:30px;
-}
-
-.hero-buttons{
-
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-}
-
-.primary-btn,
-.secondary-btn{
-
-    border:none;
-
-    text-decoration:none;
-
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:14px 21px;
-
-    border-radius:10px;
-
-    font-size:14px;
-    font-weight:850;
-
-    transition:.25s;
-}
-
-.primary-btn{
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #6366f1
-        );
-
-    box-shadow:
-        0 12px 30px rgba(79,70,229,.22);
-}
-
-.primary-btn:hover{
-    transform:translateY(-3px);
-}
-
-.secondary-btn{
-
-    background:white;
-
-    border:1px solid #d1d5db;
-
-    color:#111827;
-}
-
-.secondary-btn:hover{
-    border-color:#818cf8;
-}
-
-
-/* =========================================================
-   HERO VISUAL
-========================================================= */
-
-.hero-visual{
-    position:relative;
-    min-height:470px;
-}
-
-.orbit-system{
-
-    position:absolute;
-
-    width:390px;
-    height:390px;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%);
-}
-
-.orbit{
 
     position:absolute;
 
     inset:0;
 
-    border:1px solid rgba(99,102,241,.25);
+    opacity:.25;
 
-    border-radius:50%;
-
-    animation:spin 18s linear infinite;
-}
-
-.orbit:nth-child(2){
-    inset:55px;
-    animation-duration:13s;
-    animation-direction:reverse;
-}
-
-.orbit:nth-child(3){
-    inset:110px;
-    animation-duration:9s;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.orbit-dot{
-
-    position:absolute;
-
-    width:14px;
-    height:14px;
-
-    border-radius:50%;
-
-    background:#6366f1;
-
-    box-shadow:0 0 25px #6366f1;
-
-    top:-7px;
-    left:50%;
-}
-
-.core{
-
-    position:absolute;
-
-    width:105px;
-    height:105px;
-
-    border-radius:30px;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%)
-        rotate(-5deg);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
+    background-image:
         linear-gradient(
-            145deg,
-            #111827,
-            #312e81
+            rgba(148,163,184,.07) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(148,163,184,.07) 1px,
+            transparent 1px
         );
 
-    color:white;
+    background-size:60px 60px;
 
-    font-size:29px;
-    font-weight:950;
-
-    box-shadow:
-        0 30px 70px rgba(17,24,39,.3);
-
-    z-index:5;
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
 }
 
-.floating-card{
+.hero-content{
 
-    position:absolute;
+    position:relative;
 
-    background:white;
+    z-index:20;
 
-    border:1px solid #e5e7eb;
-
-    border-radius:15px;
-
-    padding:14px 16px;
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.09);
-
-    animation:float 4s ease-in-out infinite;
+    max-width:900px;
 }
 
-.floating-card strong{
-    display:block;
-    font-size:18px;
-}
+.hero-badge{
 
-.floating-card small{
-    color:#6b7280;
-    font-size:11px;
-}
+    display:inline-flex;
 
-.card-one{
-    left:0;
-    top:75px;
-}
+    padding:8px 13px;
 
-.card-two{
-    right:0;
-    top:155px;
-    animation-delay:1s;
-}
+    border:
+        1px solid rgba(129,140,248,.35);
 
-.card-three{
-    left:45px;
-    bottom:40px;
-    animation-delay:2s;
-}
+    background:
+        rgba(99,102,241,.1);
 
-@keyframes float{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-11px);
-    }
-}
+    border-radius:999px;
 
+    font-size:10px;
 
-/* =========================================================
-   MOTIVATIONAL STRIP
-========================================================= */
-
-.motivation{
-
-    padding:22px 20px;
-
-    background:#111827;
-
-    color:white;
-
-    overflow:hidden;
-}
-
-.motivation-inner{
-
-    max-width:1000px;
-
-    margin:auto;
-
-    text-align:center;
-
-    min-height:45px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.quote{
-
-    font-size:14px;
-
-    color:#d1d5db;
-
-    animation:quoteIn .6s ease;
-}
-
-.quote strong{
-    color:#a5b4fc;
-}
-
-@keyframes quoteIn{
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-
-/* =========================================================
-   GENERAL
-========================================================= */
-
-section{
-    padding:95px 20px;
-}
-
-.container{
-    max-width:1200px;
-    margin:auto;
-}
-
-.heading{
-    text-align:center;
-    margin-bottom:50px;
-}
-
-.heading .eyebrow{
-
-    color:#6366f1;
-
-    font-size:11px;
-    font-weight:950;
+    font-weight:900;
 
     letter-spacing:1.4px;
 
     text-transform:uppercase;
 
-    margin-bottom:10px;
+    color:#c7d2fe;
+
+    animation:badgeGlow 2s infinite alternate;
 }
 
-.heading h2{
+@keyframes badgeGlow{
 
-    font-size:42px;
+    from{
+        box-shadow:0 0 0 rgba(99,102,241,0);
+    }
 
-    letter-spacing:-1.7px;
-
-    margin-bottom:12px;
+    to{
+        box-shadow:
+            0 0 35px
+            rgba(99,102,241,.25);
+    }
 }
 
-.heading p{
+.hero h1{
+
+    margin-top:25px;
+
+    font-size:
+        clamp(48px,8vw,94px);
+
+    line-height:.95;
+
+    letter-spacing:-6px;
+
+    font-weight:1000;
+}
+
+.hero h1 .gradient{
+
+    background:
+        linear-gradient(
+            100deg,
+            #fff,
+            #a5b4fc,
+            #67e8f9,
+            #fff
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:
+        gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:300%;
+    }
+}
+
+.hero p{
 
     max-width:650px;
 
-    margin:auto;
+    margin:25px auto 0;
 
-    color:#6b7280;
+    color:#94a3b8;
 
-    line-height:1.7;
+    font-size:15px;
+
+    line-height:1.8;
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin-top:32px;
+
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+
+    border:none;
+
+    padding:14px 21px;
+
+    border-radius:11px;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    transition:.3s;
+}
+
+.hero-btn.primary{
+
+    background:white;
+
+    color:#050816;
+
+    box-shadow:
+        0 10px 40px
+        rgba(255,255,255,.12);
+}
+
+.hero-btn.secondary{
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:white;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+}
+
+.hero-btn:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+}
+
+.scroll-hint{
+
+    position:absolute;
+
+    bottom:28px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:#64748b;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    animation:scrollBounce 2s infinite;
+}
+
+@keyframes scrollBounce{
+
+    0%,100%{
+        transform:
+            translate(-50%,0);
+    }
+
+    50%{
+        transform:
+            translate(-50%,10px);
+    }
+}
+
+
+/* =========================================================
+   RANDOM FLYING OBJECTS
+========================================================= */
+
+#eventLayer{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:4000;
+
+    overflow:hidden;
+}
+
+.fly-object{
+
+    position:absolute;
+
+    font-size:45px;
+
+    filter:
+        drop-shadow(
+            0 8px 20px
+            rgba(0,0,0,.3)
+        );
+
+    animation:
+        flyAcross 4s cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+@keyframes flyAcross{
+
+    0%{
+        transform:
+            translateX(-150px)
+            translateY(0)
+            rotate(-25deg)
+            scale(.7);
+
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    50%{
+        transform:
+            translateX(50vw)
+            translateY(-70px)
+            rotate(180deg)
+            scale(1);
+    }
+
+    90%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translateX(calc(100vw + 150px))
+            translateY(30px)
+            rotate(360deg)
+            scale(.7);
+
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   CINEMATIC SCROLL WORLD
+========================================================= */
+
+.world{
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.world-section{
+
+    min-height:100vh;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    transition:
+        background 1s ease;
+}
+
+
+/* =========================================================
+   SCIENCE
+========================================================= */
+
+.science{
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #172554,
+            #080d24 50%,
+            #030615
+        );
+}
+
+.science-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(125,211,252,.35) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    animation:
+        particleDrift 15s linear infinite;
+}
+
+@keyframes particleDrift{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-70px);
+    }
+}
+
+.science-content{
+
+    position:relative;
+
+    z-index:20;
+
+    text-align:center;
+
+    max-width:700px;
+
+    padding:30px;
+}
+
+.scene-label{
+
+    color:#67e8f9;
+
+    font-size:10px;
+
+    font-weight:950;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.science-content h2{
+
+    font-size:
+        clamp(38px,7vw,76px);
+
+    letter-spacing:-4px;
+
+    margin:14px 0;
+
+}
+
+.science-content p{
+
+    color:#94a3b8;
+
+    line-height:1.8;
+
+    font-size:14px;
+}
+
+.formula{
+
+    margin-top:25px;
+
+    display:inline-block;
+
+    font-size:20px;
+
+    color:#a5b4fc;
+
+    animation:formulaFloat 3s ease-in-out infinite;
+}
+
+@keyframes formulaFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+
+/* =========================================================
+   OCEAN
+========================================================= */
+
+.ocean{
+
+    background:
+        linear-gradient(
+            to bottom,
+            #075985,
+            #064e6f 35%,
+            #022c43 70%,
+            #011522
+        );
+}
+
+.ocean::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 35%,
+            rgba(255,255,255,.12),
+            transparent 60%
+        );
+
+    animation:
+        waterLight 7s ease-in-out infinite;
+}
+
+@keyframes waterLight{
+
+    0%,100%{
+        transform:translateX(-20%);
+    }
+
+    50%{
+        transform:translateX(20%);
+    }
+}
+
+.waterline{
+
+    position:absolute;
+
+    top:0;
+
+    left:-10%;
+
+    width:120%;
+
+    height:90px;
+
+    background:
+        rgba(125,211,252,.13);
+
+    border-radius:
+        0 0 50% 50%;
+
+    filter:blur(3px);
+
+    animation:
+        wave 4s ease-in-out infinite;
+}
+
+@keyframes wave{
+
+    0%,100%{
+        transform:
+            rotate(1deg)
+            translateY(0);
+    }
+
+    50%{
+        transform:
+            rotate(-1deg)
+            translateY(12px);
+    }
+}
+
+.fish{
+
+    position:absolute;
+
+    font-size:45px;
+
+    animation:
+        fishSwim linear infinite;
+}
+
+.fish.f1{
+
+    top:25%;
+
+    left:-100px;
+
+    animation-duration:15s;
+}
+
+.fish.f2{
+
+    top:52%;
+
+    left:-140px;
+
+    font-size:32px;
+
+    animation-duration:21s;
+
+    animation-delay:3s;
+}
+
+.fish.f3{
+
+    top:70%;
+
+    left:-120px;
+
+    font-size:55px;
+
+    animation-duration:18s;
+
+    animation-delay:7s;
+}
+
+.fish.f4{
+
+    top:38%;
+
+    left:-150px;
+
+    font-size:25px;
+
+    animation-duration:12s;
+
+    animation-delay:5s;
+}
+
+@keyframes fishSwim{
+
+    0%{
+        transform:
+            translateX(0)
+            translateY(0)
+            scaleX(1);
+    }
+
+    25%{
+        transform:
+            translateX(25vw)
+            translateY(-35px)
+            scaleX(1);
+    }
+
+    50%{
+        transform:
+            translateX(55vw)
+            translateY(25px)
+            scaleX(-1);
+    }
+
+    75%{
+        transform:
+            translateX(80vw)
+            translateY(-20px)
+            scaleX(-1);
+    }
+
+    100%{
+        transform:
+            translateX(120vw)
+            translateY(20px)
+            scaleX(1);
+    }
+}
+
+.bubble{
+
+    position:absolute;
+
+    bottom:-50px;
+
+    width:12px;
+    height:12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.5);
+
+    border-radius:50%;
+
+    animation:
+        bubbleRise linear infinite;
+}
+
+.bubble:nth-child(1){
+    left:10%;
+    animation-duration:8s;
+}
+
+.bubble:nth-child(2){
+    left:25%;
+    animation-duration:12s;
+}
+
+.bubble:nth-child(3){
+    left:45%;
+    animation-duration:9s;
+}
+
+.bubble:nth-child(4){
+    left:65%;
+    animation-duration:13s;
+}
+
+.bubble:nth-child(5){
+    left:85%;
+    animation-duration:10s;
+}
+
+@keyframes bubbleRise{
+
+    from{
+        transform:
+            translateY(0)
+            scale(.5);
+
+        opacity:0;
+    }
+
+    15%{
+        opacity:.7;
+    }
+
+    to{
+        transform:
+            translateY(-110vh)
+            scale(1.4);
+
+        opacity:0;
+    }
+}
+
+.ocean-content{
+
+    position:relative;
+
+    z-index:30;
+
+    text-align:center;
+
+    max-width:700px;
+
+    padding:30px;
+}
+
+.ocean-content h2{
+
+    font-size:
+        clamp(40px,7vw,80px);
+
+    letter-spacing:-4px;
+
+    margin:12px 0;
+}
+
+.ocean-content p{
+
+    color:#bae6fd;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   MOUNTAIN
+========================================================= */
+
+.mountain{
+
+    background:
+        linear-gradient(
+            to bottom,
+            #60a5fa 0%,
+            #bfdbfe 42%,
+            #172554 100%
+        );
+}
+
+.sun{
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff7ed,
+            #fde68a 45%,
+            transparent 70%
+        );
+
+    top:15%;
+
+    right:15%;
+
+    animation:sunPulse 5s infinite alternate;
+}
+
+@keyframes sunPulse{
+
+    from{
+        transform:scale(.9);
+        opacity:.75;
+    }
+
+    to{
+        transform:scale(1.15);
+        opacity:1;
+    }
+}
+
+.mountain-shape{
+
+    position:absolute;
+
+    bottom:-20px;
+
+    width:0;
+    height:0;
+
+    border-left:
+        400px solid transparent;
+
+    border-right:
+        400px solid transparent;
+
+    border-bottom:
+        500px solid #172554;
+
+    opacity:.9;
+}
+
+.mountain-shape.back{
+
+    left:-180px;
+
+    border-bottom-color:#334155;
+
+    transform:scale(.8);
+
+    opacity:.65;
+}
+
+.mountain-shape.mid{
+
+    left:25%;
+
+    transform:scale(1.15);
+
+    border-bottom-color:#1e293b;
+}
+
+.mountain-shape.front{
+
+    right:-220px;
+
+    transform:scale(.9);
+
+    border-bottom-color:#0f172a;
+}
+
+.cloud{
+
+    position:absolute;
+
+    font-size:80px;
+
+    opacity:.7;
+
+    animation:cloudMove linear infinite;
+}
+
+.cloud.c1{
+
+    top:18%;
+
+    left:-180px;
+
+    animation-duration:30s;
+}
+
+.cloud.c2{
+
+    top:35%;
+
+    left:-250px;
+
+    font-size:55px;
+
+    animation-duration:38s;
+
+    animation-delay:7s;
+}
+
+.cloud.c3{
+
+    top:10%;
+
+    left:-300px;
+
+    font-size:40px;
+
+    animation-duration:25s;
+
+    animation-delay:3s;
+}
+
+@keyframes cloudMove{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(130vw);
+    }
+}
+
+.bird{
+
+    position:absolute;
+
+    font-size:28px;
+
+    left:-80px;
+
+    animation:birdFly linear infinite;
+}
+
+.bird.b1{
+
+    top:25%;
+
+    animation-duration:18s;
+}
+
+.bird.b2{
+
+    top:40%;
+
+    animation-duration:24s;
+
+    animation-delay:4s;
+}
+
+.bird.b3{
+
+    top:16%;
+
+    animation-duration:20s;
+
+    animation-delay:8s;
+}
+
+@keyframes birdFly{
+
+    from{
+        transform:
+            translateX(0)
+            translateY(0);
+    }
+
+    30%{
+        transform:
+            translateX(35vw)
+            translateY(-30px);
+    }
+
+    60%{
+        transform:
+            translateX(70vw)
+            translateY(20px);
+    }
+
+    100%{
+        transform:
+            translateX(120vw)
+            translateY(-10px);
+    }
+}
+
+.mountain-content{
+
+    position:relative;
+
+    z-index:30;
+
+    text-align:center;
+
+    color:#0f172a;
+
+    margin-top:100px;
+
+    max-width:700px;
+}
+
+.mountain-content .scene-label{
+
+    color:#1e40af;
+}
+
+.mountain-content h2{
+
+    font-size:
+        clamp(40px,7vw,78px);
+
+    letter-spacing:-4px;
+
+    margin:12px 0;
+}
+
+.mountain-content p{
+
+    color:#1e3a8a;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   WILDLIFE
+========================================================= */
+
+.wildlife{
+
+    background:
+        linear-gradient(
+            to bottom,
+            #14532d,
+            #166534 45%,
+            #052e16
+        );
+}
+
+.forest-glow{
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(253,224,71,.25),
+            transparent 65%
+        );
+
+    top:0;
+    left:35%;
+
+    filter:blur(30px);
+}
+
+.tree{
+
+    position:absolute;
+
+    bottom:-50px;
+
+    font-size:180px;
+
+    opacity:.55;
+
+    animation:treeSway 5s ease-in-out infinite alternate;
+}
+
+.tree.t1{
+    left:-30px;
+}
+
+.tree.t2{
+    left:20%;
+    font-size:130px;
+    animation-delay:1s;
+}
+
+.tree.t3{
+    right:10%;
+    font-size:170px;
+    animation-delay:2s;
+}
+
+.tree.t4{
+    right:-50px;
+    font-size:210px;
+    animation-delay:.5s;
+}
+
+@keyframes treeSway{
+
+    from{
+        transform:rotate(-1deg);
+    }
+
+    to{
+        transform:rotate(1deg);
+    }
+}
+
+.butterfly{
+
+    position:absolute;
+
+    font-size:28px;
+
+    animation:
+        butterflyFly 12s ease-in-out infinite;
+}
+
+.butterfly.b1{
+    left:15%;
+    top:35%;
+}
+
+.butterfly.b2{
+    right:20%;
+    top:50%;
+    animation-delay:4s;
+}
+
+@keyframes butterflyFly{
+
+    0%,100%{
+        transform:
+            translate(0,0)
+            rotate(0);
+    }
+
+    30%{
+        transform:
+            translate(150px,-100px)
+            rotate(15deg);
+    }
+
+    65%{
+        transform:
+            translate(-80px,60px)
+            rotate(-15deg);
+    }
+}
+
+.wildlife-content{
+
+    position:relative;
+
+    z-index:20;
+
+    text-align:center;
+
+    max-width:700px;
+
+    padding:30px;
+}
+
+.wildlife-content h2{
+
+    font-size:
+        clamp(40px,7vw,78px);
+
+    letter-spacing:-4px;
+
+    margin:12px 0;
+}
+
+
+/* =========================================================
+   SPORTS
+========================================================= */
+
+.sports{
+
+    background:
+        radial-gradient(
+            circle at center,
+            #172554,
+            #0f172a 50%,
+            #020617
+        );
+}
+
+.field-lines{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.13;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 49.8%,
+            white 50%,
+            transparent 50.2%
+        );
+
+    border:
+        2px solid rgba(255,255,255,.15);
+
+    transform:perspective(600px) rotateX(45deg) scale(1.3);
+}
+
+.sports-content{
+
+    position:relative;
+
+    z-index:30;
+
+    text-align:center;
+
+    max-width:700px;
+
+    padding:30px;
+}
+
+.sports-content h2{
+
+    font-size:
+        clamp(40px,7vw,78px);
+
+    letter-spacing:-4px;
+
+    margin:12px 0;
+}
+
+.sports-content p{
+
+    color:#94a3b8;
+
+    line-height:1.8;
+}
+
+.sports-ball{
+
+    position:absolute;
+
+    font-size:55px;
+
+    animation:
+        sportsFly 7s linear infinite;
+}
+
+.sports-ball.ball1{
+
+    left:-100px;
+
+    top:30%;
+}
+
+.sports-ball.ball2{
+
+    right:-100px;
+
+    top:65%;
+
+    animation-delay:3s;
+}
+
+@keyframes sportsFly{
+
+    0%{
+        transform:
+            translateX(0)
+            translateY(0)
+            rotate(0);
+    }
+
+    50%{
+        transform:
+            translateX(55vw)
+            translateY(-120px)
+            rotate(900deg);
+    }
+
+    100%{
+        transform:
+            translateX(120vw)
+            translateY(80px)
+            rotate(1800deg);
+    }
+}
+
+
+/* =========================================================
+   SPACE
+========================================================= */
+
+.space{
+
+    background:
+        radial-gradient(
+            circle at center,
+            #172554,
+            #070b1f 45%,
+            #010207
+        );
+}
+
+.stars{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
+        );
+
+    background-size:
+        70px 70px;
+
+    opacity:.4;
+
+    animation:
+        starsMove 20s linear infinite;
+}
+
+@keyframes starsMove{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(70px);
+    }
+}
+
+.planet{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    animation:planetFloat 6s ease-in-out infinite;
+}
+
+.planet.earth{
+
+    width:190px;
+    height:190px;
+
+    right:12%;
+    top:18%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #67e8f9,
+            #2563eb 45%,
+            #172554 75%
+        );
+
+    box-shadow:
+        0 0 70px rgba(59,130,246,.35);
+}
+
+.planet.small{
+
+    width:65px;
+    height:65px;
+
+    left:12%;
+    top:30%;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            #fde68a,
+            #f97316 55%,
+            #7c2d12
+        );
+
+    animation-delay:2s;
+}
+
+@keyframes planetFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-25px);
+    }
+}
+
+.meteor{
+
+    position:absolute;
+
+    width:150px;
+    height:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            white
+        );
+
+    transform:rotate(-30deg);
+
+    animation:
+        meteorFly 6s linear infinite;
+}
+
+@keyframes meteorFly{
+
+    0%{
+        left:100%;
+        top:5%;
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        left:-20%;
+        top:70%;
+        opacity:0;
+    }
+}
+
+.space-content{
+
+    position:relative;
+
+    z-index:30;
+
+    text-align:center;
+
+    max-width:750px;
+
+    padding:30px;
+}
+
+.space-content h2{
+
+    font-size:
+        clamp(42px,8vw,90px);
+
+    letter-spacing:-5px;
+
+    margin:12px 0;
+}
+
+.space-content p{
+
+    color:#94a3b8;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   BRAND / END
+========================================================= */
+
+.final{
+
+    min-height:85vh;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #312e81,
+            #0f172a 55%,
+            #020617
+        );
+}
+
+.final-content{
+
+    text-align:center;
+
+    max-width:800px;
+
+    padding:30px;
+}
+
+.final-logo{
+
+    font-size:
+        clamp(55px,10vw,120px);
+
+    font-weight:1000;
+
+    letter-spacing:-7px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #a5b4fc,
+            #67e8f9,
+            #fff
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:
+        gradientMove 4s linear infinite;
+}
+
+.final-content p{
+
+    margin-top:18px;
+
+    color:#cbd5e1;
 
     font-size:15px;
 }
 
 
 /* =========================================================
-   ADMISSION CATEGORIES
+   LIBRARY GATEWAY
 ========================================================= */
 
-.categories{
+.library-gateway{
 
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:18px;
-}
-
-.category{
+    min-height:70vh;
 
     position:relative;
-
-    padding:27px;
-
-    background:white;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    transition:.3s;
-}
-
-.category:hover{
-
-    transform:translateY(-7px);
-
-    border-color:#c7d2fe;
-
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.08);
-}
-
-.category-number{
-
-    position:absolute;
-
-    right:18px;
-    top:12px;
-
-    font-size:60px;
-
-    font-weight:950;
-
-    color:#f3f4f6;
-}
-
-.category-icon{
-
-    width:50px;
-    height:50px;
-
-    border-radius:14px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    background:#eef2ff;
-
-    font-size:23px;
-
-    margin-bottom:18px;
-}
-
-.category h3{
-    font-size:20px;
-    margin-bottom:8px;
-}
-
-.category p{
-
-    color:#6b7280;
-
-    font-size:13px;
-
-    line-height:1.65;
-
-    margin-bottom:16px;
-}
-
-.category-link{
-
-    color:#4f46e5;
-
-    border:none;
-
-    background:none;
-
-    font-weight:850;
-
-    font-size:12px;
-}
-
-
-/* =========================================================
-   PRICING
-========================================================= */
-
-.pricing-section{
-    background:#f8fafc;
-}
-
-.pricing-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:18px;
-
-    align-items:stretch;
-}
-
-.price-card{
-
-    background:white;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:20px;
-
-    padding:27px;
-
-    position:relative;
-
-    transition:.3s;
-}
-
-.price-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 25px 60px rgba(0,0,0,.08);
-}
-
-.price-card.featured{
+    padding:80px 20px;
 
     background:
         linear-gradient(
-            145deg,
-            #111827,
-            #312e81
+            135deg,
+            #080d24,
+            #111827
         );
-
-    color:white;
-
-    border-color:#312e81;
-
-    transform:scale(1.03);
 }
 
-.price-card.featured:hover{
-    transform:scale(1.03) translateY(-6px);
-}
+.library-box{
 
-.price-badge{
+    width:min(900px,100%);
 
-    position:absolute;
+    position:relative;
 
-    top:14px;
-    right:14px;
+    padding:55px;
 
-    background:#818cf8;
-
-    color:white;
-
-    padding:5px 8px;
+    border:
+        1px solid rgba(129,140,248,.25);
 
     border-radius:30px;
 
-    font-size:9px;
+    background:
+        rgba(255,255,255,.045);
 
-    font-weight:900;
-}
-
-.price-card h3{
-    font-size:18px;
-    margin-bottom:9px;
-}
-
-.price{
-
-    font-size:37px;
-
-    font-weight:950;
-
-    margin:18px 0;
-}
-
-.price small{
-    font-size:12px;
-    font-weight:600;
-    color:#9ca3af;
-}
-
-.price-list{
-
-    list-style:none;
-
-    margin-bottom:23px;
-}
-
-.price-list li{
-
-    font-size:12px;
-
-    margin-bottom:11px;
-
-    color:#6b7280;
-}
-
-.featured .price-list li{
-    color:#d1d5db;
-}
-
-.price-btn{
-
-    width:100%;
-
-    border:none;
-
-    padding:12px;
-
-    border-radius:9px;
-
-    background:#111827;
-
-    color:white;
-
-    font-weight:850;
-}
-
-.featured .price-btn{
-    background:#818cf8;
-}
-
-
-/* =========================================================
-   UNIVERSITY SHOWCASE
-========================================================= */
-
-.university-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:20px;
-}
-
-.uni-card{
-
-    background:white;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    transition:.3s;
-}
-
-.uni-card:hover{
-
-    transform:translateY(-6px);
+    backdrop-filter:blur(20px);
 
     box-shadow:
-        0 25px 60px rgba(0,0,0,.08);
-}
-
-.uni-image{
-
-    width:100%;
-    height:180px;
-
-    object-fit:cover;
-
-    display:block;
-}
-
-.uni-content{
-    padding:21px;
-}
-
-.uni-tag{
-
-    display:inline-block;
-
-    background:#eef2ff;
-
-    color:#4f46e5;
-
-    padding:5px 8px;
-
-    border-radius:20px;
-
-    font-size:9px;
-
-    font-weight:900;
-
-    margin-bottom:10px;
-}
-
-.uni-content h3{
-    font-size:18px;
-    margin-bottom:7px;
-}
-
-.uni-content p{
-
-    color:#6b7280;
-
-    font-size:12px;
-
-    line-height:1.6;
-}
-
-
-/* =========================================================
-   WHY DREAM HUNT
-========================================================= */
-
-.why{
-
-    background:#111827;
-
-    color:white;
-}
-
-.why .heading p{
-    color:#9ca3af;
-}
-
-.why-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:18px;
-}
-
-.why-card{
-
-    padding:28px;
-
-    border:1px solid #374151;
-
-    border-radius:18px;
-
-    background:
-        rgba(255,255,255,.025);
-
-    transition:.3s;
-}
-
-.why-card:hover{
-    background:rgba(255,255,255,.05);
-    transform:translateY(-5px);
-}
-
-.why-icon{
-    font-size:27px;
-    margin-bottom:16px;
-}
-
-.why-card h3{
-    font-size:17px;
-    margin-bottom:8px;
-}
-
-.why-card p{
-
-    color:#9ca3af;
-
-    font-size:13px;
-
-    line-height:1.65;
-}
-
-
-/* =========================================================
-   LIBRARY LOCKED PREVIEW
-========================================================= */
-
-.library-section{
-
-    position:relative;
+        0 40px 100px
+        rgba(0,0,0,.3);
 
     overflow:hidden;
 
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(99,102,241,.12),
-            transparent 30%
-        ),
-
-        #f7f8fc;
+    text-align:center;
 }
 
-.library-preview{
-
-    max-width:1050px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap:0;
-
-    border-radius:28px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 30px 90px rgba(0,0,0,.12);
-
-    border:1px solid #e5e7eb;
-}
-
-.library-left{
-
-    padding:50px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            145deg,
-            #0f172a,
-            #312e81
-        );
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.library-left::before{
+.library-box::before{
 
     content:"";
 
     position:absolute;
 
-    width:250px;
-    height:250px;
+    width:300px;
+    height:300px;
+
+    background:#6366f1;
 
     border-radius:50%;
 
-    border:1px solid rgba(255,255,255,.1);
+    filter:blur(120px);
 
-    right:-90px;
-    top:-90px;
+    opacity:.18;
+
+    right:-100px;
+
+    top:-100px;
 }
 
 .library-lock{
 
-    width:58px;
-    height:58px;
+    width:70px;
+    height:70px;
 
-    border-radius:17px;
+    margin:auto;
 
-    background:rgba(255,255,255,.1);
+    border-radius:20px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    font-size:27px;
+    background:
+        rgba(99,102,241,.15);
 
-    margin-bottom:20px;
+    font-size:30px;
+
+    animation:
+        lockFloat 3s ease-in-out infinite;
 }
 
-.library-left h2{
+@keyframes lockFloat{
 
-    font-size:36px;
+    0%,100%{
+        transform:translateY(0);
+    }
 
-    letter-spacing:-1.5px;
-
-    margin-bottom:12px;
+    50%{
+        transform:translateY(-8px);
+    }
 }
 
-.library-left p{
+.library-box h2{
 
-    color:#c7d2fe;
+    font-size:
+        clamp(34px,6vw,60px);
 
-    line-height:1.7;
+    letter-spacing:-3px;
+
+    margin-top:20px;
+}
+
+.library-box p{
+
+    max-width:600px;
+
+    margin:15px auto 25px;
+
+    color:#94a3b8;
+
+    line-height:1.8;
 
     font-size:14px;
-
-    max-width:460px;
-
-    margin-bottom:25px;
 }
 
-.library-items{
+.library-button{
 
-    display:flex;
+    display:inline-block;
 
-    flex-wrap:wrap;
-
-    gap:8px;
-}
-
-.library-pill{
-
-    border:1px solid rgba(255,255,255,.14);
-
-    background:rgba(255,255,255,.06);
-
-    padding:8px 10px;
-
-    border-radius:8px;
-
-    font-size:10px;
-
-    color:#e0e7ff;
-}
-
-.library-right{
-
-    background:white;
-
-    padding:50px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-}
-
-.locked-label{
-
-    color:#6366f1;
-
-    font-size:10px;
-
-    font-weight:950;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-    margin-bottom:10px;
-}
-
-.library-right h3{
-
-    font-size:26px;
-
-    margin-bottom:10px;
-}
-
-.library-right p{
-
-    color:#6b7280;
-
-    font-size:13px;
-
-    line-height:1.65;
-
-    margin-bottom:22px;
-}
-
-.unlock-btn{
-
-    width:100%;
-
-    padding:14px;
-
-    border:none;
+    padding:13px 20px;
 
     border-radius:10px;
 
-    background:#4f46e5;
+    background:#6366f1;
 
-    color:white;
+    font-size:12px;
 
     font-weight:900;
+
+    transition:.3s;
+}
+
+.library-button:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+        0 15px 40px
+        rgba(99,102,241,.3);
 }
 
 
 /* =========================================================
-   FINAL CTA
+   IMAGE SHOWCASE
 ========================================================= */
 
-.final-cta{
+.visual-showcase{
+
+    padding:100px 20px;
+
+    background:#020617;
+}
+
+.showcase-inner{
+
+    max-width:1150px;
+
+    margin:auto;
+}
+
+.showcase-title{
 
     text-align:center;
 
+    margin-bottom:45px;
+}
+
+.showcase-title .scene-label{
+
+    color:#818cf8;
+}
+
+.showcase-title h2{
+
+    font-size:
+        clamp(35px,6vw,60px);
+
+    letter-spacing:-3px;
+
+    margin-top:10px;
+}
+
+.showcase-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:22px;
+}
+
+.showcase-card{
+
+    min-height:380px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    background:#0f172a;
+
+    transition:.5s;
+}
+
+.showcase-card:hover{
+
+    transform:
+        translateY(-10px);
+
+    box-shadow:
+        0 30px 70px
+        rgba(0,0,0,.35);
+}
+
+.showcase-card img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    position:absolute;
+
+    inset:0;
+
+    transition:.7s;
+}
+
+.showcase-card:hover img{
+
+    transform:scale(1.08);
+}
+
+.showcase-overlay{
+
+    position:absolute;
+
+    inset:0;
+
     background:
         linear-gradient(
-            135deg,
-            #eef2ff,
-            #f8fafc
+            transparent 30%,
+            rgba(0,0,0,.9)
         );
+
+    display:flex;
+
+    align-items:flex-end;
+
+    padding:25px;
 }
 
-.final-cta h2{
+.showcase-overlay h3{
 
-    font-size:43px;
+    font-size:25px;
 
-    letter-spacing:-1.8px;
-
-    margin-bottom:13px;
+    letter-spacing:-1px;
 }
 
-.final-cta p{
+.showcase-overlay p{
 
-    color:#6b7280;
+    margin-top:5px;
 
-    margin-bottom:25px;
+    color:#cbd5e1;
+
+    font-size:11px;
 }
 
 
@@ -1422,114 +2365,132 @@ section{
 
 footer{
 
-    background:#020617;
+    padding:35px 20px;
 
-    color:white;
+    background:#01030a;
 
-    padding:42px 20px;
+    border-top:
+        1px solid rgba(255,255,255,.06);
 
     text-align:center;
-}
-
-.footer-logo{
-
-    font-size:25px;
-
-    font-weight:950;
-
-    margin-bottom:9px;
-}
-
-.footer-logo span{
-    color:#818cf8;
-}
-
-footer p{
 
     color:#64748b;
 
     font-size:11px;
 }
 
+footer strong{
+
+    color:#cbd5e1;
+}
+
 
 /* =========================================================
-   MODALS
+   MODAL
 ========================================================= */
 
 .modal{
-
-    display:none;
 
     position:fixed;
 
     inset:0;
 
-    z-index:9000;
+    z-index:10000;
 
-    background:
-        rgba(2,6,23,.78);
+    display:none;
 
-    padding:15px;
-
-    overflow-y:auto;
-}
-
-.modal.active{
-
-    display:flex;
-
-    align-items:flex-start;
+    align-items:center;
 
     justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.72);
+
+    backdrop-filter:blur(10px);
+}
+
+.modal.show{
+
+    display:flex;
 }
 
 .modal-box{
 
-    width:100%;
+    width:min(520px,100%);
 
-    max-width:720px;
+    max-height:90vh;
 
-    background:white;
+    overflow-y:auto;
+
+    background:#0f172a;
+
+    border:
+        1px solid rgba(255,255,255,.1);
 
     border-radius:22px;
 
-    padding:30px;
+    padding:28px;
 
-    margin:20px auto;
+    box-shadow:
+        0 40px 100px
+        rgba(0,0,0,.5);
 
-    position:relative;
+    animation:
+        modalIn .3s ease;
 }
 
-.modal-close{
+@keyframes modalIn{
 
-    position:absolute;
+    from{
+        transform:
+            translateY(20px)
+            scale(.96);
 
-    right:16px;
-    top:10px;
+        opacity:0;
+    }
+
+    to{
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity:1;
+    }
+}
+
+.modal-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.modal-head h2{
+
+    font-size:25px;
+}
+
+.close{
+
+    width:32px;
+    height:32px;
 
     border:none;
 
-    background:none;
+    border-radius:9px;
 
-    color:#6b7280;
+    background:
+        rgba(255,255,255,.07);
 
-    font-size:28px;
-}
+    color:white;
 
-.modal-title{
-    font-size:28px;
-    margin-bottom:6px;
-}
-
-.modal-subtitle{
-
-    color:#6b7280;
-
-    font-size:13px;
-
-    line-height:1.6;
-
-    margin-bottom:23px;
+    font-size:18px;
 }
 
 .form-grid{
@@ -1539,219 +2500,143 @@ footer p{
     grid-template-columns:
         repeat(2,1fr);
 
-    gap:14px;
+    gap:10px;
 }
 
-.form-group{
+.field{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6px;
+    margin-bottom:10px;
 }
 
-.form-group.full{
+.field.full{
+
     grid-column:1/-1;
 }
 
-.form-group label{
+.field label{
 
-    font-size:12px;
+    display:block;
+
+    color:#94a3b8;
+
+    font-size:10px;
 
     font-weight:800;
 
-    color:#374151;
+    margin-bottom:5px;
 }
 
-.form-group input,
-.form-group select{
+.field input,
+.field select{
 
     width:100%;
-
-    padding:11px 12px;
-
-    border:1px solid #d1d5db;
-
-    border-radius:8px;
-
-    outline:none;
-
-    background:white;
-}
-
-.form-group input:focus,
-.form-group select:focus{
-
-    border-color:#6366f1;
-
-    box-shadow:
-        0 0 0 3px #eef2ff;
-}
-
-.form-submit{
-
-    width:100%;
-
-    margin-top:21px;
-
-    padding:13px;
-
-    border:none;
-
-    border-radius:9px;
-
-    background:#4f46e5;
-
-    color:white;
-
-    font-weight:850;
-}
-
-.form-submit:disabled{
-    opacity:.55;
-}
-
-.switch-text{
-
-    text-align:center;
-
-    color:#6b7280;
-
-    font-size:13px;
-
-    margin-top:15px;
-}
-
-.switch-text button{
-
-    border:none;
-
-    background:none;
-
-    color:#4f46e5;
-
-    font-weight:850;
-}
-
-.message{
-
-    display:none;
 
     padding:11px;
 
-    border-radius:8px;
+    border:
+        1px solid
+        rgba(255,255,255,.1);
 
-    font-size:12px;
+    background:
+        rgba(255,255,255,.05);
 
-    line-height:1.5;
+    color:white;
 
-    margin-bottom:15px;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.success{
-
-    background:#ecfdf5;
-    color:#065f46;
-}
-
-.message.error{
-
-    background:#fef2f2;
-    color:#991b1b;
-}
-
-
-/* =========================================================
-   ACCESS CODE MODAL
-========================================================= */
-
-.access-box{
-
-    max-width:460px;
-
-    text-align:center;
-
-    padding:36px 28px;
-}
-
-.access-icon{
-
-    width:68px;
-    height:68px;
-
-    margin:auto auto 17px;
-
-    border-radius:20px;
-
-    background:#eef2ff;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:31px;
-}
-
-.access-box h2{
-
-    font-size:27px;
-
-    margin-bottom:8px;
-}
-
-.access-box p{
-
-    color:#6b7280;
-
-    font-size:13px;
-
-    line-height:1.65;
-
-    margin-bottom:22px;
-}
-
-.access-input{
-
-    width:100%;
-
-    padding:14px;
-
-    border:1px solid #d1d5db;
-
-    border-radius:10px;
-
-    text-align:center;
-
-    letter-spacing:2px;
-
-    font-weight:900;
-
-    text-transform:uppercase;
+    border-radius:9px;
 
     outline:none;
+
+    font-size:12px;
 }
 
-.access-input:focus{
+.field select option{
+
+    background:#0f172a;
+}
+
+.field input:focus,
+.field select:focus{
 
     border-color:#6366f1;
 
     box-shadow:
-        0 0 0 3px #eef2ff;
+        0 0 0 3px
+        rgba(99,102,241,.12);
 }
 
-.access-help{
+.submit-btn{
 
-    margin-top:14px;
+    width:100%;
 
-    color:#9ca3af;
+    border:none;
+
+    padding:13px;
+
+    border-radius:10px;
+
+    background:#6366f1;
+
+    color:white;
+
+    font-weight:900;
+
+    font-size:12px;
+
+    margin-top:8px;
+}
+
+.modal-note{
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:10px;
+
+    margin-top:13px;
+}
+
+.switch-auth{
+
+    color:#818cf8;
+
+    cursor:pointer;
+
+    font-weight:800;
+}
+
+.auth-message{
+
+    display:none;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    margin-bottom:10px;
 
     font-size:11px;
+
+    line-height:1.5;
+}
+
+.auth-message.show{
+
+    display:block;
+}
+
+.auth-message.error{
+
+    background:#450a0a;
+
+    color:#fecaca;
+}
+
+.auth-message.success{
+
+    background:#052e16;
+
+    color:#bbf7d0;
 }
 
 
@@ -1763,18 +2648,18 @@ footer p{
 
     opacity:0;
 
-    transform:translateY(25px);
+    transform:translateY(50px);
 
     transition:
-        opacity .75s ease,
-        transform .75s ease;
+        opacity 1s ease,
+        transform 1s cubic-bezier(.2,.8,.2,1);
 }
 
 .reveal.visible{
 
     opacity:1;
 
-    transform:none;
+    transform:translateY(0);
 }
 
 
@@ -1782,156 +2667,109 @@ footer p{
    MOBILE
 ========================================================= */
 
-@media(max-width:1000px){
-
-    .nav-links a{
-        display:none;
-    }
-
-    .hero-grid{
-        grid-template-columns:1fr;
-    }
-
-    .hero h1{
-        font-size:54px;
-    }
-
-    .hero-visual{
-        min-height:420px;
-    }
-
-    .pricing-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .categories{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .university-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:700px){
-
-    .nav-container{
-        min-height:65px;
-    }
+@media(max-width:850px){
 
     .nav-links{
         display:none;
     }
 
-    .hero{
-        min-height:auto;
+    .nav-actions{
+        gap:5px;
     }
 
-    .hero-grid{
-        padding:65px 20px;
-        gap:35px;
+    .nav-btn{
+        padding:8px 10px;
+        font-size:10px;
     }
 
     .hero h1{
-
-        font-size:43px;
-
-        letter-spacing:-2px;
+        letter-spacing:-4px;
     }
 
-    .hero-description{
-        font-size:15px;
+    .library-box{
+        padding:35px 22px;
     }
 
-    .hero-visual{
-        min-height:360px;
-    }
-
-    .orbit-system{
-
-        width:300px;
-        height:300px;
-    }
-
-    .floating-card{
-        transform:scale(.86);
-    }
-
-    .card-one{
-        left:-5px;
-    }
-
-    .card-two{
-        right:-5px;
-    }
-
-    section{
-        padding:70px 18px;
-    }
-
-    .heading h2{
-        font-size:32px;
-    }
-
-    .categories,
-    .pricing-grid,
-    .university-grid,
-    .why-grid{
-
+    .showcase-grid{
         grid-template-columns:1fr;
     }
 
-    .price-card.featured{
-        transform:none;
-    }
-
-    .price-card.featured:hover{
-        transform:translateY(-6px);
-    }
-
-    .library-preview{
-        grid-template-columns:1fr;
-    }
-
-    .library-left,
-    .library-right{
-        padding:32px 25px;
-    }
-
-    .library-left h2{
-        font-size:30px;
-    }
-
-    .final-cta h2{
-        font-size:32px;
+    .showcase-card{
+        min-height:300px;
     }
 
     .form-grid{
         grid-template-columns:1fr;
     }
 
-    .form-group.full{
+    .field.full{
         grid-column:auto;
     }
 
-    .modal-box{
-        padding:25px 18px;
+    .planet.earth{
+        width:110px;
+        height:110px;
+        right:5%;
     }
 
-    .user-name{
-        display:none;
+    .tree{
+        font-size:100px;
     }
 
-    .dashboard-nav-btn,
-    .logout-btn{
-        padding:8px 9px;
-        font-size:10px;
+}
+
+@media(max-width:480px){
+
+    .hero{
+        padding-top:120px;
     }
 
+    .hero h1{
+        font-size:48px;
+    }
+
+    .hero p{
+        font-size:13px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .hero-btn{
+        width:220px;
+    }
+
+    .fish{
+        font-size:30px;
+    }
+
+    .library-box h2{
+        font-size:35px;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        scroll-behavior:auto !important;
+
+        transition-duration:.01ms !important;
+    }
 }
 
 </style>
@@ -1943,37 +2781,47 @@ footer p{
 
 
 <!-- =========================================================
-     SMART LOADER
+     CINEMATIC INTRO
 ========================================================= -->
 
-<div id="loader">
+<div id="introLoader">
 
-    <div class="loader-content">
+    <div class="loader-grid"></div>
 
-        <div class="molecule">
+    <div class="loader-core">
 
-            <div class="bond one"></div>
-            <div class="bond two"></div>
-            <div class="bond three"></div>
+        <div class="orbit one"></div>
 
-            <div class="atom a1"></div>
-            <div class="atom a2"></div>
-            <div class="atom a3"></div>
+        <div class="orbit two"></div>
 
-            <div class="atom center"></div>
+        <div class="orbit three"></div>
 
+        <div class="electron"></div>
+
+        <div class="atom"></div>
+
+        <div class="chemical"></div>
+        <div class="chemical"></div>
+        <div class="chemical"></div>
+        <div class="chemical"></div>
+
+    </div>
+
+    <div class="loader-text">
+
+        <div class="small">
+            Dream Hunt Laboratory
         </div>
 
-        <div class="loader-title">
-            Dream Hunt
-        </div>
+        <h2>
+            Initializing...
+        </h2>
 
-        <div class="loader-text" id="loaderText">
-            Preparing your learning universe...
-        </div>
+        <div
+            class="loader-status"
+            id="loaderStatus">
 
-        <div class="loader-dots">
-            • • •
+            Molecular system starting
         </div>
 
     </div>
@@ -1982,84 +2830,76 @@ footer p{
 
 
 <!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="background-glow">
+
+    <div class="glow a"></div>
+
+    <div class="glow b"></div>
+
+    <div class="glow c"></div>
+
+</div>
+
+
+<!-- =========================================================
+     RANDOM EVENT LAYER
+========================================================= -->
+
+<div id="eventLayer"></div>
+
+
+<!-- =========================================================
      NAVBAR
 ========================================================= -->
 
-<nav>
+<nav class="navbar">
 
-<div class="nav-container">
+<div class="nav-inner">
 
-    <a href="#" class="logo">
+    <a
+        href="#top"
+        class="logo">
+
         Dream<span>Hunt</span>
+
     </a>
 
 
     <div class="nav-links">
 
-        <a href="#paths">
-            Paths
-        </a>
-
-        <a href="#pricing">
-            Pricing
-        </a>
-
-        <a href="#universities">
-            Universities
+        <a href="#journey">
+            Explore
         </a>
 
         <a href="#library">
             Library
         </a>
 
-        <div class="nav-actions">
-
-            <button
-                class="login-btn"
-                onclick="openLogin()">
-
-                Login
-
-            </button>
-
-            <button
-                class="register-btn"
-                onclick="openRegister()">
-
-                Register
-
-            </button>
-
-        </div>
+        <a href="#universities">
+            Universities
+        </a>
 
     </div>
 
 
-    <div
-        class="user-area"
-        id="userArea">
-
-        <span
-            class="user-name"
-            id="navUserName">
-
-            Student
-
-        </span>
+    <div class="nav-actions">
 
         <button
-            class="dashboard-nav-btn"
-            onclick="goDashboard()">
+            class="nav-btn"
+            onclick="openLogin()">
 
-            Dashboard
+            Login
 
         </button>
 
         <button
-            class="logout-btn"
-            onclick="logout()">
+            class="nav-btn primary"
+            onclick="openRegister()">
 
-            Logout
+            Register
 
         </button>
 
@@ -2074,40 +2914,38 @@ footer p{
      HERO
 ========================================================= -->
 
-<header class="hero">
+<section
+    class="hero"
+    id="top">
 
-<div class="hero-grid">
+    <div class="hero-grid"></div>
 
-    <div class="hero-copy">
+    <div class="hero-content reveal">
 
-        <div class="badge">
+        <div class="hero-badge">
 
-            <span class="badge-dot"></span>
-
-            Admission Preparation
+            ✦ Beyond Ordinary Preparation
 
         </div>
 
-
         <h1>
 
-            Your Dream.
+            Turn Your Dream
 
-            <span>
-                Your Hunt.
+            <br>
+
+            Into
+            <span class="gradient">
+                Achievement.
             </span>
-
-            Your Future.
 
         </h1>
 
-
-        <p class="hero-description">
+        <p>
 
             Dream Hunt is built for students who don't
-            want to prepare randomly. Choose your path,
-            sharpen your preparation and move toward the
-            institution you dream of.
+            simply want to prepare — they want to become
+            capable of reaching something extraordinary.
 
         </p>
 
@@ -2115,321 +2953,18 @@ footer p{
         <div class="hero-buttons">
 
             <button
-                class="primary-btn"
+                class="hero-btn primary"
                 onclick="openRegister()">
 
                 Start Your Journey →
 
             </button>
 
-
-            <a
-                href="#paths"
-                class="secondary-btn">
-
-                Explore Admission Paths
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-visual">
-
-        <div class="orbit-system">
-
-            <div class="orbit">
-                <span class="orbit-dot"></span>
-            </div>
-
-            <div class="orbit">
-                <span class="orbit-dot"></span>
-            </div>
-
-            <div class="orbit">
-                <span class="orbit-dot"></span>
-            </div>
-
-            <div class="core">
-                DH
-            </div>
-
-        </div>
-
-
-        <div class="floating-card card-one">
-
-            <strong>
-                50+
-            </strong>
-
-            <small>
-                Learning Resources
-            </small>
-
-        </div>
-
-
-        <div class="floating-card card-two">
-
-            <strong>
-                10K+
-            </strong>
-
-            <small>
-                Practice Questions
-            </small>
-
-        </div>
-
-
-        <div class="floating-card card-three">
-
-            <strong>
-                HSC 26
-            </strong>
-
-            <small>
-                Admission Mission
-            </small>
-
-        </div>
-
-    </div>
-
-</div>
-
-</header>
-
-
-<!-- =========================================================
-     MOTIVATION
-========================================================= -->
-
-<div class="motivation">
-
-<div class="motivation-inner">
-
-    <div
-        class="quote"
-        id="quote">
-
-        <strong>
-            “Dreams don't become goals until you start moving.”
-        </strong>
-
-    </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     ADMISSION PATHS
-========================================================= -->
-
-<section id="paths">
-
-<div class="container">
-
-    <div class="heading reveal">
-
-        <div class="eyebrow">
-            Find Your Direction
-        </div>
-
-        <h2>
-            Choose Your Admission Path
-        </h2>
-
-        <p>
-            One destination may have many roads.
-            Choose the road that leads toward your goal.
-        </p>
-
-    </div>
-
-
-    <div class="categories">
-
-
-        <div class="category reveal">
-
-            <span class="category-number">
-                01
-            </span>
-
-            <div class="category-icon">
-                🎓
-            </div>
-
-            <h3>
-                Public University
-            </h3>
-
-            <p>
-                Prepare for Bangladesh's leading public
-                universities and competitive admission units.
-            </p>
-
             <button
-                class="category-link"
-                onclick="openRegister()">
+                class="hero-btn secondary"
+                onclick="document.getElementById('journey').scrollIntoView()">
 
-                Start Preparation →
-
-            </button>
-
-        </div>
-
-
-        <div class="category reveal">
-
-            <span class="category-number">
-                02
-            </span>
-
-            <div class="category-icon">
-                ⚙️
-            </div>
-
-            <h3>
-                Engineering
-            </h3>
-
-            <p>
-                Focused preparation for engineering and
-                technology admission destinations.
-            </p>
-
-            <button
-                class="category-link"
-                onclick="openRegister()">
-
-                Start Preparation →
-
-            </button>
-
-        </div>
-
-
-        <div class="category reveal">
-
-            <span class="category-number">
-                03
-            </span>
-
-            <div class="category-icon">
-                🩺
-            </div>
-
-            <h3>
-                Medical & Dental
-            </h3>
-
-            <p>
-                Build speed, accuracy and subject strength
-                for medical and dental admission.
-            </p>
-
-            <button
-                class="category-link"
-                onclick="openRegister()">
-
-                Start Preparation →
-
-            </button>
-
-        </div>
-
-
-        <div class="category reveal">
-
-            <span class="category-number">
-                04
-            </span>
-
-            <div class="category-icon">
-                🌱
-            </div>
-
-            <h3>
-                Agriculture & Veterinary
-            </h3>
-
-            <p>
-                Prepare for agricultural, veterinary and
-                related admission opportunities.
-            </p>
-
-            <button
-                class="category-link"
-                onclick="openRegister()">
-
-                Start Preparation →
-
-            </button>
-
-        </div>
-
-
-        <div class="category reveal">
-
-            <span class="category-number">
-                05
-            </span>
-
-            <div class="category-icon">
-                🏛️
-            </div>
-
-            <h3>
-                Specialized Admission
-            </h3>
-
-            <p>
-                Explore specialized institutions and
-                competitive admission pathways.
-            </p>
-
-            <button
-                class="category-link"
-                onclick="openRegister()">
-
-                Start Preparation →
-
-            </button>
-
-        </div>
-
-
-        <div class="category reveal">
-
-            <span class="category-number">
-                06
-            </span>
-
-            <div class="category-icon">
-                🌎
-            </div>
-
-            <h3>
-                Abroad Prep
-            </h3>
-
-            <p>
-                Build a pathway toward international
-                universities and global academic opportunities.
-            </p>
-
-            <button
-                class="category-link"
-                onclick="openRegister()">
-
-                Explore Abroad →
+                Explore Experience ↓
 
             </button>
 
@@ -2437,662 +2972,519 @@ footer p{
 
     </div>
 
-</div>
+
+    <div class="scroll-hint">
+
+        Scroll to explore
+
+    </div>
 
 </section>
 
 
 <!-- =========================================================
-     PRICING
+     CINEMATIC WORLD
+========================================================= -->
+
+<main
+    class="world"
+    id="journey">
+
+
+<!-- =========================================================
+     SCIENCE
+========================================================= -->
+
+<section class="world-section science">
+
+    <div class="science-bg"></div>
+
+    <div class="science-content reveal">
+
+        <div class="scene-label">
+            PHASE 01 · SCIENCE
+        </div>
+
+        <h2>
+            Curiosity
+            <br>
+            Creates Discovery.
+        </h2>
+
+        <p>
+
+            Every great journey begins with a question.
+            Learn to look deeper, think differently,
+            and turn curiosity into knowledge.
+
+        </p>
+
+        <div class="formula">
+
+            E = mc² &nbsp; · &nbsp;
+            ∫ f(x) dx &nbsp; · &nbsp;
+            Δ = b² − 4ac
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OCEAN
+========================================================= -->
+
+<section class="world-section ocean">
+
+    <div class="waterline"></div>
+
+    <div class="fish f1">
+        🐟
+    </div>
+
+    <div class="fish f2">
+        🐠
+    </div>
+
+    <div class="fish f3">
+        🐡
+    </div>
+
+    <div class="fish f4">
+        🐟
+    </div>
+
+
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+
+    <div class="ocean-content reveal">
+
+        <div class="scene-label">
+            PHASE 02 · OCEAN
+        </div>
+
+        <h2>
+            Dive
+            <br>
+            Deeper.
+        </h2>
+
+        <p>
+
+            Some answers don't live on the surface.
+            Keep exploring until the unknown becomes
+            something you understand.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MOUNTAIN
+========================================================= -->
+
+<section class="world-section mountain">
+
+    <div class="sun"></div>
+
+    <div class="cloud c1">
+        ☁️
+    </div>
+
+    <div class="cloud c2">
+        ☁️
+    </div>
+
+    <div class="cloud c3">
+        ☁️
+    </div>
+
+    <div class="bird b1">
+        🦅
+    </div>
+
+    <div class="bird b2">
+        🕊️
+    </div>
+
+    <div class="bird b3">
+        🦅
+    </div>
+
+
+    <div class="mountain-shape back"></div>
+
+    <div class="mountain-shape mid"></div>
+
+    <div class="mountain-shape front"></div>
+
+
+    <div class="mountain-content reveal">
+
+        <div class="scene-label">
+            PHASE 03 · MOUNTAIN
+        </div>
+
+        <h2>
+            Rise
+            <br>
+            Higher.
+        </h2>
+
+        <p>
+
+            The higher the goal, the harder the climb.
+            But every step changes the view.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WILDLIFE
+========================================================= -->
+
+<section class="world-section wildlife">
+
+    <div class="forest-glow"></div>
+
+    <div class="tree t1">
+        🌲
+    </div>
+
+    <div class="tree t2">
+        🌳
+    </div>
+
+    <div class="tree t3">
+        🌲
+    </div>
+
+    <div class="tree t4">
+        🌳
+    </div>
+
+
+    <div class="butterfly b1">
+        🦋
+    </div>
+
+    <div class="butterfly b2">
+        🦋
+    </div>
+
+
+    <div class="bird b1">
+        🐦
+    </div>
+
+    <div class="bird b2">
+        🦅
+    </div>
+
+
+    <div class="wildlife-content reveal">
+
+        <div class="scene-label">
+            PHASE 04 · LIFE
+        </div>
+
+        <h2>
+            Stay
+            <br>
+            Alive With Wonder.
+        </h2>
+
+        <p>
+
+            Knowledge isn't confined to classrooms.
+            The world itself is full of things worth
+            noticing.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SPORTS
+========================================================= -->
+
+<section class="world-section sports">
+
+    <div class="field-lines"></div>
+
+    <div class="sports-ball ball1">
+        ⚽
+    </div>
+
+    <div class="sports-ball ball2">
+        🏏
+    </div>
+
+
+    <div class="sports-content reveal">
+
+        <div class="scene-label">
+            PHASE 05 · ENERGY
+        </div>
+
+        <h2>
+            Play.
+            <br>
+            Compete.
+            <br>
+            Push Further.
+        </h2>
+
+        <p>
+
+            Discipline isn't only about studying.
+            It's about energy, resilience, competition,
+            and learning how to keep moving.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SPACE
+========================================================= -->
+
+<section class="world-section space">
+
+    <div class="stars"></div>
+
+    <div class="planet earth"></div>
+
+    <div class="planet small"></div>
+
+    <div class="meteor"></div>
+
+
+    <div class="space-content reveal">
+
+        <div class="scene-label">
+            PHASE 06 · SPACE
+        </div>
+
+        <h2>
+            Think
+            <br>
+            Beyond Limits.
+        </h2>
+
+        <p>
+
+            The world is enormous.
+            Your ambition doesn't have to be small.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL
+========================================================= -->
+
+<section class="world-section final">
+
+    <div class="final-content reveal">
+
+        <div class="scene-label">
+            YOUR JOURNEY
+        </div>
+
+        <div class="final-logo">
+            Dream Hunt
+        </div>
+
+        <p>
+
+            Learn. Prepare. Achieve.
+
+            <br>
+
+            Your dream starts here.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <button
+                class="hero-btn primary"
+                onclick="openRegister()">
+
+                Begin Now →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     LIBRARY GATEWAY
 ========================================================= -->
 
 <section
-    class="pricing-section"
-    id="pricing">
-
-<div class="container">
-
-    <div class="heading reveal">
-
-        <div class="eyebrow">
-            Simple Pricing
-        </div>
-
-        <h2>
-            Choose What You Need
-        </h2>
-
-        <p>
-            Start with one admission path or prepare across
-            multiple categories with a single plan.
-        </p>
-
-    </div>
-
-
-    <div class="pricing-grid">
-
-
-        <div class="price-card reveal">
-
-            <h3>
-                1 Category
-            </h3>
-
-            <div class="price">
-                ৳300
-            </div>
-
-            <ul class="price-list">
-
-                <li>✓ One admission category</li>
-
-                <li>✓ Practice resources</li>
-
-                <li>✓ Admission preparation</li>
-
-                <li>✓ Exams & performance</li>
-
-            </ul>
-
-            <button
-                class="price-btn"
-                onclick="openRegister()">
-
-                Get Started
-
-            </button>
-
-        </div>
-
-
-        <div class="price-card reveal">
-
-            <h3>
-                2 Categories
-            </h3>
-
-            <div class="price">
-                ৳500
-            </div>
-
-            <ul class="price-list">
-
-                <li>✓ Two admission categories</li>
-
-                <li>✓ Practice resources</li>
-
-                <li>✓ Question-based preparation</li>
-
-                <li>✓ Exams & performance</li>
-
-            </ul>
-
-            <button
-                class="price-btn"
-                onclick="openRegister()">
-
-                Choose Plan
-
-            </button>
-
-        </div>
-
-
-        <div class="price-card featured reveal">
-
-            <span class="price-badge">
-                POPULAR
-            </span>
-
-            <h3>
-                3 Categories
-            </h3>
-
-            <div class="price">
-                ৳800
-            </div>
-
-            <ul class="price-list">
-
-                <li>✓ Three admission categories</li>
-
-                <li>✓ Full preparation resources</li>
-
-                <li>✓ Practice & exams</li>
-
-                <li>✓ Performance tracking</li>
-
-            </ul>
-
-            <button
-                class="price-btn"
-                onclick="openRegister()">
-
-                Choose Plan
-
-            </button>
-
-        </div>
-
-
-        <div class="price-card reveal">
-
-            <h3>
-                All 6 Categories
-            </h3>
-
-            <div class="price">
-                ৳1000
-            </div>
-
-            <ul class="price-list">
-
-                <li>✓ All six categories</li>
-
-                <li>✓ Complete preparation access</li>
-
-                <li>✓ Full practice system</li>
-
-                <li>✓ Maximum flexibility</li>
-
-            </ul>
-
-            <button
-                class="price-btn"
-                onclick="openRegister()">
-
-                Go All In
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     UNIVERSITY SHOWCASE
-========================================================= -->
-
-<section id="universities">
-
-<div class="container">
-
-    <div class="heading reveal">
-
-        <div class="eyebrow">
-            Know Your Destination
-        </div>
-
-        <h2>
-            Institutions Worth Chasing
-        </h2>
-
-        <p>
-            Your preparation becomes clearer when you know
-            exactly where you want to go.
-        </p>
-
-    </div>
-
-
-    <div class="university-grid">
-
-
-        <div class="uni-card reveal">
-
-            <img
-                class="uni-image"
-                src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/images/2022/07/03/du5.jpg"
-                alt="University of Dhaka">
-
-            <div class="uni-content">
-
-                <span class="uni-tag">
-                    PUBLIC UNIVERSITY
-                </span>
-
-                <h3>
-                    University of Dhaka
-                </h3>
-
-                <p>
-                    A major target institution for
-                    university admission aspirants.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="uni-card reveal">
-
-            <img
-                class="uni-image"
-                src="https://en-academic.com/pictures/enwiki/67/Civil_Engineering_Building_of_BUET_seen_from_EME_Building.JPG"
-                alt="BUET">
-
-            <div class="uni-content">
-
-                <span class="uni-tag">
-                    ENGINEERING
-                </span>
-
-                <h3>
-                    BUET
-                </h3>
-
-                <p>
-                    One of Bangladesh's most competitive
-                    engineering admission destinations.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="uni-card reveal">
-
-            <img
-                class="uni-image"
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
-                alt="Medical">
-
-            <div class="uni-content">
-
-                <span class="uni-tag">
-                    MEDICAL
-                </span>
-
-                <h3>
-                    Dhaka Medical College
-                </h3>
-
-                <p>
-                    A historic destination for medical
-                    admission candidates.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="uni-card reveal">
-
-            <img
-                class="uni-image"
-                src="https://dreamuni.com/gallery/universty-photo-dreambig_53928054.webp"
-                alt="Oxford">
-
-            <div class="uni-content">
-
-                <span class="uni-tag">
-                    ABROAD
-                </span>
-
-                <h3>
-                    University of Oxford
-                </h3>
-
-                <p>
-                    A globally recognized academic destination
-                    for ambitious students.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="uni-card reveal">
-
-            <img
-                class="uni-image"
-                src="https://geekerhertz.com/wp-content/uploads/2021/05/MIT-Campus.jpg"
-                alt="MIT">
-
-            <div class="uni-content">
-
-                <span class="uni-tag">
-                    ABROAD
-                </span>
-
-                <h3>
-                    MIT
-                </h3>
-
-                <p>
-                    A global destination for science,
-                    technology and engineering.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="uni-card reveal">
-
-            <img
-                class="uni-image"
-                src="https://www.utoronto.ca/sites/default/files/styles/hero/public/2020-11/StGeorgeCampus.jpg"
-                alt="University of Toronto">
-
-            <div class="uni-content">
-
-                <span class="uni-tag">
-                    ABROAD
-                </span>
-
-                <h3>
-                    University of Toronto
-                </h3>
-
-                <p>
-                    A leading international destination
-                    for higher education.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     WHY DREAM HUNT
-========================================================= -->
-
-<section class="why">
-
-<div class="container">
-
-    <div class="heading reveal">
-
-        <div class="eyebrow">
-            The Idea
-        </div>
-
-        <h2>
-            Preparation With A Direction
-        </h2>
-
-        <p>
-            Dream Hunt isn't about studying everything.
-            It's about studying what moves you closer
-            to your goal.
-        </p>
-
-    </div>
-
-
-    <div class="why-grid">
-
-
-        <div class="why-card reveal">
-
-            <div class="why-icon">
-                🧭
-            </div>
-
-            <h3>
-                Direction First
-            </h3>
-
-            <p>
-                Know your admission path and understand
-                what you're preparing for before you begin.
-            </p>
-
-        </div>
-
-
-        <div class="why-card reveal">
-
-            <div class="why-icon">
-                🧠
-            </div>
-
-            <h3>
-                Smarter Preparation
-            </h3>
-
-            <p>
-                Turn your preparation into a system instead
-                of relying only on random practice.
-            </p>
-
-        </div>
-
-
-        <div class="why-card reveal">
-
-            <div class="why-icon">
-                🔬
-            </div>
-
-            <h3>
-                Learn By Testing
-            </h3>
-
-            <p>
-                Practice, test yourself, understand mistakes
-                and keep improving.
-            </p>
-
-        </div>
-
-
-        <div class="why-card reveal">
-
-            <div class="why-icon">
-                📚
-            </div>
-
-            <h3>
-                Curated Resources
-            </h3>
-
-            <p>
-                Access carefully organized study materials
-                designed for admission preparation.
-            </p>
-
-        </div>
-
-
-        <div class="why-card reveal">
-
-            <div class="why-icon">
-                🎯
-            </div>
-
-            <h3>
-                Goal Driven
-            </h3>
-
-            <p>
-                Your preparation should have a destination.
-                Build toward the institution you want.
-            </p>
-
-        </div>
-
-
-        <div class="why-card reveal">
-
-            <div class="why-icon">
-                ⚡
-            </div>
-
-            <h3>
-                Consistency
-            </h3>
-
-            <p>
-                Small improvements repeated every day can
-                change your admission preparation completely.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     LIBRARY LOCKED PREVIEW
-========================================================= -->
-
-<section
-    class="library-section"
+    class="library-gateway"
     id="library">
 
-<div class="container">
+<div class="library-box reveal">
 
-    <div class="heading reveal">
-
-        <div class="eyebrow">
-            Premium Student Resource Vault
-        </div>
-
-        <h2>
-            Dream Hunt Library
-        </h2>
-
-        <p>
-            A private collection of marked books, question banks,
-            notes and admission resources for enrolled students.
-        </p>
-
+    <div class="library-lock">
+        🔐
     </div>
 
+    <div class="scene-label"
+         style="margin-top:20px;">
 
-    <div class="library-preview reveal">
-
-
-        <div class="library-left">
-
-            <div class="library-lock">
-                🔐
-            </div>
-
-            <h2>
-                Knowledge,
-                Curated.
-            </h2>
-
-            <p>
-                Your preparation shouldn't depend on searching
-                through hundreds of files. Everything important
-                should be within reach.
-            </p>
-
-
-            <div class="library-items">
-
-                <span class="library-pill">
-                    📕 দাগানো বই
-                </span>
-
-                <span class="library-pill">
-                    📝 Question Bank
-                </span>
-
-                <span class="library-pill">
-                    📒 Important Notes
-                </span>
-
-                <span class="library-pill">
-                    ⚡ Formula Sheets
-                </span>
-
-                <span class="library-pill">
-                    🧾 Previous Questions
-                </span>
-
-                <span class="library-pill">
-                    🧠 Short Tricks
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="library-right">
-
-            <div class="locked-label">
-                Paid Student Access
-            </div>
-
-            <h3>
-                Library is locked.
-            </h3>
-
-            <p>
-                Library access is available only to students
-                with an approved Dream Hunt course enrollment.
-                You'll also need the access code provided by Dream Hunt.
-            </p>
-
-            <button
-                class="unlock-btn"
-                onclick="openLibraryAccess()">
-
-                🔐 Enter Library Access Code
-
-            </button>
-
-        </div>
+        DREAM HUNT RESOURCE VAULT
 
     </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     FINAL CTA
-========================================================= -->
-
-<section class="final-cta">
-
-<div class="container">
 
     <h2>
-        The Hunt Starts With One Step.
+        The Library
     </h2>
 
     <p>
-        Choose your path. Build your preparation.
-        Go after the institution you dream about.
+
+        A private collection of marked books,
+        question banks, formula sheets, previous
+        questions, notes and exclusive admission
+        resources.
+
+        <br><br>
+
+        Library access is available only to students
+        with an approved paid-course enrollment and
+        a Dream Hunt access code.
+
     </p>
 
-    <button
-        class="primary-btn"
-        onclick="openRegister()">
+    <a
+        href="library.html"
+        class="library-button">
 
-        Join Dream Hunt →
+        🔓 Enter Library
 
-    </button>
+    </a>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     UNIVERSITY VISUALS
+========================================================= -->
+
+<section
+    class="visual-showcase"
+    id="universities">
+
+<div class="showcase-inner">
+
+    <div class="showcase-title reveal">
+
+        <div class="scene-label">
+            DREAMS HAVE DESTINATIONS
+        </div>
+
+        <h2>
+            Imagine Where
+            <br>
+            You Could Go.
+        </h2>
+
+    </div>
+
+
+    <div class="showcase-grid">
+
+        <!-- MIT IMAGE -->
+
+        <div class="showcase-card reveal">
+
+            <img
+                src="assets/mit.jpg"
+                alt="MIT">
+
+            <div class="showcase-overlay">
+
+                <div>
+
+                    <h3>
+                        MIT
+                    </h3>
+
+                    <p>
+                        A symbol of innovation,
+                        science and limitless thinking.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TORONTO IMAGE -->
+
+        <div class="showcase-card reveal">
+
+            <img
+                src="assets/toronto.jpg"
+                alt="University of Toronto">
+
+            <div class="showcase-overlay">
+
+                <div>
+
+                    <h3>
+                        University of Toronto
+                    </h3>
+
+                    <p>
+                        A world-class destination
+                        for ambitious minds.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -3105,13 +3497,17 @@ footer p{
 
 <footer>
 
-    <div class="footer-logo">
-        Dream<span>Hunt</span>
-    </div>
+    <strong>
+        Dream Hunt
+    </strong>
 
-    <p>
-        © 2026 Dream Hunt. Learn. Prepare. Achieve.
-    </p>
+    &nbsp; · &nbsp;
+
+    Learn. Prepare. Achieve.
+
+    <br><br>
+
+    © 2026 Dream Hunt. All rights reserved.
 
 </footer>
 
@@ -3126,132 +3522,120 @@ footer p{
 
 <div class="modal-box">
 
-    <button
-        class="modal-close"
-        onclick="closeRegister()">
-        ×
-    </button>
+    <div class="modal-head">
 
-    <h2 class="modal-title">
-        Create Your Account
-    </h2>
+        <h2>
+            Create Account
+        </h2>
 
-    <p class="modal-subtitle">
-        Join Dream Hunt and start your admission journey.
-    </p>
+        <button
+            class="close"
+            onclick="closeRegister()">
+
+            ×
+
+        </button>
+
+    </div>
+
 
     <div
-        class="message"
+        class="auth-message"
         id="registerMessage">
     </div>
 
 
-    <form id="registerForm">
+    <form
+        id="registerForm">
 
         <div class="form-grid">
 
 
-            <div class="form-group">
+            <div class="field full">
 
                 <label>
                     Full Name *
                 </label>
 
                 <input
-                    type="text"
                     id="regFullName"
-                    required>
+                    required
+                    placeholder="Your full name">
 
             </div>
 
 
-            <div class="form-group">
-
-                <label>
-                    Phone Number *
-                </label>
-
-                <input
-                    type="tel"
-                    id="regPhone"
-                    required>
-
-            </div>
-
-
-            <div class="form-group full">
+            <div class="field">
 
                 <label>
                     Email *
                 </label>
 
                 <input
-                    type="email"
                     id="regEmail"
-                    required>
+                    type="email"
+                    required
+                    placeholder="Email address">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
+
+                <label>
+                    Phone *
+                </label>
+
+                <input
+                    id="regPhone"
+                    required
+                    placeholder="01XXXXXXXXX">
+
+            </div>
+
+
+            <div class="field">
 
                 <label>
                     Date of Birth
                 </label>
 
                 <input
-                    type="date"
-                    id="regDob">
+                    id="regDob"
+                    type="date">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
-                    Current Institution *
+                    Institution *
                 </label>
 
                 <input
-                    type="text"
                     id="regInstitution"
-                    required>
+                    required
+                    placeholder="College / Institution">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
-                    Education Board *
+                    Board *
                 </label>
 
-                <select
+                <input
                     id="regBoard"
-                    required>
-
-                    <option value="">
-                        Select Board
-                    </option>
-
-                    <option>Dhaka</option>
-                    <option>Chittagong</option>
-                    <option>Rajshahi</option>
-                    <option>Jessore</option>
-                    <option>Comilla</option>
-                    <option>Barisal</option>
-                    <option>Sylhet</option>
-                    <option>Dinajpur</option>
-                    <option>Mymensingh</option>
-                    <option>Madrasah</option>
-                    <option>Technical</option>
-
-                </select>
+                    required
+                    placeholder="Dhaka">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Group *
@@ -3262,231 +3646,232 @@ footer p{
                     required>
 
                     <option value="">
-                        Select Group
+                        Select group
                     </option>
 
-                    <option>Science</option>
-                    <option>Humanities</option>
-                    <option>Business Studies</option>
+                    <option>
+                        Science
+                    </option>
+
+                    <option>
+                        Humanities
+                    </option>
+
+                    <option>
+                        Business Studies
+                    </option>
 
                 </select>
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
-                    HSC / Equivalent Year
+                    HSC Year
                 </label>
 
                 <input
-                    type="number"
                     id="regHscYear"
+                    type="number"
                     placeholder="2026">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     SSC Institution
                 </label>
 
                 <input
-                    type="text"
-                    id="regSscInstitution">
+                    id="regSscInstitution"
+                    placeholder="SSC institution">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     SSC Board
                 </label>
 
                 <input
-                    type="text"
-                    id="regSscBoard">
+                    id="regSscBoard"
+                    placeholder="Board">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
-                    SSC Passing Year
+                    SSC Year
                 </label>
 
                 <input
-                    type="number"
-                    id="regSscYear">
+                    id="regSscYear"
+                    type="number">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     SSC GPA
                 </label>
 
                 <input
-                    type="number"
                     id="regSscGpa"
+                    type="number"
                     step="0.01"
-                    min="0"
-                    max="5">
+                    placeholder="5.00">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Division *
                 </label>
 
-                <select
+                <input
                     id="regDivision"
-                    required>
-
-                    <option value="">
-                        Select Division
-                    </option>
-
-                    <option>Dhaka</option>
-                    <option>Chattogram</option>
-                    <option>Rajshahi</option>
-                    <option>Khulna</option>
-                    <option>Barishal</option>
-                    <option>Sylhet</option>
-                    <option>Rangpur</option>
-                    <option>Mymensingh</option>
-
-                </select>
+                    required
+                    placeholder="Dhaka">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     District *
                 </label>
 
                 <input
-                    type="text"
                     id="regDistrict"
-                    required>
+                    required
+                    placeholder="District">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
-                    Upazila / Thana
+                    Upazila
                 </label>
 
                 <input
-                    type="text"
-                    id="regUpazila">
+                    id="regUpazila"
+                    placeholder="Upazila">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
-                    Target Admission *
+                    Target Admission
                 </label>
 
                 <select
-                    id="regTargetAdmission"
-                    required>
+                    id="regTargetAdmission">
 
                     <option value="">
-                        Select Category
+                        Select target
                     </option>
 
-                    <option>Public University</option>
-                    <option>Engineering</option>
-                    <option>Medical</option>
-                    <option>Study Abroad</option>
-                    <option>Other</option>
+                    <option>
+                        Public University
+                    </option>
+
+                    <option>
+                        Engineering
+                    </option>
+
+                    <option>
+                        Medical & Dental
+                    </option>
+
+                    <option>
+                        Agriculture & Veterinary
+                    </option>
+
+                    <option>
+                        Specialized Admission
+                    </option>
+
+                    <option>
+                        Abroad Prep
+                    </option>
 
                 </select>
 
             </div>
 
 
-            <div class="form-group full">
+            <div class="field full">
 
                 <label>
                     Target University
                 </label>
 
                 <input
-                    type="text"
-                    id="regTargetUniversity">
+                    id="regTargetUniversity"
+                    placeholder="Your dream university">
 
             </div>
 
 
-            <div class="form-group">
+            <div class="field full">
 
                 <label>
                     Password *
                 </label>
 
                 <input
-                    type="password"
                     id="regPassword"
-                    minlength="6"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Confirm Password *
-                </label>
-
-                <input
                     type="password"
-                    id="regConfirmPassword"
                     minlength="6"
-                    required>
+                    required
+                    placeholder="At least 6 characters">
 
             </div>
+
 
         </div>
 
 
         <button
+            class="submit-btn"
             type="submit"
-            class="form-submit"
             id="registerSubmit">
 
-            Create Account
+            Create Dream Hunt Account
 
         </button>
 
     </form>
 
 
-    <div class="switch-text">
+    <div class="modal-note">
 
         Already have an account?
 
-        <button onclick="switchToLogin()">
+        <span
+            class="switch-auth"
+            onclick="switchToLogin()">
+
             Login
-        </button>
+
+        </span>
 
     </div>
 
@@ -3503,152 +3888,88 @@ footer p{
     class="modal"
     id="loginModal">
 
-<div
-    class="modal-box"
-    style="max-width:450px;">
+<div class="modal-box">
 
-    <button
-        class="modal-close"
-        onclick="closeLogin()">
-        ×
-    </button>
+    <div class="modal-head">
 
-    <h2 class="modal-title">
-        Welcome Back
-    </h2>
+        <h2>
+            Welcome Back
+        </h2>
 
-    <p class="modal-subtitle">
-        Login to your Dream Hunt account.
-    </p>
+        <button
+            class="close"
+            onclick="closeLogin()">
+
+            ×
+
+        </button>
+
+    </div>
+
 
     <div
-        class="message"
+        class="auth-message"
         id="loginMessage">
     </div>
 
 
-    <form id="loginForm">
+    <form
+        id="loginForm">
 
-        <div class="form-group">
+
+        <div class="field">
 
             <label>
                 Email
             </label>
 
             <input
-                type="email"
                 id="loginEmail"
-                required>
+                type="email"
+                required
+                placeholder="Email address">
 
         </div>
 
 
-        <br>
-
-
-        <div class="form-group">
+        <div class="field">
 
             <label>
                 Password
             </label>
 
             <input
-                type="password"
                 id="loginPassword"
-                required>
+                type="password"
+                required
+                placeholder="Password">
 
         </div>
 
 
         <button
+            class="submit-btn"
             type="submit"
-            class="form-submit"
             id="loginSubmit">
 
-            Login
+            Login to Student Portal
 
         </button>
 
     </form>
 
 
-    <div class="switch-text">
+    <div class="modal-note">
 
         Don't have an account?
 
-        <button onclick="switchToRegister()">
+        <span
+            class="switch-auth"
+            onclick="switchToRegister()">
+
             Register
-        </button>
 
-    </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     LIBRARY ACCESS MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="libraryAccessModal">
-
-<div class="modal-box access-box">
-
-    <button
-        class="modal-close"
-        onclick="closeLibraryAccess()">
-        ×
-    </button>
-
-
-    <div class="access-icon">
-        🔐
-    </div>
-
-
-    <h2>
-        Library Access
-    </h2>
-
-
-    <p>
-        Enter the access code provided by Dream Hunt.
-        Your account must also have an approved course enrollment.
-    </p>
-
-
-    <div
-        class="message"
-        id="accessMessage">
-    </div>
-
-
-    <input
-        class="access-input"
-        id="libraryAccessCode"
-        type="text"
-        maxlength="50"
-        placeholder="ENTER ACCESS CODE"
-        autocomplete="off">
-
-
-    <button
-        class="form-submit"
-        id="accessSubmit"
-        onclick="verifyLibraryFromHome()">
-
-        Unlock Library
-
-    </button>
-
-
-    <div class="access-help">
-
-        Don't have a code?
-        Contact Dream Hunt after your course payment is approved.
+        </span>
 
     </div>
 
@@ -3677,190 +3998,147 @@ const supabaseClient =
 
 
 /* =========================================================
-   SMART LOADER
+   LOADER
 ========================================================= */
 
-const loaderTexts = [
+const loader =
+    document.getElementById(
+        "introLoader"
+    );
 
-    "Preparing your learning universe...",
+const loaderStatus =
+    document.getElementById(
+        "loaderStatus"
+    );
 
-    "Connecting the dots...",
 
-    "Mixing knowledge with curiosity...",
+const loaderMessages = [
 
-    "Calibrating your admission journey...",
+    "Molecular system starting",
 
-    "Almost ready..."
+    "Connecting neural pathways",
+
+    "Building knowledge particles",
+
+    "Calibrating curiosity",
+
+    "Generating possibilities",
+
+    "Synchronizing ambition",
+
+    "Dream engine ready"
 
 ];
 
+
 let loaderIndex = 0;
 
-const loaderText =
-    document.getElementById("loaderText");
 
 const loaderInterval =
-    setInterval(function(){
+    setInterval(
+        function(){
 
-        loaderIndex++;
+            loaderIndex++;
 
-        if(loaderIndex >= loaderTexts.length){
+            if(
+                loaderIndex <
+                loaderMessages.length
+            ){
 
-            clearInterval(loaderInterval);
+                loaderStatus.textContent =
+                    loaderMessages[
+                        loaderIndex
+                    ];
 
-            return;
-        }
+            }
 
-        loaderText.textContent =
-            loaderTexts[loaderIndex];
-
-    },700);
+        },
+        4000
+    );
 
 
-window.addEventListener(
-    "load",
+setTimeout(
     function(){
 
-        setTimeout(function(){
+        clearInterval(
+            loaderInterval
+        );
 
-            document
-                .getElementById("loader")
-                .classList.add("hide");
+        loaderStatus.textContent =
+            "Welcome to Dream Hunt";
 
-        },1200);
+        setTimeout(
+            function(){
 
-    }
+                loader.classList.add(
+                    "hide"
+                );
+
+            },
+            900
+        );
+
+    },
+    30000
 );
 
 
 /* =========================================================
-   MOTIVATIONAL QUOTES
+   AUTH MODALS
 ========================================================= */
-
-const quotes = [
-
-    "“Dreams don't become goals until you start moving.”",
-
-    "“You don't need to be extraordinary today. You need to be consistent.”",
-
-    "“The institution you dream of is built one study session at a time.”",
-
-    "“Preparation is where confidence is created.”",
-
-    "“Your future self is watching what you do today.”",
-
-    "“Don't chase motivation. Build a system.”"
-
-];
-
-let quoteIndex = 0;
-
-setInterval(function(){
-
-    quoteIndex++;
-
-    if(
-        quoteIndex >= quotes.length
-    ){
-        quoteIndex = 0;
-    }
-
-    const element =
-        document.getElementById("quote");
-
-    element.style.opacity = "0";
-
-    setTimeout(function(){
-
-        element.textContent =
-            quotes[quoteIndex];
-
-        element.style.opacity = "1";
-
-    },250);
-
-},3500);
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-const revealObserver =
-    new IntersectionObserver(
-        function(entries){
-
-            entries.forEach(function(entry){
-
-                if(entry.isIntersecting){
-
-                    entry.target.classList.add(
-                        "visible"
-                    );
-
-                    revealObserver.unobserve(
-                        entry.target
-                    );
-
-                }
-
-            });
-
-        },
-        {
-            threshold:.12
-        }
-    );
-
-
-document
-    .querySelectorAll(".reveal")
-    .forEach(function(element){
-
-        revealObserver.observe(element);
-
-    });
-
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-function openRegister(){
-
-    document
-        .getElementById("registerModal")
-        .classList.add("active");
-
-}
-
-function closeRegister(){
-
-    document
-        .getElementById("registerModal")
-        .classList.remove("active");
-
-}
 
 function openLogin(){
 
     document
-        .getElementById("loginModal")
-        .classList.add("active");
+        .getElementById(
+            "loginModal"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
 
 function closeLogin(){
 
     document
-        .getElementById("loginModal")
-        .classList.remove("active");
+        .getElementById(
+            "loginModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+function openRegister(){
+
+    document
+        .getElementById(
+            "registerModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+function closeRegister(){
+
+    document
+        .getElementById(
+            "registerModal"
+        )
+        .classList.remove(
+            "show"
+        );
 
 }
 
 function switchToLogin(){
 
     closeRegister();
+
     openLogin();
 
 }
@@ -3868,194 +4146,60 @@ function switchToLogin(){
 function switchToRegister(){
 
     closeLogin();
+
     openRegister();
 
 }
 
 
 /* =========================================================
-   LIBRARY ACCESS
+   MODAL OUTSIDE CLICK
 ========================================================= */
 
-function openLibraryAccess(){
+document
+    .querySelectorAll(".modal")
+    .forEach(
+        function(modal){
 
-    document
-        .getElementById("accessMessage")
-        .className = "message";
+            modal.addEventListener(
+                "click",
+                function(e){
 
-    document
-        .getElementById("libraryAccessCode")
-        .value = "";
+                    if(
+                        e.target === modal
+                    ){
 
-    document
-        .getElementById("libraryAccessModal")
-        .classList.add("active");
+                        modal.classList.remove(
+                            "show"
+                        );
 
-}
+                    }
 
+                }
+            );
 
-function closeLibraryAccess(){
-
-    document
-        .getElementById("libraryAccessModal")
-        .classList.remove("active");
-
-}
+        }
+    );
 
 
-function showAccessMessage(
+/* =========================================================
+   AUTH MESSAGE
+========================================================= */
+
+function showAuthMessage(
+    id,
     message,
     type
 ){
 
     const element =
-        document.getElementById(
-            "accessMessage"
-        );
+        document.getElementById(id);
 
     element.textContent =
         message;
 
     element.className =
-        "message show " + type;
-
-}
-
-
-/* =========================================================
-   VERIFY LIBRARY FROM HOME
-========================================================= */
-
-async function verifyLibraryFromHome(){
-
-    const code =
-        document
-            .getElementById(
-                "libraryAccessCode"
-            )
-            .value
-            .trim()
-            .toUpperCase();
-
-
-    const button =
-        document.getElementById(
-            "accessSubmit"
-        );
-
-
-    if(!code){
-
-        showAccessMessage(
-            "Please enter your access code.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Verifying...";
-
-
-    /* -----------------------------------------------------
-       CHECK LOGIN
-    ----------------------------------------------------- */
-
-    const {
-        data:sessionData
-    } =
-        await supabaseClient.auth.getSession();
-
-
-    const session =
-        sessionData.session;
-
-
-    if(!session){
-
-        showAccessMessage(
-            "Please login first. Library access is available to enrolled students.",
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            "Unlock Library";
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
-       VERIFY CODE THROUGH SECURE RPC
-    ----------------------------------------------------- */
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.rpc(
-            "verify_library_access",
-            {
-                p_code:code
-            }
-        );
-
-
-    if(error){
-
-        showAccessMessage(
-            error.message,
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            "Unlock Library";
-
-        return;
-
-    }
-
-
-    if(!data || !data.success){
-
-        showAccessMessage(
-            data?.message ||
-            "Access denied.",
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            "Unlock Library";
-
-        return;
-
-    }
-
-
-    showAccessMessage(
-        "Library unlocked! Opening your resource vault...",
-        "success"
-    );
-
-
-    setTimeout(function(){
-
-        window.location.href =
-            "library.html";
-
-    },700);
+        "auth-message show " + type;
 
 }
 
@@ -4065,170 +4209,164 @@ async function verifyLibraryFromHome(){
 ========================================================= */
 
 document
-    .getElementById("registerForm")
+    .getElementById(
+        "registerForm"
+    )
     .addEventListener(
         "submit",
-        async function(event){
+        async function(e){
 
-            event.preventDefault();
+            e.preventDefault();
 
 
-            const submitButton =
+            const button =
                 document.getElementById(
                     "registerSubmit"
                 );
 
 
-            submitButton.disabled =
-                true;
+            button.disabled = true;
 
-            submitButton.textContent =
+            button.textContent =
                 "Creating Account...";
 
 
             const fullName =
                 document
-                    .getElementById("regFullName")
-                    .value
-                    .trim();
-
-            const phone =
-                document
-                    .getElementById("regPhone")
+                    .getElementById(
+                        "regFullName"
+                    )
                     .value
                     .trim();
 
             const email =
                 document
-                    .getElementById("regEmail")
+                    .getElementById(
+                        "regEmail"
+                    )
+                    .value
+                    .trim();
+
+            const phone =
+                document
+                    .getElementById(
+                        "regPhone"
+                    )
                     .value
                     .trim();
 
             const dob =
                 document
-                    .getElementById("regDob")
-                    .value;
+                    .getElementById(
+                        "regDob"
+                    )
+                    .value || null;
 
             const institution =
                 document
-                    .getElementById("regInstitution")
+                    .getElementById(
+                        "regInstitution"
+                    )
                     .value
                     .trim();
 
             const board =
                 document
-                    .getElementById("regBoard")
-                    .value;
+                    .getElementById(
+                        "regBoard"
+                    )
+                    .value
+                    .trim();
 
             const group =
                 document
-                    .getElementById("regGroup")
+                    .getElementById(
+                        "regGroup"
+                    )
                     .value;
 
             const hscYear =
                 document
-                    .getElementById("regHscYear")
-                    .value;
+                    .getElementById(
+                        "regHscYear"
+                    )
+                    .value || null;
 
             const sscInstitution =
                 document
-                    .getElementById("regSscInstitution")
+                    .getElementById(
+                        "regSscInstitution"
+                    )
                     .value
                     .trim();
 
             const sscBoard =
                 document
-                    .getElementById("regSscBoard")
+                    .getElementById(
+                        "regSscBoard"
+                    )
                     .value
                     .trim();
 
             const sscYear =
                 document
-                    .getElementById("regSscYear")
-                    .value;
+                    .getElementById(
+                        "regSscYear"
+                    )
+                    .value || null;
 
             const sscGpa =
                 document
-                    .getElementById("regSscGpa")
-                    .value;
+                    .getElementById(
+                        "regSscGpa"
+                    )
+                    .value || null;
 
             const division =
                 document
-                    .getElementById("regDivision")
-                    .value;
+                    .getElementById(
+                        "regDivision"
+                    )
+                    .value
+                    .trim();
 
             const district =
                 document
-                    .getElementById("regDistrict")
+                    .getElementById(
+                        "regDistrict"
+                    )
                     .value
                     .trim();
 
             const upazila =
                 document
-                    .getElementById("regUpazila")
+                    .getElementById(
+                        "regUpazila"
+                    )
                     .value
                     .trim();
 
             const targetAdmission =
                 document
-                    .getElementById("regTargetAdmission")
+                    .getElementById(
+                        "regTargetAdmission"
+                    )
                     .value;
 
             const targetUniversity =
                 document
-                    .getElementById("regTargetUniversity")
+                    .getElementById(
+                        "regTargetUniversity"
+                    )
                     .value
                     .trim();
 
             const password =
                 document
-                    .getElementById("regPassword")
-                    .value;
-
-            const confirmPassword =
-                document
                     .getElementById(
-                        "regConfirmPassword"
+                        "regPassword"
                     )
                     .value;
-
-
-            if(password !== confirmPassword){
-
-                showMessage(
-                    "registerMessage",
-                    "Passwords do not match.",
-                    "error"
-                );
-
-                submitButton.disabled =
-                    false;
-
-                submitButton.textContent =
-                    "Create Account";
-
-                return;
-
-            }
-
-
-            if(password.length < 6){
-
-                showMessage(
-                    "registerMessage",
-                    "Password must contain at least 6 characters.",
-                    "error"
-                );
-
-                submitButton.disabled =
-                    false;
-
-                submitButton.textContent =
-                    "Create Account";
-
-                return;
-
-            }
 
 
             const {
@@ -4242,9 +4380,6 @@ document
                     password:password,
 
                     options:{
-
-                        emailRedirectTo:
-                            window.location.origin,
 
                         data:{
 
@@ -4267,7 +4402,9 @@ document
                                 group,
 
                             hsc_year:
-                                hscYear,
+                                hscYear
+                                    ? Number(hscYear)
+                                    : null,
 
                             ssc_institution:
                                 sscInstitution,
@@ -4276,10 +4413,14 @@ document
                                 sscBoard,
 
                             ssc_year:
-                                sscYear,
+                                sscYear
+                                    ? Number(sscYear)
+                                    : null,
 
                             ssc_gpa:
-                                sscGpa,
+                                sscGpa
+                                    ? Number(sscGpa)
+                                    : null,
 
                             division:
                                 division,
@@ -4305,67 +4446,36 @@ document
 
             if(error){
 
-                showMessage(
+                showAuthMessage(
                     "registerMessage",
                     error.message,
                     "error"
                 );
 
-                submitButton.disabled =
-                    false;
+                button.disabled = false;
 
-                submitButton.textContent =
-                    "Create Account";
+                button.textContent =
+                    "Create Dream Hunt Account";
 
                 return;
 
             }
 
 
-            showMessage(
+            showAuthMessage(
                 "registerMessage",
-                "Account created successfully! Please check your email and verify your account before logging in.",
+                "Account created successfully. Please verify your email before logging in.",
                 "success"
             );
 
 
-            document
-                .getElementById("registerForm")
-                .reset();
+            button.disabled = false;
 
-
-            submitButton.disabled =
-                false;
-
-            submitButton.textContent =
-                "Create Account";
+            button.textContent =
+                "Create Dream Hunt Account";
 
         }
     );
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(
-    elementId,
-    message,
-    type
-){
-
-    const element =
-        document.getElementById(
-            elementId
-        );
-
-    element.textContent =
-        message;
-
-    element.className =
-        "message show " + type;
-
-}
 
 
 /* =========================================================
@@ -4373,36 +4483,41 @@ function showMessage(
 ========================================================= */
 
 document
-    .getElementById("loginForm")
+    .getElementById(
+        "loginForm"
+    )
     .addEventListener(
         "submit",
-        async function(event){
+        async function(e){
 
-            event.preventDefault();
+            e.preventDefault();
 
 
-            const submitButton =
+            const button =
                 document.getElementById(
                     "loginSubmit"
                 );
 
 
-            submitButton.disabled =
-                true;
+            button.disabled = true;
 
-            submitButton.textContent =
+            button.textContent =
                 "Logging in...";
 
 
             const email =
                 document
-                    .getElementById("loginEmail")
+                    .getElementById(
+                        "loginEmail"
+                    )
                     .value
                     .trim();
 
             const password =
                 document
-                    .getElementById("loginPassword")
+                    .getElementById(
+                        "loginPassword"
+                    )
                     .value;
 
 
@@ -4422,176 +4537,246 @@ document
 
             if(error){
 
-                showMessage(
+                showAuthMessage(
                     "loginMessage",
                     error.message,
                     "error"
                 );
 
-                submitButton.disabled =
-                    false;
+                button.disabled = false;
 
-                submitButton.textContent =
-                    "Login";
+                button.textContent =
+                    "Login to Student Portal";
 
                 return;
 
             }
 
 
-            showMessage(
+            showAuthMessage(
                 "loginMessage",
-                "Login successful! Redirecting to your dashboard...",
+                "Login successful. Opening Student Portal...",
                 "success"
             );
 
 
-            document
-                .getElementById("loginForm")
-                .reset();
+            setTimeout(
+                function(){
 
+                    window.location.href =
+                        "dashboard.html";
 
-            submitButton.disabled =
-                false;
-
-            submitButton.textContent =
-                "Login";
-
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },700);
+                },
+                600
+            );
 
         }
     );
 
 
 /* =========================================================
-   USER UI
+   CHECK EXISTING SESSION
 ========================================================= */
 
-function updateUserUI(user){
+supabaseClient.auth.getSession()
+    .then(
+        function(result){
 
-    const navLinks =
-        document.querySelector(
-            ".nav-links"
-        );
+            const session =
+                result.data.session;
 
-    const userArea =
-        document.getElementById(
-            "userArea"
-        );
+            if(session){
 
-    const userName =
-        document.getElementById(
-            "navUserName"
-        );
+                /*
+                 * We DO NOT redirect automatically.
+                 * Homepage remains public even when logged in.
+                 */
 
+            }
 
-    if(user){
-
-        const name =
-            user.user_metadata?.full_name ||
-            user.email;
-
-        userName.textContent =
-            name;
-
-        navLinks.style.display =
-            "none";
-
-        userArea.style.display =
-            "flex";
-
-    }else{
-
-        navLinks.style.display =
-            "flex";
-
-        userArea.style.display =
-            "none";
-
-    }
-
-}
+        }
+    );
 
 
 /* =========================================================
-   DASHBOARD
+   RANDOM LIVE EVENTS
 ========================================================= */
 
-function goDashboard(){
-
-    window.location.href =
-        "dashboard.html";
-
-}
+const eventLayer =
+    document.getElementById(
+        "eventLayer"
+    );
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
+const liveEvents = [
 
-async function logout(){
+    "⚽",
 
-    const {
-        error
-    } =
-        await supabaseClient.auth.signOut();
+    "🏏",
+
+    "🦅",
+
+    "🦋",
+
+    "🐦",
+
+    "🐠",
+
+    "🧬",
+
+    "⚛️",
+
+    "🚀",
+
+    "☄️",
+
+    "🛰️",
+
+    "🌙",
+
+    "⭐",
+
+    "🔬",
+
+    "🧪"
+
+];
 
 
-    if(error){
+function createLiveEvent(){
 
-        alert(error.message);
+    const object =
+        document.createElement(
+            "div"
+        );
 
-        return;
+    object.className =
+        "fly-object";
 
-    }
+
+    object.textContent =
+        liveEvents[
+            Math.floor(
+                Math.random() *
+                liveEvents.length
+            )
+        ];
 
 
-    updateUserUI(null);
+    object.style.top =
+        (
+            12 +
+            Math.random() *
+            72
+        ) + "%";
 
-    alert(
-        "You have been logged out."
+
+    object.style.fontSize =
+        (
+            25 +
+            Math.random() *
+            35
+        ) + "px";
+
+
+    object.style.animationDuration =
+        (
+            3.5 +
+            Math.random() *
+            3
+        ) + "s";
+
+
+    eventLayer.appendChild(
+        object
+    );
+
+
+    setTimeout(
+        function(){
+
+            object.remove();
+
+        },
+        7000
     );
 
 }
 
 
-/* =========================================================
-   SESSION
-========================================================= */
+/*
+ * Random event approximately
+ * every 7–14 seconds.
+ */
 
-async function checkSession(){
+function scheduleLiveEvent(){
 
-    const {
-        data
-    } =
-        await supabaseClient.auth.getSession();
+    const delay =
+        7000 +
+        Math.random() *
+        7000;
 
 
-    updateUserUI(
-        data.session?.user || null
+    setTimeout(
+        function(){
+
+            createLiveEvent();
+
+            scheduleLiveEvent();
+
+        },
+        delay
     );
 
 }
 
 
+scheduleLiveEvent();
+
+
 /* =========================================================
-   AUTH STATE
+   SCROLL REVEAL
 ========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-    function(
-        event,
-        session
-    ){
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
 
-        updateUserUI(
-            session?.user || null
+
+const revealObserver =
+    new IntersectionObserver(
+        function(entries){
+
+            entries.forEach(
+                function(entry){
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target.classList
+                            .add(
+                                "visible"
+                            );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+revealElements.forEach(
+    function(element){
+
+        revealObserver.observe(
+            element
         );
 
     }
@@ -4599,70 +4784,133 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =========================================================
-   CLOSE MODALS
+   PARALLAX
 ========================================================= */
 
+const parallaxElements =
+    document.querySelectorAll(
+        ".planet, .cloud, .mountain-shape, .tree, .sun"
+    );
+
+
 window.addEventListener(
-    "click",
-    function(event){
+    "scroll",
+    function(){
 
-        const registerModal =
-            document.getElementById(
-                "registerModal"
+        const scrollY =
+            window.scrollY;
+
+
+        parallaxElements.forEach(
+            function(element,index){
+
+                const speed =
+                    (
+                        (index % 5) + 1
+                    ) * .015;
+
+                /*
+                 * Subtle movement only.
+                 * Keeps mobile performance reasonable.
+                 */
+
+                element.style.translate =
+                    "0 " +
+                    (
+                        scrollY *
+                        speed
+                    ) +
+                    "px";
+
+            }
+        );
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =========================================================
+   RANDOM TEXT IN LOADER / PAGE
+========================================================= */
+
+const dynamicWords = [
+
+    "curiosity",
+
+    "knowledge",
+
+    "discipline",
+
+    "possibility",
+
+    "ambition",
+
+    "discovery",
+
+    "achievement"
+
+];
+
+let wordIndex = 0;
+
+
+setInterval(
+    function(){
+
+        wordIndex =
+            (
+                wordIndex + 1
+            ) %
+            dynamicWords.length;
+
+        const badge =
+            document.querySelector(
+                ".hero-badge"
             );
 
-        const loginModal =
-            document.getElementById(
-                "loginModal"
-            );
+        if(badge){
 
-        const libraryModal =
-            document.getElementById(
-                "libraryAccessModal"
-            );
+            badge.textContent =
+                "✦ " +
+                dynamicWords[
+                    wordIndex
+                ]
+                .toUpperCase() +
+                " · DREAM HUNT";
 
+        }
+
+    },
+    5000
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
 
         if(
-            event.target ===
-            registerModal
+            e.key === "Escape"
         ){
+
+            closeLogin();
 
             closeRegister();
 
         }
 
-
-        if(
-            event.target ===
-            loginModal
-        ){
-
-            closeLogin();
-
-        }
-
-
-        if(
-            event.target ===
-            libraryModal
-        ){
-
-            closeLibraryAccess();
-
-        }
-
     }
 );
-
-
-/* =========================================================
-   START
-========================================================= */
-
-checkSession();
 
 </script>
 
 </body>
 
-</html>
+   </html>
