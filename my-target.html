@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Target | Dream Hunt</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+    overflow-x:hidden;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#101828;
+    color:white;
+    padding:24px 16px;
+    z-index:10;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    padding:0 12px 25px;
+}
+
+.logo span{
+    color:#6ee7b7;
+}
+
+.nav a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    padding:12px 14px;
+    border-radius:10px;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:#1d2939;
+    color:white;
+}
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+}
+
+.header{
+    background:white;
+    border-radius:18px;
+    padding:28px;
+    margin-bottom:25px;
+    box-shadow:0 8px 25px rgba(16,24,40,.06);
+}
+
+.header h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.header p{
+    color:#667085;
+    line-height:1.6;
+}
+
+.filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+}
+
+.filter{
+    border:none;
+    background:white;
+    color:#475467;
+    padding:10px 17px;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:600;
+    box-shadow:0 4px 15px rgba(16,24,40,.06);
+}
+
+.filter.active{
+    background:#101828;
+    color:white;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border-radius:17px;
+    padding:22px;
+    box-shadow:0 7px 22px rgba(16,24,40,.06);
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(16,24,40,.10);
+}
+
+.badge{
+    display:inline-block;
+    background:#ecfdf3;
+    color:#027a48;
+    font-size:11px;
+    font-weight:700;
+    padding:6px 9px;
+    border-radius:7px;
+    margin-bottom:12px;
+}
+
+.card h2{
+    font-size:20px;
+    margin-bottom:5px;
+}
+
+.short{
+    color:#667085;
+    font-size:13px;
+    margin-bottom:14px;
+}
+
+.info{
+    font-size:13px;
+    color:#475467;
+    line-height:1.7;
+    margin-bottom:17px;
+}
+
+.buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    text-decoration:none;
+    padding:9px 12px;
+    border-radius:9px;
+    background:#101828;
+    color:white;
+    font-size:12px;
+    font-weight:700;
+}
+
+.btn.secondary{
+    background:#eef2f6;
+    color:#344054;
+}
+
+.loading,
+.empty{
+    background:white;
+    border-radius:16px;
+    padding:40px;
+    text-align:center;
+    color:#667085;
+}
+
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:650px){
+    .sidebar{
+        width:64px;
+        padding:18px 7px;
+    }
+
+    .logo{
+        font-size:0;
+        text-align:center;
+        padding:0 0 20px;
+    }
+
+    .logo span{
+        font-size:20px;
+    }
+
+    .nav a{
+        font-size:0;
+        text-align:center;
+        padding:12px 5px;
+    }
+
+    .nav a::first-letter{
+        font-size:17px;
+    }
+
+    .main{
+        margin-left:64px;
+        padding:16px 12px;
+    }
+
+    .header{
+        padding:20px;
+    }
+
+    .header h1{
+        font-size:24px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <span>DH</span> Dream Hunt
+    </div>
+
+    <nav class="nav">
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="enrolled-courses.html">📚 Enrolled Courses</a>
+        <a href="buy-courses.html">🛒 Buy Courses</a>
+        <a href="progress.html">📈 Progress</a>
+        <a href="exams.html">📝 My Exams</a>
+        <a href="results.html">🏆 Results</a>
+        <a href="my-target.html" class="active">🎯 My Target</a>
+        <a href="admission-updates.html">🎓 Admission Updates</a>
+        <a href="notifications.html">🔔 Notifications</a>
+        <a href="contact.html">📞 Contact Us</a>
+        <a href="faq.html">❓ Help / FAQ</a>
+    </nav>
+
+</aside>
+
+<main class="main">
+
+<div class="container">
+
+    <section class="header">
+        <h1>🎯 My Target</h1>
+        <p>
+            Explore Bangladesh's top universities and institutions,
+            their admission information, departments, facilities,
+            official websites and more.
+        </p>
+    </section>
+
+    <div class="filters">
+        <button class="filter active" onclick="filterInstitutions('all',this)">
+            All
+        </button>
+
+        <button class="filter" onclick="filterInstitutions('public-university',this)">
+            Public University
+        </button>
+
+        <button class="filter" onclick="filterInstitutions('engineering',this)">
+            Engineering
+        </button>
+
+        <button class="filter" onclick="filterInstitutions('medical-dental',this)">
+            Medical & Dental
+        </button>
+
+        <button class="filter" onclick="filterInstitutions('agriculture-veterinary',this)">
+            Agriculture
+        </button>
+
+        <button class="filter" onclick="filterInstitutions('specialized-admission',this)">
+            Specialized
+        </button>
+
+        <button class="filter" onclick="filterInstitutions('abroad-prep',this)">
+            Abroad
+        </button>
+    </div>
+
+    <div id="content">
+        <div class="loading">
+            Loading institutions...
+        </div>
+    </div>
+
+</div>
+
+</main>
+
+<script>
+
+const SUPABASE_URL =
+"https://rndtgjuwwsxxiiezennr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+let institutions = [];
+let currentFilter = "all";
+
+async function checkUser(){
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if(!user){
+
+        window.location.href = "index.html";
+        return false;
+    }
+
+    return true;
+}
+
+async function loadInstitutions(){
+
+    const allowed = await checkUser();
+
+    if(!allowed) return;
+
+    const { data, error } =
+        await supabaseClient
+        .from("institutions")
+        .select("*")
+        .eq("is_active", true)
+        .order("name", { ascending:true });
+
+    if(error){
+
+        document.getElementById("content").innerHTML = `
+            <div class="empty">
+                <h3>Unable to load institutions</h3>
+                <p>Please try again later.</p>
+            </div>
+        `;
+
+        console.error(error);
+        return;
+    }
+
+    institutions = data || [];
+
+    renderInstitutions();
+}
+
+function renderInstitutions(){
+
+    let list = institutions;
+
+    if(currentFilter !== "all"){
+
+        list = institutions.filter(
+            item => item.category === currentFilter
+        );
+    }
+
+    if(list.length === 0){
+
+        document.getElementById("content").innerHTML = `
+            <div class="empty">
+                <h3>No Institutions Found</h3>
+                <p>No institution is currently available in this category.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    let html = `<div class="grid">`;
+
+    list.forEach(item => {
+
+        html += `
+
+        <article class="card">
+
+            <span class="badge">
+                ${formatCategory(item.category)}
+            </span>
+
+            <h2>
+                ${escapeHTML(item.name)}
+            </h2>
+
+            <div class="short">
+                ${escapeHTML(item.short_name || "")}
+            </div>
+
+            <div class="info">
+
+                📍 ${escapeHTML(item.location || "Bangladesh")}<br>
+
+                🏛️ ${escapeHTML(item.institution_type || "Institution")}<br>
+
+                📅 Founded:
+                ${item.founded_year || "N/A"}<br>
+
+                🎓 Units:
+                ${escapeHTML(item.units || "See official website")}
+
+            </div>
+
+            <div class="buttons">
+
+                ${
+                    item.official_website
+                    ?
+                    `<a class="btn"
+                       href="${item.official_website}"
+                       target="_blank"
+                       rel="noopener">
+                       Official Website
+                    </a>`
+                    :
+                    ""
+                }
+
+                ${
+                    item.admission_website
+                    ?
+                    `<a class="btn secondary"
+                       href="${item.admission_website}"
+                       target="_blank"
+                       rel="noopener">
+                       Admission
+                    </a>`
+                    :
+                    ""
+                }
+
+            </div>
+
+        </article>
+
+        `;
+    });
+
+    html += `</div>`;
+
+    document.getElementById("content").innerHTML = html;
+}
+
+function filterInstitutions(category, button){
+
+    currentFilter = category;
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    renderInstitutions();
+}
+
+function formatCategory(category){
+
+    const names = {
+
+        "public-university":
+        "Public University",
+
+        "engineering":
+        "Engineering",
+
+        "medical-dental":
+        "Medical & Dental",
+
+        "agriculture-veterinary":
+        "Agriculture & Veterinary",
+
+        "specialized-admission":
+        "Specialized Admission",
+
+        "abroad-prep":
+        "Abroad Prep"
+    };
+
+    return names[category] || "Institution";
+}
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+loadInstitutions();
+
+</script>
+
+</body>
+</html>
