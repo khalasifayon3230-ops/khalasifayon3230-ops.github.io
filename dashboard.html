@@ -52,7 +52,7 @@ a{
 
 
 /* =========================================================
-   LOADING SCREEN
+   LOADING
 ========================================================= */
 
 #loadingScreen{
@@ -106,7 +106,6 @@ a{
 }
 
 @keyframes loader{
-
     0%{
         transform:translateX(-100%);
     }
@@ -114,7 +113,6 @@ a{
     100%{
         transform:translateX(320%);
     }
-
 }
 
 
@@ -239,14 +237,14 @@ a{
     color:#aeb8c7;
 
     padding:
-        11px
+        10px
         12px;
 
     border-radius:10px;
 
     margin-bottom:3px;
 
-    font-size:13px;
+    font-size:12px;
 
     transition:
         background .2s ease,
@@ -260,7 +258,7 @@ a{
 
     text-align:center;
 
-    font-size:15px;
+    font-size:14px;
 
     opacity:.85;
 }
@@ -410,7 +408,7 @@ a{
 
 .content{
     width:100%;
-    max-width:1380px;
+    max-width:1450px;
 
     padding:
         30px
@@ -444,7 +442,7 @@ a{
 
 
 /* =========================================================
-   WELCOME HERO
+   WELCOME
 ========================================================= */
 
 .welcome{
@@ -600,7 +598,45 @@ a{
 
 
 /* =========================================================
-   STATISTICS
+   SECTION TITLE
+========================================================= */
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+
+    margin:
+        30px
+        0
+        14px;
+}
+
+.section-title h2{
+    font-size:18px;
+    letter-spacing:-.4px;
+}
+
+.section-title p{
+    color:#9ca3af;
+    font-size:10px;
+    margin-top:4px;
+}
+
+.section-link{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:10px;
+    font-weight:750;
+}
+
+.section-link:hover{
+    text-decoration:underline;
+}
+
+
+/* =========================================================
+   STATS
 ========================================================= */
 
 .stats{
@@ -708,7 +744,100 @@ a{
 
 
 /* =========================================================
-   GRID
+   DIRECT ACCESS CARDS
+========================================================= */
+
+.portal-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
+}
+
+.portal-card{
+    background:white;
+
+    border:
+        1px solid
+        #e5e7eb;
+
+    border-radius:15px;
+
+    padding:17px;
+
+    text-decoration:none;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.portal-card:hover{
+    transform:translateY(-3px);
+
+    border-color:#bfdbfe;
+
+    box-shadow:
+        0 12px 28px
+        rgba(15,23,42,.07);
+}
+
+.portal-icon{
+    width:39px;
+    height:39px;
+
+    border-radius:11px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#eff6ff;
+    color:#2563eb;
+
+    font-size:17px;
+
+    margin-bottom:12px;
+}
+
+.portal-card strong{
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:5px;
+}
+
+.portal-card span{
+    display:block;
+
+    color:#9ca3af;
+
+    font-size:9px;
+
+    line-height:1.5;
+}
+
+.portal-arrow{
+    position:absolute;
+
+    right:14px;
+    top:14px;
+
+    color:#cbd5e1;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   GENERAL GRID
 ========================================================= */
 
 .grid{
@@ -867,7 +996,7 @@ a{
 
 
 /* =========================================================
-   UPCOMING EXAMS
+   EXAMS
 ========================================================= */
 
 .exam{
@@ -948,14 +1077,9 @@ a{
     font-weight:700;
 }
 
-.exam-live{
-    background:#ecfdf5;
-    color:#047857;
-}
-
 
 /* =========================================================
-   PERFORMANCE SECTION
+   PERFORMANCE
 ========================================================= */
 
 .performance-grid{
@@ -1062,7 +1186,7 @@ a{
 
 
 /* =========================================================
-   PATHWAY
+   PATHWAYS
 ========================================================= */
 
 .pathway-list{
@@ -1075,7 +1199,7 @@ a{
 }
 
 .pathway{
-    padding:11px;
+    padding:12px;
 
     border:
         1px solid
@@ -1085,12 +1209,17 @@ a{
 
     background:#fff;
 
+    text-decoration:none;
+
     transition:.2s;
+
+    position:relative;
 }
 
 .pathway:hover{
     border-color:#bfdbfe;
     background:#f8fbff;
+    transform:translateY(-1px);
 }
 
 .pathway strong{
@@ -1107,51 +1236,48 @@ a{
     font-size:8px;
 }
 
+.pathway-arrow{
+    position:absolute;
 
-/* =========================================================
-   QUICK ACCESS
-========================================================= */
+    right:10px;
+    top:10px;
 
-.quick-title{
-    font-size:16px;
+    color:#cbd5e1;
 
-    margin:
-        25px
-        0
-        14px;
+    font-size:11px;
 }
 
-.quick-actions{
+
+/* =========================================================
+   COURSES
+========================================================= */
+
+.course-grid{
     display:grid;
 
     grid-template-columns:
-        repeat(4,1fr);
+        repeat(3,1fr);
 
     gap:13px;
 }
 
-.action{
+.course-card{
     background:white;
 
     border:
         1px solid
         #e5e7eb;
 
-    border-radius:14px;
+    border-radius:15px;
 
-    padding:17px;
+    padding:18px;
 
     text-decoration:none;
 
-    color:#111827;
-
-    transition:
-        transform .2s ease,
-        border-color .2s ease,
-        box-shadow .2s ease;
+    transition:.2s;
 }
 
-.action:hover{
+.course-card:hover{
     transform:translateY(-2px);
 
     border-color:#bfdbfe;
@@ -1161,34 +1287,34 @@ a{
         rgba(15,23,42,.06);
 }
 
-.action-icon{
-    width:34px;
-    height:34px;
+.course-icon{
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:9px;
-
     background:#eff6ff;
 
     color:#2563eb;
 
-    font-size:15px;
+    font-size:18px;
 
-    margin-bottom:11px;
+    margin-bottom:12px;
 }
 
-.action strong{
+.course-card strong{
     display:block;
 
-    font-size:11px;
+    font-size:12px;
 
-    margin-bottom:4px;
+    margin-bottom:5px;
 }
 
-.action small{
+.course-card span{
     color:#9ca3af;
 
     font-size:9px;
@@ -1208,8 +1334,6 @@ a{
         repeat(4,1fr);
 
     gap:12px;
-
-    margin-top:20px;
 }
 
 .resource{
@@ -1242,6 +1366,73 @@ a{
 }
 
 .resource span{
+    color:#9ca3af;
+
+    font-size:9px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   PLANS
+========================================================= */
+
+.plan-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+}
+
+.plan{
+    background:white;
+
+    border:
+        1px solid
+        #e5e7eb;
+
+    border-radius:14px;
+
+    padding:17px;
+
+    text-decoration:none;
+
+    transition:.2s;
+}
+
+.plan:hover{
+    transform:translateY(-2px);
+    border-color:#bfdbfe;
+}
+
+.plan small{
+    display:block;
+
+    color:#6b7280;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+    margin-bottom:7px;
+}
+
+.plan strong{
+    display:block;
+
+    font-size:21px;
+
+    margin-bottom:6px;
+}
+
+.plan span{
     color:#9ca3af;
 
     font-size:9px;
@@ -1291,7 +1482,7 @@ a{
 
 
 /* =========================================================
-   MOBILE BOTTOM NAV
+   MOBILE NAV
 ========================================================= */
 
 .mobile-nav{
@@ -1303,14 +1494,19 @@ a{
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1100px){
+@media(max-width:1150px){
 
     .stats{
         grid-template-columns:
             repeat(2,1fr);
     }
 
-    .quick-actions{
+    .portal-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .course-grid{
         grid-template-columns:
             repeat(2,1fr);
     }
@@ -1320,9 +1516,14 @@ a{
             repeat(2,1fr);
     }
 
+    .plan-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
 }
 
-@media(max-width:850px){
+@media(max-width:900px){
 
     .sidebar{
         width:72px;
@@ -1333,7 +1534,6 @@ a{
 
     .logo{
         font-size:0;
-
         margin-bottom:25px;
     }
 
@@ -1465,6 +1665,21 @@ a{
         font-size:21px;
     }
 
+    .portal-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:9px;
+    }
+
+    .portal-card{
+        padding:14px;
+    }
+
+    .course-grid{
+        grid-template-columns:1fr;
+    }
+
     .grid,
     .performance-grid{
         gap:12px;
@@ -1474,18 +1689,14 @@ a{
         padding:17px;
     }
 
-    .quick-actions{
+    .resources{
         grid-template-columns:
             repeat(2,1fr);
 
         gap:9px;
     }
 
-    .action{
-        padding:14px;
-    }
-
-    .resources{
+    .plan-grid{
         grid-template-columns:
             repeat(2,1fr);
 
@@ -1499,6 +1710,10 @@ a{
     .performance-summary{
         grid-template-columns:
             repeat(3,1fr);
+    }
+
+    .section-title{
+        margin-top:25px;
     }
 
 
@@ -1574,10 +1789,17 @@ a{
         align-items:flex-start;
     }
 
-    .quick-actions{
+    .portal-grid{
         grid-template-columns:1fr;
     }
 
+    .resources{
+        grid-template-columns:1fr;
+    }
+
+    .plan-grid{
+        grid-template-columns:1fr;
+    }
 }
 
 
@@ -1640,33 +1862,18 @@ a{
 
     <nav class="menu">
 
-
         <div class="menu-title">
             Main
         </div>
 
-
-        <a
-            href="dashboard.html"
-            class="active">
-
+        <a href="dashboard.html" class="active">
             <div class="menu-icon">⌂</div>
-
-            <span>
-                Dashboard
-            </span>
-
+            <span>Dashboard</span>
         </a>
 
-
         <a href="profile.html">
-
             <div class="menu-icon">◉</div>
-
-            <span>
-                My Profile
-            </span>
-
+            <span>My Profile</span>
         </a>
 
 
@@ -1674,26 +1881,19 @@ a{
             Learning
         </div>
 
-
         <a href="enrolled-courses.html">
-
             <div class="menu-icon">▤</div>
-
-            <span>
-                Enrolled Courses
-            </span>
-
+            <span>My Courses</span>
         </a>
 
-
         <a href="buy-courses.html">
-
             <div class="menu-icon">＋</div>
+            <span>Buy Courses</span>
+        </a>
 
-            <span>
-                Buy Courses
-            </span>
-
+        <a href="library.html">
+            <div class="menu-icon">▥</div>
+            <span>Library</span>
         </a>
 
 
@@ -1701,26 +1901,14 @@ a{
             Examination
         </div>
 
-
         <a href="exams.html">
-
             <div class="menu-icon">▣</div>
-
-            <span>
-                My Exams
-            </span>
-
+            <span>My Exams</span>
         </a>
 
-
         <a href="results.html">
-
             <div class="menu-icon">◆</div>
-
-            <span>
-                Results
-            </span>
-
+            <span>Results</span>
         </a>
 
 
@@ -1728,26 +1916,59 @@ a{
             Admission
         </div>
 
-
         <a href="my-target.html">
-
             <div class="menu-icon">◎</div>
+            <span>My Target</span>
+        </a>
 
-            <span>
-                My Target
-            </span>
-
+        <a href="admission-updates.html">
+            <div class="menu-icon">△</div>
+            <span>Admission Updates</span>
         </a>
 
 
-        <a href="admission-updates.html">
+        <div class="menu-title">
+            Pathways
+        </div>
 
-            <div class="menu-icon">△</div>
+        <a href="public-university.html">
+            <div class="menu-icon">PU</div>
+            <span>Public University</span>
+        </a>
 
-            <span>
-                Admission Updates
-            </span>
+        <a href="engineering.html">
+            <div class="menu-icon">EN</div>
+            <span>Engineering</span>
+        </a>
 
+        <a href="agricultural.html">
+            <div class="menu-icon">AG</div>
+            <span>Agricultural</span>
+        </a>
+
+        <a href="medical.html">
+            <div class="menu-icon">MD</div>
+            <span>Medical</span>
+        </a>
+
+        <a href="dental.html">
+            <div class="menu-icon">DE</div>
+            <span>Dental</span>
+        </a>
+
+        <a href="textile.html">
+            <div class="menu-icon">TX</div>
+            <span>Textile</span>
+        </a>
+
+        <a href="specialized.html">
+            <div class="menu-icon">SP</div>
+            <span>Specialized</span>
+        </a>
+
+        <a href="abroad.html">
+            <div class="menu-icon">AB</div>
+            <span>Abroad Study</span>
         </a>
 
 
@@ -1755,48 +1976,29 @@ a{
             Support
         </div>
 
-
         <a href="notifications.html">
-
             <div class="menu-icon">◇</div>
-
-            <span>
-                Notifications
-            </span>
-
+            <span>Notifications</span>
         </a>
 
+        <a href="plans.html">
+            <div class="menu-icon">◆</div>
+            <span>Plans & Pricing</span>
+        </a>
 
         <a href="settings.html">
-
             <div class="menu-icon">⚙</div>
-
-            <span>
-                Settings
-            </span>
-
+            <span>Settings</span>
         </a>
-
 
         <a href="contact.html">
-
             <div class="menu-icon">◌</div>
-
-            <span>
-                Contact Us
-            </span>
-
+            <span>Contact Us</span>
         </a>
 
-
         <a href="faq.html">
-
             <div class="menu-icon">?</div>
-
-            <span>
-                Help & FAQ
-            </span>
-
+            <span>Help & FAQ</span>
         </a>
 
 
@@ -1816,7 +2018,6 @@ a{
 
         </div>
 
-
     </nav>
 
 </aside>
@@ -1833,7 +2034,6 @@ a{
 
 <header class="topbar">
 
-
     <div>
 
         <div class="page-title">
@@ -1841,14 +2041,13 @@ a{
         </div>
 
         <div class="page-subtitle">
-            Your preparation at a glance
+            Your complete Dream Hunt preparation portal
         </div>
 
     </div>
 
 
     <div class="student-mini">
-
 
         <div
             class="avatar"
@@ -1871,9 +2070,7 @@ a{
 
         </div>
 
-
     </div>
-
 
 </header>
 
@@ -1895,12 +2092,10 @@ a{
 
 <div class="welcome">
 
-
     <div class="welcome-content">
 
-
         <div class="welcome-kicker">
-            Dream Hunt • Student Portal
+            Dream Hunt • Complete Student Portal
         </div>
 
 
@@ -1915,14 +2110,13 @@ a{
 
 
         <p>
-            Keep building your preparation.
-            Track your exams, results and admission
-            targets from one place.
+            Your courses, examinations, results, admission
+            preparation, resources and progress — everything
+            you need for your journey is available from here.
         </p>
 
 
         <div class="target-info">
-
 
             <div class="target-badge">
 
@@ -1943,12 +2137,9 @@ a{
 
             </div>
 
-
         </div>
 
-
     </div>
-
 
 </div>
 
@@ -1958,7 +2149,6 @@ a{
 ===================================================== -->
 
 <div class="stats">
-
 
     <div class="stat-card">
 
@@ -1974,16 +2164,13 @@ a{
 
         </div>
 
-
         <h3 id="courseCount">
             0
         </h3>
 
-
         <p>
             Enrolled Courses
         </p>
-
 
         <div class="stat-decoration"></div>
 
@@ -2004,16 +2191,13 @@ a{
 
         </div>
 
-
         <h3 id="examCount">
             0
         </h3>
 
-
         <p>
             Exams Completed
         </p>
-
 
         <div class="stat-decoration"></div>
 
@@ -2034,16 +2218,13 @@ a{
 
         </div>
 
-
         <h3 id="averageScore">
             0
         </h3>
 
-
         <p>
             Average Score
         </p>
-
 
         <div class="stat-decoration"></div>
 
@@ -2064,21 +2245,375 @@ a{
 
         </div>
 
-
         <h3 id="notificationCount">
             0
         </h3>
-
 
         <p>
             Active Notifications
         </p>
 
-
         <div class="stat-decoration"></div>
 
     </div>
 
+</div>
+
+
+<!-- =====================================================
+     MAIN PORTAL
+===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Your Dream Hunt Portal
+        </h2>
+
+        <p>
+            Access every major section directly.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="portal-grid">
+
+
+    <a
+        href="enrolled-courses.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ▤
+        </div>
+
+        <strong>
+            My Courses
+        </strong>
+
+        <span>
+            Continue your enrolled admission preparation courses.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="buy-courses.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ＋
+        </div>
+
+        <strong>
+            Buy Courses
+        </strong>
+
+        <span>
+            Explore available Dream Hunt courses and packages.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="exams.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ▣
+        </div>
+
+        <strong>
+            Examinations
+        </strong>
+
+        <span>
+            Take daily, weekly and 15-day admission examinations.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="results.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ◆
+        </div>
+
+        <strong>
+            Results
+        </strong>
+
+        <span>
+            Review scores, ranks and examination performance.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="library.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ▥
+        </div>
+
+        <strong>
+            Library
+        </strong>
+
+        <span>
+            Question banks, formulas, books, tricks and current affairs.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="my-target.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ◎
+        </div>
+
+        <strong>
+            My Target
+        </strong>
+
+        <span>
+            Manage your admission pathway and target institution.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="admission-updates.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            △
+        </div>
+
+        <strong>
+            Admission Updates
+        </strong>
+
+        <span>
+            Follow important admission notices and updates.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="notifications.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ◇
+        </div>
+
+        <strong>
+            Notifications
+        </strong>
+
+        <span>
+            See important Dream Hunt announcements and alerts.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     COURSES
+===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Courses
+        </h2>
+
+        <p>
+            Direct access to your learning programs.
+        </p>
+
+    </div>
+
+    <a
+        href="enrolled-courses.html"
+        class="section-link">
+
+        View Courses →
+
+    </a>
+
+</div>
+
+
+<div class="course-grid">
+
+
+    <a
+        href="enrolled-courses.html"
+        class="course-card">
+
+        <div class="course-icon">
+            PU
+        </div>
+
+        <strong>
+            Public University Preparation
+        </strong>
+
+        <span>
+            University admission-focused preparation and practice.
+        </span>
+
+    </a>
+
+
+    <a
+        href="enrolled-courses.html"
+        class="course-card">
+
+        <div class="course-icon">
+            EN
+        </div>
+
+        <strong>
+            Engineering Preparation
+        </strong>
+
+        <span>
+            Engineering admission preparation with problem solving.
+        </span>
+
+    </a>
+
+
+    <a
+        href="enrolled-courses.html"
+        class="course-card">
+
+        <div class="course-icon">
+            MD
+        </div>
+
+        <strong>
+            Medical Preparation
+        </strong>
+
+        <span>
+            Medical admission preparation and regular examination practice.
+        </span>
+
+    </a>
+
+
+    <a
+        href="enrolled-courses.html"
+        class="course-card">
+
+        <div class="course-icon">
+            AG
+        </div>
+
+        <strong>
+            Agricultural Preparation
+        </strong>
+
+        <span>
+            Agricultural university admission-focused preparation.
+        </span>
+
+    </a>
+
+
+    <a
+        href="enrolled-courses.html"
+        class="course-card">
+
+        <div class="course-icon">
+            DE
+        </div>
+
+        <strong>
+            Dental Preparation
+        </strong>
+
+        <span>
+            Focused preparation for dental admission examinations.
+        </span>
+
+    </a>
+
+
+    <a
+        href="buy-courses.html"
+        class="course-card">
+
+        <div class="course-icon">
+            +
+        </div>
+
+        <strong>
+            Explore All Courses
+        </strong>
+
+        <span>
+            View available Dream Hunt programs and packages.
+        </span>
+
+    </a>
 
 </div>
 
@@ -2087,13 +2622,29 @@ a{
      RESULTS + EXAMS
 ===================================================== -->
 
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Examination Center
+        </h2>
+
+        <p>
+            Your latest performance and upcoming tests.
+        </p>
+
+    </div>
+
+</div>
+
+
 <div class="grid">
 
 
-    <!-- RECENT RESULTS -->
+    <!-- RESULTS -->
 
     <div class="card">
-
 
         <div class="card-header">
 
@@ -2108,7 +2659,6 @@ a{
                 </p>
 
             </div>
-
 
             <a
                 href="results.html"
@@ -2129,14 +2679,12 @@ a{
 
         </div>
 
-
     </div>
 
 
-    <!-- UPCOMING EXAMS -->
+    <!-- EXAMS -->
 
     <div class="card">
-
 
         <div class="card-header">
 
@@ -2151,7 +2699,6 @@ a{
                 </p>
 
             </div>
-
 
             <a
                 href="exams.html"
@@ -2172,16 +2719,157 @@ a{
 
         </div>
 
-
     </div>
-
 
 </div>
 
 
 <!-- =====================================================
-     PERFORMANCE
+     EXAM SYSTEM
 ===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Dream Hunt Examination System
+        </h2>
+
+        <p>
+            Regular admission-standard assessment.
+        </p>
+
+    </div>
+
+    <a
+        href="exams.html"
+        class="section-link">
+
+        Open Exams →
+
+    </a>
+
+</div>
+
+
+<div class="portal-grid">
+
+
+    <a
+        href="exams.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            50
+        </div>
+
+        <strong>
+            Daily Examination
+        </strong>
+
+        <span>
+            50-mark daily admission-standard examination.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="exams.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            100
+        </div>
+
+        <strong>
+            Weekly Examination
+        </strong>
+
+        <span>
+            100-mark weekly comprehensive examination.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="exams.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            300
+        </div>
+
+        <strong>
+            15-Day Examination
+        </strong>
+
+        <span>
+            300-mark comprehensive admission examination.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="results.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            #
+        </div>
+
+        <strong>
+            Ranking & Performance
+        </strong>
+
+        <span>
+            Track your scores, ranks and overall progress.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     PERFORMANCE + PATHWAYS
+===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Preparation Overview
+        </h2>
+
+        <p>
+            Monitor your progress and admission direction.
+        </p>
+
+    </div>
+
+</div>
+
 
 <div class="performance-grid">
 
@@ -2190,13 +2878,12 @@ a{
 
     <div class="card">
 
-
         <div class="card-header">
 
             <div>
 
                 <h2>
-                    Preparation Overview
+                    Performance
                 </h2>
 
                 <p>
@@ -2205,11 +2892,18 @@ a{
 
             </div>
 
+            <a
+                href="results.html"
+                class="view-all">
+
+                Details
+
+            </a>
+
         </div>
 
 
         <div class="progress-box">
-
 
             <div class="progress-row">
 
@@ -2235,7 +2929,6 @@ a{
 
 
             <div class="performance-summary">
-
 
                 <div class="performance-mini">
 
@@ -2275,12 +2968,9 @@ a{
 
                 </div>
 
-
             </div>
 
-
         </div>
-
 
     </div>
 
@@ -2288,7 +2978,6 @@ a{
     <!-- PATHWAYS -->
 
     <div class="card">
-
 
         <div class="card-header">
 
@@ -2299,17 +2988,16 @@ a{
                 </h2>
 
                 <p>
-                    Explore your preparation routes
+                    Choose your preparation route
                 </p>
 
             </div>
-
 
             <a
                 href="my-target.html"
                 class="view-all">
 
-                Target
+                My Target
 
             </a>
 
@@ -2319,7 +3007,9 @@ a{
         <div class="pathway-list">
 
 
-            <div class="pathway">
+            <a
+                href="public-university.html"
+                class="pathway">
 
                 <strong>
                     Public University
@@ -2329,10 +3019,16 @@ a{
                     General university admission
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="engineering.html"
+                class="pathway">
 
                 <strong>
                     Engineering
@@ -2342,10 +3038,16 @@ a{
                     Engineering institutions
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="agricultural.html"
+                class="pathway">
 
                 <strong>
                     Agricultural
@@ -2355,10 +3057,16 @@ a{
                     Agricultural universities
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="medical.html"
+                class="pathway">
 
                 <strong>
                     Medical
@@ -2368,10 +3076,16 @@ a{
                     Medical admission
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="dental.html"
+                class="pathway">
 
                 <strong>
                     Dental
@@ -2381,10 +3095,16 @@ a{
                     Dental admission
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="textile.html"
+                class="pathway">
 
                 <strong>
                     Textile
@@ -2394,23 +3114,35 @@ a{
                     Textile institutions
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="specialized.html"
+                class="pathway">
 
                 <strong>
-                    Specialized
+                    Specialized / Other
                 </strong>
 
                 <span>
                     Other institutions
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
+
+            </a>
 
 
-            <div class="pathway">
+            <a
+                href="abroad.html"
+                class="pathway">
 
                 <strong>
                     Abroad Study
@@ -2420,112 +3152,47 @@ a{
                     International opportunities
                 </span>
 
-            </div>
+                <div class="pathway-arrow">
+                    →
+                </div>
 
+            </a>
 
         </div>
-
 
     </div>
 
-
 </div>
 
 
 <!-- =====================================================
-     QUICK ACCESS
+     RESOURCE CENTER
 ===================================================== -->
 
-<h2 class="quick-title">
-    Quick Access
-</h2>
+<div class="section-title">
 
+    <div>
 
-<div class="quick-actions">
+        <h2>
+            Resource Center
+        </h2>
 
+        <p>
+            Your admission preparation resources.
+        </p>
 
-    <a
-        href="enrolled-courses.html"
-        class="action">
-
-        <div class="action-icon">
-            ▤
-        </div>
-
-        <strong>
-            My Courses
-        </strong>
-
-        <small>
-            Continue your enrolled learning programs.
-        </small>
-
-    </a>
-
+    </div>
 
     <a
-        href="exams.html"
-        class="action">
+        href="library.html"
+        class="section-link">
 
-        <div class="action-icon">
-            ▣
-        </div>
-
-        <strong>
-            My Exams
-        </strong>
-
-        <small>
-            View available and upcoming examinations.
-        </small>
+        Open Library →
 
     </a>
-
-
-    <a
-        href="my-target.html"
-        class="action">
-
-        <div class="action-icon">
-            ◎
-        </div>
-
-        <strong>
-            My Target
-        </strong>
-
-        <small>
-            Manage your admission pathway and target.
-        </small>
-
-    </a>
-
-
-    <a
-        href="admission-updates.html"
-        class="action">
-
-        <div class="action-icon">
-            △
-        </div>
-
-        <strong>
-            Admission Updates
-        </strong>
-
-        <small>
-            Follow important admission information.
-        </small>
-
-    </a>
-
 
 </div>
 
-
-<!-- =====================================================
-     RESOURCES
-===================================================== -->
 
 <div class="resources">
 
@@ -2539,8 +3206,22 @@ a{
         </strong>
 
         <span>
-            Questions from year 1990
-            and admission-focused practice.
+            Question bank from year 1990 and admission-focused practice.
+        </span>
+
+    </a>
+
+
+    <a
+        href="library.html"
+        class="resource">
+
+        <strong>
+            Marked Books
+        </strong>
+
+        <span>
+            Annotated and important study materials for revision.
         </span>
 
     </a>
@@ -2555,8 +3236,7 @@ a{
         </strong>
 
         <span>
-            Important formulas collected
-            for quick revision.
+            Important formulas collected for quick revision.
         </span>
 
     </a>
@@ -2571,8 +3251,7 @@ a{
         </strong>
 
         <span>
-            Fast approaches for
-            admission-level problems.
+            Fast approaches for admission-level problems.
         </span>
 
     </a>
@@ -2587,12 +3266,283 @@ a{
         </strong>
 
         <span>
-            Current news, hot topics
-            and important updates.
+            Current news and important national and international updates.
         </span>
 
     </a>
 
+
+    <a
+        href="library.html"
+        class="resource">
+
+        <strong>
+            Hot Topics
+        </strong>
+
+        <span>
+            High-priority topics for admission preparation.
+        </span>
+
+    </a>
+
+
+    <a
+        href="library.html"
+        class="resource">
+
+        <strong>
+            Admission Questions
+        </strong>
+
+        <span>
+            University, medical, engineering and other admission practice.
+        </span>
+
+    </a>
+
+
+    <a
+        href="library.html"
+        class="resource">
+
+        <strong>
+            Study Library
+        </strong>
+
+        <span>
+            Explore the complete Dream Hunt learning library.
+        </span>
+
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     PLANS
+===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Plans & Packages
+        </h2>
+
+        <p>
+            Choose the admission preparation coverage you need.
+        </p>
+
+    </div>
+
+    <a
+        href="plans.html"
+        class="section-link">
+
+        View Plans →
+
+    </a>
+
+</div>
+
+
+<div class="plan-grid">
+
+
+    <a
+        href="plans.html"
+        class="plan">
+
+        <small>
+            1 Category
+        </small>
+
+        <strong>
+            ৳300
+        </strong>
+
+        <span>
+            Public University, Engineering, Medical or another single pathway.
+        </span>
+
+    </a>
+
+
+    <a
+        href="plans.html"
+        class="plan">
+
+        <small>
+            2 Categories
+        </small>
+
+        <strong>
+            ৳500
+        </strong>
+
+        <span>
+            Prepare across any two major admission categories.
+        </span>
+
+    </a>
+
+
+    <a
+        href="plans.html"
+        class="plan">
+
+        <small>
+            3 Categories
+        </small>
+
+        <strong>
+            ৳800
+        </strong>
+
+        <span>
+            Wider preparation coverage across three pathways.
+        </span>
+
+    </a>
+
+
+    <a
+        href="plans.html"
+        class="plan">
+
+        <small>
+            All Major Pathways
+        </small>
+
+        <strong>
+            ৳1000
+        </strong>
+
+        <span>
+            Complete Dream Hunt admission preparation coverage.
+        </span>
+
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     FINAL QUICK ACCESS
+===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            More From Dream Hunt
+        </h2>
+
+        <p>
+            Manage your account and stay connected.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="portal-grid">
+
+
+    <a
+        href="profile.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ◉
+        </div>
+
+        <strong>
+            My Profile
+        </strong>
+
+        <span>
+            View and manage your student information.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="notifications.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ◇
+        </div>
+
+        <strong>
+            Notifications
+        </strong>
+
+        <span>
+            Stay updated with Dream Hunt announcements.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="settings.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ⚙
+        </div>
+
+        <strong>
+            Settings
+        </strong>
+
+        <span>
+            Manage your account and dashboard preferences.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
+
+
+    <a
+        href="contact.html"
+        class="portal-card">
+
+        <div class="portal-icon">
+            ◌
+        </div>
+
+        <strong>
+            Contact Us
+        </strong>
+
+        <span>
+            Get help and contact the Dream Hunt team.
+        </span>
+
+        <div class="portal-arrow">
+            →
+        </div>
+
+    </a>
 
 </div>
 
@@ -2609,7 +3559,6 @@ a{
 
 
 </section>
-
 
 </main>
 
@@ -2634,6 +3583,17 @@ a{
     </a>
 
 
+    <a href="enrolled-courses.html">
+
+        <div class="mobile-nav-icon">
+            ▤
+        </div>
+
+        Courses
+
+    </a>
+
+
     <a href="exams.html">
 
         <div class="mobile-nav-icon">
@@ -2645,21 +3605,10 @@ a{
     </a>
 
 
-    <a href="results.html">
-
-        <div class="mobile-nav-icon">
-            ◆
-        </div>
-
-        Results
-
-    </a>
-
-
     <a href="library.html">
 
         <div class="mobile-nav-icon">
-            ▤
+            ▥
         </div>
 
         Library
@@ -2810,10 +3759,6 @@ async function loadDashboard(){
             .getSession();
 
 
-        /*
-         * Dashboard is protected.
-         */
-
         if(
             sessionError ||
             !session ||
@@ -2853,13 +3798,9 @@ async function loadDashboard(){
             "Not Set";
 
 
-        /*
-         * Try profile table.
-         *
-         * If the table does not exist or the
-         * columns are unavailable, metadata is
-         * still used.
-         */
+        /* =================================================
+           PROFILE TABLE
+        ================================================= */
 
         try{
 
@@ -2957,7 +3898,7 @@ async function loadDashboard(){
 
 
         /* =================================================
-           LOAD ALL DATA
+           LOAD DATA
         ================================================= */
 
         await Promise.allSettled([
@@ -2973,10 +3914,9 @@ async function loadDashboard(){
         ]);
 
 
-        /*
-         * Hide loading only after dashboard
-         * UI has been prepared.
-         */
+        /* =================================================
+           HIDE LOADER
+        ================================================= */
 
         const loading =
             document.getElementById(
@@ -3131,10 +4071,6 @@ async function loadResults(userId){
             data || [];
 
 
-        /* =================================================
-           BASIC STATISTICS
-        ================================================= */
-
         const examCount =
             results.length;
 
@@ -3197,14 +4133,6 @@ async function loadResults(userId){
         }
 
 
-        /*
-         * Important:
-         *
-         * total_mark in exam_attempts is treated
-         * as the obtained score, matching the
-         * existing database structure.
-         */
-
         const scores =
             results.map(
                 item =>
@@ -3244,10 +4172,6 @@ async function loadResults(userId){
             best.toFixed(1);
 
 
-        /*
-         * Best rank
-         */
-
         const ranks =
             results
                 .map(
@@ -3279,13 +4203,6 @@ async function loadResults(userId){
 
         }
 
-
-        /*
-         * Since different exams may have
-         * different total marks, the dashboard
-         * attempts to calculate percentage from
-         * the linked exam records.
-         */
 
         const recent =
             results.slice(0,10);
@@ -3345,11 +4262,6 @@ async function loadResults(userId){
             }
         );
 
-
-        /*
-         * Calculate actual average percentage
-         * whenever total marks are available.
-         */
 
         let percentageValues = [];
 
@@ -3439,10 +4351,6 @@ async function loadResults(userId){
         );
 
 
-        /* =================================================
-           RECENT RESULTS UI
-        ================================================= */
-
         const container =
             document.getElementById(
                 "recentResults"
@@ -3502,6 +4410,7 @@ async function loadResults(userId){
                                         ${escapeHTML(
                                             result.total_mark ?? 0
                                         )}
+
                                         ${
                                             totalMarks
                                             ?
@@ -3512,6 +4421,7 @@ async function loadResults(userId){
                                             :
                                             ""
                                         }
+
                                     </strong>
 
                                     <span>
@@ -3653,8 +4563,10 @@ async function loadUpcomingExams(){
             ).innerHTML = `
 
                 <div class="exam-empty">
+
                     Upcoming examination schedule
                     is currently unavailable.
+
                 </div>
 
             `;
@@ -3739,51 +4651,63 @@ async function loadUpcomingExams(){
 
                         return `
 
-                            <div class="exam">
+                            <a
+                                href="exams.html"
+                                style="
+                                    display:block;
+                                    text-decoration:none;
+                                    color:inherit;
+                                "
+                            >
 
-                                <div class="exam-row">
+                                <div class="exam">
 
-                                    <div>
+                                    <div class="exam-row">
 
-                                        <strong>
+                                        <div>
+
+                                            <strong>
+                                                ${escapeHTML(
+                                                    exam.title ||
+                                                    "Admission Examination"
+                                                )}
+                                            </strong>
+
+                                            <div class="exam-date">
+
+                                                ${formatDate(
+                                                    exam.exam_date
+                                                )}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="exam-mark">
+
                                             ${escapeHTML(
-                                                exam.title ||
-                                                "Admission Examination"
+                                                exam.total_marks || "—"
                                             )}
-                                        </strong>
 
-                                        <div class="exam-date">
-
-                                            ${formatDate(
-                                                exam.exam_date
-                                            )}
+                                            Marks
 
                                         </div>
 
                                     </div>
 
 
-                                    <div class="exam-mark">
+                                    <div class="exam-type">
 
                                         ${escapeHTML(
-                                            exam.total_marks || "—"
+                                            examType
                                         )}
-                                        Marks
 
                                     </div>
 
                                 </div>
 
-
-                                <div class="exam-type">
-
-                                    ${escapeHTML(
-                                        examType
-                                    )}
-
-                                </div>
-
-                            </div>
+                            </a>
 
                         `;
 
@@ -3921,12 +4845,6 @@ supabaseClient
             session
         ){
 
-            /*
-             * If the session disappears while the
-             * dashboard is open, immediately return
-             * to homepage.
-             */
-
             if(
                 event ===
                 "SIGNED_OUT"
@@ -3952,4 +4870,4 @@ loadDashboard();
 
 </body>
 
-    </html>
+   </html>
