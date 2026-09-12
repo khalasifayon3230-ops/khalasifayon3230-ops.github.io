@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dream Hunt | Plans & Packages</title>
-
-<style>
+<!DOCTYPE html><html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dream Hunt | Plans & Packages</title><style>
 
 *{
     margin:0;
@@ -20,8 +13,6 @@ body{
     background:#f5f7fb;
     color:#111827;
 }
-
-/* HEADER */
 
 .header{
     background:#ffffff;
@@ -41,8 +32,6 @@ body{
     color:#6b7280;
 }
 
-/* CONTAINER */
-
 .container{
     max-width:1100px;
     margin:auto;
@@ -61,8 +50,6 @@ body{
     color:#6b7280;
     margin-bottom:35px;
 }
-
-/* PLANS */
 
 .plans{
     display:grid;
@@ -107,8 +94,6 @@ body{
     color:#4b5563;
 }
 
-/* BUTTON */
-
 .btn{
     width:100%;
     border:none;
@@ -124,8 +109,6 @@ body{
 .btn:hover{
     background:#1d4ed8;
 }
-
-/* VIEW PLANS */
 
 .view{
     display:block;
@@ -144,196 +127,189 @@ body{
     background:#000000;
 }
 
-</style>
+</style></head><body><header class="header"><div class="logo">
+    Dream Hunt
+</div>
 
-</head>
+<div class="subtitle">
+    Admission Preparation Platform
+</div>
 
-<body>
+</header><main class="container"><h1 class="title">
+    Plans & Packages
+</h1>
 
-<header class="header">
+<p class="description">
+    Choose the admission package that matches your goal.
+</p>
 
-    <div class="logo">
-        Dream Hunt
-    </div>
+<div class="plans">
 
-    <div class="subtitle">
-        Admission Preparation Platform
-    </div>
+    <!-- PUBLIC UNIVERSITY -->
 
-</header>
+    <div class="plan"
+         onclick="goToPlan('public')">
 
+        <h2>
+            Public University
+        </h2>
 
-<main class="container">
-
-    <h1 class="title">
-        Plans & Packages
-    </h1>
-
-    <p class="description">
-        Choose the admission package that matches your goal.
-    </p>
-
-
-    <div class="plans">
-
-
-        <!-- PUBLIC UNIVERSITY -->
-
-        <div class="plan"
-             onclick="window.location.href='buy-courses.html'">
-
-            <h2>
-                Public University
-            </h2>
-
-            <div class="price">
-                ৳300
-            </div>
-
-            <ul>
-                <li>✓ Public University Admission</li>
-                <li>✓ Daily Exams</li>
-                <li>✓ Weekly Exams</li>
-                <li>✓ 300 Mark Exams</li>
-                <li>✓ Question Bank</li>
-            </ul>
-
-            <button class="btn"
-                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
-                Choose Plan
-            </button>
-
+        <div class="price">
+            ৳300
         </div>
 
+        <ul>
+            <li>✓ Public University Admission</li>
+            <li>✓ Daily Exams</li>
+            <li>✓ Weekly Exams</li>
+            <li>✓ 300 Mark Exams</li>
+            <li>✓ Question Bank</li>
+        </ul>
 
-        <!-- MEDICAL -->
-
-        <div class="plan"
-             onclick="window.location.href='buy-courses.html'">
-
-            <h2>
-                Medical
-            </h2>
-
-            <div class="price">
-                ৳300
-            </div>
-
-            <ul>
-                <li>✓ Medical Admission</li>
-                <li>✓ Daily Exams</li>
-                <li>✓ Weekly Exams</li>
-                <li>✓ 300 Mark Exams</li>
-                <li>✓ Medical Question Bank</li>
-            </ul>
-
-            <button class="btn"
-                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
-                Choose Plan
-            </button>
-
-        </div>
-
-
-        <!-- ENGINEERING -->
-
-        <div class="plan"
-             onclick="window.location.href='buy-courses.html'">
-
-            <h2>
-                Engineering
-            </h2>
-
-            <div class="price">
-                ৳300
-            </div>
-
-            <ul>
-                <li>✓ Engineering Admission</li>
-                <li>✓ Daily Exams</li>
-                <li>✓ Weekly Exams</li>
-                <li>✓ 300 Mark Exams</li>
-                <li>✓ Engineering Question Bank</li>
-            </ul>
-
-            <button class="btn"
-                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
-                Choose Plan
-            </button>
-
-        </div>
-
-
-        <!-- TWO CATEGORY -->
-
-        <div class="plan"
-             onclick="window.location.href='buy-courses.html'">
-
-            <h2>
-                Any 2 Categories
-            </h2>
-
-            <div class="price">
-                ৳500
-            </div>
-
-            <ul>
-                <li>✓ Medical + Engineering</li>
-                <li>✓ Medical + Public</li>
-                <li>✓ Engineering + Public</li>
-                <li>✓ Combined Exams</li>
-                <li>✓ Full Question Bank</li>
-            </ul>
-
-            <button class="btn"
-                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
-                Choose Plan
-            </button>
-
-        </div>
-
-
-        <!-- ALL EXAM -->
-
-        <div class="plan"
-             onclick="window.location.href='buy-courses.html'">
-
-            <h2>
-                All Exam
-            </h2>
-
-            <div class="price">
-                ৳800
-            </div>
-
-            <ul>
-                <li>✓ Public University</li>
-                <li>✓ Medical</li>
-                <li>✓ Engineering</li>
-                <li>✓ All Admission Exams</li>
-                <li>✓ Complete Access</li>
-            </ul>
-
-            <button class="btn"
-                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
-                Choose Plan
-            </button>
-
-        </div>
+        <button class="btn"
+                onclick="event.stopPropagation(); goToPlan('public')">
+            Choose Plan
+        </button>
 
     </div>
 
 
-    <!-- VIEW PLANS -->
+    <!-- MEDICAL -->
 
-    <a href="buy-courses.html"
-       class="view">
+    <div class="plan"
+         onclick="goToPlan('medical')">
 
-        View Plans
+        <h2>
+            Medical
+        </h2>
 
-    </a>
+        <div class="price">
+            ৳300
+        </div>
 
-</main>
+        <ul>
+            <li>✓ Medical Admission</li>
+            <li>✓ Daily Exams</li>
+            <li>✓ Weekly Exams</li>
+            <li>✓ 300 Mark Exams</li>
+            <li>✓ Medical Question Bank</li>
+        </ul>
 
-</body>
+        <button class="btn"
+                onclick="event.stopPropagation(); goToPlan('medical')">
+            Choose Plan
+        </button>
+
+    </div>
+
+
+    <!-- ENGINEERING -->
+
+    <div class="plan"
+         onclick="goToPlan('engineering')">
+
+        <h2>
+            Engineering
+        </h2>
+
+        <div class="price">
+            ৳300
+        </div>
+
+        <ul>
+            <li>✓ Engineering Admission</li>
+            <li>✓ Daily Exams</li>
+            <li>✓ Weekly Exams</li>
+            <li>✓ 300 Mark Exams</li>
+            <li>✓ Engineering Question Bank</li>
+        </ul>
+
+        <button class="btn"
+                onclick="event.stopPropagation(); goToPlan('engineering')">
+            Choose Plan
+        </button>
+
+    </div>
+
+
+    <!-- TWO CATEGORY -->
+
+    <div class="plan"
+         onclick="goToPlan('dual')">
+
+        <h2>
+            Any 2 Categories
+        </h2>
+
+        <div class="price">
+            ৳500
+        </div>
+
+        <ul>
+            <li>✓ Medical + Engineering</li>
+            <li>✓ Medical + Public</li>
+            <li>✓ Engineering + Public</li>
+            <li>✓ Combined Exams</li>
+            <li>✓ Full Question Bank</li>
+        </ul>
+
+        <button class="btn"
+                onclick="event.stopPropagation(); goToPlan('dual')">
+            Choose Plan
+        </button>
+
+    </div>
+
+
+    <!-- ALL EXAM -->
+
+    <div class="plan"
+         onclick="goToPlan('all')">
+
+        <h2>
+            All Exam
+        </h2>
+
+        <div class="price">
+            ৳800
+        </div>
+
+        <ul>
+            <li>✓ Public University</li>
+            <li>✓ Medical</li>
+            <li>✓ Engineering</li>
+            <li>✓ All Admission Exams</li>
+            <li>✓ Complete Access</li>
+        </ul>
+
+        <button class="btn"
+                onclick="event.stopPropagation(); goToPlan('all')">
+            Choose Plan
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- VIEW PLANS -->
+
+<a href="./buy-courses.html"
+   class="view">
+
+    View Plans
+
+</a>
+
+</main><script>
+
+function goToPlan(plan){
+
+    window.location.href =
+        "./buy-courses.html?plan=" +
+        encodeURIComponent(plan);
+
+}
+
+</script></body>
 </html>
