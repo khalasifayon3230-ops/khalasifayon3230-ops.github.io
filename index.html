@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07131d">
 <meta name="description" content="Dream Hunt — Complete Admission Preparation Platform">
+
 <title>Dream Hunt | Complete Admission Preparation</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 /* =========================================================
-   DREAM HUNT
-   COMPLETE CINEMATIC EDUCATION PLATFORM
+   ROOT
    ========================================================= */
 
 :root{
-    --bg:#061019;
-    --bg2:#0a1822;
-    --glass:rgba(7,18,27,.62);
-    --glass2:rgba(12,27,38,.72);
-    --line:rgba(255,255,255,.11);
-    --white:#f5f8fb;
-    --muted:#aebbc5;
-    --soft:#d5e0e7;
-    --accent:#8fd3ff;
-    --accent2:#c4edff;
-    --gold:#e8c987;
-    --green:#8ed6b1;
-    --danger:#ff8e8e;
-    --shadow:0 25px 80px rgba(0,0,0,.35);
-    --radius:24px;
+    --bg:#06111a;
+    --bg2:#081a25;
+    --card:rgba(9,24,35,.72);
+    --card2:rgba(12,31,44,.78);
+    --line:rgba(180,225,235,.13);
+    --text:#eefaff;
+    --muted:#9db5c0;
+    --accent:#8de8ef;
+    --accent2:#b7f4d8;
+    --gold:#f2d28b;
+    --shadow:0 25px 80px rgba(0,0,0,.32);
 }
 
 *{
@@ -41,27 +39,41 @@
 
 html{
     scroll-behavior:smooth;
-    background:#040a0f;
 }
 
 body{
     font-family:
         Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
         Arial,
+        Helvetica,
         sans-serif;
-    color:var(--white);
-    background:
-        radial-gradient(circle at 50% 0%,#183142 0%,#07131d 40%,#03090e 100%);
+    background:var(--bg);
+    color:var(--text);
     overflow-x:hidden;
+    line-height:1.6;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+::selection{
+    background:rgba(141,232,239,.25);
 }
 
 /* =========================================================
-   WORLD
+   WORLD CANVAS
    ========================================================= */
 
 #world{
@@ -69,42 +81,34 @@ body{
     inset:0;
     width:100%;
     height:100%;
-    z-index:0;
+    z-index:-5;
     pointer-events:none;
-    background:#07131d;
 }
 
-#worldShade{
+.world-shade{
     position:fixed;
     inset:0;
-    z-index:1;
+    z-index:-4;
     pointer-events:none;
     background:
         linear-gradient(
             180deg,
-            rgba(2,8,13,.04) 0%,
-            rgba(2,8,13,.10) 35%,
-            rgba(2,7,12,.48) 100%
+            rgba(2,10,16,.15),
+            rgba(2,10,16,.34)
         );
 }
 
-#vignette{
+.vignette{
     position:fixed;
     inset:0;
-    z-index:2;
+    z-index:-3;
     pointer-events:none;
     background:
         radial-gradient(
-            ellipse at center,
-            transparent 40%,
-            rgba(0,0,0,.24) 75%,
-            rgba(0,0,0,.62) 100%
+            circle at 50% 40%,
+            transparent 25%,
+            rgba(0,5,9,.34) 100%
         );
-}
-
-.page{
-    position:relative;
-    z-index:5;
 }
 
 /* =========================================================
@@ -115,94 +119,74 @@ body{
     position:fixed;
     top:0;
     left:0;
-    width:100%;
-    height:78px;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-bottom:1px solid transparent;
-    transition:.45s ease;
-}
-
-.navbar.scrolled{
-    height:68px;
-    background:rgba(3,10,15,.72);
-    backdrop-filter:blur(22px);
-    border-bottom-color:rgba(255,255,255,.08);
-    box-shadow:0 10px 40px rgba(0,0,0,.18);
-}
-
-.nav-inner{
-    width:min(1240px,92%);
+    right:0;
+    z-index:1000;
+    padding:18px 5%;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    transition:.35s ease;
+}
+
+.navbar.scrolled{
+    padding:11px 5%;
+    background:rgba(4,13,20,.78);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--line);
 }
 
 .brand{
     display:flex;
     align-items:center;
     gap:11px;
-    color:white;
-    text-decoration:none;
     font-weight:800;
-    letter-spacing:-.04em;
-    font-size:1.18rem;
+    letter-spacing:-.5px;
+    font-size:20px;
 }
 
 .brand-mark{
     width:35px;
     height:35px;
-    border:1px solid rgba(255,255,255,.35);
-    border-radius:50%;
+    border-radius:11px;
     position:relative;
-    display:grid;
-    place-items:center;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #d9ffff,
+            #72dce6 35%,
+            #173c4b 100%
+        );
     box-shadow:
-        0 0 20px rgba(143,211,255,.15),
-        inset 0 0 15px rgba(255,255,255,.05);
+        0 0 30px rgba(141,232,239,.25);
 }
 
 .brand-mark:before,
 .brand-mark:after{
     content:"";
     position:absolute;
-    border:1px solid rgba(143,211,255,.42);
+    border:1px solid rgba(255,255,255,.65);
     border-radius:50%;
-    transform:rotate(35deg);
 }
 
 .brand-mark:before{
-    width:25px;
-    height:10px;
+    inset:7px;
 }
 
 .brand-mark:after{
-    width:10px;
-    height:25px;
-}
-
-.brand-dot{
-    width:5px;
-    height:5px;
-    background:#dff6ff;
-    border-radius:50%;
-    box-shadow:0 0 12px #9fe0ff;
+    inset:12px 5px;
+    transform:rotate(55deg);
 }
 
 .nav-links{
     display:flex;
     align-items:center;
-    gap:27px;
+    gap:25px;
 }
 
 .nav-links a{
-    color:#c7d3db;
-    text-decoration:none;
-    font-size:.83rem;
-    font-weight:600;
-    transition:.3s ease;
+    color:#c3d5dc;
+    font-size:13px;
+    transition:.25s ease;
 }
 
 .nav-links a:hover{
@@ -212,42 +196,90 @@ body{
 .nav-actions{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
 }
 
 .nav-btn{
-    border:1px solid rgba(255,255,255,.16);
-    color:white;
-    background:rgba(255,255,255,.055);
-    padding:10px 17px;
+    padding:9px 15px;
+    border:1px solid var(--line);
     border-radius:999px;
-    cursor:pointer;
-    font-weight:700;
-    font-size:.78rem;
-    transition:.3s ease;
+    background:rgba(255,255,255,.035);
+    color:#e8faff;
+    font-size:12px;
+    transition:.25s ease;
 }
 
 .nav-btn:hover{
-    background:rgba(255,255,255,.11);
-    transform:translateY(-1px);
+    transform:translateY(-2px);
+    border-color:rgba(141,232,239,.4);
 }
 
 .nav-btn.primary{
-    background:rgba(225,243,250,.94);
-    color:#07131d;
-    border-color:transparent;
+    background:rgba(141,232,239,.12);
+    border-color:rgba(141,232,239,.35);
 }
 
 .menu-toggle{
     display:none;
     width:40px;
     height:40px;
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:12px;
-    background:rgba(255,255,255,.05);
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
+    border-radius:10px;
     color:white;
-    cursor:pointer;
-    font-size:1.1rem;
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+.container{
+    width:min(1180px,90%);
+    margin:auto;
+}
+
+section{
+    position:relative;
+    padding:110px 0;
+}
+
+.eyebrow{
+    color:var(--accent);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-weight:700;
+    margin-bottom:16px;
+}
+
+.section-heading{
+    max-width:720px;
+    margin-bottom:55px;
+}
+
+.section-heading h2{
+    font-size:clamp(32px,5vw,58px);
+    line-height:1.03;
+    letter-spacing:-2.5px;
+    margin-bottom:18px;
+}
+
+.section-heading p{
+    color:var(--muted);
+    max-width:650px;
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(30px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
 }
 
 /* =========================================================
@@ -258,391 +290,632 @@ body{
     min-height:100vh;
     display:flex;
     align-items:center;
-    position:relative;
+    padding-top:120px;
     overflow:hidden;
 }
 
 .hero-content{
-    width:min(1240px,92%);
-    margin:0 auto;
-    padding-top:70px;
-    position:relative;
-}
-
-.hero-copy{
-    width:min(780px,100%);
-}
-
-.eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    padding:8px 13px;
-    border:1px solid rgba(255,255,255,.14);
-    background:rgba(3,12,18,.34);
-    backdrop-filter:blur(12px);
-    border-radius:999px;
-    color:#cbd9e1;
-    font-size:.72rem;
-    font-weight:700;
-    letter-spacing:.11em;
-    text-transform:uppercase;
-    margin-bottom:25px;
-}
-
-.eyebrow-dot{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#b9edff;
-    box-shadow:0 0 15px #a5e7ff;
-    animation:pulse 2.4s infinite;
+    width:min(850px,100%);
 }
 
 .hero h1{
-    font-size:
-        clamp(3.4rem,8vw,7.6rem);
+    font-size:clamp(52px,8vw,105px);
     line-height:.91;
-    letter-spacing:-.075em;
-    max-width:850px;
-    text-shadow:
-        0 5px 40px rgba(0,0,0,.48),
-        0 1px 1px rgba(255,255,255,.08);
+    letter-spacing:-6px;
+    margin-bottom:28px;
 }
 
 .hero h1 span{
     display:block;
-    color:#d8f1fb;
-}
-
-.hero h1 .thin{
-    color:#9fb3bf;
-    font-weight:400;
+    background:
+        linear-gradient(
+            100deg,
+            #ffffff,
+            #9eeef1,
+            #d8f5dc
+        );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
 .hero-description{
-    margin-top:30px;
-    max-width:650px;
-    font-size:1.06rem;
-    line-height:1.85;
-    color:#d0dbe1;
-    text-shadow:0 2px 18px rgba(0,0,0,.6);
+    max-width:680px;
+    color:#c0d2d9;
+    font-size:17px;
+    margin-bottom:32px;
 }
 
-.hero-actions{
-    margin-top:35px;
+.hero-buttons{
     display:flex;
-    flex-wrap:wrap;
     gap:12px;
+    flex-wrap:wrap;
 }
 
 .btn{
-    border:0;
-    cursor:pointer;
-    text-decoration:none;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:9px;
-    min-height:50px;
-    padding:0 22px;
-    border-radius:14px;
-    font-size:.82rem;
-    font-weight:800;
-    transition:.35s ease;
-}
-
-.btn-main{
-    color:#07131d;
-    background:#eaf8fd;
-    box-shadow:
-        0 12px 35px rgba(184,225,240,.18);
-}
-
-.btn-main:hover{
-    transform:translateY(-3px);
-    box-shadow:
-        0 18px 45px rgba(184,225,240,.27);
-}
-
-.btn-outline{
+    gap:8px;
+    padding:14px 22px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
     color:white;
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.15);
-    backdrop-filter:blur(14px);
+    font-weight:700;
+    font-size:13px;
+    transition:.3s ease;
 }
 
-.btn-outline:hover{
-    background:rgba(255,255,255,.10);
+.btn:hover{
     transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+.btn.primary{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(141,232,239,.22),
+            rgba(183,244,216,.12)
+        );
+    border-color:rgba(141,232,239,.42);
 }
 
 .hero-meta{
-    margin-top:55px;
     display:flex;
     flex-wrap:wrap;
-    gap:28px;
+    gap:10px;
+    margin-top:45px;
 }
 
-.meta-item{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-}
-
-.meta-number{
-    font-size:1.35rem;
-    font-weight:800;
-}
-
-.meta-label{
-    color:#aab9c2;
-    font-size:.72rem;
+.hero-meta div{
+    padding:9px 13px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(4,15,23,.35);
+    backdrop-filter:blur(10px);
+    color:#a9c0c8;
+    font-size:11px;
 }
 
 /* =========================================================
-   SECTION COMMON
-   ========================================================= */
-
-section{
-    position:relative;
-    padding:125px 0;
-}
-
-.section-inner{
-    width:min(1240px,92%);
-    margin:auto;
-}
-
-.section-heading{
-    max-width:780px;
-    margin-bottom:55px;
-}
-
-.section-kicker{
-    color:#9ddcff;
-    font-size:.7rem;
-    text-transform:uppercase;
-    letter-spacing:.18em;
-    font-weight:800;
-    margin-bottom:13px;
-}
-
-.section-title{
-    font-size:clamp(2.2rem,5vw,4.5rem);
-    line-height:1;
-    letter-spacing:-.065em;
-}
-
-.section-description{
-    margin-top:20px;
-    color:#aebdc7;
-    line-height:1.8;
-    max-width:680px;
-}
-
-/* =========================================================
-   NATURAL WORLD INTRO
+   NATURE SECTION
    ========================================================= */
 
 .nature-section{
-    min-height:180vh;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(4,13,19,0) 0%,
-            rgba(4,13,19,.13) 25%,
-            rgba(4,13,19,.48) 70%,
-            rgba(4,13,19,.78) 100%
-        );
+    min-height:80vh;
 }
 
 .nature-stage{
-    min-height:110vh;
-    position:relative;
+    min-height:440px;
+    display:flex;
+    align-items:flex-end;
 }
 
 .environment-panel{
-    position:absolute;
-    right:0;
-    top:10%;
-    width:min(460px,100%);
-    padding:28px;
-    border:1px solid rgba(255,255,255,.11);
-    background:rgba(4,14,21,.43);
-    backdrop-filter:blur(18px);
+    width:min(610px,100%);
+    padding:35px;
+    border:1px solid var(--line);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(4,17,26,.68),
+            rgba(8,25,34,.45)
+        );
+    backdrop-filter:blur(14px);
     border-radius:26px;
     box-shadow:var(--shadow);
 }
 
-.environment-panel h3{
-    font-size:1.5rem;
-    letter-spacing:-.04em;
-}
-
-.environment-panel p{
-    margin-top:12px;
-    color:#b6c5ce;
-    line-height:1.75;
-    font-size:.9rem;
-}
-
-.environment-line{
-    margin-top:23px;
-    height:1px;
-    background:rgba(255,255,255,.1);
+.environment-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:20px;
 }
 
 .environment-status{
-    margin-top:17px;
     display:flex;
-    justify-content:space-between;
-    color:#9fb1bc;
-    font-size:.7rem;
+    align-items:center;
+    gap:7px;
+    font-size:10px;
+    color:#9ff1c2;
+    letter-spacing:2px;
 }
 
-.status-live{
-    color:#b9efcf;
+.live-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#91edbb;
+    box-shadow:0 0 12px #91edbb;
+}
+
+.environment-panel h3{
+    font-size:32px;
+    letter-spacing:-1.5px;
+    margin-bottom:12px;
+}
+
+.environment-panel p{
+    color:var(--muted);
+    max-width:550px;
 }
 
 /* =========================================================
    PATHWAYS
    ========================================================= */
 
-.pathways{
-    background:
-        linear-gradient(
-            180deg,
-            rgba(3,10,15,.72),
-            rgba(4,12,18,.86)
-        );
-}
-
 .pathway-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    gap:16px;
 }
 
 .pathway-card{
-    min-height:210px;
     position:relative;
-    overflow:hidden;
+    min-height:260px;
+    padding:24px;
+    border:1px solid var(--line);
     border-radius:22px;
-    border:1px solid rgba(255,255,255,.09);
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.025)
+            rgba(9,25,37,.86),
+            rgba(5,16,25,.66)
         );
-    backdrop-filter:blur(18px);
-    padding:24px;
-    transition:.45s ease;
+    overflow:hidden;
+    transition:
+        transform .3s ease,
+        border-color .3s ease;
 }
 
 .pathway-card:hover{
-    transform:translateY(-7px);
-    border-color:rgba(180,225,244,.27);
-    box-shadow:0 25px 70px rgba(0,0,0,.27);
+    border-color:rgba(141,232,239,.32);
 }
 
 .pathway-number{
-    font-size:.68rem;
-    color:#8ca5b2;
-    letter-spacing:.14em;
+    position:relative;
+    z-index:2;
+    font-size:10px;
+    color:#78909a;
+    letter-spacing:2px;
 }
 
 .pathway-card h3{
-    margin-top:35px;
-    font-size:1.22rem;
-    letter-spacing:-.035em;
+    position:absolute;
+    left:24px;
+    right:24px;
+    bottom:24px;
+    z-index:4;
+    font-size:20px;
+    letter-spacing:-.5px;
 }
 
 .pathway-card p{
-    margin-top:10px;
-    color:#9eafb9;
-    font-size:.78rem;
-    line-height:1.6;
+    position:absolute;
+    left:24px;
+    right:24px;
+    bottom:58px;
+    z-index:4;
+    color:#91aab4;
+    font-size:11px;
 }
 
-.pathway-glow{
+.pathway-visual{
     position:absolute;
-    width:150px;
-    height:150px;
+    inset:0;
+    overflow:hidden;
+    opacity:.9;
+}
+
+.pathway-visual:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            180deg,
+            transparent 30%,
+            rgba(3,11,17,.85) 100%
+        );
+}
+
+/* campus */
+
+.campus-building{
+    position:absolute;
+    width:115px;
+    height:75px;
+    left:50%;
+    top:37%;
+    transform:translate(-50%,-50%);
+    border:1px solid rgba(180,230,240,.25);
+    background:rgba(100,170,185,.08);
+}
+
+.campus-building:before{
+    content:"";
+    position:absolute;
+    left:-15px;
+    top:-22px;
+    width:145px;
+    height:25px;
+    border:1px solid rgba(180,230,240,.2);
+    transform:skewX(-30deg);
+}
+
+.campus-building:after{
+    content:"";
+    position:absolute;
+    inset:17px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(160,225,235,.45) 0 4px,
+            transparent 4px 16px
+        );
+    opacity:.4;
+}
+
+.orbit{
+    position:absolute;
+    width:170px;
+    height:70px;
+    border:1px solid rgba(141,232,239,.18);
     border-radius:50%;
-    background:radial-gradient(circle,rgba(137,208,239,.15),transparent 70%);
-    right:-60px;
-    bottom:-70px;
+    left:50%;
+    top:37%;
+    transform:translate(-50%,-50%) rotate(-20deg);
+    animation:orbit 7s linear infinite;
+}
+
+.orbit i{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#a8eff3;
+    right:8px;
+    top:8px;
+    box-shadow:0 0 15px #a8eff3;
+}
+
+@keyframes orbit{
+    to{transform:translate(-50%,-50%) rotate(340deg);}
+}
+
+/* engineering */
+
+.engineering-lines{
+    position:absolute;
+    inset:25px;
+    background:
+        linear-gradient(90deg,transparent 49%,rgba(130,220,240,.13) 50%,transparent 51%),
+        linear-gradient(0deg,transparent 49%,rgba(130,220,240,.13) 50%,transparent 51%);
+    background-size:32px 32px;
+    animation:gridmove 5s linear infinite;
+}
+
+@keyframes gridmove{
+    to{background-position:32px 32px;}
+}
+
+.gear{
+    position:absolute;
+    width:85px;
+    height:85px;
+    left:50%;
+    top:42%;
+    transform:translate(-50%,-50%);
+    border:10px dotted rgba(160,225,240,.35);
+    border-radius:50%;
+    animation:gear 8s linear infinite;
+}
+
+.gear:after{
+    content:"";
+    position:absolute;
+    inset:22px;
+    border:2px solid rgba(160,225,240,.35);
+    border-radius:50%;
+}
+
+@keyframes gear{
+    to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* agricultural */
+
+.field{
+    position:absolute;
+    left:15%;
+    right:15%;
+    bottom:28%;
+    height:55px;
+    transform:skewY(-8deg);
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(120,205,130,.16) 0 5px,
+            transparent 5px 16px
+        );
+}
+
+.plant{
+    position:absolute;
+    width:2px;
+    height:65px;
+    background:rgba(145,225,155,.4);
+    bottom:36%;
+    animation:sway 3s ease-in-out infinite alternate;
+    transform-origin:bottom;
+}
+
+.plant:after,
+.plant:before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:8px;
+    border-radius:100% 0;
+    background:rgba(145,225,155,.28);
+}
+
+.plant:after{
+    left:0;
+    top:20px;
+}
+
+.plant:before{
+    right:0;
+    top:35px;
+    transform:scaleX(-1);
+}
+
+.plant.p1{left:32%;}
+.plant.p2{left:50%;height:82px;animation-delay:.4s;}
+.plant.p3{left:67%;height:58px;animation-delay:.8s;}
+
+@keyframes sway{
+    to{transform:rotate(5deg);}
+}
+
+/* medical */
+
+.heart{
+    position:absolute;
+    width:70px;
+    height:70px;
+    left:50%;
+    top:39%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    border-radius:50% 0 50% 50%;
+    border:2px solid rgba(235,135,150,.45);
+    animation:heartbeat 1.6s ease-in-out infinite;
+}
+
+.heart:before,
+.heart:after{
+    content:"";
+    position:absolute;
+    width:70px;
+    height:70px;
+    border:2px solid rgba(235,135,150,.45);
+    border-radius:50%;
+}
+
+.heart:before{
+    left:-36px;
+    top:0;
+}
+
+.heart:after{
+    left:0;
+    top:-36px;
+}
+
+@keyframes heartbeat{
+    0%,100%{scale:1;}
+    15%{scale:1.08;}
+    30%{scale:1;}
+    45%{scale:1.06;}
+    60%{scale:1;}
+}
+
+/* dental */
+
+.tooth{
+    position:absolute;
+    width:72px;
+    height:86px;
+    left:50%;
+    top:37%;
+    transform:translate(-50%,-50%);
+    border:2px solid rgba(220,245,250,.45);
+    border-radius:45% 45% 35% 35%;
+    box-shadow:inset 0 0 25px rgba(150,230,240,.07);
+    animation:toothfloat 4s ease-in-out infinite;
+}
+
+.tooth:after{
+    content:"";
+    position:absolute;
+    left:15px;
+    right:15px;
+    bottom:-25px;
+    height:38px;
+    border:2px solid rgba(220,245,250,.28);
+    border-top:0;
+    border-radius:0 0 40% 40%;
+}
+
+@keyframes toothfloat{
+    50%{transform:translate(-50%,-57%);}
+}
+
+/* textile */
+
+.thread{
+    position:absolute;
+    inset:25px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(180,220,235,.14) 0 2px,
+            transparent 2px 11px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(180,220,235,.10) 0 2px,
+            transparent 2px 11px
+        );
+    transform:perspective(300px) rotateX(35deg);
+    animation:weave 4s linear infinite;
+}
+
+@keyframes weave{
+    to{background-position:22px 22px;}
+}
+
+/* specialized */
+
+.network{
+    position:absolute;
+    inset:35px;
+}
+
+.network i{
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#a9eef0;
+    box-shadow:0 0 14px rgba(141,232,239,.8);
+    animation:nodepulse 2.5s ease-in-out infinite;
+}
+
+.network i:nth-child(1){left:15%;top:25%;}
+.network i:nth-child(2){left:52%;top:15%;animation-delay:.3s;}
+.network i:nth-child(3){left:78%;top:45%;animation-delay:.6s;}
+.network i:nth-child(4){left:42%;top:60%;animation-delay:.9s;}
+.network i:nth-child(5){left:20%;top:78%;animation-delay:1.2s;}
+.network i:nth-child(6){left:73%;top:82%;animation-delay:1.5s;}
+
+.network:before{
+    content:"";
+    position:absolute;
+    inset:15px;
+    background:
+        linear-gradient(
+            25deg,
+            transparent 48%,
+            rgba(141,232,239,.18) 49% 51%,
+            transparent 52%
+        );
+}
+
+@keyframes nodepulse{
+    50%{scale:1.7;opacity:.55;}
+}
+
+/* abroad */
+
+.globe{
+    position:absolute;
+    width:110px;
+    height:110px;
+    border:1px solid rgba(160,225,240,.35);
+    border-radius:50%;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+}
+
+.globe:before,
+.globe:after{
+    content:"";
+    position:absolute;
+    inset:12px 34px;
+    border:1px solid rgba(160,225,240,.22);
+    border-radius:50%;
+}
+
+.globe:after{
+    inset:34px 12px;
+}
+
+.flight-line{
+    position:absolute;
+    width:190px;
+    height:75px;
+    border-top:1px dashed rgba(220,235,240,.35);
+    border-radius:50%;
+    left:50%;
+    top:36%;
+    transform:translate(-50%,-50%) rotate(-18deg);
+    animation:flight 5s ease-in-out infinite;
+}
+
+.flight-line i{
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#f2d28b;
+    right:0;
+    top:-4px;
+    box-shadow:0 0 15px #f2d28b;
+}
+
+@keyframes flight{
+    50%{transform:translate(-50%,-50%) rotate(-18deg) scale(1.08);}
 }
 
 /* =========================================================
    COURSES
    ========================================================= */
 
-.courses{
-    background:
-        linear-gradient(
-            180deg,
-            rgba(3,10,15,.86),
-            rgba(5,13,20,.92)
-        );
-}
-
 .course-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:17px;
+    gap:16px;
 }
 
 .course-card{
-    padding:29px;
-    border-radius:23px;
-    border:1px solid rgba(255,255,255,.095);
-    background:rgba(255,255,255,.035);
-    backdrop-filter:blur(18px);
-    min-height:245px;
-    transition:.4s ease;
+    padding:28px;
+    min-height:220px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:rgba(5,18,28,.72);
+    transition:.3s ease;
 }
 
 .course-card:hover{
-    transform:translateY(-5px);
-    background:rgba(255,255,255,.055);
+    border-color:rgba(141,232,239,.3);
 }
 
-.course-tag{
-    color:#9ddcff;
-    font-size:.65rem;
-    text-transform:uppercase;
-    letter-spacing:.15em;
-    font-weight:800;
+.course-icon{
+    width:44px;
+    height:44px;
+    border:1px solid var(--line);
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    margin-bottom:45px;
+    background:rgba(255,255,255,.03);
 }
 
 .course-card h3{
-    margin-top:28px;
-    font-size:1.45rem;
+    font-size:21px;
+    margin-bottom:8px;
 }
 
 .course-card p{
-    margin-top:11px;
-    color:#a8b8c2;
-    line-height:1.7;
-    font-size:.83rem;
-}
-
-.course-bottom{
-    margin-top:25px;
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-}
-
-.chip{
-    padding:6px 9px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.09);
-    color:#9eafb8;
-    font-size:.63rem;
+    color:var(--muted);
+    font-size:13px;
 }
 
 /* =========================================================
@@ -650,424 +923,287 @@ section{
    ========================================================= */
 
 .science-world{
-    position:relative;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(5,13,20,.92),
-            rgba(2,8,14,.97)
-        );
+    overflow:hidden;
+}
+
+.science-main{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:18px;
+    margin-bottom:18px;
 }
 
 .science-visual{
-    width:100%;
-    height:420px;
-    border-radius:30px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.10);
-    background:rgba(0,0,0,.2);
+    min-height:420px;
     position:relative;
-    box-shadow:0 30px 90px rgba(0,0,0,.35);
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:25px;
+    background:#06131c;
 }
 
-.science-canvas{
-    width:100%;
-    height:100%;
-    display:block;
-}
-
-.science-overlay{
+.science-visual canvas{
     position:absolute;
     inset:0;
-    pointer-events:none;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(2,8,14,.7),
-            transparent 55%
-        );
+    width:100%;
+    height:100%;
 }
 
-.science-caption{
+.science-label{
     position:absolute;
-    left:30px;
-    top:30px;
-    max-width:390px;
-}
-
-.science-caption small{
-    color:#99dbff;
-    font-size:.65rem;
+    left:22px;
+    top:20px;
+    z-index:3;
+    padding:7px 10px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(2,10,16,.5);
+    backdrop-filter:blur(8px);
+    color:#b7d5dd;
+    font-size:10px;
+    letter-spacing:1.5px;
     text-transform:uppercase;
-    letter-spacing:.17em;
-}
-
-.science-caption h3{
-    margin-top:10px;
-    font-size:2rem;
-    letter-spacing:-.05em;
-}
-
-.science-caption p{
-    margin-top:9px;
-    color:#aabcc6;
-    font-size:.8rem;
-    line-height:1.7;
 }
 
 .science-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:17px;
-    margin-top:22px;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
 }
 
 .science-card{
-    min-height:350px;
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,.09);
-    background:rgba(255,255,255,.032);
-    overflow:hidden;
+    min-height:240px;
     position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:rgba(5,18,28,.78);
 }
 
 .science-card canvas{
+    position:absolute;
+    inset:0;
     width:100%;
     height:100%;
-    min-height:350px;
-    display:block;
 }
 
-.science-info{
+.science-card h3{
     position:absolute;
-    left:22px;
-    bottom:20px;
-    padding:13px 15px;
-    border-radius:14px;
-    background:rgba(2,8,13,.64);
-    backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,.09);
-    max-width:280px;
-}
-
-.science-info span{
-    font-size:.62rem;
-    color:#9cdcff;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-}
-
-.science-info h4{
-    margin-top:5px;
-    font-size:1rem;
-}
-
-.science-info p{
-    margin-top:4px;
-    color:#91a4af;
-    font-size:.7rem;
-    line-height:1.5;
+    left:20px;
+    bottom:18px;
+    z-index:2;
+    font-size:16px;
 }
 
 /* =========================================================
    EXAMS
    ========================================================= */
 
-.exams{
-    background:
-        radial-gradient(
-            circle at 70% 40%,
-            rgba(101,164,194,.09),
-            transparent 45%
-        ),
-        rgba(2,8,14,.97);
-}
-
 .exam-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:17px;
+    gap:18px;
 }
 
 .exam-card{
-    padding:31px;
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,.09);
-    background:rgba(255,255,255,.035);
-}
-
-.exam-card.featured{
+    padding:32px;
+    border:1px solid var(--line);
+    border-radius:23px;
     background:
         linear-gradient(
             145deg,
-            rgba(152,215,239,.11),
-            rgba(255,255,255,.025)
+            rgba(10,27,38,.82),
+            rgba(4,15,23,.7)
         );
-    border-color:rgba(160,220,242,.18);
 }
 
 .exam-number{
-    font-size:2.5rem;
-    font-weight:300;
-    color:#d5eaf2;
+    font-size:45px;
+    font-weight:800;
+    letter-spacing:-3px;
+    margin:30px 0 10px;
 }
 
 .exam-card h3{
-    margin-top:20px;
-    font-size:1.25rem;
+    font-size:20px;
 }
 
 .exam-card p{
-    margin-top:10px;
-    color:#9cabb4;
-    font-size:.8rem;
-    line-height:1.7;
-}
-
-.exam-mark{
-    margin-top:25px;
-    font-size:.75rem;
-    color:#a8e1f7;
+    color:var(--muted);
+    font-size:13px;
 }
 
 /* =========================================================
    RESOURCES
    ========================================================= */
 
-.resources{
-    background:rgba(3,10,15,.97);
-}
-
 .resource-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    gap:16px;
 }
 
 .resource{
+    padding:24px;
     min-height:190px;
-    padding:25px;
-    border-radius:21px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);
-    transition:.35s ease;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:rgba(6,19,29,.72);
+    transition:.3s ease;
 }
 
 .resource:hover{
-    transform:translateY(-5px);
-    border-color:rgba(160,220,242,.2);
+    border-color:rgba(141,232,239,.28);
 }
 
-.resource-icon{
-    width:37px;
-    height:37px;
-    display:grid;
-    place-items:center;
-    border-radius:11px;
-    border:1px solid rgba(255,255,255,.11);
-    color:#c7ebf8;
-    font-size:.8rem;
+.resource-number{
+    color:#657d87;
+    font-size:10px;
+    letter-spacing:2px;
 }
 
 .resource h3{
-    margin-top:28px;
-    font-size:1rem;
+    margin-top:48px;
+    font-size:18px;
+    margin-bottom:8px;
 }
 
 .resource p{
-    margin-top:8px;
-    color:#899ca7;
-    line-height:1.6;
-    font-size:.73rem;
+    color:var(--muted);
+    font-size:12px;
 }
 
 /* =========================================================
    LIBRARY
    ========================================================= */
 
-.library{
+.library-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:45px;
+    padding:50px;
+    border:1px solid var(--line);
+    border-radius:28px;
     background:
         linear-gradient(
-            180deg,
-            rgba(3,10,15,.98),
-            rgba(5,14,21,.97)
+            135deg,
+            rgba(8,26,38,.84),
+            rgba(3,13,21,.72)
         );
 }
 
-.library-box{
-    display:grid;
-    grid-template-columns:1.2fr .8fr;
-    min-height:430px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:30px;
-    background:rgba(255,255,255,.03);
+.library-box h2{
+    font-size:clamp(30px,4vw,50px);
+    letter-spacing:-2px;
+    line-height:1.05;
+    margin-bottom:15px;
 }
 
-.library-copy{
-    padding:55px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.library-copy h2{
-    font-size:clamp(2.2rem,5vw,4.4rem);
-    letter-spacing:-.065em;
-    line-height:.98;
-}
-
-.library-copy p{
-    max-width:580px;
-    margin-top:20px;
-    color:#9cabb4;
-    line-height:1.8;
+.library-box p{
+    color:var(--muted);
+    margin-bottom:25px;
 }
 
 .library-art{
+    height:270px;
+    display:grid;
+    place-items:center;
     position:relative;
-    overflow:hidden;
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            rgba(126,202,233,.18),
-            transparent 40%
-        ),
-        #06111a;
 }
 
 .book{
     position:absolute;
-    width:170px;
-    height:225px;
-    border:1px solid rgba(255,255,255,.15);
+    width:155px;
+    height:205px;
+    border:1px solid rgba(210,235,240,.25);
+    border-radius:5px 12px 12px 5px;
     background:
         linear-gradient(
-            145deg,
-            rgba(255,255,255,.12),
-            rgba(255,255,255,.025)
+            120deg,
+            rgba(100,170,190,.22),
+            rgba(20,50,65,.5)
         );
-    border-radius:6px 13px 13px 6px;
-    box-shadow:0 30px 70px rgba(0,0,0,.4);
-}
-
-.book:nth-child(1){
-    left:17%;
-    top:24%;
-    transform:rotate(-12deg);
-}
-
-.book:nth-child(2){
-    left:38%;
-    top:17%;
-    transform:rotate(5deg);
-}
-
-.book:nth-child(3){
-    left:57%;
-    top:29%;
-    transform:rotate(14deg);
+    box-shadow:25px 25px 55px rgba(0,0,0,.35);
+    transform:rotate(-8deg);
 }
 
 .book:before{
     content:"DREAM HUNT";
     position:absolute;
-    left:20px;
-    top:22px;
-    color:rgba(222,241,248,.66);
-    font-size:.65rem;
-    letter-spacing:.13em;
+    left:18px;
+    right:18px;
+    top:65px;
+    font-size:12px;
+    letter-spacing:3px;
+    color:#bdeff1;
+    transform:rotate(90deg);
+}
+
+.book:nth-child(2){
+    transform:rotate(9deg) translate(35px,-5px);
+    opacity:.55;
+}
+
+.book:nth-child(3){
+    transform:rotate(-2deg) translate(-20px,15px);
+    opacity:.35;
 }
 
 /* =========================================================
    PLANS
    ========================================================= */
 
-.plans{
-    background:
-        radial-gradient(
-            circle at 50% 30%,
-            rgba(103,180,214,.07),
-            transparent 45%
-        ),
-        rgba(3,10,15,.99);
-}
-
 .plan-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    gap:16px;
 }
 
 .plan{
-    padding:29px;
-    min-height:410px;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:25px;
-    background:rgba(255,255,255,.03);
     position:relative;
-    display:flex;
-    flex-direction:column;
+    padding:28px;
+    min-height:330px;
+    border:1px solid var(--line);
+    border-radius:23px;
+    background:rgba(6,19,29,.78);
+    transition:.3s ease;
 }
 
 .plan.featured{
-    border-color:rgba(169,224,244,.25);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(142,210,235,.10),
-            rgba(255,255,255,.025)
-        );
+    border-color:rgba(141,232,239,.35);
+    transform:translateY(-7px);
 }
 
-.plan-label{
-    font-size:.62rem;
-    color:#94d9f6;
-    text-transform:uppercase;
-    letter-spacing:.14em;
+.plan:hover{
+    transform:translateY(-8px);
+}
+
+.plan-tag{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:999px;
+    background:rgba(141,232,239,.08);
+    color:#a8e9ed;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.plan-price{
+    font-size:42px;
     font-weight:800;
+    letter-spacing:-2px;
+    margin:28px 0 5px;
 }
 
 .plan h3{
-    margin-top:20px;
-    font-size:1.25rem;
+    font-size:18px;
+    margin-bottom:10px;
 }
 
-.price{
-    margin-top:19px;
-    font-size:2.8rem;
-    letter-spacing:-.07em;
-}
-
-.price span{
-    font-size:.72rem;
-    color:#899ca7;
-    letter-spacing:0;
-}
-
-.plan ul{
-    list-style:none;
-    margin-top:25px;
-    display:flex;
-    flex-direction:column;
-    gap:11px;
-}
-
-.plan li{
-    color:#9baeb8;
-    font-size:.73rem;
-    line-height:1.5;
-}
-
-.plan li:before{
-    content:"✓";
-    color:#aee4f6;
-    margin-right:8px;
-}
-
-.plan .btn{
-    margin-top:auto;
-    width:100%;
+.plan p{
+    color:var(--muted);
+    font-size:12px;
 }
 
 /* =========================================================
@@ -1075,37 +1211,34 @@ section{
    ========================================================= */
 
 .cta{
-    padding:150px 0;
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(130,204,235,.11),
-            transparent 50%
-        ),
-        rgba(3,10,15,1);
+    padding-bottom:120px;
 }
 
 .cta-box{
     text-align:center;
-    max-width:900px;
-    margin:auto;
+    padding:75px 30px;
+    border:1px solid var(--line);
+    border-radius:30px;
+    background:
+        radial-gradient(
+            circle at 50% 0,
+            rgba(141,232,239,.10),
+            transparent 55%
+        ),
+        rgba(5,17,26,.75);
 }
 
 .cta-box h2{
-    font-size:clamp(3rem,7vw,6.4rem);
-    letter-spacing:-.075em;
-    line-height:.9;
+    font-size:clamp(35px,5vw,65px);
+    letter-spacing:-3px;
+    line-height:1;
+    margin-bottom:20px;
 }
 
 .cta-box p{
-    margin:24px auto 0;
+    color:var(--muted);
     max-width:580px;
-    color:#9babb5;
-    line-height:1.8;
-}
-
-.cta-box .hero-actions{
-    justify-content:center;
+    margin:0 auto 28px;
 }
 
 /* =========================================================
@@ -1113,147 +1246,120 @@ section{
    ========================================================= */
 
 footer{
-    padding:55px 0 30px;
-    background:#02070b;
-    border-top:1px solid rgba(255,255,255,.07);
+    border-top:1px solid var(--line);
+    padding:40px 0;
+    background:rgba(2,9,14,.65);
 }
 
 .footer-inner{
-    width:min(1240px,92%);
-    margin:auto;
-}
-
-.footer-top{
     display:flex;
+    align-items:center;
     justify-content:space-between;
-    gap:30px;
-    padding-bottom:35px;
+    gap:20px;
 }
 
-.footer-brand{
-    max-width:350px;
-}
-
-.footer-brand p{
-    margin-top:14px;
-    color:#7e929e;
-    line-height:1.7;
-    font-size:.75rem;
+.footer-copy{
+    color:#738b95;
+    font-size:11px;
 }
 
 .footer-links{
     display:flex;
-    gap:55px;
-}
-
-.footer-links div{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.footer-links strong{
-    font-size:.7rem;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    color:#d6e2e8;
-    margin-bottom:5px;
+    gap:18px;
+    flex-wrap:wrap;
 }
 
 .footer-links a{
-    text-decoration:none;
-    color:#71848f;
-    font-size:.72rem;
-}
-
-.footer-bottom{
-    padding-top:22px;
-    border-top:1px solid rgba(255,255,255,.07);
-    display:flex;
-    justify-content:space-between;
-    color:#596b75;
-    font-size:.65rem;
+    color:#8fa8b2;
+    font-size:11px;
 }
 
 /* =========================================================
    AUTH MODAL
    ========================================================= */
 
-.modal{
+.auth-overlay{
     position:fixed;
     inset:0;
-    z-index:500;
+    z-index:3000;
     display:none;
     align-items:center;
     justify-content:center;
     padding:20px;
-    background:rgba(0,0,0,.68);
-    backdrop-filter:blur(18px);
+    background:rgba(0,5,9,.72);
+    backdrop-filter:blur(16px);
 }
 
-.modal.active{
+.auth-overlay.active{
     display:flex;
 }
 
-.auth-box{
-    width:min(480px,100%);
+.auth-modal{
+    width:min(570px,100%);
     max-height:92vh;
     overflow:auto;
-    border:1px solid rgba(255,255,255,.13);
-    border-radius:27px;
+    border:1px solid var(--line);
+    border-radius:25px;
     background:
         linear-gradient(
             145deg,
-            rgba(12,28,39,.97),
-            rgba(4,13,20,.98)
+            rgba(8,25,37,.97),
+            rgba(3,13,21,.98)
         );
-    box-shadow:0 40px 120px rgba(0,0,0,.55);
+    box-shadow:0 35px 100px rgba(0,0,0,.55);
     padding:30px;
+    position:relative;
 }
 
-.auth-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-}
-
-.auth-header h2{
-    font-size:1.7rem;
-    letter-spacing:-.05em;
-}
-
-.close-modal{
+.auth-close{
+    position:absolute;
+    top:16px;
+    right:16px;
     width:35px;
     height:35px;
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid var(--line);
     border-radius:10px;
+    background:rgba(255,255,255,.04);
     color:white;
-    background:rgba(255,255,255,.05);
-    cursor:pointer;
+}
+
+.auth-head{
+    margin-bottom:24px;
+}
+
+.auth-head h2{
+    font-size:30px;
+    letter-spacing:-1.5px;
+}
+
+.auth-head p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
 }
 
 .auth-tabs{
     display:grid;
     grid-template-columns:1fr 1fr;
-    margin:25px 0 22px;
-    padding:4px;
-    background:rgba(255,255,255,.04);
-    border-radius:13px;
+    gap:6px;
+    padding:5px;
+    background:rgba(255,255,255,.035);
+    border-radius:12px;
+    margin-bottom:22px;
 }
 
 .auth-tab{
-    border:0;
     padding:10px;
-    border-radius:10px;
-    color:#8295a0;
+    border:0;
     background:transparent;
-    cursor:pointer;
-    font-weight:700;
+    color:#8299a3;
+    border-radius:9px;
+    font-size:12px;
 }
 
 .auth-tab.active{
-    color:white;
-    background:rgba(255,255,255,.09);
+    background:rgba(141,232,239,.11);
+    color:#eaffff;
 }
 
 .auth-form{
@@ -1264,73 +1370,59 @@ footer{
     display:block;
 }
 
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
 .field{
-    margin-bottom:13px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field.full{
+    grid-column:1/-1;
 }
 
 .field label{
-    display:block;
-    margin-bottom:6px;
-    color:#9eafb9;
-    font-size:.67rem;
+    font-size:10px;
+    color:#91aab4;
+    text-transform:uppercase;
+    letter-spacing:1px;
 }
 
 .field input,
 .field select{
     width:100%;
-    height:45px;
-    border:1px solid rgba(255,255,255,.1);
-    outline:none;
+    padding:12px 13px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:rgba(0,0,0,.18);
     color:white;
-    background:rgba(255,255,255,.045);
-    border-radius:11px;
-    padding:0 12px;
-    font-size:.76rem;
+    outline:none;
 }
 
 .field input:focus,
 .field select:focus{
-    border-color:rgba(151,217,242,.38);
+    border-color:rgba(141,232,239,.42);
 }
 
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0 11px;
-}
-
-.full{
-    grid-column:1/-1;
+.field select option{
+    background:#07131d;
 }
 
 .auth-submit{
     width:100%;
-    margin-top:10px;
+    margin-top:18px;
 }
 
 .auth-message{
-    margin-top:12px;
-    min-height:18px;
-    color:#a8c6d2;
-    font-size:.72rem;
-    line-height:1.5;
-}
-
-/* =========================================================
-   REVEAL
-   ========================================================= */
-
-.reveal{
-    opacity:0;
-    transform:translateY(35px);
-    transition:
-        opacity 1s ease,
-        transform 1s cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.visible{
-    opacity:1;
-    transform:none;
+    margin-top:13px;
+    min-height:20px;
+    color:#9ee7d0;
+    font-size:11px;
 }
 
 /* =========================================================
@@ -1339,43 +1431,7 @@ footer{
 
 @media(max-width:1000px){
 
-    .nav-links{
-        display:none;
-        position:absolute;
-        top:72px;
-        left:4%;
-        width:92%;
-        padding:20px;
-        border:1px solid rgba(255,255,255,.1);
-        border-radius:20px;
-        background:rgba(4,13,20,.92);
-        backdrop-filter:blur(25px);
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .nav-links.open{
-        display:flex;
-    }
-
-    .menu-toggle{
-        display:block;
-    }
-
-    .nav-actions{
-        margin-left:auto;
-        margin-right:8px;
-    }
-
-    .nav-actions .nav-btn:first-child{
-        display:none;
-    }
-
     .pathway-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .course-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
@@ -1387,203 +1443,263 @@ footer{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .library-box{
-        grid-template-columns:1fr;
+    .science-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .library-art{
-        min-height:380px;
-    }
 }
 
-@media(max-width:650px){
+@media(max-width:800px){
 
-    section{
-        padding:90px 0;
+    .navbar{
+        padding:14px 5%;
     }
 
-    .hero{
-        min-height:95vh;
+    .menu-toggle{
+        display:block;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:65px;
+        left:5%;
+        right:5%;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        padding:15px;
+        border:1px solid var(--line);
+        border-radius:18px;
+        background:rgba(4,15,23,.96);
+        backdrop-filter:blur(20px);
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:10px;
+    }
+
+    .nav-actions{
+        margin-left:auto;
+        margin-right:8px;
+    }
+
+    .nav-actions .nav-btn{
+        padding:8px 10px;
     }
 
     .hero h1{
-        font-size:clamp(3rem,15vw,5rem);
+        letter-spacing:-4px;
     }
 
-    .hero-description{
-        font-size:.91rem;
+    .science-main{
+        grid-template-columns:1fr;
     }
 
-    .hero-meta{
-        gap:18px;
+    .library-box{
+        grid-template-columns:1fr;
+        padding:30px;
+    }
+
+    .exam-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    section{
+        padding:80px 0;
     }
 
     .pathway-grid,
     .course-grid,
     .resource-grid,
-    .exam-grid,
-    .science-grid,
-    .plan-grid{
+    .plan-grid,
+    .science-grid{
         grid-template-columns:1fr;
     }
 
+    .hero{
+        min-height:90vh;
+    }
+
+    .hero h1{
+        font-size:clamp(48px,15vw,75px);
+        letter-spacing:-4px;
+    }
+
+    .hero-description{
+        font-size:15px;
+    }
+
     .environment-panel{
-        position:relative;
-        top:auto;
-        right:auto;
-        margin-top:50px;
+        padding:25px;
     }
 
-    .nature-section{
-        min-height:125vh;
-    }
-
-    .science-visual{
-        height:390px;
-    }
-
-    .library-copy{
-        padding:30px;
-    }
-
-    .footer-top,
-    .footer-bottom{
-        flex-direction:column;
-    }
-
-    .footer-links{
-        gap:25px;
-        flex-wrap:wrap;
+    .environment-panel h3{
+        font-size:26px;
     }
 
     .form-grid{
         grid-template-columns:1fr;
     }
 
-    .full{
+    .field.full{
         grid-column:auto;
     }
 
-    .auth-box{
+    .auth-modal{
         padding:22px;
     }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
 }
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
     *,
     *:before,
     *:after{
-        animation-duration:.001ms !important;
+        animation-duration:.01ms !important;
         animation-iteration-count:1 !important;
         scroll-behavior:auto !important;
-        transition-duration:.001ms !important;
+        transition-duration:.01ms !important;
     }
+
 }
 
 /* =========================================================
    MICRO ANIMATION
    ========================================================= */
 
-@keyframes pulse{
-    0%,100%{
-        transform:scale(.85);
-        opacity:.5;
-    }
+@keyframes pulseGlow{
     50%{
-        transform:scale(1.3);
-        opacity:1;
+        opacity:.65;
     }
 }
+
 </style>
 </head>
 
 <body>
 
 <canvas id="world"></canvas>
-<div id="worldShade"></div>
-<div id="vignette"></div>
+<div class="world-shade"></div>
+<div class="vignette"></div>
 
-<div class="page">
+<!-- =======================================================
+     NAVBAR
+     ======================================================= -->
 
-<!-- ======================================================
-     NAVIGATION
-     ====================================================== -->
+<header class="navbar" id="navbar">
 
-<nav class="navbar" id="navbar">
-    <div class="nav-inner">
+    <a href="#home" class="brand">
+        <span class="brand-mark"></span>
+        <span>Dream Hunt</span>
+    </a>
 
-        <a href="#home" class="brand">
-            <span class="brand-mark">
-                <span class="brand-dot"></span>
-            </span>
-            <span>Dream Hunt</span>
+    <nav class="nav-links" id="navLinks">
+
+        <a href="#pathways">Pathways</a>
+        <a href="#courses">Courses</a>
+        <a href="#exams">Exams</a>
+        <a href="#resources">Resources</a>
+        <a href="#library">Library</a>
+        <a href="#plans">Plans</a>
+
+    </nav>
+
+    <div class="nav-actions" id="navActions">
+
+        <button
+            class="nav-btn"
+            id="loginNavBtn"
+            type="button"
+            onclick="openAuth('login')">
+            Login
+        </button>
+
+        <button
+            class="nav-btn primary"
+            id="registerNavBtn"
+            type="button"
+            onclick="openAuth('register')">
+            Register
+        </button>
+
+        <a
+            class="nav-btn primary"
+            id="dashboardNavBtn"
+            href="dashboard.html"
+            style="display:none;">
+            Dashboard
         </a>
 
-        <div class="nav-links" id="navLinks">
-            <a href="#pathways">Pathways</a>
-            <a href="#courses">Courses</a>
-            <a href="#exams">Exams</a>
-            <a href="#resources">Resources</a>
-            <a href="library.html">Library</a>
-            <a href="#plans">Plans</a>
-        </div>
-
-        <div class="nav-actions">
-            <button class="nav-btn" onclick="openAuth('login')">
-                Login
-            </button>
-
-            <button class="nav-btn primary" onclick="openAuth('register')">
-                Register
-            </button>
-
-            <button class="menu-toggle" id="menuToggle">
-                ☰
-            </button>
-        </div>
-
     </div>
-</nav>
 
-<!-- ======================================================
+    <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Open menu">
+        ☰
+    </button>
+
+</header>
+
+<!-- =======================================================
      HERO
-     ====================================================== -->
+     ======================================================= -->
+
+<main>
 
 <section class="hero" id="home">
 
-    <div class="hero-content">
+    <div class="container">
 
-        <div class="hero-copy reveal">
+        <div class="hero-content reveal">
 
             <div class="eyebrow">
-                <span class="eyebrow-dot"></span>
                 Complete Admission Preparation Platform
             </div>
 
             <h1>
                 Prepare for
-                <span>the place</span>
-                <span class="thin">you belong.</span>
+                <span>the place you belong.</span>
             </h1>
 
             <p class="hero-description">
-                Dream Hunt brings admission preparation, structured exams,
-                question banks, academic resources and performance tracking
+                Dream Hunt brings admission preparation,
+                structured exams, question banks, resources,
+                performance tracking and pathway-based preparation
                 into one focused learning environment.
             </p>
 
-            <div class="hero-actions">
+            <div class="hero-buttons">
 
                 <button
-                    class="btn btn-main"
+                    class="btn primary"
+                    id="heroStartBtn"
                     onclick="openAuth('register')">
-                    Start Your Journey
+                    Start Your Journey →
                 </button>
 
                 <a
-                    href="#pathways"
-                    class="btn btn-outline">
+                    class="btn"
+                    href="#pathways">
                     Explore Pathways
                 </a>
 
@@ -1591,19 +1707,16 @@ footer{
 
             <div class="hero-meta">
 
-                <div class="meta-item">
-                    <span class="meta-number">8</span>
-                    <span class="meta-label">Major Admission Pathways</span>
+                <div>
+                    8 Major Admission Pathways
                 </div>
 
-                <div class="meta-item">
-                    <span class="meta-number">1990+</span>
-                    <span class="meta-label">Question Bank Coverage</span>
+                <div>
+                    Question bank from year 1990
                 </div>
 
-                <div class="meta-item">
-                    <span class="meta-number">50–300</span>
-                    <span class="meta-label">Exam Formats</span>
+                <div>
+                    50–300 Exam Formats
                 </div>
 
             </div>
@@ -1611,30 +1724,32 @@ footer{
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
-     NATURAL WORLD
-     ====================================================== -->
+<!-- =======================================================
+     NATURE
+     ======================================================= -->
 
 <section class="nature-section" id="nature">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                The world outside the classroom
+            <div class="eyebrow">
+                A Living Learning Environment
             </div>
 
-            <h2 class="section-title">
-                Learn inside a living world.
+            <h2>
+                The world outside
+                the classroom.
             </h2>
 
-            <p class="section-description">
-                The environment behind Dream Hunt is not a static picture.
-                It changes slowly — atmosphere, clouds, rain, light,
-                mountains, water, sunset, moon and stars continuously evolve.
+            <p>
+                Learn inside a living world where light,
+                clouds, rain, mountains, rivers and the night
+                sky continuously evolve around you.
             </p>
 
         </div>
@@ -1643,301 +1758,441 @@ footer{
 
             <div class="environment-panel reveal">
 
+                <div class="environment-top">
+
+                    <div class="eyebrow" style="margin:0;">
+                        Live Environment
+                    </div>
+
+                    <div class="environment-status">
+
+                        <span class="live-dot"></span>
+
+                        <span id="environmentStatus">
+                            LIVE
+                        </span>
+
+                    </div>
+
+                </div>
+
                 <h3 id="environmentTitle">
                     Morning Atmosphere
                 </h3>
 
                 <p id="environmentText">
-                    The day begins quietly. Light spreads through the
-                    atmosphere while distant clouds slowly gather.
+                    Soft light spreads through the atmosphere.
+                    The world is quiet before the weather begins
+                    to change.
                 </p>
-
-                <div class="environment-line"></div>
-
-                <div class="environment-status">
-                    <span>ENVIRONMENT</span>
-                    <span class="status-live" id="environmentStatus">
-                        LIVE
-                    </span>
-                </div>
 
             </div>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      PATHWAYS
-     ====================================================== -->
+     ======================================================= -->
 
-<section class="pathways" id="pathways">
+<section id="pathways">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                Admission pathways
+            <div class="eyebrow">
+                Admission Pathways
             </div>
 
-            <h2 class="section-title">
-                One preparation system.
-                Every direction.
+            <h2>
+                Choose the direction.
             </h2>
 
-            <p class="section-description">
-                Choose the admission route that matches your goal and
-                prepare through a structured ecosystem designed around
-                competitive examinations.
+            <p>
+                Build your preparation around the admission
+                pathway that matches your destination.
             </p>
 
         </div>
 
         <div class="pathway-grid">
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">01</span>
-                <h3>Public University</h3>
-                <p>
-                    University admission preparation with unit-based
-                    question practice and competitive exam strategy.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+            <!-- 01 -->
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">02</span>
-                <h3>Engineering</h3>
-                <p>
-                    Mathematics, Physics, Chemistry and engineering-focused
-                    admission problem solving.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+            <article class="pathway-card reveal">
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">03</span>
-                <h3>Agricultural</h3>
-                <p>
-                    Agricultural university admission-oriented preparation
-                    with science-heavy competitive practice.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+                <div class="pathway-number">01 / PUBLIC UNIVERSITY</div>
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">04</span>
-                <h3>Medical</h3>
-                <p>
-                    Medical admission preparation with intensive Biology,
-                    Chemistry, Physics and GK practice.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+                <div class="pathway-visual">
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">05</span>
-                <h3>Dental</h3>
-                <p>
-                    Focused preparation for dental admission examinations
-                    and science-based competitive testing.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+                    <div class="campus-building"></div>
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">06</span>
-                <h3>Textile</h3>
-                <p>
-                    Admission preparation for textile and related
-                    specialized academic institutions.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+                    <div class="orbit">
+                        <i></i>
+                    </div>
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">07</span>
-                <h3>Specialized / Other</h3>
-                <p>
-                    Preparation support for specialized institutions and
-                    other competitive admission routes.
-                </p>
-                <span class="pathway-glow"></span>
-            </div>
+                </div>
 
-            <div class="pathway-card reveal">
-                <span class="pathway-number">08</span>
-                <h3>Abroad Study</h3>
                 <p>
-                    A broader academic preparation direction for students
-                    considering study opportunities beyond Bangladesh.
+                    University admission preparation
                 </p>
-                <span class="pathway-glow"></span>
-            </div>
+
+                <h3>
+                    Public University
+                </h3>
+
+            </article>
+
+            <!-- 02 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">02 / ENGINEERING</div>
+
+                <div class="pathway-visual">
+
+                    <div class="engineering-lines"></div>
+
+                    <div class="gear"></div>
+
+                </div>
+
+                <p>
+                    Engineering admission preparation
+                </p>
+
+                <h3>
+                    Engineering
+                </h3>
+
+            </article>
+
+            <!-- 03 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">03 / AGRICULTURAL</div>
+
+                <div class="pathway-visual">
+
+                    <div class="field"></div>
+
+                    <div class="plant p1"></div>
+                    <div class="plant p2"></div>
+                    <div class="plant p3"></div>
+
+                </div>
+
+                <p>
+                    Agricultural university preparation
+                </p>
+
+                <h3>
+                    Agricultural
+                </h3>
+
+            </article>
+
+            <!-- 04 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">04 / MEDICAL</div>
+
+                <div class="pathway-visual">
+
+                    <div class="heart"></div>
+
+                </div>
+
+                <p>
+                    Medical admission preparation
+                </p>
+
+                <h3>
+                    Medical
+                </h3>
+
+            </article>
+
+            <!-- 05 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">05 / DENTAL</div>
+
+                <div class="pathway-visual">
+
+                    <div class="tooth"></div>
+
+                </div>
+
+                <p>
+                    Dental admission preparation
+                </p>
+
+                <h3>
+                    Dental
+                </h3>
+
+            </article>
+
+            <!-- 06 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">06 / TEXTILE</div>
+
+                <div class="pathway-visual">
+
+                    <div class="thread"></div>
+
+                </div>
+
+                <p>
+                    Textile university preparation
+                </p>
+
+                <h3>
+                    Textile
+                </h3>
+
+            </article>
+
+            <!-- 07 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">07 / SPECIALIZED</div>
+
+                <div class="pathway-visual">
+
+                    <div class="network">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </div>
+
+                </div>
+
+                <p>
+                    Specialized and other institutions
+                </p>
+
+                <h3>
+                    Specialized / Other
+                </h3>
+
+            </article>
+
+            <!-- 08 -->
+
+            <article class="pathway-card reveal">
+
+                <div class="pathway-number">08 / ABROAD</div>
+
+                <div class="pathway-visual">
+
+                    <div class="globe"></div>
+
+                    <div class="flight-line">
+                        <i></i>
+                    </div>
+
+                </div>
+
+                <p>
+                    International study preparation
+                </p>
+
+                <h3>
+                    Abroad Study
+                </h3>
+
+            </article>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      COURSES
-     ====================================================== -->
+     ======================================================= -->
 
-<section class="courses" id="courses">
+<section id="courses">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                Preparation system
+            <div class="eyebrow">
+                Preparation Tracks
             </div>
 
-            <h2 class="section-title">
-                Everything built around
-                competitive preparation.
+            <h2>
+                Everything organized
+                around your target.
             </h2>
+
+            <p>
+                Focused preparation structures for different
+                admission goals.
+            </p>
 
         </div>
 
         <div class="course-grid">
 
-            <div class="course-card reveal">
-                <span class="course-tag">Public</span>
-                <h3>University Admission</h3>
-                <p>
-                    Unit-wise preparation, previous questions, model tests,
-                    analytical practice and ranking-based exams.
-                </p>
-                <div class="course-bottom">
-                    <span class="chip">Unit Based</span>
-                    <span class="chip">MCQ</span>
-                    <span class="chip">Ranking</span>
-                </div>
-            </div>
+            <article class="course-card reveal">
 
-            <div class="course-card reveal">
-                <span class="course-tag">Engineering</span>
-                <h3>Engineering Admission</h3>
-                <p>
-                    High-level Mathematics, Physics and Chemistry problems
-                    designed around competitive admission patterns.
-                </p>
-                <div class="course-bottom">
-                    <span class="chip">Math</span>
-                    <span class="chip">Physics</span>
-                    <span class="chip">Chemistry</span>
-                </div>
-            </div>
+                <div class="course-icon">01</div>
 
-            <div class="course-card reveal">
-                <span class="course-tag">Medical</span>
-                <h3>Medical & Dental</h3>
-                <p>
-                    Science-heavy admission practice with Biology,
-                    Chemistry, Physics, English and general knowledge.
-                </p>
-                <div class="course-bottom">
-                    <span class="chip">Biology</span>
-                    <span class="chip">Chemistry</span>
-                    <span class="chip">GK</span>
-                </div>
-            </div>
+                <h3>
+                    Public University
+                </h3>
 
-            <div class="course-card reveal">
-                <span class="course-tag">Agricultural</span>
-                <h3>Agricultural Admission</h3>
                 <p>
-                    Targeted science preparation and repeated exposure to
-                    competitive admission-style questions.
+                    University-specific admission preparation,
+                    units and subject-focused practice.
                 </p>
-                <div class="course-bottom">
-                    <span class="chip">Science</span>
-                    <span class="chip">MCQ</span>
-                    <span class="chip">Practice</span>
-                </div>
-            </div>
 
-            <div class="course-card reveal">
-                <span class="course-tag">Specialized</span>
-                <h3>Special Institution</h3>
-                <p>
-                    Flexible preparation structures for specialized
-                    admission pathways and institutions.
-                </p>
-                <div class="course-bottom">
-                    <span class="chip">Target</span>
-                    <span class="chip">Strategy</span>
-                </div>
-            </div>
+            </article>
 
-            <div class="course-card reveal">
-                <span class="course-tag">International</span>
-                <h3>Abroad Preparation</h3>
+            <article class="course-card reveal">
+
+                <div class="course-icon">02</div>
+
+                <h3>
+                    Engineering
+                </h3>
+
                 <p>
-                    An academic pathway for students exploring international
-                    study opportunities and broader preparation goals.
+                    Mathematics, Physics, Chemistry and
+                    engineering admission-oriented practice.
                 </p>
-                <div class="course-bottom">
-                    <span class="chip">Academic</span>
-                    <span class="chip">Planning</span>
-                </div>
-            </div>
+
+            </article>
+
+            <article class="course-card reveal">
+
+                <div class="course-icon">03</div>
+
+                <h3>
+                    Medical & Dental
+                </h3>
+
+                <p>
+                    Biology, Chemistry, Physics and admission
+                    standard question practice.
+                </p>
+
+            </article>
+
+            <article class="course-card reveal">
+
+                <div class="course-icon">04</div>
+
+                <h3>
+                    Agricultural
+                </h3>
+
+                <p>
+                    Agricultural university admission preparation
+                    with structured examination practice.
+                </p>
+
+            </article>
+
+            <article class="course-card reveal">
+
+                <div class="course-icon">05</div>
+
+                <h3>
+                    Specialized
+                </h3>
+
+                <p>
+                    Specialized institutions and alternative
+                    admission pathways.
+                </p>
+
+            </article>
+
+            <article class="course-card reveal">
+
+                <div class="course-icon">06</div>
+
+                <h3>
+                    Abroad
+                </h3>
+
+                <p>
+                    International study preparation and
+                    admission-oriented academic resources.
+                </p>
+
+            </article>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      SCIENCE WORLD
-     ====================================================== -->
+     ======================================================= -->
 
 <section class="science-world" id="science">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                The world beneath the questions
+            <div class="eyebrow">
+                Science In Motion
             </div>
 
-            <h2 class="section-title">
-                Science doesn't stay inside a book.
+            <h2>
+                Concepts that move.
             </h2>
 
-            <p class="section-description">
-                As the natural world moves upward through the page,
-                the lower world becomes increasingly scientific —
-                motion, waves, atoms, reactions, cells, DNA, circulation,
-                gravity and space.
+            <p>
+                Physics, chemistry, biology and space are not
+                static pages. They are systems continuously
+                changing around us.
             </p>
 
         </div>
 
-        <!-- PHYSICS -->
+        <div class="science-main">
 
-        <div class="science-visual reveal">
+            <div class="science-visual reveal">
 
-            <canvas id="physicsMain"></canvas>
+                <div class="science-label">
+                    Physics — Motion
+                </div>
 
-            <div class="science-overlay"></div>
+                <canvas id="physicsMain"></canvas>
 
-            <div class="science-caption">
+            </div>
 
-                <small>PHYSICS · MOTION</small>
+            <div class="science-visual reveal">
 
-                <h3>Every trajectory tells a story.</h3>
+                <div class="science-label">
+                    Chemistry — Molecular Motion
+                </div>
 
-                <p>
-                    Projectile motion, gravity, momentum and collision
-                    unfold continuously instead of appearing as static
-                    diagrams.
-                </p>
+                <canvas id="chemCanvas"></canvas>
 
             </div>
 
@@ -1945,292 +2200,331 @@ footer{
 
         <div class="science-grid">
 
-            <!-- CHEMISTRY -->
-
-            <div class="science-card reveal">
-
-                <canvas id="chemCanvas"></canvas>
-
-                <div class="science-info">
-
-                    <span>Chemistry</span>
-
-                    <h4>Particles become reactions.</h4>
-
-                    <p>
-                        Molecular motion, collisions and bond changes
-                        emerge gradually.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <!-- BIOLOGY -->
-
             <div class="science-card reveal">
 
                 <canvas id="bioCanvas"></canvas>
 
-                <div class="science-info">
-
-                    <span>Biology</span>
-
-                    <h4>Life is motion at another scale.</h4>
-
-                    <p>
-                        Cells, DNA, circulation and biological structures
-                        continuously interact.
-                    </p>
-
-                </div>
+                <h3>
+                    Biology — DNA & Cells
+                </h3>
 
             </div>
-
-            <!-- WAVES -->
 
             <div class="science-card reveal">
 
                 <canvas id="waveCanvas"></canvas>
 
-                <div class="science-info">
-
-                    <span>Physics · Waves</span>
-
-                    <h4>Energy travels without carrying matter.</h4>
-
-                    <p>
-                        Interference, reflection and wave propagation
-                        evolve slowly across the field.
-                    </p>
-
-                </div>
+                <h3>
+                    Waves & Interference
+                </h3>
 
             </div>
-
-            <!-- SPACE -->
 
             <div class="science-card reveal">
 
                 <canvas id="spaceCanvas"></canvas>
 
-                <div class="science-info">
+                <h3>
+                    Space & Orbits
+                </h3>
 
-                    <span>Astronomy</span>
+            </div>
 
-                    <h4>Gravity shapes the larger world.</h4>
+            <div class="science-card reveal">
 
-                    <p>
-                        Orbital motion, stars and planetary systems
-                        continuously move through space.
-                    </p>
+                <canvas id="cycleCanvas"></canvas>
 
-                </div>
+                <h3>
+                    Natural Cycles
+                </h3>
 
             </div>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      EXAMS
-     ====================================================== -->
+     ======================================================= -->
 
-<section class="exams" id="exams">
+<section id="exams">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                Examination system
+            <div class="eyebrow">
+                Examination System
             </div>
 
-            <h2 class="section-title">
-                Practice often.
-                Measure honestly.
+            <h2>
+                Prepare. Test. Rank.
             </h2>
 
-            <p class="section-description">
-                Consistent testing turns preparation into measurable
-                progress.
+            <p>
+                Regular examination cycles keep preparation
+                measurable and consistent.
             </p>
 
         </div>
 
         <div class="exam-grid">
 
-            <div class="exam-card reveal">
-                <div class="exam-number">01</div>
-                <h3>Daily Exam</h3>
-                <p>
-                    Short, consistent admission-standard practice designed
-                    to keep your preparation active every day.
-                </p>
-                <div class="exam-mark">50 MARKS</div>
-            </div>
+            <article class="exam-card reveal">
 
-            <div class="exam-card featured reveal">
-                <div class="exam-number">02</div>
-                <h3>Weekly Exam</h3>
-                <p>
-                    A broader assessment combining multiple concepts and
-                    competitive question patterns.
-                </p>
-                <div class="exam-mark">100 MARKS</div>
-            </div>
+                <div class="eyebrow">
+                    Daily
+                </div>
 
-            <div class="exam-card reveal">
-                <div class="exam-number">03</div>
-                <h3>15-Day Exam</h3>
+                <div class="exam-number">
+                    50
+                </div>
+
+                <h3>
+                    Daily Exam
+                </h3>
+
                 <p>
-                    Large-scale evaluation to understand your actual
-                    position across the preparation cycle.
+                    50-mark daily admission-standard examination.
                 </p>
-                <div class="exam-mark">300 MARKS</div>
-            </div>
+
+            </article>
+
+            <article class="exam-card reveal">
+
+                <div class="eyebrow">
+                    Weekly
+                </div>
+
+                <div class="exam-number">
+                    100
+                </div>
+
+                <h3>
+                    Weekly Exam
+                </h3>
+
+                <p>
+                    100-mark weekly comprehensive examination.
+                </p>
+
+            </article>
+
+            <article class="exam-card reveal">
+
+                <div class="eyebrow">
+                    Every 15 Days
+                </div>
+
+                <div class="exam-number">
+                    300
+                </div>
+
+                <h3>
+                    15-Day Exam
+                </h3>
+
+                <p>
+                    300-mark major examination for deeper
+                    performance evaluation.
+                </p>
+
+            </article>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      RESOURCES
-     ====================================================== -->
+     ======================================================= -->
 
-<section class="resources" id="resources">
+<section id="resources">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                Knowledge resources
+            <div class="eyebrow">
+                Knowledge Resources
             </div>
 
-            <h2 class="section-title">
-                The material you need,
-                organized.
+            <h2>
+                Your preparation,
+                backed by depth.
             </h2>
+
+            <p>
+                High-value resources designed for admission
+                preparation rather than passive studying.
+            </p>
 
         </div>
 
         <div class="resource-grid">
 
-            <div class="resource reveal">
-                <div class="resource-icon">QB</div>
-                <h3>Question Bank</h3>
-                <p>
-                    Previous admission questions and extensive practice
-                    material from 1990 onward.
-                </p>
-            </div>
+            <article class="resource reveal">
 
-            <div class="resource reveal">
-                <div class="resource-icon">BK</div>
-                <h3>Marked Books</h3>
-                <p>
-                    Important concepts and high-value portions arranged
-                    for faster revision.
-                </p>
-            </div>
+                <div class="resource-number">01</div>
 
-            <div class="resource reveal">
-                <div class="resource-icon">Σ</div>
-                <h3>Formula Sheets</h3>
-                <p>
-                    Essential formulas collected together for efficient
-                    mathematical and scientific revision.
-                </p>
-            </div>
+                <h3>
+                    Question Bank
+                </h3>
 
-            <div class="resource reveal">
-                <div class="resource-icon">ST</div>
-                <h3>Short Tricks</h3>
                 <p>
-                    Time-saving approaches for competitive admission
-                    problems.
+                    Question bank from year 1990 with extensive
+                    admission practice material.
                 </p>
-            </div>
 
-            <div class="resource reveal">
-                <div class="resource-icon">CA</div>
-                <h3>Current Affairs</h3>
-                <p>
-                    Relevant current events and general knowledge updates
-                    for admission preparation.
-                </p>
-            </div>
+            </article>
 
-            <div class="resource reveal">
-                <div class="resource-icon">HT</div>
-                <h3>Hot Topics</h3>
-                <p>
-                    High-interest concepts and frequently relevant areas
-                    highlighted for revision.
-                </p>
-            </div>
+            <article class="resource reveal">
 
-            <div class="resource reveal">
-                <div class="resource-icon">RK</div>
-                <h3>Ranking</h3>
-                <p>
-                    Performance comparison to understand progress against
-                    the competitive field.
-                </p>
-            </div>
+                <div class="resource-number">02</div>
 
-            <div class="resource reveal">
-                <div class="resource-icon">LX</div>
-                <h3>Limited Seats</h3>
+                <h3>
+                    Marked Books
+                </h3>
+
                 <p>
-                    Structured batches with controlled capacity to maintain
-                    an organized preparation environment.
+                    Important concepts and high-value sections
+                    organized through annotated books.
                 </p>
-            </div>
+
+            </article>
+
+            <article class="resource reveal">
+
+                <div class="resource-number">03</div>
+
+                <h3>
+                    Formula Sheets
+                </h3>
+
+                <p>
+                    Important formulas together for faster
+                    revision and examination recall.
+                </p>
+
+            </article>
+
+            <article class="resource reveal">
+
+                <div class="resource-number">04</div>
+
+                <h3>
+                    Short Tricks
+                </h3>
+
+                <p>
+                    Efficient methods for solving admission-level
+                    questions under time pressure.
+                </p>
+
+            </article>
+
+            <article class="resource reveal">
+
+                <div class="resource-number">05</div>
+
+                <h3>
+                    Current Affairs
+                </h3>
+
+                <p>
+                    Relevant current events and knowledge updates.
+                </p>
+
+            </article>
+
+            <article class="resource reveal">
+
+                <div class="resource-number">06</div>
+
+                <h3>
+                    Hot Topics
+                </h3>
+
+                <p>
+                    Important and frequently relevant topics for
+                    focused preparation.
+                </p>
+
+            </article>
+
+            <article class="resource reveal">
+
+                <div class="resource-number">07</div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Performance comparison and ranking-oriented
+                    examination experience.
+                </p>
+
+            </article>
+
+            <article class="resource reveal">
+
+                <div class="resource-number">08</div>
+
+                <h3>
+                    Limited Seats
+                </h3>
+
+                <p>
+                    Structured access with limited seats for the
+                    preparation program.
+                </p>
+
+            </article>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      LIBRARY
-     ====================================================== -->
+     ======================================================= -->
 
-<section class="library" id="library">
+<section id="library">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="library-box reveal">
 
-            <div class="library-copy">
+            <div>
 
-                <div class="section-kicker">
-                    Digital library
+                <div class="eyebrow">
+                    Dream Hunt Library
                 </div>
 
                 <h2>
-                    Your preparation,
-                    in one place.
+                    A place for
+                    everything you need.
                 </h2>
 
                 <p>
-                    Access question banks, books, formula collections,
-                    marked resources and other preparation materials
-                    through the Dream Hunt Library.
+                    Explore organized academic resources,
+                    admission materials, books and preparation
+                    assets in one dedicated library.
                 </p>
 
-                <div class="hero-actions">
-                    <a
-                        href="library.html"
-                        class="btn btn-main">
-                        Open Library
-                    </a>
-                </div>
+                <a
+                    href="library.html"
+                    class="btn primary">
+                    Enter Library →
+                </a>
 
             </div>
 
@@ -2245,188 +2539,227 @@ footer{
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
+<!-- =======================================================
      PLANS
-     ====================================================== -->
+     ======================================================= -->
 
-<section class="plans" id="plans">
+<section id="plans">
 
-    <div class="section-inner">
+    <div class="container">
 
         <div class="section-heading reveal">
 
-            <div class="section-kicker">
-                Registration plans
+            <div class="eyebrow">
+                Registration Plans
             </div>
 
-            <h2 class="section-title">
-                Choose how wide
-                you want to prepare.
+            <h2>
+                Choose your coverage.
             </h2>
 
-            <p class="section-description">
-                Select a category combination according to your admission
-                goals.
+            <p>
+                Select the number of admission pathways you want
+                to prepare for.
             </p>
 
         </div>
 
         <div class="plan-grid">
 
-            <div class="plan reveal">
+            <article class="plan reveal">
 
-                <span class="plan-label">
-                    One category
+                <span class="plan-tag">
+                    FOCUSED
                 </span>
 
-                <h3>Focused</h3>
-
-                <div class="price">
+                <div class="plan-price">
                     ৳300
                 </div>
 
-                <ul>
-                    <li>Any one major category</li>
-                    <li>Daily examinations</li>
-                    <li>Weekly examinations</li>
-                    <li>15-day examination</li>
-                    <li>Relevant resources</li>
-                </ul>
+                <h3>
+                    One Category
+                </h3>
 
-                <button
-                    class="btn btn-outline"
-                    onclick="openAuth('register')">
-                    Register
-                </button>
+                <p>
+                    Public University, Engineering, Medical,
+                    Agricultural or another single pathway.
+                </p>
 
-            </div>
+            </article>
 
-            <div class="plan reveal">
+            <article class="plan reveal">
 
-                <span class="plan-label">
-                    Two categories
+                <span class="plan-tag">
+                    DUAL
                 </span>
 
-                <h3>Dual</h3>
-
-                <div class="price">
+                <div class="plan-price">
                     ৳500
                 </div>
 
-                <ul>
-                    <li>Two selected pathways</li>
-                    <li>Combined exam preparation</li>
-                    <li>Question bank access</li>
-                    <li>Formula resources</li>
-                    <li>Performance tracking</li>
-                </ul>
+                <h3>
+                    Two Categories
+                </h3>
 
-                <button
-                    class="btn btn-outline"
-                    onclick="openAuth('register')">
-                    Register
-                </button>
+                <p>
+                    Prepare across two selected admission
+                    categories.
+                </p>
 
-            </div>
+            </article>
 
-            <div class="plan featured reveal">
+            <article class="plan featured reveal">
 
-                <span class="plan-label">
-                    Three categories
+                <span class="plan-tag">
+                    TRIPLE
                 </span>
 
-                <h3>Triple</h3>
-
-                <div class="price">
+                <div class="plan-price">
                     ৳800
                 </div>
 
-                <ul>
-                    <li>Three selected pathways</li>
-                    <li>Full exam cycle</li>
-                    <li>Extended resources</li>
-                    <li>Current affairs</li>
-                    <li>Ranking-based exams</li>
-                </ul>
+                <h3>
+                    Three Categories
+                </h3>
 
-                <button
-                    class="btn btn-main"
-                    onclick="openAuth('register')">
-                    Choose Plan
-                </button>
+                <p>
+                    Wider admission preparation across three
+                    selected pathways.
+                </p>
 
-            </div>
+            </article>
 
-            <div class="plan reveal">
+            <article class="plan reveal">
 
-                <span class="plan-label">
-                    All major pathways
+                <span class="plan-tag">
+                    COMPLETE
                 </span>
 
-                <h3>Complete</h3>
-
-                <div class="price">
+                <div class="plan-price">
                     ৳1000
                 </div>
 
-                <ul>
-                    <li>All major pathways</li>
-                    <li>Complete exam system</li>
-                    <li>Full resource ecosystem</li>
-                    <li>All formula collections</li>
-                    <li>Maximum preparation flexibility</li>
-                </ul>
+                <h3>
+                    All Major Pathways
+                </h3>
+
+                <p>
+                    Complete access across the major Dream Hunt
+                    admission pathways.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =======================================================
+     CTA
+     ======================================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-box reveal">
+
+            <div class="eyebrow">
+                Dream Hunt
+            </div>
+
+            <h2>
+                Your destination
+                deserves preparation.
+            </h2>
+
+            <p>
+                Start building the preparation that takes you
+                closer to the place you want to belong.
+            </p>
+
+            <div class="hero-buttons"
+                 style="justify-content:center;">
 
                 <button
-                    class="btn btn-outline"
+                    class="btn primary"
+                    id="ctaRegisterBtn"
                     onclick="openAuth('register')">
-                    Register
+                    Create Account →
                 </button>
+
+                <a
+                    href="dashboard.html"
+                    class="btn"
+                    id="ctaDashboardBtn"
+                    style="display:none;">
+                    Open Dashboard
+                </a>
 
             </div>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- ======================================================
-     CTA
-     ====================================================== -->
+</main>
 
-<section class="cta">
+<!-- =======================================================
+     FOOTER
+     ======================================================= -->
 
-    <div class="section-inner">
+<footer>
 
-        <div class="cta-box reveal">
+    <div class="container">
 
-            <div class="section-kicker">
-                Your next chapter starts here
+        <div class="footer-inner">
+
+            <div>
+
+                <div class="brand">
+                    <span class="brand-mark"></span>
+                    <span>Dream Hunt</span>
+                </div>
+
+                <div class="footer-copy"
+                     style="margin-top:10px;">
+                    Complete Admission Preparation Platform
+                </div>
+
             </div>
 
-            <h2>
-                Hunt the dream.
-                Earn the place.
-            </h2>
+            <div class="footer-links">
 
-            <p>
-                Build consistency, test yourself and keep moving toward
-                the institution you want to call your own.
-            </p>
+                <a href="#pathways">Pathways</a>
+                <a href="#courses">Courses</a>
+                <a href="#resources">Resources</a>
+                <a href="library.html">Library</a>
 
-            <div class="hero-actions">
+                <a
+                    href="#"
+                    id="footerLogin"
+                    onclick="openAuth('login');return false;">
+                    Login
+                </a>
 
-                <button
-                    class="btn btn-main"
-                    onclick="openAuth('register')">
-                    Create Account
-                </button>
+                <a
+                    href="#"
+                    id="footerRegister"
+                    onclick="openAuth('register');return false;">
+                    Register
+                </a>
 
                 <a
                     href="dashboard.html"
-                    class="btn btn-outline">
+                    id="footerDashboard"
+                    style="display:none;">
                     Dashboard
                 </a>
 
@@ -2435,100 +2768,39 @@ footer{
         </div>
 
     </div>
-</section>
-
-<!-- ======================================================
-     FOOTER
-     ====================================================== -->
-
-<footer>
-
-    <div class="footer-inner">
-
-        <div class="footer-top">
-
-            <div class="footer-brand">
-
-                <a href="#home" class="brand">
-                    <span class="brand-mark">
-                        <span class="brand-dot"></span>
-                    </span>
-                    <span>Dream Hunt</span>
-                </a>
-
-                <p>
-                    A complete admission preparation ecosystem built to
-                    make competitive preparation more structured,
-                    measurable and focused.
-                </p>
-
-            </div>
-
-            <div class="footer-links">
-
-                <div>
-                    <strong>Platform</strong>
-                    <a href="#pathways">Pathways</a>
-                    <a href="#courses">Courses</a>
-                    <a href="#exams">Exams</a>
-                    <a href="#resources">Resources</a>
-                </div>
-
-                <div>
-                    <strong>Access</strong>
-                    <a href="library.html">Library</a>
-                    <a href="dashboard.html">Dashboard</a>
-                    <a href="#" onclick="openAuth('login');return false;">
-                        Login
-                    </a>
-                    <a href="#" onclick="openAuth('register');return false;">
-                        Register
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <span>
-                © 2026 Dream Hunt. All rights reserved.
-            </span>
-
-            <span>
-                Complete Admission Preparation Platform
-            </span>
-
-        </div>
-
-    </div>
 
 </footer>
 
-</div>
-
-<!-- ======================================================
+<!-- =======================================================
      AUTH MODAL
-     ====================================================== -->
+     ======================================================= -->
 
-<div class="modal" id="authModal">
+<div
+    class="auth-overlay"
+    id="authOverlay">
 
-    <div class="auth-box">
+    <div class="auth-modal">
 
-        <div class="auth-header">
+        <button
+            class="auth-close"
+            type="button"
+            onclick="closeAuth()">
+            ×
+        </button>
 
-            <div>
-                <h2 id="authTitle">
-                    Welcome back.
-                </h2>
+        <div class="auth-head">
+
+            <div class="eyebrow">
+                Dream Hunt Account
             </div>
 
-            <button
-                class="close-modal"
-                onclick="closeAuth()">
-                ×
-            </button>
+            <h2>
+                Welcome.
+            </h2>
+
+            <p>
+                Sign in or create your Dream Hunt account.
+            </p>
 
         </div>
 
@@ -2537,6 +2809,7 @@ footer{
             <button
                 class="auth-tab active"
                 id="loginTab"
+                type="button"
                 onclick="switchAuth('login')">
                 Login
             </button>
@@ -2544,6 +2817,7 @@ footer{
             <button
                 class="auth-tab"
                 id="registerTab"
+                type="button"
                 onclick="switchAuth('register')">
                 Register
             </button>
@@ -2554,37 +2828,44 @@ footer{
 
         <form
             class="auth-form active"
-            id="loginForm"
-            onsubmit="loginUser(event)">
+            id="loginForm">
 
-            <div class="field">
+            <div class="form-grid">
 
-                <label>Email</label>
+                <div class="field full">
 
-                <input
-                    id="loginEmail"
-                    type="email"
-                    placeholder="you@example.com"
-                    required>
+                    <label>
+                        Email
+                    </label>
 
-            </div>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required>
 
-            <div class="field">
+                </div>
 
-                <label>Password</label>
+                <div class="field full">
 
-                <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Your password"
-                    required>
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
 
             </div>
 
             <button
-                class="btn btn-main auth-submit"
+                class="btn primary auth-submit"
                 type="submit">
-                Login to Dream Hunt
+                Login →
             </button>
 
             <div
@@ -2598,141 +2879,218 @@ footer{
 
         <form
             class="auth-form"
-            id="registerForm"
-            onsubmit="registerUser(event)">
+            id="registerForm">
 
             <div class="form-grid">
 
                 <div class="field full">
-                    <label>Full Name</label>
+
+                    <label>
+                        Full Name
+                    </label>
+
                     <input
-                        id="regName"
                         type="text"
-                        placeholder="Full name"
+                        id="regName"
                         required>
+
                 </div>
 
                 <div class="field">
-                    <label>Email</label>
+
+                    <label>
+                        Email
+                    </label>
+
                     <input
-                        id="regEmail"
                         type="email"
-                        placeholder="Email"
+                        id="regEmail"
                         required>
+
                 </div>
 
                 <div class="field">
-                    <label>Phone</label>
+
+                    <label>
+                        Phone
+                    </label>
+
                     <input
-                        id="regPhone"
                         type="tel"
-                        placeholder="01XXXXXXXXX"
+                        id="regPhone"
                         required>
+
                 </div>
 
                 <div class="field">
-                    <label>Date of Birth</label>
+
+                    <label>
+                        Date of Birth
+                    </label>
+
                     <input
-                        id="regDob"
-                        type="date">
+                        type="date"
+                        id="regDob">
+
                 </div>
 
                 <div class="field">
-                    <label>HSC Year</label>
+
+                    <label>
+                        HSC Year
+                    </label>
+
                     <input
+                        type="text"
                         id="regHscYear"
-                        type="number"
-                        placeholder="2027">
+                        placeholder="e.g. 2026">
+
                 </div>
 
                 <div class="field full">
-                    <label>College / Institution</label>
+
+                    <label>
+                        College / Institution
+                    </label>
+
                     <input
-                        id="regCollege"
                         type="text"
-                        placeholder="College name">
+                        id="regCollege">
+
                 </div>
 
                 <div class="field">
-                    <label>Board</label>
+
+                    <label>
+                        Board
+                    </label>
+
                     <select id="regBoard">
-                        <option value="">Select Board</option>
+
+                        <option value="">
+                            Select Board
+                        </option>
+
                         <option>Dhaka</option>
                         <option>Chattogram</option>
                         <option>Rajshahi</option>
                         <option>Comilla</option>
-                        <option>Jessore</option>
+                        <option>Jashore</option>
                         <option>Barishal</option>
                         <option>Sylhet</option>
                         <option>Dinajpur</option>
                         <option>Mymensingh</option>
-                        <option>Madrasah</option>
+                        <option>Madrasa</option>
                         <option>Technical</option>
+
                     </select>
+
                 </div>
 
                 <div class="field">
-                    <label>Group</label>
+
+                    <label>
+                        Group
+                    </label>
+
                     <select id="regGroup">
-                        <option value="">Select Group</option>
+
+                        <option value="">
+                            Select Group
+                        </option>
+
                         <option>Science</option>
-                        <option>Humanities</option>
                         <option>Business Studies</option>
+                        <option>Humanities</option>
+
                     </select>
+
                 </div>
 
                 <div class="field full">
-                    <label>SSC Institution</label>
+
+                    <label>
+                        SSC Institution
+                    </label>
+
                     <input
-                        id="regSscInstitution"
                         type="text"
-                        placeholder="SSC institution">
+                        id="regSscInstitution">
+
                 </div>
 
                 <div class="field">
-                    <label>SSC Year</label>
+
+                    <label>
+                        SSC Year
+                    </label>
+
                     <input
-                        id="regSscYear"
-                        type="number"
-                        placeholder="2025">
+                        type="text"
+                        id="regSscYear">
+
                 </div>
 
                 <div class="field">
-                    <label>SSC GPA</label>
+
+                    <label>
+                        SSC GPA
+                    </label>
+
                     <input
-                        id="regSscGpa"
                         type="text"
-                        placeholder="5.00">
+                        id="regSscGpa">
+
                 </div>
 
                 <div class="field">
-                    <label>Division</label>
+
+                    <label>
+                        Division
+                    </label>
+
                     <input
-                        id="regDivision"
                         type="text"
-                        placeholder="Division">
+                        id="regDivision">
+
                 </div>
 
                 <div class="field">
-                    <label>District</label>
+
+                    <label>
+                        District
+                    </label>
+
                     <input
-                        id="regDistrict"
                         type="text"
-                        placeholder="District">
+                        id="regDistrict">
+
                 </div>
 
-                <div class="field full">
-                    <label>Upazila</label>
+                <div class="field">
+
+                    <label>
+                        Upazila
+                    </label>
+
                     <input
-                        id="regUpazila"
                         type="text"
-                        placeholder="Upazila">
+                        id="regUpazila">
+
                 </div>
 
-                <div class="field full">
-                    <label>Target Admission Pathway</label>
+                <div class="field">
+
+                    <label>
+                        Target Pathway
+                    </label>
+
                     <select id="regTarget">
-                        <option value="">Select Pathway</option>
+
+                        <option value="">
+                            Select Pathway
+                        </option>
+
                         <option>Public University</option>
                         <option>Engineering</option>
                         <option>Agricultural</option>
@@ -2741,43 +3099,44 @@ footer{
                         <option>Textile</option>
                         <option>Specialized / Other Institutions</option>
                         <option>Abroad Study</option>
+
                     </select>
+
                 </div>
 
                 <div class="field full">
-                    <label>Target University / Institution</label>
+
+                    <label>
+                        Target University / Institution
+                    </label>
+
                     <input
-                        id="regUniversity"
                         type="text"
-                        placeholder="Target institution">
+                        id="regTargetUniversity"
+                        placeholder="Optional">
+
                 </div>
 
-                <div class="field">
-                    <label>Password</label>
+                <div class="field full">
+
+                    <label>
+                        Password
+                    </label>
+
                     <input
+                        type="password"
                         id="regPassword"
-                        type="password"
                         minlength="6"
-                        placeholder="Minimum 6 characters"
                         required>
-                </div>
 
-                <div class="field">
-                    <label>Confirm Password</label>
-                    <input
-                        id="regConfirmPassword"
-                        type="password"
-                        minlength="6"
-                        placeholder="Confirm password"
-                        required>
                 </div>
 
             </div>
 
             <button
-                class="btn btn-main auth-submit"
+                class="btn primary auth-submit"
                 type="submit">
-                Create Dream Hunt Account
+                Create Account →
             </button>
 
             <div
@@ -2792,6 +3151,7 @@ footer{
 </div>
 
 <script>
+
 /* =========================================================
    SUPABASE
    ========================================================= */
@@ -2812,30 +3172,172 @@ const supabaseClient =
    AUTH UI
    ========================================================= */
 
-const modal =
-    document.getElementById("authModal");
+const authOverlay =
+    document.getElementById("authOverlay");
 
-const authTitle =
-    document.getElementById("authTitle");
+const loginNavBtn =
+    document.getElementById("loginNavBtn");
+
+const registerNavBtn =
+    document.getElementById("registerNavBtn");
+
+const dashboardNavBtn =
+    document.getElementById("dashboardNavBtn");
+
+const heroStartBtn =
+    document.getElementById("heroStartBtn");
+
+const ctaRegisterBtn =
+    document.getElementById("ctaRegisterBtn");
+
+const ctaDashboardBtn =
+    document.getElementById("ctaDashboardBtn");
+
+const footerLogin =
+    document.getElementById("footerLogin");
+
+const footerRegister =
+    document.getElementById("footerRegister");
+
+const footerDashboard =
+    document.getElementById("footerDashboard");
+
+function setDisplay(el,show,displayType="inline-flex"){
+
+    if(!el)return;
+
+    el.style.display =
+        show ? displayType : "none";
+}
+
+function updateAuthUI(session){
+
+    const loggedIn =
+        !!session;
+
+    /*
+      LOGGED OUT
+      → Login + Register
+    */
+
+    setDisplay(
+        loginNavBtn,
+        !loggedIn,
+        "inline-flex"
+    );
+
+    setDisplay(
+        registerNavBtn,
+        !loggedIn,
+        "inline-flex"
+    );
+
+    /*
+      LOGGED IN
+      → Dashboard only
+    */
+
+    setDisplay(
+        dashboardNavBtn,
+        loggedIn,
+        "inline-flex"
+    );
+
+    setDisplay(
+        ctaRegisterBtn,
+        !loggedIn,
+        "inline-flex"
+    );
+
+    setDisplay(
+        ctaDashboardBtn,
+        loggedIn,
+        "inline-flex"
+    );
+
+    setDisplay(
+        footerLogin,
+        !loggedIn,
+        "inline"
+    );
+
+    setDisplay(
+        footerRegister,
+        !loggedIn,
+        "inline"
+    );
+
+    setDisplay(
+        footerDashboard,
+        loggedIn,
+        "inline"
+    );
+
+    /*
+      If already logged in,
+      Start Your Journey should go dashboard.
+    */
+
+    if(loggedIn){
+
+        heroStartBtn.textContent =
+            "Open Dashboard →";
+
+        heroStartBtn.onclick=()=>{
+            window.location.href =
+                "dashboard.html";
+        };
+
+    }else{
+
+        heroStartBtn.textContent =
+            "Start Your Journey →";
+
+        heroStartBtn.onclick=()=>{
+            openAuth("register");
+        };
+    }
+
+}
+
+/* =========================================================
+   AUTH MODAL
+   ========================================================= */
 
 function openAuth(type="login"){
-    modal.classList.add("active");
-    switchAuth(type);
-    document.body.style.overflow="hidden";
+
+    /*
+      Never show login/register as the primary
+      action to a logged-in user.
+    */
+
+    supabaseClient.auth
+        .getSession()
+        .then(({data})=>{
+
+            if(data.session){
+
+                window.location.href =
+                    "dashboard.html";
+
+                return;
+            }
+
+            authOverlay.classList.add("active");
+
+            switchAuth(type);
+
+        });
+
 }
 
 function closeAuth(){
-    modal.classList.remove("active");
-    document.body.style.overflow="";
+
+    authOverlay.classList.remove("active");
+
 }
 
 function switchAuth(type){
-
-    const loginForm =
-        document.getElementById("loginForm");
-
-    const registerForm =
-        document.getElementById("registerForm");
 
     const loginTab =
         document.getElementById("loginTab");
@@ -2843,191 +3345,383 @@ function switchAuth(type){
     const registerTab =
         document.getElementById("registerTab");
 
-    if(type==="login"){
+    const loginForm =
+        document.getElementById("loginForm");
 
-        loginForm.classList.add("active");
-        registerForm.classList.remove("active");
+    const registerForm =
+        document.getElementById("registerForm");
 
-        loginTab.classList.add("active");
-        registerTab.classList.remove("active");
-
-        authTitle.textContent =
-            "Welcome back.";
-
-    }else{
-
-        loginForm.classList.remove("active");
-        registerForm.classList.add("active");
+    if(type==="register"){
 
         loginTab.classList.remove("active");
         registerTab.classList.add("active");
 
-        authTitle.textContent =
-            "Start your journey.";
+        loginForm.classList.remove("active");
+        registerForm.classList.add("active");
+
+    }else{
+
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+
+        loginForm.classList.add("active");
+        registerForm.classList.remove("active");
+
     }
+
 }
 
-modal.addEventListener("click",(e)=>{
-    if(e.target===modal){
-        closeAuth();
+authOverlay.addEventListener(
+    "click",
+    e=>{
+
+        if(e.target===authOverlay){
+            closeAuth();
+        }
+
     }
-});
+);
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key==="Escape"){
+            closeAuth();
+        }
+
+    }
+);
 
 /* =========================================================
    LOGIN
    ========================================================= */
 
-async function loginUser(event){
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async e=>{
 
-    event.preventDefault();
+            e.preventDefault();
 
-    const message =
-        document.getElementById("loginMessage");
+            const message =
+                document.getElementById(
+                    "loginMessage"
+                );
 
-    message.textContent="Signing you in...";
+            message.textContent =
+                "Signing in...";
 
-    const email =
-        document.getElementById("loginEmail").value.trim();
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
 
-    const password =
-        document.getElementById("loginPassword").value;
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
 
-    try{
+            try{
 
-        const {data,error} =
-            await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
+                const {
+                    data,
+                    error
+                }=
+                    await supabaseClient.auth
+                        .signInWithPassword({
+                            email,
+                            password
+                        });
 
-        if(error){
-            throw error;
+                if(error){
+                    throw error;
+                }
+
+                message.textContent =
+                    "Login successful.";
+
+                updateAuthUI(data.session);
+
+                setTimeout(
+                    ()=>{
+                        window.location.href =
+                            "dashboard.html";
+                    },
+                    350
+                );
+
+            }catch(error){
+
+                message.textContent =
+                    error.message ||
+                    "Login failed.";
+
+            }
+
         }
-
-        message.textContent =
-            "Login successful. Opening dashboard...";
-
-        setTimeout(()=>{
-            window.location.href="dashboard.html";
-        },700);
-
-    }catch(error){
-
-        message.textContent =
-            error.message || "Login failed.";
-    }
-}
+    );
 
 /* =========================================================
    REGISTER
    ========================================================= */
 
-async function registerUser(event){
+document
+    .getElementById("registerForm")
+    .addEventListener(
+        "submit",
+        async e=>{
 
-    event.preventDefault();
+            e.preventDefault();
 
-    const message =
-        document.getElementById("registerMessage");
+            const message =
+                document.getElementById(
+                    "registerMessage"
+                );
 
-    message.textContent =
-        "Creating your Dream Hunt account...";
+            message.textContent =
+                "Creating account...";
 
-    const password =
-        document.getElementById("regPassword").value;
+            const fullName =
+                document
+                    .getElementById("regName")
+                    .value
+                    .trim();
 
-    const confirmPassword =
-        document.getElementById("regConfirmPassword").value;
+            const email =
+                document
+                    .getElementById("regEmail")
+                    .value
+                    .trim();
 
-    if(password!==confirmPassword){
+            const phone =
+                document
+                    .getElementById("regPhone")
+                    .value
+                    .trim();
 
-        message.textContent =
-            "Passwords do not match.";
+            const dob =
+                document
+                    .getElementById("regDob")
+                    .value;
 
-        return;
-    }
+            const hscYear =
+                document
+                    .getElementById("regHscYear")
+                    .value
+                    .trim();
 
-    const metadata={
+            const college =
+                document
+                    .getElementById("regCollege")
+                    .value
+                    .trim();
 
-        full_name:
-            document.getElementById("regName").value.trim(),
+            const board =
+                document
+                    .getElementById("regBoard")
+                    .value;
 
-        phone:
-            document.getElementById("regPhone").value.trim(),
+            const group =
+                document
+                    .getElementById("regGroup")
+                    .value;
 
-        date_of_birth:
-            document.getElementById("regDob").value,
+            const sscInstitution =
+                document
+                    .getElementById("regSscInstitution")
+                    .value
+                    .trim();
 
-        hsc_year:
-            document.getElementById("regHscYear").value,
+            const sscYear =
+                document
+                    .getElementById("regSscYear")
+                    .value
+                    .trim();
 
-        college:
-            document.getElementById("regCollege").value.trim(),
+            const sscGpa =
+                document
+                    .getElementById("regSscGpa")
+                    .value
+                    .trim();
 
-        board:
-            document.getElementById("regBoard").value,
+            const division =
+                document
+                    .getElementById("regDivision")
+                    .value
+                    .trim();
 
-        group:
-            document.getElementById("regGroup").value,
+            const district =
+                document
+                    .getElementById("regDistrict")
+                    .value
+                    .trim();
 
-        ssc_institution:
-            document.getElementById("regSscInstitution").value.trim(),
+            const upazila =
+                document
+                    .getElementById("regUpazila")
+                    .value
+                    .trim();
 
-        ssc_year:
-            document.getElementById("regSscYear").value,
+            const target =
+                document
+                    .getElementById("regTarget")
+                    .value;
 
-        ssc_gpa:
-            document.getElementById("regSscGpa").value.trim(),
+            const targetUniversity =
+                document
+                    .getElementById(
+                        "regTargetUniversity"
+                    )
+                    .value
+                    .trim();
 
-        division:
-            document.getElementById("regDivision").value.trim(),
+            const password =
+                document
+                    .getElementById("regPassword")
+                    .value;
 
-        district:
-            document.getElementById("regDistrict").value.trim(),
+            const metadata={
 
-        upazila:
-            document.getElementById("regUpazila").value.trim(),
+                full_name:fullName,
+                phone:phone,
+                date_of_birth:dob,
+                hsc_year:hscYear,
+                college:college,
+                board:board,
+                group:group,
+                ssc_institution:sscInstitution,
+                ssc_year:sscYear,
+                ssc_gpa:sscGpa,
+                division:division,
+                district:district,
+                upazila:upazila,
+                target_pathway:target,
+                target_university:targetUniversity
 
-        target_pathway:
-            document.getElementById("regTarget").value,
+            };
 
-        target_university:
-            document.getElementById("regUniversity").value.trim()
-    };
+            try{
 
-    const email =
-        document.getElementById("regEmail").value.trim();
+                const {
+                    data,
+                    error
+                }=
+                    await supabaseClient.auth
+                        .signUp({
+
+                            email,
+                            password,
+
+                            options:{
+                                data:metadata
+                            }
+
+                        });
+
+                if(error){
+                    throw error;
+                }
+
+                /*
+                  If Supabase email confirmation
+                  is disabled, a session may exist.
+                */
+
+                if(data.session){
+
+                    message.textContent =
+                        "Account created successfully.";
+
+                    updateAuthUI(
+                        data.session
+                    );
+
+                    setTimeout(
+                        ()=>{
+                            window.location.href =
+                                "dashboard.html";
+                        },
+                        500
+                    );
+
+                }else{
+
+                    message.textContent =
+                        "Account created successfully. " +
+                        "If email confirmation is enabled, " +
+                        "check your email before logging in.";
+
+                    e.target.reset();
+
+                }
+
+            }catch(error){
+
+                message.textContent =
+                    error.message ||
+                    "Registration failed.";
+
+            }
+
+        }
+    );
+
+/* =========================================================
+   INITIAL AUTH STATE
+   ========================================================= */
+
+(async()=>{
 
     try{
 
-        const {data,error} =
-            await supabaseClient.auth.signUp({
+        const {
+            data:{
+                session
+            }
+        }=
+            await supabaseClient.auth
+                .getSession();
 
-                email,
-                password,
-
-                options:{
-                    data:metadata
-                }
-
-            });
-
-        if(error){
-            throw error;
-        }
-
-        message.innerHTML =
-            "Account created successfully. " +
-            "If email confirmation is enabled, " +
-            "check your email before logging in.";
-
-        event.target.reset();
+        updateAuthUI(session);
 
     }catch(error){
 
-        message.textContent =
-            error.message || "Registration failed.";
+        console.log(
+            "Session check unavailable.",
+            error
+        );
+
+        updateAuthUI(null);
+
     }
-}
+
+})();
+
+/* =========================================================
+   AUTH STATE CHANGE
+   ========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    (event,session)=>{
+
+        updateAuthUI(session);
+
+        /*
+          If a logout occurs,
+          make sure Login/Register return.
+        */
+
+        if(event==="SIGNED_OUT"){
+
+            updateAuthUI(null);
+
+        }
+
+    }
+);
 
 /* =========================================================
    NAVIGATION
@@ -3053,15 +3747,25 @@ const menuToggle =
 const navLinks =
     document.getElementById("navLinks");
 
-menuToggle.addEventListener("click",()=>{
-    navLinks.classList.toggle("open");
-});
+menuToggle.addEventListener(
+    "click",
+    ()=>{
+        navLinks.classList.toggle("open");
+    }
+);
 
-navLinks.querySelectorAll("a").forEach(link=>{
-    link.addEventListener("click",()=>{
-        navLinks.classList.remove("open");
+navLinks
+    .querySelectorAll("a")
+    .forEach(link=>{
+
+        link.addEventListener(
+            "click",
+            ()=>{
+                navLinks.classList.remove("open");
+            }
+        );
+
     });
-});
 
 /* =========================================================
    REVEAL OBSERVER
@@ -3070,12 +3774,23 @@ navLinks.querySelectorAll("a").forEach(link=>{
 const revealObserver =
     new IntersectionObserver(
         entries=>{
+
             entries.forEach(entry=>{
+
                 if(entry.isIntersecting){
-                    entry.target.classList.add("visible");
-                    revealObserver.unobserve(entry.target);
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
                 }
+
             });
+
         },
         {
             threshold:.12
@@ -3096,9 +3811,10 @@ const world =
     document.getElementById("world");
 
 const ctx =
-    world.getContext("2d",{
-        alpha:false
-    });
+    world.getContext(
+        "2d",
+        {alpha:false}
+    );
 
 let W=0;
 let H=0;
@@ -3106,9 +3822,9 @@ let DPR=1;
 
 function resizeWorld(){
 
-    DPR =
+    DPR=
         Math.min(
-            window.devicePixelRatio || 1,
+            window.devicePixelRatio||1,
             window.innerWidth<700 ? 1.35 : 1.7
         );
 
@@ -3121,8 +3837,11 @@ function resizeWorld(){
     world.height=
         Math.floor(H*DPR);
 
-    world.style.width=W+"px";
-    world.style.height=H+"px";
+    world.style.width=
+        W+"px";
+
+    world.style.height=
+        H+"px";
 
     ctx.setTransform(
         DPR,
@@ -3132,6 +3851,7 @@ function resizeWorld(){
         0,
         0
     );
+
 }
 
 window.addEventListener(
@@ -3142,14 +3862,14 @@ window.addEventListener(
 resizeWorld();
 
 /* =========================================================
-   SEEDED RANDOM
+   RANDOM
    ========================================================= */
 
 let seed=918273;
 
 function random(){
 
-    seed =
+    seed=
         (seed*1664525+1013904223)
         >>>0;
 
@@ -3161,34 +3881,40 @@ function lerp(a,b,t){
 }
 
 function clamp(v,a=0,b=1){
-    return Math.max(a,Math.min(b,v));
+    return Math.max(
+        a,
+        Math.min(b,v)
+    );
 }
 
 function smoothstep(a,b,x){
 
-    x=clamp((x-a)/(b-a));
+    x=
+        clamp(
+            (x-a)/(b-a)
+        );
 
     return x*x*(3-2*x);
 }
 
 function noise(x){
 
-    return (
+    return(
         Math.sin(x*1.73)+
         Math.sin(x*3.11)*.45+
         Math.sin(x*7.17)*.2
     )/1.65;
+
 }
 
 /* =========================================================
-   WORLD PARTICLES
+   PARTICLES
    ========================================================= */
 
 const birds=[];
 const rain=[];
 const stars=[];
 const fireflies=[];
-const meteors=[];
 const dust=[];
 
 function initParticles(){
@@ -3197,65 +3923,100 @@ function initParticles(){
     rain.length=0;
     stars.length=0;
     fireflies.length=0;
-    meteors.length=0;
     dust.length=0;
 
-    const small=W<700;
+    const small=
+        W<700;
 
-    for(let i=0;i<(small?18:32);i++){
+    for(
+        let i=0;
+        i<(small?18:32);
+        i++
+    ){
 
         birds.push({
-            x:random()*1.5-0.2,
+
+            x:random()*1.5-.2,
             y:.16+random()*.34,
             speed:.000035+random()*.000035,
             scale:.45+random()*.7,
-            phase:random()*Math.PI*2,
-            depth:.25+random()*.75
+            phase:random()*Math.PI*2
+
         });
+
     }
 
-    for(let i=0;i<(small?350:800);i++){
+    for(
+        let i=0;
+        i<(small?350:800);
+        i++
+    ){
 
         rain.push({
+
             x:random(),
             y:random(),
             speed:.004+random()*.009,
             length:8+random()*20,
             drift:-.001+random()*.002
+
         });
+
     }
 
-    for(let i=0;i<(small?180:420);i++){
+    for(
+        let i=0;
+        i<(small?180:420);
+        i++
+    ){
 
         stars.push({
+
             x:random(),
             y:random()*.72,
             size:.3+random()*1.5,
             phase:random()*Math.PI*2,
             brightness:.35+random()*.65
+
         });
+
     }
 
-    for(let i=0;i<(small?40:90);i++){
+    for(
+        let i=0;
+        i<(small?40:90);
+        i++
+    ){
 
         fireflies.push({
+
             x:random(),
             y:.55+random()*.4,
             phase:random()*Math.PI*2,
             speed:.0003+random()*.0005
+
         });
+
     }
 
-    for(let i=0;i<(small?20:50);i++){
+    for(
+        let i=0;
+        i<(small?40:90);
+        i++
+    ){
 
         dust.push({
+
             x:random(),
             y:random(),
             size:.4+random()*2,
             speed:.00002+random()*.00004,
             phase:random()*Math.PI*2
+
         });
+
     }
+
 }
 
 initParticles();
@@ -3266,14 +4027,12 @@ window.addEventListener(
 );
 
 /* =========================================================
-   TIME SYSTEM
    VERY SLOW CINEMATIC CYCLE
    ========================================================= */
 
-const CYCLE =
-    270000;
+const CYCLE=270000;
 
-const startTime =
+const startTime=
     performance.now();
 
 let paused=false;
@@ -3285,27 +4044,13 @@ document.addEventListener(
     }
 );
 
-/* =========================================================
-   WORLD PHASES
-   ========================================================= */
-
 function worldState(time){
 
-    let t =
-        ((time-startTime)%CYCLE)/CYCLE;
+    return{
+        t:
+        ((time-startTime)%CYCLE)/CYCLE
+    };
 
-    /*
-      0.00 - 0.10  dawn
-      0.10 - 0.23  cloud formation
-      0.23 - 0.40  rain / storm
-      0.40 - 0.51  clearing / rainbow
-      0.51 - 0.64  mountain / river journey
-      0.64 - 0.75  golden hour
-      0.75 - 0.88  twilight / moon
-      0.88 - 1.00  deep night / stars / aurora
-    */
-
-    return {t};
 }
 
 /* =========================================================
@@ -3314,81 +4059,57 @@ function worldState(time){
 
 function drawSky(t){
 
-    let dawn =
-        1-smoothstep(.05,.18,t);
-
-    let daylight =
-        smoothstep(.04,.14,t) *
-        (1-smoothstep(.62,.78,t));
-
-    let sunset =
+    const sunset=
         smoothstep(.60,.74,t);
 
-    let night =
+    const night=
         smoothstep(.72,.88,t);
 
-    const topR =
-        lerp(
-            8,
-            5,
-            night
-        );
-
-    const topG =
-        lerp(
-            30,
-            9,
-            night
-        );
-
-    const topB =
-        lerp(
-            50,
-            25,
-            night
-        );
-
-    const bottomR =
-        lerp(
-            115,
-            8,
-            night
-        );
-
-    const bottomG =
-        lerp(
-            170,
-            25,
-            night
-        );
-
-    const bottomB =
-        lerp(
-            194,
-            48,
-            night
-        );
+    const daylight=
+        smoothstep(.04,.14,t)*
+        (1-smoothstep(.62,.78,t));
 
     let g=
         ctx.createLinearGradient(
             0,0,0,H
         );
 
+    const topR=
+        lerp(8,5,night);
+
+    const topG=
+        lerp(30,9,night);
+
+    const topB=
+        lerp(50,25,night);
+
+    const bottomR=
+        lerp(115,8,night);
+
+    const bottomG=
+        lerp(170,25,night);
+
+    const bottomB=
+        lerp(194,48,night);
+
     g.addColorStop(
         0,
-        `rgb(${topR|0},${topG|0},${topB|0})`
+        `rgb(
+            ${topR|0},
+            ${topG|0},
+            ${topB|0}
+        )`
     );
 
-    let warm =
-        sunset *
-        (1-night);
+    const warm=
+        sunset*(1-night);
 
     g.addColorStop(
         .45,
         `rgb(
-            ${(lerp(45,105,warm))|0},
-            ${(lerp(110,54,warm))|0},
-            ${(lerp(150,48,warm))|0}
+            ${lerp(45,105,warm)|0},
+            ${lerp(110,54,warm)|0},
+            ${lerp(150,48,warm)|0}
         )`
     );
 
@@ -3402,21 +4123,21 @@ function drawSky(t){
     );
 
     ctx.fillStyle=g;
-    ctx.fillRect(0,0,W,H);
+    ctx.fillRect(
+        0,0,W,H
+    );
 
-    /*
-      dawn glow
-    */
-
-    let sunX =
+    let sunX=
         lerp(
             W*.12,
             W*.78,
             smoothstep(.02,.72,t)
         );
 
-    let sunY =
-        H*(.52-.28*
+    let sunY=
+        H*(
+            .52-
+            .28*
             Math.sin(
                 Math.PI*
                 smoothstep(.02,.75,t)
@@ -3426,16 +4147,19 @@ function drawSky(t){
     if(t>.74){
 
         sunY=
-            H*(.35+
-            .18*
-            smoothstep(.74,.88,t));
+            H*(
+                .35+
+                .18*
+                smoothstep(.74,.88,t)
+            );
 
     }
 
-    let sunAlpha=
+    const sunAlpha=
         clamp(
             daylight+
-            (1-sunset)*dawn,
+            (1-sunset)*
+            (1-smoothstep(.05,.18,t)),
             0,
             1
         );
@@ -3452,12 +4176,18 @@ function drawSky(t){
 
     glow.addColorStop(
         0,
-        `rgba(255,239,190,${.36*sunAlpha})`
+        `rgba(
+            255,239,190,
+            ${.36*sunAlpha}
+        )`
     );
 
     glow.addColorStop(
         .22,
-        `rgba(255,216,155,${.12*sunAlpha})`
+        `rgba(
+            255,216,155,
+            ${.12*sunAlpha}
+        )`
     );
 
     glow.addColorStop(
@@ -3466,11 +4196,9 @@ function drawSky(t){
     );
 
     ctx.fillStyle=glow;
-    ctx.fillRect(0,0,W,H);
-
-    /*
-      sun disk
-    */
+    ctx.fillRect(
+        0,0,W,H
+    );
 
     if(sunAlpha>.12){
 
@@ -3479,13 +4207,19 @@ function drawSky(t){
         ctx.arc(
             sunX,
             sunY,
-            Math.max(12,W*.009),
+            Math.max(
+                12,
+                W*.009
+            ),
             0,
             Math.PI*2
         );
 
         ctx.fillStyle=
-            `rgba(255,243,201,${.88*sunAlpha})`;
+            `rgba(
+                255,243,201,
+                ${.88*sunAlpha}
+            )`;
 
         ctx.shadowBlur=30;
         ctx.shadowColor=
@@ -3494,7 +4228,9 @@ function drawSky(t){
         ctx.fill();
 
         ctx.shadowBlur=0;
+
     }
+
 }
 
 /* =========================================================
@@ -3509,7 +4245,7 @@ function drawStars(t){
     const milky=
         smoothstep(.80,.95,t);
 
-    if(night<=0) return;
+    if(night<=0)return;
 
     stars.forEach(s=>{
 
@@ -3540,11 +4276,8 @@ function drawStars(t){
             )`;
 
         ctx.fill();
-    });
 
-    /*
-      Milky Way band
-    */
+    });
 
     if(milky){
 
@@ -3570,12 +4303,18 @@ function drawStars(t){
 
         g.addColorStop(
             .45,
-            `rgba(215,225,245,${.10*milky})`
+            `rgba(
+                215,225,245,
+                ${.10*milky}
+            )`
         );
 
         g.addColorStop(
             .55,
-            `rgba(215,225,245,${.06*milky})`
+            `rgba(
+                215,225,245,
+                ${.06*milky}
+            )`
         );
 
         g.addColorStop(
@@ -3593,7 +4332,9 @@ function drawStars(t){
         );
 
         ctx.restore();
+
     }
+
 }
 
 /* =========================================================
@@ -3602,21 +4343,31 @@ function drawStars(t){
 
 function drawMoon(t){
 
-    const moonAlpha=
+    const alpha=
         smoothstep(.68,.82,t);
 
-    if(moonAlpha<=0)return;
+    if(alpha<=0)return;
 
-    let phase=
-        ((t-.68)/.32);
+    const phase=
+        (t-.68)/.32;
 
-    let x=
-        W*(.78-
-        .18*Math.sin(phase*Math.PI));
+    const x=
+        W*(
+            .78-
+            .18*
+            Math.sin(
+                phase*Math.PI
+            )
+        );
 
-    let y=
-        H*(.31-
-        .10*Math.sin(phase*Math.PI));
+    const y=
+        H*(
+            .31-
+            .10*
+            Math.sin(
+                phase*Math.PI
+            )
+        );
 
     ctx.save();
 
@@ -3625,27 +4376,36 @@ function drawMoon(t){
     ctx.arc(
         x,
         y,
-        Math.max(24,W*.025),
+        Math.max(
+            24,
+            W*.025
+        ),
         0,
         Math.PI*2
     );
 
     ctx.fillStyle=
-        `rgba(229,238,239,${moonAlpha*.92})`;
+        `rgba(
+            229,
+            238,
+            239,
+            ${alpha*.92}
+        )`;
 
     ctx.shadowBlur=45;
     ctx.shadowColor=
-        `rgba(210,230,240,${moonAlpha*.5})`;
+        `rgba(
+            210,
+            230,
+            240,
+            ${alpha*.5}
+        )`;
 
     ctx.fill();
 
     ctx.shadowBlur=0;
 
-    /*
-      crescent shadow
-    */
-
-    let crescent=
+    const crescent=
         smoothstep(.76,.95,t);
 
     if(crescent>.1){
@@ -3655,18 +4415,28 @@ function drawMoon(t){
         ctx.arc(
             x+8,
             y-2,
-            Math.max(24,W*.025),
+            Math.max(
+                24,
+                W*.025
+            ),
             0,
             Math.PI*2
         );
 
         ctx.fillStyle=
-            `rgba(15,27,36,${crescent*.82})`;
+            `rgba(
+                15,
+                27,
+                36,
+                ${crescent*.82}
+            )`;
 
         ctx.fill();
+
     }
 
     ctx.restore();
+
 }
 
 /* =========================================================
@@ -3678,52 +4448,58 @@ const cloudLayers=[];
 for(let i=0;i<24;i++){
 
     cloudLayers.push({
+
         x:random(),
         y:.10+random()*.32,
         scale:.65+random()*1.5,
         speed:.000008+random()*.000015,
         opacity:.3+random()*.4,
         seed:random()*100
+
     });
+
 }
 
 function drawClouds(t,time){
-
-    /*
-      Clouds appear slowly.
-    */
 
     const gather=
         smoothstep(.08,.27,t);
 
     const storm=
-        smoothstep(.20,.36,t) *
+        smoothstep(.20,.36,t)*
         (1-smoothstep(.37,.51,t));
 
     const clear=
         smoothstep(.39,.54,t);
 
-    cloudLayers.forEach((c,i)=>{
+    cloudLayers.forEach(c=>{
 
-        let x=
-            ((c.x+
-            time*c.speed)%1.35)-.18;
+        const x=
+            (
+                (
+                    c.x+
+                    time*c.speed
+                )%1.35
+            )-.18;
 
-        let y=
+        const y=
             c.y+
-            Math.sin(time*.00003+c.seed)*.006;
+            Math.sin(
+                time*.00003+
+                c.seed
+            )*.006;
 
-        let alpha=
+        const alpha=
             c.opacity*
-            (gather*.85)*
+            gather*.85*
             (1-clear*.92);
 
         if(alpha<=.01)return;
 
-        let width=
+        const width=
             130*c.scale;
 
-        let height=
+        const height=
             45*c.scale;
 
         ctx.save();
@@ -3733,20 +4509,18 @@ function drawClouds(t,time){
             y*H
         );
 
-        /*
-          layered cloud body
-        */
-
         for(let j=0;j<5;j++){
 
-            let ox=
-                (j-2)*width*.17;
+            const ox=
+                (j-2)*
+                width*.17;
 
-            let oy=
+            const oy=
                 Math.sin(
                     j*1.8+
                     c.seed
-                )*height*.13;
+                )*
+                height*.13;
 
             let g=
                 ctx.createRadialGradient(
@@ -3758,7 +4532,7 @@ function drawClouds(t,time){
                     width*.55
                 );
 
-            let darkness=
+            const darkness=
                 storm*.34;
 
             g.addColorStop(
@@ -3801,10 +4575,13 @@ function drawClouds(t,time){
             );
 
             ctx.fill();
+
         }
 
         ctx.restore();
+
     });
+
 }
 
 /* =========================================================
@@ -3814,36 +4591,36 @@ function drawClouds(t,time){
 function drawBirds(time,t){
 
     const visibility=
-        (1-smoothstep(.35,.55,t))*
-        (1-smoothstep(.80,.95,t));
+        (
+            1-smoothstep(.35,.55,t)
+        )*
+        (
+            1-smoothstep(.80,.95,t)
+        );
 
     if(visibility<=0)return;
 
-    birds.forEach((b,i)=>{
+    birds.forEach(b=>{
 
         b.x+=b.speed;
 
         if(b.x>1.3){
+
             b.x=-.25;
             b.y=.15+random()*.28;
+
         }
 
-        let wing=
-            Math.sin(
-                time*.004+
-                b.phase
-            );
-
-        let flap=
+        const flap=
             Math.sin(
                 time*.004+
                 b.phase
             )*.28;
 
-        let x=
+        const x=
             b.x*W;
 
-        let y=
+        const y=
             (
                 b.y+
                 Math.sin(
@@ -3852,16 +4629,12 @@ function drawBirds(time,t){
                 )*.018
             )*H;
 
-        let size=
+        const size=
             8*b.scale;
 
         ctx.save();
 
         ctx.translate(x,y);
-
-        /*
-          perspective banking
-        */
 
         ctx.rotate(
             Math.sin(
@@ -3871,10 +4644,18 @@ function drawBirds(time,t){
         );
 
         ctx.strokeStyle=
-            `rgba(20,29,34,${.68*visibility})`;
+            `rgba(
+                20,
+                29,
+                34,
+                ${.68*visibility}
+            )`;
 
         ctx.lineWidth=
-            Math.max(1,size*.13);
+            Math.max(
+                1,
+                size*.13
+            );
 
         ctx.lineCap="round";
 
@@ -3902,7 +4683,9 @@ function drawBirds(time,t){
         ctx.stroke();
 
         ctx.restore();
+
     });
+
 }
 
 /* =========================================================
@@ -3910,14 +4693,6 @@ function drawBirds(time,t){
    ========================================================= */
 
 function drawRain(time,t){
-
-    /*
-      gradual:
-      first drops
-      drizzle
-      heavy rain
-      then slow stop
-    */
 
     const start=
         smoothstep(.20,.27,t);
@@ -3939,9 +4714,7 @@ function drawRain(time,t){
                 1,
                 heavy
             )*
-            intensity,
-            0,
-            1
+            intensity
         );
 
     if(intensity<=.005)return;
@@ -3950,26 +4723,29 @@ function drawRain(time,t){
 
         r.y+=
             r.speed*
-            (.55+
-            intensity*1.9);
+            (
+                .55+
+                intensity*1.9
+            );
 
         r.x+=r.drift;
 
         if(r.y>1.2){
+
             r.y=-.1;
             r.x=random();
+
         }
 
         if(
-            i/
-            rain.length >
+            i/rain.length>
             intensity
         )return;
 
-        let x=
+        const x=
             r.x*W;
 
-        let y=
+        const y=
             r.y*H;
 
         ctx.beginPath();
@@ -3981,8 +4757,9 @@ function drawRain(time,t){
 
         ctx.lineTo(
             x-2,
-            y+r.length*
-            (0.5+intensity)
+            y+
+            r.length*
+            (.5+intensity)
         );
 
         ctx.strokeStyle=
@@ -3994,14 +4771,13 @@ function drawRain(time,t){
             )`;
 
         ctx.lineWidth=
-            intensity>.65 ? 1.05 : .7;
+            intensity>.65
+            ?1.05
+            :.7;
 
         ctx.stroke();
-    });
 
-    /*
-      ground wetness
-    */
+    });
 
     if(intensity>.2){
 
@@ -4020,7 +4796,12 @@ function drawRain(time,t){
 
         g.addColorStop(
             1,
-            `rgba(5,25,32,${.24*intensity})`
+            `rgba(
+                5,
+                25,
+                32,
+                ${.24*intensity}
+            )`
         );
 
         ctx.fillStyle=g;
@@ -4031,7 +4812,9 @@ function drawRain(time,t){
             W,
             H*.38
         );
+
     }
+
 }
 
 /* =========================================================
@@ -4046,10 +4829,6 @@ function drawLightning(time,t){
 
     if(storm<=0)return;
 
-    /*
-      rare deterministic flashes
-    */
-
     const cycle=
         Math.floor(
             time/8500
@@ -4060,12 +4839,12 @@ function drawLightning(time,t){
 
     const flash=
         (
-            phase>.70 &&
+            phase>.70&&
             phase<.735
-        ) ||
+        )||
         (
-            cycle%5===2 &&
-            phase>.30 &&
+            cycle%5===2&&
+            phase>.30&&
             phase<.32
         );
 
@@ -4074,17 +4853,25 @@ function drawLightning(time,t){
     ctx.save();
 
     ctx.strokeStyle=
-        `rgba(225,245,255,${.82*storm})`;
+        `rgba(
+            225,
+            245,
+            255,
+            ${.82*storm}
+        )`;
 
     ctx.lineWidth=2;
 
     ctx.shadowBlur=25;
+
     ctx.shadowColor=
         "rgba(170,220,255,.8)";
 
     let x=
-        W*(.25+
-        ((cycle*37)%55)/100);
+        W*(
+            .25+
+            ((cycle*37)%55)/100
+        );
 
     let y=H*.05;
 
@@ -4105,6 +4892,7 @@ function drawLightning(time,t){
             x,
             y
         );
+
     }
 
     ctx.stroke();
@@ -4112,14 +4900,17 @@ function drawLightning(time,t){
     ctx.restore();
 
     ctx.fillStyle=
-        `rgba(220,240,255,${.12*storm})`;
+        `rgba(
+            220,
+            240,
+            255,
+            ${.12*storm}
+        )`;
 
     ctx.fillRect(
-        0,
-        0,
-        W,
-        H
+        0,0,W,H
     );
+
 }
 
 /* =========================================================
@@ -4178,9 +4969,11 @@ function drawRainbow(t){
         ctx.lineWidth=8;
 
         ctx.stroke();
+
     });
 
     ctx.restore();
+
 }
 
 /* =========================================================
@@ -4208,13 +5001,13 @@ function mountainLayer(
         x+=45
     ){
 
-        let n=
+        const n=
             noise(
                 x*.008+
                 offset
             );
 
-        let y=
+        const y=
             H*peak+
             n*H*.06;
 
@@ -4222,6 +5015,7 @@ function mountainLayer(
             x,
             y
         );
+
     }
 
     ctx.lineTo(
@@ -4238,6 +5032,7 @@ function mountainLayer(
         );
 
     ctx.fill();
+
 }
 
 function drawMountains(t,time){
@@ -4246,12 +5041,6 @@ function drawMountains(t,time){
         smoothstep(.48,.63,t);
 
     if(reveal<=0)return;
-
-    /*
-      atmospheric perspective:
-      far mountains appear first,
-      near mountains later.
-    */
 
     mountainLayer(
         .73,
@@ -4277,25 +5066,31 @@ function drawMountains(t,time){
         "rgba(19,45,52,ALPHA)"
     );
 
-    /*
-      snow hints
-    */
-
     if(reveal>.35){
 
         ctx.strokeStyle=
-            `rgba(210,225,225,${.12*reveal})`;
+            `rgba(
+                210,
+                225,
+                225,
+                ${.12*reveal}
+            )`;
 
         ctx.lineWidth=2;
 
         for(let i=0;i<7;i++){
 
-            let x=
-                W*(.08+i*.14);
+            const x=
+                W*(
+                    .08+
+                    i*.14
+                );
 
-            let y=
-                H*(.51+
-                noise(i*3)*.035);
+            const y=
+                H*(
+                    .51+
+                    noise(i*3)*.035
+                );
 
             ctx.beginPath();
 
@@ -4315,8 +5110,11 @@ function drawMountains(t,time){
             );
 
             ctx.stroke();
+
         }
+
     }
+
 }
 
 /* =========================================================
@@ -4334,11 +5132,11 @@ function drawForest(t,time){
         H*.72;
 
     const count=
-        W<700 ? 65 : 130;
+        W<700?65:130;
 
     for(let i=0;i<count;i++){
 
-        let x=
+        const x=
             (i/count)*W+
             Math.sin(i*4.3)*14;
 
@@ -4384,7 +5182,9 @@ function drawForest(t,time){
         ctx.closePath();
 
         ctx.fill();
+
     }
+
 }
 
 /* =========================================================
@@ -4450,10 +5250,6 @@ function drawRiver(t,time){
 
     ctx.fill();
 
-    /*
-      moving reflections
-    */
-
     ctx.save();
 
     ctx.globalAlpha=
@@ -4461,17 +5257,16 @@ function drawRiver(t,time){
 
     for(let i=0;i<35;i++){
 
-        let y=
+        const y=
             H*.68+
             i*H*.009;
 
-        let center=
+        const center=
             W*.52+
             Math.sin(i*1.7)*W*.03;
 
-        let width=
-            10+
-            i*.7;
+        const width=
+            10+i*.7;
 
         ctx.beginPath();
 
@@ -4482,7 +5277,8 @@ function drawRiver(t,time){
 
         ctx.quadraticCurveTo(
             center,
-            y+Math.sin(
+            y+
+            Math.sin(
                 time*.001+i
             )*2,
             center+width,
@@ -4495,9 +5291,11 @@ function drawRiver(t,time){
         ctx.lineWidth=1;
 
         ctx.stroke();
+
     }
 
     ctx.restore();
+
 }
 
 /* =========================================================
@@ -4550,12 +5348,22 @@ function drawWaterfall(t,time){
 
     g.addColorStop(
         0,
-        `rgba(190,235,240,${.4*reveal})`
+        `rgba(
+            190,
+            235,
+            240,
+            ${.4*reveal}
+        )`
     );
 
     g.addColorStop(
         1,
-        `rgba(80,170,185,${.05*reveal})`
+        `rgba(
+            80,
+            170,
+            185,
+            ${.05*reveal}
+        )`
     );
 
     ctx.fillStyle=g;
@@ -4563,7 +5371,7 @@ function drawWaterfall(t,time){
 
     for(let i=0;i<22;i++){
 
-        let yy=
+        const yy=
             top+
             (
                 (
@@ -4598,7 +5406,9 @@ function drawWaterfall(t,time){
         ctx.lineWidth=.8;
 
         ctx.stroke();
+
     }
+
 }
 
 /* =========================================================
@@ -4615,7 +5425,7 @@ function drawMist(t,time){
 
     for(let i=0;i<8;i++){
 
-        let x=
+        const x=
             (
                 (
                     time*.000015*
@@ -4624,8 +5434,11 @@ function drawMist(t,time){
                 )%1.3
             )-.15;
 
-        let y=
-            H*(.62+i*.035);
+        const y=
+            H*(
+                .62+
+                i*.035
+            );
 
         let g=
             ctx.createRadialGradient(
@@ -4639,7 +5452,12 @@ function drawMist(t,time){
 
         g.addColorStop(
             0,
-            `rgba(220,238,238,${.07*mist})`
+            `rgba(
+                220,
+                238,
+                238,
+                ${.07*mist}
+            )`
         );
 
         g.addColorStop(
@@ -4655,11 +5473,13 @@ function drawMist(t,time){
             W*.6,
             H*.16
         );
+
     }
+
 }
 
 /* =========================================================
-   FIRE / SMOKE
+   FIRE
    ========================================================= */
 
 function drawFire(t,time){
@@ -4670,28 +5490,31 @@ function drawFire(t,time){
 
     if(fire<=0)return;
 
-    let x=W*.15;
-    let y=H*.77;
+    const x=W*.15;
+    const y=H*.77;
 
     ctx.save();
 
     for(let i=0;i<22;i++){
 
-        let p=
+        const p=
             (
                 time*.00045+
                 i*.071
             )%1;
 
-        let px=
+        const px=
             x+
-            Math.sin(i*8+p*8)*18*p;
+            Math.sin(
+                i*8+
+                p*8
+            )*
+            18*p;
 
-        let py=
-            y-
-            p*100;
+        const py=
+            y-p*100;
 
-        let r=
+        const r=
             2+
             7*(1-p);
 
@@ -4707,7 +5530,12 @@ function drawFire(t,time){
 
         g.addColorStop(
             0,
-            `rgba(255,225,150,${.65*fire*(1-p)})`
+            `rgba(
+                255,
+                225,
+                150,
+                ${.65*fire*(1-p)}
+            )`
         );
 
         g.addColorStop(
@@ -4728,9 +5556,11 @@ function drawFire(t,time){
         );
 
         ctx.fill();
+
     }
 
     ctx.restore();
+
 }
 
 /* =========================================================
@@ -4765,7 +5595,7 @@ function drawAurora(t,time){
             x+=20
         ){
 
-            let y=
+            const y=
                 H*(.22+i*.05)+
                 Math.sin(
                     x*.008+
@@ -4778,6 +5608,7 @@ function drawAurora(t,time){
                 x,
                 y
             );
+
         }
 
         ctx.lineTo(
@@ -4802,7 +5633,7 @@ function drawAurora(t,time){
 
         g.addColorStop(
             0,
-            "rgba(80,230,180,.0)"
+            "rgba(80,230,180,0)"
         );
 
         g.addColorStop(
@@ -4812,15 +5643,16 @@ function drawAurora(t,time){
 
         g.addColorStop(
             1,
-            "rgba(150,100,230,.0)"
+            "rgba(150,100,230,0)"
         );
 
         ctx.fillStyle=g;
-
         ctx.fill();
+
     }
 
     ctx.restore();
+
 }
 
 /* =========================================================
@@ -4834,21 +5666,22 @@ function drawMeteors(t,time){
 
     if(night<=0)return;
 
-    const cycle=
-        Math.floor(time/19000);
-
     const local=
         (time%19000)/19000;
 
     if(local<.72)return;
 
-    let x=
-        W*(.75-
-        local*.4);
+    const x=
+        W*(
+            .75-
+            local*.4
+        );
 
-    let y=
-        H*(.12+
-        local*.22);
+    const y=
+        H*(
+            .12+
+            local*.22
+        );
 
     ctx.beginPath();
 
@@ -4863,7 +5696,12 @@ function drawMeteors(t,time){
     );
 
     ctx.strokeStyle=
-        `rgba(230,242,255,${.55*night})`;
+        `rgba(
+            230,
+            242,
+            255,
+            ${.55*night}
+        )`;
 
     ctx.lineWidth=1.3;
 
@@ -4875,6 +5713,7 @@ function drawMeteors(t,time){
     ctx.stroke();
 
     ctx.shadowBlur=0;
+
 }
 
 /* =========================================================
@@ -4897,7 +5736,7 @@ function drawDust(time,t){
             d.x=-.1;
         }
 
-        let y=
+        const y=
             d.y+
             Math.sin(
                 time*.0004+
@@ -4923,66 +5762,13 @@ function drawDust(time,t){
             )`;
 
         ctx.fill();
+
     });
+
 }
 
 /* =========================================================
-   WORLD CAMERA
-   ========================================================= */
-
-let smoothScroll=0;
-
-window.addEventListener(
-    "scroll",
-    ()=>{
-        smoothScroll +=
-            (
-                window.scrollY-
-                smoothScroll
-            )*.025;
-    },
-    {passive:true}
-);
-
-function drawCameraWorld(t,time){
-
-    /*
-      Very subtle camera travel.
-      It does NOT replace the world.
-      It changes depth continuously.
-    */
-
-    const travel=
-        smoothstep(.45,.72,t);
-
-    const cameraX=
-        Math.sin(
-            time*.000035
-        )*
-        W*.012*
-        travel;
-
-    const cameraY=
-        Math.sin(
-            time*.000028
-        )*
-        H*.006*
-        travel;
-
-    ctx.save();
-
-    ctx.translate(
-        cameraX,
-        cameraY
-    );
-
-    return ()=>{
-        ctx.restore();
-    };
-}
-
-/* =========================================================
-   ENVIRONMENT TEXT
+   WORLD TEXT
    ========================================================= */
 
 const environmentTitle =
@@ -5076,29 +5862,29 @@ function updateEnvironmentText(t){
 
     }
 
-    environmentStatus.textContent="LIVE";
+    environmentStatus.textContent=
+        "LIVE";
+
 }
 
 /* =========================================================
    WORLD RENDER
    ========================================================= */
 
-let lastWorldFrame=0;
-
 function renderWorld(time){
 
     if(paused){
 
-        requestAnimationFrame(renderWorld);
+        requestAnimationFrame(
+            renderWorld
+        );
 
         return;
+
     }
 
-    const state=
-        worldState(time);
-
     const t=
-        state.t;
+        worldState(time).t;
 
     ctx.clearRect(
         0,
@@ -5107,24 +5893,12 @@ function renderWorld(time){
         H
     );
 
-    /*
-      SKY FIRST
-    */
-
     drawSky(t);
-
-    /*
-      SPACE
-    */
 
     drawStars(t);
     drawMoon(t);
     drawAurora(t);
     drawMeteors(t);
-
-    /*
-      ATMOSPHERE
-    */
 
     drawClouds(
         t,
@@ -5145,16 +5919,6 @@ function renderWorld(time){
         time,
         t
     );
-
-    /*
-      LANDSCAPE
-    */
-
-    const restoreCamera=
-        drawCameraWorld(
-            t,
-            time
-        );
 
     drawMountains(
         t,
@@ -5193,12 +5957,6 @@ function renderWorld(time){
         t
     );
 
-    restoreCamera();
-
-    /*
-      atmospheric foreground haze
-    */
-
     const haze=
         smoothstep(.50,.68,t);
 
@@ -5235,11 +5993,8 @@ function renderWorld(time){
             W,
             H*.5
         );
-    }
 
-    /*
-      subtle lower darkness
-    */
+    }
 
     let lower=
         ctx.createLinearGradient(
@@ -5268,15 +6023,12 @@ function renderWorld(time){
         H*.45
     );
 
-    /*
-      text state
-    */
-
     updateEnvironmentText(t);
 
     requestAnimationFrame(
         renderWorld
     );
+
 }
 
 requestAnimationFrame(
@@ -5284,8 +6036,7 @@ requestAnimationFrame(
 );
 
 /* =========================================================
-   PHYSICS MAIN CANVAS
-   PROJECTILE + GRAVITY
+   CANVAS SETUP
    ========================================================= */
 
 function setupCanvas(canvas){
@@ -5300,10 +6051,14 @@ function setupCanvas(canvas){
         );
 
     canvas.width=
-        Math.floor(rect.width*dpr);
+        Math.floor(
+            rect.width*dpr
+        );
 
     canvas.height=
-        Math.floor(rect.height*dpr);
+        Math.floor(
+            rect.height*dpr
+        );
 
     const c=
         canvas.getContext("2d");
@@ -5317,12 +6072,17 @@ function setupCanvas(canvas){
         0
     );
 
-    return {
+    return{
         c,
         w:rect.width,
         h:rect.height
     };
+
 }
+
+/* =========================================================
+   PHYSICS MAIN
+   ========================================================= */
 
 function physicsMain(){
 
@@ -5343,15 +6103,8 @@ function physicsMain(){
     function frame(time){
 
         c.clearRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
-
-        /*
-          dark laboratory atmosphere
-        */
 
         let bg=
             c.createLinearGradient(
@@ -5371,20 +6124,11 @@ function physicsMain(){
         c.fillStyle=bg;
 
         c.fillRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
-
-        /*
-          coordinate grid
-        */
 
         c.strokeStyle=
             "rgba(150,210,230,.055)";
-
-        c.lineWidth=1;
 
         for(
             let x=0;
@@ -5396,6 +6140,7 @@ function physicsMain(){
             c.moveTo(x,0);
             c.lineTo(x,h);
             c.stroke();
+
         }
 
         for(
@@ -5408,223 +6153,113 @@ function physicsMain(){
             c.moveTo(0,y);
             c.lineTo(w,y);
             c.stroke();
+
         }
 
         /*
-          ground
+          Projectile trajectory
         */
 
-        let ground=
+        const ground=
             h*.78;
 
         c.strokeStyle=
-            "rgba(180,220,230,.25)";
+            "rgba(180,230,240,.16)";
 
         c.beginPath();
 
         c.moveTo(
-            w*.08,
+            25,
             ground
         );
 
         c.lineTo(
-            w*.94,
+            w-20,
             ground
         );
 
         c.stroke();
 
-        /*
-          slow projectile
-        */
+        const duration=6500;
 
-        let period=8500;
+        const p=
+            (time%duration)/
+            duration;
 
-        let p=
-            (time%period)/period;
+        const x=
+            35+
+            p*
+            (w*.78);
 
-        /*
-          ease in/out so launch is readable
-        */
+        const height=
+            Math.sin(p*Math.PI)*
+            h*.52;
 
-        let flight=
-            Math.sin(
-                p*Math.PI
-            );
-
-        let x=
-            w*.15+
-            flight*w*.62;
-
-        let y=
-            ground-
-            Math.sin(
-                p*Math.PI
-            )*
-            h*.42;
-
-        /*
-          trajectory path
-        */
-
-        c.strokeStyle=
-            "rgba(150,220,245,.18)";
+        const y=
+            ground-height;
 
         c.beginPath();
 
-        for(let i=0;i<=100;i++){
+        for(
+            let i=0;
+            i<=60;
+            i++
+        ){
 
-            let q=i/100;
+            const q=i/60;
 
-            let tx=
-                w*.15+
-                q*w*.62;
+            const px=
+                35+
+                q*
+                (w*.78);
 
-            let ty=
+            const py=
                 ground-
-                Math.sin(
-                    q*Math.PI
-                )*
-                h*.42;
+                Math.sin(q*Math.PI)*
+                h*.52;
 
             if(i===0){
-                c.moveTo(tx,ty);
+                c.moveTo(px,py);
             }else{
-                c.lineTo(tx,ty);
+                c.lineTo(px,py);
             }
+
         }
+
+        c.strokeStyle=
+            "rgba(150,225,240,.28)";
 
         c.stroke();
 
-        /*
-          football
-        */
-
-        c.save();
-
-        c.translate(
-            x,
-            y
-        );
-
-        c.rotate(
-            p*Math.PI*5
-        );
-
         c.beginPath();
 
-        c.ellipse(
-            0,
-            0,
-            17,
-            11,
-            0,
+        c.arc(
+            x,
+            y,
+            7,
             0,
             Math.PI*2
         );
 
         c.fillStyle=
-            "rgba(225,237,239,.9)";
+            "rgba(180,240,245,.8)";
+
+        c.shadowBlur=18;
+
+        c.shadowColor=
+            "rgba(150,225,240,.8)";
 
         c.fill();
 
-        c.strokeStyle=
-            "rgba(30,50,60,.8)";
-
-        c.stroke();
-
-        c.beginPath();
-
-        c.moveTo(
-            -7,
-            0
-        );
-
-        c.lineTo(
-            7,
-            0
-        );
-
-        c.strokeStyle=
-            "rgba(60,90,100,.7)";
-
-        c.stroke();
-
-        c.restore();
-
-        /*
-          velocity arrow
-        */
-
-        let vx=
-            Math.cos(
-                p*Math.PI
-            );
-
-        let vy=
-            -Math.sin(
-                p*Math.PI
-            );
-
-        c.strokeStyle=
-            "rgba(160,230,250,.55)";
-
-        c.beginPath();
-
-        c.moveTo(
-            x,
-            y
-        );
-
-        c.lineTo(
-            x+vx*65,
-            y+vy*40
-        );
-
-        c.stroke();
-
-        /*
-          impact marker
-        */
-
-        if(p>.82){
-
-            let impact=
-                smoothstep(
-                    .82,
-                    1,
-                    p
-                );
-
-            c.beginPath();
-
-            c.arc(
-                w*.77,
-                ground,
-                15+
-                impact*30,
-                0,
-                Math.PI*2
-            );
-
-            c.strokeStyle=
-                `rgba(
-                    170,
-                    230,
-                    245,
-                    ${.3*(1-impact)}
-                )`;
-
-            c.stroke();
-        }
+        c.shadowBlur=0;
 
         requestAnimationFrame(frame);
+
     }
 
     requestAnimationFrame(frame);
-}
 
-physicsMain();
+}
 
 /* =========================================================
    CHEMISTRY
@@ -5646,201 +6281,111 @@ function chemistry(){
     const w=o.w;
     const h=o.h;
 
-    const particles=[];
+    const molecules=[];
 
-    for(let i=0;i<32;i++){
+    for(let i=0;i<22;i++){
 
-        particles.push({
+        molecules.push({
+
             x:Math.random()*w,
             y:Math.random()*h,
-            vx:(Math.random()-.5)*.35,
-            vy:(Math.random()-.5)*.35,
-            r:4+Math.random()*5,
-            type:i%3
+            vx:(Math.random()-.5)*.55,
+            vy:(Math.random()-.5)*.55,
+            r:3+Math.random()*4
+
         });
+
     }
 
-    function frame(time){
+    function frame(){
 
         c.clearRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
 
         c.fillStyle=
             "#06131c";
 
         c.fillRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
 
-        /*
-          thermal particle motion
-        */
+        molecules.forEach(m=>{
 
-        particles.forEach(p=>{
+            m.x+=m.vx;
+            m.y+=m.vy;
 
-            p.x+=p.vx;
-            p.y+=p.vy;
+            if(m.x<0||m.x>w)m.vx*=-1;
+            if(m.y<0||m.y>h)m.vy*=-1;
 
-            if(
-                p.x<0||
-                p.x>w
-            )p.vx*=-1;
+            molecules.forEach(n=>{
 
-            if(
-                p.y<0||
-                p.y>h
-            )p.vy*=-1;
+                if(m===n)return;
 
-        });
+                const dx=
+                    n.x-m.x;
 
-        /*
-          collisions
-        */
+                const dy=
+                    n.y-m.y;
 
-        for(let i=0;i<particles.length;i++){
-
-            for(
-                let j=i+1;
-                j<particles.length;
-                j++
-            ){
-
-                const a=particles[i];
-                const b=particles[j];
-
-                const dx=b.x-a.x;
-                const dy=b.y-a.y;
-
-                const dist=
+                const d=
                     Math.sqrt(
                         dx*dx+
                         dy*dy
                     );
 
-                if(dist<75){
+                if(d<65){
 
-                    const reaction=
-                        1-
-                        dist/75;
+                    c.beginPath();
+
+                    c.moveTo(
+                        m.x,
+                        m.y
+                    );
+
+                    c.lineTo(
+                        n.x,
+                        n.y
+                    );
 
                     c.strokeStyle=
                         `rgba(
                             160,
                             220,
-                            235,
-                            ${reaction*.14}
+                            230,
+                            ${.12*(1-d/65)}
                         )`;
 
-                    c.lineWidth=1;
-
-                    c.beginPath();
-
-                    c.moveTo(
-                        a.x,
-                        a.y
-                    );
-
-                    c.lineTo(
-                        b.x,
-                        b.y
-                    );
-
                     c.stroke();
+
                 }
-            }
-        }
 
-        particles.forEach((p,i)=>{
-
-            let pulse=
-                .75+
-                .25*
-                Math.sin(
-                    time*.001+
-                    i
-                );
+            });
 
             c.beginPath();
 
             c.arc(
-                p.x,
-                p.y,
-                p.r*pulse,
+                m.x,
+                m.y,
+                m.r,
                 0,
                 Math.PI*2
             );
 
-            let alpha=
-                .45+
-                .3*pulse;
-
-            if(p.type===0){
-
-                c.fillStyle=
-                    `rgba(
-                        125,
-                        210,
-                        240,
-                        ${alpha}
-                    )`;
-
-            }else if(p.type===1){
-
-                c.fillStyle=
-                    `rgba(
-                        180,
-                        235,
-                        205,
-                        ${alpha}
-                    )`;
-
-            }else{
-
-                c.fillStyle=
-                    `rgba(
-                        225,
-                        200,
-                        145,
-                        ${alpha}
-                    )`;
-            }
+            c.fillStyle=
+                "rgba(180,230,235,.65)";
 
             c.fill();
 
-            /*
-              electron-like halo
-            */
-
-            c.beginPath();
-
-            c.arc(
-                p.x,
-                p.y,
-                p.r*2.2,
-                0,
-                Math.PI*2
-            );
-
-            c.strokeStyle=
-                "rgba(180,225,235,.05)";
-
-            c.stroke();
         });
 
         requestAnimationFrame(frame);
+
     }
 
     requestAnimationFrame(frame);
-}
 
-chemistry();
+}
 
 /* =========================================================
    BIOLOGY
@@ -5865,61 +6410,26 @@ function biology(){
     function frame(time){
 
         c.clearRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
 
         c.fillStyle=
             "#06131c";
 
         c.fillRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
 
-        /*
-          cell membrane
-        */
+        const cx=
+            w*.5;
 
-        const cx=w*.5;
-        const cy=h*.48;
+        const cy=
+            h*.48;
 
-        let pulse=
+        const pulse=
             Math.sin(
-                time*.0006
-            )*3;
-
-        c.beginPath();
-
-        c.ellipse(
-            cx,
-            cy,
-            w*.28+pulse,
-            h*.32+pulse,
-            0,
-            0,
-            Math.PI*2
-        );
-
-        c.fillStyle=
-            "rgba(100,190,180,.055)";
-
-        c.fill();
-
-        c.strokeStyle=
-            "rgba(145,225,215,.22)";
-
-        c.lineWidth=2;
-
-        c.stroke();
-
-        /*
-          nucleus
-        */
+                time*.002
+            )*4;
 
         c.beginPath();
 
@@ -5939,10 +6449,12 @@ function biology(){
         c.strokeStyle=
             "rgba(150,220,245,.28)";
 
+        c.lineWidth=2;
+
         c.stroke();
 
         /*
-          DNA double helix
+          DNA
         */
 
         for(let strand=0;strand<2;strand++){
@@ -5955,53 +6467,50 @@ function biology(){
                 y+=2
             ){
 
-                let phase=
+                const phase=
                     y*.055+
                     time*.0006;
 
                 let x=
                     cx+
                     Math.sin(
-                        phase
+                        phase+
+                        (
+                            strand?
+                            Math.PI:
+                            0
+                        )
                     )*
                     28;
 
-                if(strand===1){
-                    x=
-                        cx+
-                        Math.sin(
-                            phase+
-                            Math.PI
-                        )*
-                        28;
-                }
-
                 if(y===-70){
+
                     c.moveTo(
                         x,
                         cy+y
                     );
+
                 }else{
+
                     c.lineTo(
                         x,
                         cy+y
                     );
+
                 }
+
             }
 
             c.strokeStyle=
                 strand===0
-                ? "rgba(160,225,245,.55)"
-                : "rgba(170,230,195,.45)";
-
-            c.lineWidth=2;
+                ?
+                "rgba(160,225,245,.55)"
+                :
+                "rgba(170,230,195,.45)";
 
             c.stroke();
-        }
 
-        /*
-          base-pair connections
-        */
+        }
 
         for(
             let y=-60;
@@ -6009,17 +6518,15 @@ function biology(){
             y+=15
         ){
 
-            let phase=
+            const phase=
                 y*.055+
                 time*.0006;
 
-            let x1=
+            const x1=
                 cx+
-                Math.sin(
-                    phase
-                )*28;
+                Math.sin(phase)*28;
 
-            let x2=
+            const x2=
                 cx+
                 Math.sin(
                     phase+
@@ -6042,31 +6549,32 @@ function biology(){
                 "rgba(220,235,225,.17)";
 
             c.stroke();
+
         }
 
         /*
-          circulating particles
+          Cell particles
         */
 
         for(let i=0;i<20;i++){
 
-            let angle=
+            const angle=
                 time*.00025+
                 i*.9;
 
-            let rx=
+            const rx=
                 w*.28+
                 Math.sin(i*3)*20;
 
-            let ry=
+            const ry=
                 h*.32+
                 Math.cos(i*2)*20;
 
-            let x=
+            const x=
                 cx+
                 Math.cos(angle)*rx;
 
-            let y=
+            const y=
                 cy+
                 Math.sin(angle)*ry;
 
@@ -6084,18 +6592,19 @@ function biology(){
                 "rgba(190,240,215,.55)";
 
             c.fill();
+
         }
 
         requestAnimationFrame(frame);
+
     }
 
     requestAnimationFrame(frame);
+
 }
 
-biology();
-
 /* =========================================================
-   WAVE PHYSICS
+   WAVES
    ========================================================= */
 
 function waves(){
@@ -6117,25 +6626,15 @@ function waves(){
     function frame(time){
 
         c.clearRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
 
         c.fillStyle=
             "#06131c";
 
         c.fillRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
-
-        /*
-          reference axis
-        */
 
         c.strokeStyle=
             "rgba(170,220,235,.08)";
@@ -6154,10 +6653,6 @@ function waves(){
 
         c.stroke();
 
-        /*
-          multiple wave fields
-        */
-
         for(let wave=0;wave<4;wave++){
 
             c.beginPath();
@@ -6168,15 +6663,15 @@ function waves(){
                 x+=3
             ){
 
-                let k=
+                const k=
                     .018+
                     wave*.004;
 
-                let omega=
+                const omega=
                     time*.0012+
                     wave*.8;
 
-                let y=
+                const y=
                     h*.52+
                     Math.sin(
                         x*k+
@@ -6194,6 +6689,7 @@ function waves(){
                 }else{
                     c.lineTo(x,y);
                 }
+
             }
 
             c.strokeStyle=
@@ -6205,63 +6701,19 @@ function waves(){
                 )`;
 
             c.lineWidth=
-                wave===0 ? 2 : 1;
+                wave===0?2:1;
 
             c.stroke();
+
         }
-
-        /*
-          interference zone
-        */
-
-        let center=
-            w*.65;
-
-        c.beginPath();
-
-        for(
-            let x=center-w*.3;
-            x<center+w*.3;
-            x+=3
-        ){
-
-            let d=
-                Math.abs(
-                    x-center
-                );
-
-            let amp=
-                Math.sin(
-                    d*.045+
-                    time*.001
-                )*
-                Math.exp(
-                    -d/(w*.18)
-                );
-
-            let y=
-                h*.52+
-                amp*65;
-
-            if(x===center-w*.3){
-                c.moveTo(x,y);
-            }else{
-                c.lineTo(x,y);
-            }
-        }
-
-        c.strokeStyle=
-            "rgba(225,230,190,.32)";
-
-        c.stroke();
 
         requestAnimationFrame(frame);
+
     }
 
     requestAnimationFrame(frame);
-}
 
-waves();
+}
 
 /* =========================================================
    SPACE
@@ -6285,21 +6737,21 @@ function space(){
 
     const planets=[
         {
-            r:120,
-            size:9,
-            speed:.00018,
+            r:55,
+            size:5,
+            speed:.00035,
             phase:0
         },
         {
-            r:170,
-            size:14,
-            speed:.00011,
+            r:80,
+            size:7,
+            speed:.00022,
             phase:2
         },
         {
-            r:215,
-            size:19,
-            speed:.00007,
+            r:105,
+            size:9,
+            speed:.00014,
             phase:4
         }
     ];
@@ -6307,41 +6759,25 @@ function space(){
     function frame(time){
 
         c.clearRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
 
         c.fillStyle=
             "#02070d";
 
         c.fillRect(
-            0,
-            0,
-            w,
-            h
+            0,0,w,h
         );
-
-        /*
-          stars
-        */
 
         for(let i=0;i<90;i++){
 
-            let x=
-                (
-                    i*73+
-                    11
-                )%w;
+            const x=
+                (i*73+11)%w;
 
-            let y=
-                (
-                    i*37+
-                    17
-                )%h;
+            const y=
+                (i*37+17)%h;
 
-            let tw=
+            const tw=
                 .5+
                 .5*
                 Math.sin(
@@ -6362,14 +6798,11 @@ function space(){
                 1,
                 1
             );
+
         }
 
         const cx=w*.52;
         const cy=h*.51;
-
-        /*
-          sun
-        */
 
         let glow=
             c.createRadialGradient(
@@ -6420,10 +6853,6 @@ function space(){
 
         c.fill();
 
-        /*
-          orbital paths
-        */
-
         planets.forEach(p=>{
 
             c.beginPath();
@@ -6443,24 +6872,20 @@ function space(){
 
             c.stroke();
 
-            let angle=
+            const angle=
                 time*
                 p.speed+
                 p.phase;
 
-            let x=
+            const x=
                 cx+
                 Math.cos(angle)*
                 p.r;
 
-            let y=
+            const y=
                 cy+
                 Math.sin(angle)*
                 p.r*.54;
-
-            /*
-              planet
-            */
 
             c.beginPath();
 
@@ -6473,43 +6898,183 @@ function space(){
             );
 
             c.fillStyle=
-                p.size<12
-                ? "rgba(130,190,215,.75)"
-                : "rgba(170,205,180,.72)";
+                p.size<7
+                ?
+                "rgba(130,190,215,.75)"
+                :
+                "rgba(170,205,180,.72)";
 
             c.fill();
-
-            /*
-              atmosphere
-            */
-
-            c.beginPath();
-
-            c.arc(
-                x,
-                y,
-                p.size*1.7,
-                0,
-                Math.PI*2
-            );
-
-            c.strokeStyle=
-                "rgba(150,220,245,.08)";
-
-            c.stroke();
 
         });
 
         requestAnimationFrame(frame);
+
     }
 
     requestAnimationFrame(frame);
+
 }
 
-space();
+/* =========================================================
+   NATURAL CYCLE MINI CANVAS
+   ========================================================= */
+
+function naturalCycle(){
+
+    const canvas=
+        document.getElementById(
+            "cycleCanvas"
+        );
+
+    if(!canvas)return;
+
+    const o=
+        setupCanvas(canvas);
+
+    const c=o.c;
+    const w=o.w;
+    const h=o.h;
+
+    function frame(time){
+
+        c.clearRect(
+            0,0,w,h
+        );
+
+        c.fillStyle=
+            "#06131c";
+
+        c.fillRect(
+            0,0,w,h
+        );
+
+        const t=
+            (
+                time%18000
+            )/18000;
+
+        const sunX=
+            w*(
+                .1+
+                .8*t
+            );
+
+        const sunY=
+            h*.58-
+            Math.sin(
+                t*Math.PI
+            )*
+            h*.38;
+
+        let g=
+            c.createRadialGradient(
+                sunX,
+                sunY,
+                0,
+                sunX,
+                sunY,
+                60
+            );
+
+        g.addColorStop(
+            0,
+            "rgba(255,230,160,.4)"
+        );
+
+        g.addColorStop(
+            1,
+            "rgba(255,190,90,0)"
+        );
+
+        c.fillStyle=g;
+
+        c.beginPath();
+
+        c.arc(
+            sunX,
+            sunY,
+            60,
+            0,
+            Math.PI*2
+        );
+
+        c.fill();
+
+        c.beginPath();
+
+        c.arc(
+            sunX,
+            sunY,
+            13,
+            0,
+            Math.PI*2
+        );
+
+        c.fillStyle=
+            "rgba(255,231,170,.85)";
+
+        c.fill();
+
+        c.fillStyle=
+            "rgba(20,50,55,.55)";
+
+        c.beginPath();
+
+        c.moveTo(
+            0,
+            h*.76
+        );
+
+        for(
+            let x=0;
+            x<=w;
+            x+=20
+        ){
+
+            c.lineTo(
+                x,
+                h*.7+
+                Math.sin(x*.05)*10
+            );
+
+        }
+
+        c.lineTo(
+            w,
+            h
+        );
+
+        c.lineTo(
+            0,
+            h
+        );
+
+        c.closePath();
+
+        c.fill();
+
+        requestAnimationFrame(frame);
+
+    }
+
+    requestAnimationFrame(frame);
+
+}
 
 /* =========================================================
-   OPTIONAL CARD TILT — DESKTOP ONLY
+   START SCIENCE
+   ========================================================= */
+
+physicsMain();
+chemistry();
+biology();
+waves();
+space();
+naturalCycle();
+
+/* =========================================================
+   CARD TILT — DESKTOP
    ========================================================= */
 
 if(
@@ -6532,24 +7097,33 @@ if(
                         card.getBoundingClientRect();
 
                     const x=
-                        e.clientX-r.left;
+                        e.clientX-
+                        r.left;
 
                     const y=
-                        e.clientY-r.top;
+                        e.clientY-
+                        r.top;
 
                     const rx=
-                        ((y-r.height/2)/
-                        r.height)*-2;
+                        (
+                            (y-r.height/2)/
+                            r.height
+                        )*
+                        -2;
 
                     const ry=
-                        ((x-r.width/2)/
-                        r.width)*2;
+                        (
+                            (x-r.width/2)/
+                            r.width
+                        )*
+                        2;
 
                     card.style.transform=
                         `perspective(900px)
                          rotateX(${rx}deg)
                          rotateY(${ry}deg)
                          translateY(-5px)`;
+
                 }
             );
 
@@ -6559,11 +7133,13 @@ if(
                     card.style.transform="";
                 }
             );
+
         });
+
 }
 
 /* =========================================================
-   SMOOTH ANCHOR
+   SMOOTH ANCHORS
    ========================================================= */
 
 document
@@ -6593,52 +7169,17 @@ document
                     .scrollIntoView({
                         behavior:"smooth"
                     });
+
             }
         );
+
     });
-
-/* =========================================================
-   AUTH SESSION CHECK
-   ========================================================= */
-
-(async()=>{
-
-    try{
-
-        const {
-            data:{
-                session
-            }
-        }=
-            await supabaseClient.auth.getSession();
-
-        if(session){
-
-            const loginButtons=
-                document.querySelectorAll(
-                    ".nav-actions .nav-btn"
-                );
-
-            /*
-              Keep the interface simple.
-              Dashboard remains directly available.
-            */
-
-        }
-
-    }catch(e){
-
-        console.log(
-            "Session check unavailable."
-        );
-    }
-
-})();
 
 /* =========================================================
    END
    ========================================================= */
+
 </script>
 
 </body>
-      </html>
+   </html>
