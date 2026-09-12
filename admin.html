@@ -2,10 +2,14 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dream Hunt | Admin Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -17,12 +21,14 @@
 
 body{
     min-height:100vh;
+    font-family:Arial, sans-serif;
+    background:#f4f6f9;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family:Arial, sans-serif;
-    background:#f4f6f9;
 }
+
+/* LOGIN */
 
 .login-box{
     width:90%;
@@ -80,23 +86,101 @@ button{
     cursor:pointer;
 }
 
-button:hover{
-    opacity:.9;
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .message{
     text-align:center;
     margin-top:18px;
     font-size:14px;
+    color:#d00;
+}
+
+/* ADMIN PANEL */
+
+#adminPanel{
+    display:none;
+    width:100%;
+    min-height:100vh;
+    background:#f4f6f9;
+}
+
+.header{
+    background:#111;
+    color:white;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header h1{
+    font-size:22px;
+}
+
+.logout{
+    width:auto;
+    padding:10px 18px;
+    background:white;
+    color:#111;
+}
+
+.dashboard{
+    padding:25px;
+}
+
+.welcome{
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.welcome h2{
+    margin-bottom:8px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.card h3{
+    font-size:16px;
+    color:#777;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:28px;
+    font-weight:800;
+    color:#111;
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<div class="login-box">
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div class="login-box" id="loginBox">
 
     <div class="logo">
         Dream Hunt
@@ -108,7 +192,9 @@ button:hover{
 
     <form id="adminLoginForm">
 
-        <label>Email</label>
+        <label for="email">
+            Email
+        </label>
 
         <input
             type="email"
@@ -117,7 +203,9 @@ button:hover{
             required
         >
 
-        <label>Password</label>
+        <label for="password">
+            Password
+        </label>
 
         <input
             type="password"
@@ -126,28 +214,402 @@ button:hover{
             required
         >
 
-        <button type="submit">
+        <button
+            type="submit"
+            id="loginButton"
+        >
             Login
         </button>
 
     </form>
 
-    <div class="message" id="message"></div>
+    <div
+        class="message"
+        id="message"
+    ></div>
 
 </div>
 
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div id="adminPanel">
+
+    <div class="header">
+
+        <h1>
+            Dream Hunt Admin
+        </h1>
+
+        <button
+            class="logout"
+            id="logoutButton"
+        >
+            Logout
+        </button>
+
+    </div>
+
+
+    <div class="dashboard">
+
+        <div class="welcome">
+
+            <h2>
+                Welcome, Admin 👋
+            </h2>
+
+            <p id="adminEmail">
+                Admin
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>
+                    Students
+                </h3>
+
+                <p>
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    Courses
+                </h3>
+
+                <p>
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    Exams
+                </h3>
+
+                <p>
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    Payments
+                </h3>
+
+                <p>
+                    0
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
-document
-.getElementById("adminLoginForm")
-.addEventListener("submit", function(e){
+/* =========================================
+   SUPABASE CONFIG
+========================================= */
 
-    e.preventDefault();
+const SUPABASE_URL =
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
 
-    document.getElementById("message").innerText =
-        "Admin authentication will be connected in the next step.";
+const SUPABASE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
-});
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginBox =
+    document.getElementById("loginBox");
+
+const adminPanel =
+    document.getElementById("adminPanel");
+
+const loginForm =
+    document.getElementById("adminLoginForm");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const message =
+    document.getElementById("message");
+
+const adminEmail =
+    document.getElementById("adminEmail");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+/* =========================================
+   SHOW ADMIN PANEL
+========================================= */
+
+function showAdminPanel(email){
+
+    loginBox.style.display = "none";
+
+    adminPanel.style.display = "block";
+
+    adminEmail.innerText = email;
+
+}
+
+
+/* =========================================
+   SHOW LOGIN
+========================================= */
+
+function showLogin(){
+
+    loginBox.style.display = "block";
+
+    adminPanel.style.display = "none";
+
+}
+
+
+/* =========================================
+   CHECK ADMIN
+========================================= */
+
+async function checkAdmin(user){
+
+    if(!user){
+
+        return false;
+
+    }
+
+
+    const { data, error } =
+        await supabaseClient
+        .from("admins")
+        .select("id,email")
+        .eq("id", user.id)
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(error);
+
+        return false;
+
+    }
+
+
+    return !!data;
+
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginForm.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        message.innerText = "";
+
+        loginButton.disabled = true;
+
+        loginButton.innerText = "Logging in...";
+
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        /* SUPABASE LOGIN */
+
+        const { data, error } =
+            await supabaseClient
+            .auth
+            .signInWithPassword({
+
+                email: email,
+
+                password: password
+
+            });
+
+
+        if(error){
+
+            message.innerText =
+                "Invalid email or password.";
+
+            loginButton.disabled = false;
+
+            loginButton.innerText = "Login";
+
+            return;
+
+        }
+
+
+        /* CHECK ADMIN */
+
+        const isAdmin =
+            await checkAdmin(data.user);
+
+
+        if(!isAdmin){
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            message.innerText =
+                "Access denied. You are not an admin.";
+
+            loginButton.disabled = false;
+
+            loginButton.innerText = "Login";
+
+            return;
+
+        }
+
+
+        /* SUCCESS */
+
+        showAdminPanel(data.user.email);
+
+
+        loginButton.disabled = false;
+
+        loginButton.innerText = "Login";
+
+    }
+);
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+logoutButton.addEventListener(
+    "click",
+    async function(){
+
+        await supabaseClient
+            .auth
+            .signOut();
+
+        showLogin();
+
+        document
+            .getElementById("password")
+            .value = "";
+
+    }
+);
+
+
+/* =========================================
+   CHECK EXISTING SESSION
+========================================= */
+
+async function checkExistingSession(){
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient
+        .auth
+        .getSession();
+
+
+    if(!session){
+
+        showLogin();
+
+        return;
+
+    }
+
+
+    const isAdmin =
+        await checkAdmin(session.user);
+
+
+    if(isAdmin){
+
+        showAdminPanel(
+            session.user.email
+        );
+
+    }else{
+
+        await supabaseClient
+            .auth
+            .signOut();
+
+        showLogin();
+
+    }
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+checkExistingSession();
+
 
 </script>
 
