@@ -1256,7 +1256,6 @@ function updateSelection(){
     packageBadge.style.display =
         "inline-block";
 
-
     proceedBtn.disabled =
         false;
 
@@ -1277,6 +1276,170 @@ checkboxes.forEach(
 
     }
 );
+
+
+/* =========================================
+   PLAN CONNECTION
+   FROM PLANS & PACKAGES
+========================================= */
+
+function loadSelectedPlan(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const plan =
+        params.get("plan");
+
+
+    if(!plan){
+
+        return;
+
+    }
+
+
+    /* PUBLIC UNIVERSITY */
+
+    if(plan === "public"){
+
+        const checkbox =
+            document.querySelector(
+                '.category-checkbox[value="public-university"]'
+            );
+
+        if(checkbox){
+
+            checkbox.checked =
+                true;
+
+        }
+
+    }
+
+
+    /* MEDICAL */
+
+    else if(plan === "medical"){
+
+        const checkbox =
+            document.querySelector(
+                '.category-checkbox[value="medical-dental"]'
+            );
+
+        if(checkbox){
+
+            checkbox.checked =
+                true;
+
+        }
+
+    }
+
+
+    /* ENGINEERING */
+
+    else if(plan === "engineering"){
+
+        const checkbox =
+            document.querySelector(
+                '.category-checkbox[value="engineering"]'
+            );
+
+        if(checkbox){
+
+            checkbox.checked =
+                true;
+
+        }
+
+    }
+
+
+    /* TWO CATEGORY PACKAGE */
+
+    else if(plan === "dual"){
+
+        const publicCheckbox =
+            document.querySelector(
+                '.category-checkbox[value="public-university"]'
+            );
+
+        const medicalCheckbox =
+            document.querySelector(
+                '.category-checkbox[value="medical-dental"]'
+            );
+
+        if(publicCheckbox){
+
+            publicCheckbox.checked =
+                true;
+
+        }
+
+        if(medicalCheckbox){
+
+            medicalCheckbox.checked =
+                true;
+
+        }
+
+    }
+
+
+    /* ALL EXAM */
+
+    else if(plan === "all"){
+
+        const publicCheckbox =
+            document.querySelector(
+                '.category-checkbox[value="public-university"]'
+            );
+
+        const medicalCheckbox =
+            document.querySelector(
+                '.category-checkbox[value="medical-dental"]'
+            );
+
+        const engineeringCheckbox =
+            document.querySelector(
+                '.category-checkbox[value="engineering"]'
+            );
+
+
+        if(publicCheckbox){
+
+            publicCheckbox.checked =
+                true;
+
+        }
+
+
+        if(medicalCheckbox){
+
+            medicalCheckbox.checked =
+                true;
+
+        }
+
+
+        if(engineeringCheckbox){
+
+            engineeringCheckbox.checked =
+                true;
+
+        }
+
+    }
+
+
+    /* UPDATE UI + PRICE */
+
+    updateSelection();
+
+}
 
 
 /* =========================================
@@ -1499,6 +1662,8 @@ function showError(text){
 ========================================= */
 
 loadStudent();
+
+loadSelectedPlan();
 
 </script>
 
