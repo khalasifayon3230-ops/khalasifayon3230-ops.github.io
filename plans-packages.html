@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dream Hunt | Plans & Packages</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -14,10 +16,12 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     background:#f5f7fb;
     color:#111827;
 }
+
+/* HEADER */
 
 .header{
     background:#ffffff;
@@ -36,6 +40,8 @@ body{
     margin-top:6px;
     color:#6b7280;
 }
+
+/* CONTAINER */
 
 .container{
     max-width:1100px;
@@ -56,6 +62,8 @@ body{
     margin-bottom:35px;
 }
 
+/* PLANS */
+
 .plans{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
@@ -63,7 +71,7 @@ body{
 }
 
 .plan{
-    background:#fff;
+    background:#ffffff;
     border-radius:18px;
     padding:25px;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
@@ -99,13 +107,15 @@ body{
     color:#4b5563;
 }
 
+/* BUTTON */
+
 .btn{
     width:100%;
     border:none;
     padding:13px;
     border-radius:10px;
     background:#2563eb;
-    color:#fff;
+    color:#ffffff;
     font-size:16px;
     font-weight:700;
     cursor:pointer;
@@ -114,6 +124,8 @@ body{
 .btn:hover{
     background:#1d4ed8;
 }
+
+/* VIEW PLANS */
 
 .view{
     display:block;
@@ -129,35 +141,54 @@ body{
 }
 
 .view:hover{
-    background:#000;
+    background:#000000;
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header class="header">
-    <div class="logo">Dream Hunt</div>
-    <div class="subtitle">Admission Preparation Platform</div>
+
+    <div class="logo">
+        Dream Hunt
+    </div>
+
+    <div class="subtitle">
+        Admission Preparation Platform
+    </div>
+
 </header>
+
 
 <main class="container">
 
-    <h1 class="title">Plans & Packages</h1>
+    <h1 class="title">
+        Plans & Packages
+    </h1>
 
     <p class="description">
         Choose the admission package that matches your goal.
     </p>
 
+
     <div class="plans">
 
+
         <!-- PUBLIC UNIVERSITY -->
+
         <div class="plan"
              onclick="window.location.href='buy-courses.html'">
 
-            <h2>Public University</h2>
+            <h2>
+                Public University
+            </h2>
 
-            <div class="price">৳300</div>
+            <div class="price">
+                ৳300
+            </div>
 
             <ul>
                 <li>✓ Public University Admission</li>
@@ -167,7 +198,8 @@ body{
                 <li>✓ Question Bank</li>
             </ul>
 
-            <button class="btn">
+            <button class="btn"
+                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
                 Choose Plan
             </button>
 
@@ -175,12 +207,17 @@ body{
 
 
         <!-- MEDICAL -->
+
         <div class="plan"
              onclick="window.location.href='buy-courses.html'">
 
-            <h2>Medical</h2>
+            <h2>
+                Medical
+            </h2>
 
-            <div class="price">৳300</div>
+            <div class="price">
+                ৳300
+            </div>
 
             <ul>
                 <li>✓ Medical Admission</li>
@@ -190,7 +227,8 @@ body{
                 <li>✓ Medical Question Bank</li>
             </ul>
 
-            <button class="btn">
+            <button class="btn"
+                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
                 Choose Plan
             </button>
 
@@ -198,12 +236,17 @@ body{
 
 
         <!-- ENGINEERING -->
+
         <div class="plan"
              onclick="window.location.href='buy-courses.html'">
 
-            <h2>Engineering</h2>
+            <h2>
+                Engineering
+            </h2>
 
-            <div class="price">৳300</div>
+            <div class="price">
+                ৳300
+            </div>
 
             <ul>
                 <li>✓ Engineering Admission</li>
@@ -213,7 +256,8 @@ body{
                 <li>✓ Engineering Question Bank</li>
             </ul>
 
-            <button class="btn">
+            <button class="btn"
+                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
                 Choose Plan
             </button>
 
@@ -221,12 +265,17 @@ body{
 
 
         <!-- TWO CATEGORY -->
+
         <div class="plan"
              onclick="window.location.href='buy-courses.html'">
 
-            <h2>Any 2 Categories</h2>
+            <h2>
+                Any 2 Categories
+            </h2>
 
-            <div class="price">৳500</div>
+            <div class="price">
+                ৳500
+            </div>
 
             <ul>
                 <li>✓ Medical + Engineering</li>
@@ -236,7 +285,8 @@ body{
                 <li>✓ Full Question Bank</li>
             </ul>
 
-            <button class="btn">
+            <button class="btn"
+                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
                 Choose Plan
             </button>
 
@@ -244,12 +294,17 @@ body{
 
 
         <!-- ALL EXAM -->
+
         <div class="plan"
              onclick="window.location.href='buy-courses.html'">
 
-            <h2>All Exam</h2>
+            <h2>
+                All Exam
+            </h2>
 
-            <div class="price">৳800</div>
+            <div class="price">
+                ৳800
+            </div>
 
             <ul>
                 <li>✓ Public University</li>
@@ -259,7 +314,8 @@ body{
                 <li>✓ Complete Access</li>
             </ul>
 
-            <button class="btn">
+            <button class="btn"
+                    onclick="event.stopPropagation(); window.location.href='buy-courses.html'">
                 Choose Plan
             </button>
 
@@ -269,8 +325,12 @@ body{
 
 
     <!-- VIEW PLANS -->
-    <a href="buy-courses.html" class="view">
+
+    <a href="buy-courses.html"
+       class="view">
+
         View Plans
+
     </a>
 
 </main>
