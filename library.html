@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dream Hunt | Library</title>
@@ -33,7 +32,9 @@ button{
     cursor:pointer;
 }
 
-/* TOPBAR */
+/* =========================
+   TOPBAR
+========================= */
 
 .topbar{
     position:sticky;
@@ -77,7 +78,9 @@ button{
     font-weight:850;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
     position:relative;
@@ -115,7 +118,9 @@ button{
 }
 
 @keyframes orbit{
-    to{transform:rotate(360deg);}
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 .eyebrow{
@@ -145,7 +150,9 @@ button{
     line-height:1.75;
 }
 
-/* LOCK */
+/* =========================
+   LOCK
+========================= */
 
 .lock-wrapper{
     max-width:650px;
@@ -170,6 +177,7 @@ button{
         opacity:0;
         transform:translateY(20px) scale(.98);
     }
+
     to{
         opacity:1;
         transform:none;
@@ -217,11 +225,15 @@ button{
     line-height:1.7;
 }
 
-.no-paid{
+.no-paid,
+.payment-pending,
+.loading-error{
     display:none;
 }
 
-.no-paid.show{
+.no-paid.show,
+.payment-pending.show,
+.loading-error.show{
     display:block;
 }
 
@@ -229,19 +241,13 @@ button{
     background:#fff7ed;
 }
 
-.payment-pending{
-    display:none;
-}
-
-.payment-pending.show{
-    display:block;
-}
-
 .pending-icon{
     background:#fff7ed;
 }
 
-/* LIBRARY */
+/* =========================
+   LIBRARY
+========================= */
 
 #libraryContent{
     display:none;
@@ -256,6 +262,7 @@ button{
         opacity:0;
         transform:translateY(20px);
     }
+
     to{
         opacity:1;
         transform:none;
@@ -319,7 +326,9 @@ button{
     box-shadow:0 0 0 3px #eef2ff;
 }
 
-/* FILTER */
+/* =========================
+   FILTER
+========================= */
 
 .filters{
     display:flex;
@@ -350,7 +359,9 @@ button{
     color:white;
 }
 
-/* GRID */
+/* =========================
+   GRID
+========================= */
 
 .resource-grid{
     display:grid;
@@ -378,6 +389,7 @@ button{
         opacity:0;
         transform:translateY(12px);
     }
+
     to{
         opacity:1;
         transform:none;
@@ -446,6 +458,14 @@ button{
     font-size:13px;
 }
 
+.error-text{
+    color:#dc2626 !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:800px){
 
     .hero{
@@ -497,7 +517,9 @@ button{
 Dream<span>Hunt</span>
 </a>
 
-<button class="dashboard-btn" onclick="goDashboard()">
+<button
+class="dashboard-btn"
+onclick="goDashboard()">
 ← Dashboard
 </button>
 
@@ -527,10 +549,11 @@ admission-focused resources.
 
 <div class="lock-wrapper">
 
+<!-- NO COURSE -->
 
-<!-- NO PAYMENT -->
-
-<div class="lock-box no-paid" id="noPaidBox">
+<div
+class="lock-box no-paid"
+id="noPaidBox">
 
 <div class="lock-icon">
 💳
@@ -546,7 +569,9 @@ with an approved paid course enrollment.
 Please enroll in a Dream Hunt course first.
 </p>
 
-<button class="dashboard-btn" onclick="goCourses()">
+<button
+class="dashboard-btn"
+onclick="goCourses()">
 View Courses →
 </button>
 
@@ -555,7 +580,9 @@ View Courses →
 
 <!-- PAYMENT PENDING -->
 
-<div class="lock-box payment-pending" id="pendingBox">
+<div
+class="lock-box payment-pending"
+id="pendingBox">
 
 <div class="lock-icon pending-icon">
 ⏳
@@ -571,16 +598,20 @@ been confirmed by Dream Hunt yet. Once your payment is
 approved, your Library access will automatically unlock.
 </p>
 
-<button class="dashboard-btn" onclick="goDashboard()">
+<button
+class="dashboard-btn"
+onclick="goDashboard()">
 ← Dashboard
 </button>
 
 </div>
 
 
-<!-- GENERAL ERROR -->
+<!-- LOADING -->
 
-<div class="lock-box" id="loadingBox">
+<div
+class="lock-box"
+id="loadingBox">
 
 <div class="lock-icon">
 🔐
@@ -597,8 +628,42 @@ enrollment.
 
 </div>
 
+
+<!-- ERROR -->
+
+<div
+class="lock-box loading-error"
+id="errorBox">
+
+<div class="lock-icon">
+⚠️
 </div>
 
+<h2>
+Unable to Verify Access
+</h2>
+
+<p
+id="errorMessage"
+class="error-text">
+Something went wrong while checking your Library access.
+Please try again.
+</p>
+
+<button
+class="dashboard-btn"
+onclick="location.reload()">
+Try Again
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     LIBRARY CONTENT
+========================= -->
 
 <main id="libraryContent">
 
@@ -618,7 +683,9 @@ Study Resources
 Your private Dream Hunt resource collection.
 </p>
 
-<div class="course-badge" id="courseBadge">
+<div
+class="course-badge"
+id="courseBadge">
 Paid Course
 </div>
 
@@ -633,40 +700,58 @@ placeholder="Search resources...">
 </div>
 
 
-<div class="filters" id="filters">
+<div
+class="filters"
+id="filters">
 
-<button class="filter active" data-category="all">
+<button
+class="filter active"
+data-category="all">
 All
 </button>
 
-<button class="filter" data-category="marked-books">
+<button
+class="filter"
+data-category="marked-books">
 দাগানো বই
 </button>
 
-<button class="filter" data-category="question-bank">
+<button
+class="filter"
+data-category="question-bank">
 Question Bank
 </button>
 
-<button class="filter" data-category="important-notes">
+<button
+class="filter"
+data-category="important-notes">
 Important Notes
 </button>
 
-<button class="filter" data-category="formula-sheets">
+<button
+class="filter"
+data-category="formula-sheets">
 Formula Sheets
 </button>
 
-<button class="filter" data-category="previous-questions">
+<button
+class="filter"
+data-category="previous-questions">
 Previous Questions
 </button>
 
-<button class="filter" data-category="short-tricks">
+<button
+class="filter"
+data-category="short-tricks">
 Short Tricks
 </button>
 
 </div>
 
 
-<div class="resource-grid" id="resourceGrid">
+<div
+class="resource-grid"
+id="resourceGrid">
 </div>
 
 </main>
@@ -723,22 +808,38 @@ function goCourses(){
 
 
 /* =====================================================
-   USER
+   GET CURRENT USER
 ===================================================== */
 
 async function getCurrentUser(){
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient.auth.getSession();
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
 
 
-    if(error){
+        if(error){
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            return null;
+
+        }
+
+
+        return data.session?.user || null;
+
+    }catch(error){
 
         console.error(
-            "Session error:",
+            "User error:",
             error
         );
 
@@ -746,14 +847,11 @@ async function getCurrentUser(){
 
     }
 
-
-    return data.session?.user || null;
-
 }
 
 
 /* =====================================================
-   NORMALIZE COURSE
+   NORMALIZE CATEGORY
 ===================================================== */
 
 function normalizeCourse(value){
@@ -761,6 +859,7 @@ function normalizeCourse(value){
     if(!value){
         return "";
     }
+
 
     const v =
     String(value)
@@ -772,7 +871,9 @@ function normalizeCourse(value){
         v.includes("all") ||
         v.includes("সব")
     ){
+
         return "all";
+
     }
 
 
@@ -780,7 +881,9 @@ function normalizeCourse(value){
         v.includes("medical") ||
         v.includes("med")
     ){
+
         return "medical";
+
     }
 
 
@@ -788,166 +891,23 @@ function normalizeCourse(value){
         v.includes("engineering") ||
         v.includes("engi")
     ){
+
         return "engineering";
+
     }
 
 
     if(
         v.includes("public") ||
-        v.includes("university") ||
-        v.includes("public university")
+        v.includes("university")
     ){
+
         return "public";
+
     }
 
 
     return v;
-
-}
-
-
-/* =====================================================
-   CHECK PAYMENT / ENROLLMENT
-===================================================== */
-
-async function checkPaidEnrollment(){
-
-    const user =
-    await getCurrentUser();
-
-
-    if(!user){
-
-        window.location.href =
-        "index.html";
-
-        return false;
-
-    }
-
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("enrollments")
-    .select("*")
-    .eq("user_id", user.id);
-
-
-    if(error){
-
-        console.error(
-            "Enrollment error:",
-            error
-        );
-
-        showOnly(
-            "loadingBox"
-        );
-
-        return false;
-
-    }
-
-
-    if(!data || data.length === 0){
-
-        showOnly(
-            "noPaidBox"
-        );
-
-        return false;
-
-    }
-
-
-    /*
-       ONLY CONFIRMED/APPROVED/PAID
-       ENROLLMENTS GET LIBRARY ACCESS.
-    */
-
-    const approved =
-    data.filter(
-        enrollment => {
-
-            const status =
-            String(
-                enrollment.status ||
-                enrollment.payment_status ||
-                enrollment.approval_status ||
-                ""
-            )
-            .toLowerCase()
-            .trim();
-
-
-            return [
-                "approved",
-                "confirmed",
-                "paid",
-                "active",
-                "success",
-                "completed"
-            ].includes(status);
-
-        }
-    );
-
-
-    if(approved.length === 0){
-
-        showOnly(
-            "pendingBox"
-        );
-
-        return false;
-
-    }
-
-
-    /*
-       SAVE USER'S ACTIVE COURSES
-    */
-
-    activeCourses =
-    approved
-    .map(
-        enrollment => {
-
-            return normalizeCourse(
-                enrollment.course_type ||
-                enrollment.course ||
-                enrollment.category ||
-                enrollment.course_name
-            );
-
-        }
-    )
-    .filter(Boolean);
-
-
-    /*
-       IF ALL COURSE EXISTS,
-       GIVE ACCESS TO EVERYTHING.
-    */
-
-    if(
-        activeCourses.includes("all")
-    ){
-
-        activeCourses = [
-            "all",
-            "public",
-            "medical",
-            "engineering"
-        ];
-
-    }
-
-
-    return true;
 
 }
 
@@ -961,7 +921,8 @@ function showOnly(id){
     const boxes = [
         "noPaidBox",
         "pendingBox",
-        "loadingBox"
+        "loadingBox",
+        "errorBox"
     ];
 
 
@@ -974,20 +935,19 @@ function showOnly(id){
             );
 
 
+            if(!element){
+                return;
+            }
+
+
             if(boxId === id){
 
                 element.classList.add(
                     "show"
                 );
 
-                if(
-                    boxId === "loadingBox"
-                ){
-
-                    element.style.display =
-                    "block";
-
-                }
+                element.style.display =
+                "block";
 
             }else{
 
@@ -1007,13 +967,271 @@ function showOnly(id){
 
 
 /* =====================================================
+   CHECK ENROLLMENT
+===================================================== */
+
+async function checkPaidEnrollment(){
+
+    const user =
+    await getCurrentUser();
+
+
+    if(!user){
+
+        window.location.href =
+        "index.html";
+
+        return false;
+
+    }
+
+
+    try{
+
+        /*
+         * IMPORTANT:
+         *
+         * enrollments:
+         * user_id
+         * course_id
+         * order_id
+         * status
+         * status_progress
+         * enrolled_at
+         *
+         * courses:
+         * id
+         * category
+         *
+         * We DO NOT use enrollment.course_type.
+         */
+
+        const {
+            data: enrollments,
+            error: enrollmentError
+        } =
+        await supabaseClient
+        .from("enrollments")
+        .select(`
+            id,
+            user_id,
+            course_id,
+            order_id,
+            status,
+            status_progress,
+            enrolled_at,
+            courses (
+                id,
+                category
+            )
+        `)
+        .eq(
+            "user_id",
+            user.id
+        );
+
+
+        if(enrollmentError){
+
+            console.error(
+                "Enrollment error:",
+                enrollmentError
+            );
+
+            showError(
+                "Could not verify your enrollment. Please try again."
+            );
+
+            return false;
+
+        }
+
+
+        if(
+            !enrollments ||
+            enrollments.length === 0
+        ){
+
+            showOnly(
+                "noPaidBox"
+            );
+
+            return false;
+
+        }
+
+
+        /*
+         * ONLY APPROVED / PAID
+         * STUDENTS GET ACCESS.
+         */
+
+        const approved =
+        enrollments.filter(
+            enrollment => {
+
+                const status =
+                String(
+                    enrollment.status ||
+                    ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+                return [
+                    "approved",
+                    "confirmed",
+                    "paid",
+                    "active",
+                    "success",
+                    "completed"
+                ].includes(
+                    status
+                );
+
+            }
+        );
+
+
+        /*
+         * PAYMENT SUBMITTED BUT
+         * NOT APPROVED YET.
+         */
+
+        if(
+            approved.length === 0
+        ){
+
+            showOnly(
+                "pendingBox"
+            );
+
+            return false;
+
+        }
+
+
+        /*
+         * GET COURSE CATEGORIES
+         * FROM COURSES TABLE.
+         */
+
+        activeCourses =
+        approved
+        .map(
+            enrollment => {
+
+                return normalizeCourse(
+                    enrollment.courses?.category
+                );
+
+            }
+        )
+        .filter(Boolean);
+
+
+        /*
+         * REMOVE DUPLICATES.
+         */
+
+        activeCourses =
+        [...new Set(
+            activeCourses
+        )];
+
+
+        /*
+         * ALL EXAM COURSE
+         * GETS EVERYTHING.
+         */
+
+        if(
+            activeCourses.includes(
+                "all"
+            )
+        ){
+
+            activeCourses = [
+                "all",
+                "public",
+                "medical",
+                "engineering"
+            ];
+
+        }
+
+
+        if(
+            activeCourses.length === 0
+        ){
+
+            showError(
+                "Your course category could not be identified."
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "Access check error:",
+            error
+        );
+
+        showError(
+            "Something went wrong while checking your course access."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message){
+
+    showOnly(
+        "errorBox"
+    );
+
+
+    const errorMessage =
+    document.getElementById(
+        "errorMessage"
+    );
+
+
+    if(errorMessage){
+
+        errorMessage.textContent =
+        message;
+
+    }
+
+}
+
+
+/* =====================================================
    COURSE LABEL
 ===================================================== */
 
 function courseLabel(){
 
     if(
-        activeCourses.includes("all")
+        activeCourses.includes(
+            "all"
+        )
     ){
 
         return "ALL EXAM ACCESS";
@@ -1025,7 +1243,9 @@ function courseLabel(){
 
 
     if(
-        activeCourses.includes("public")
+        activeCourses.includes(
+            "public"
+        )
     ){
 
         labels.push(
@@ -1036,7 +1256,9 @@ function courseLabel(){
 
 
     if(
-        activeCourses.includes("medical")
+        activeCourses.includes(
+            "medical"
+        )
     ){
 
         labels.push(
@@ -1047,7 +1269,9 @@ function courseLabel(){
 
 
     if(
-        activeCourses.includes("engineering")
+        activeCourses.includes(
+            "engineering"
+        )
     ){
 
         labels.push(
@@ -1057,7 +1281,9 @@ function courseLabel(){
     }
 
 
-    return labels.join(" + ");
+    return labels.join(
+        " + "
+    );
 
 }
 
@@ -1069,29 +1295,25 @@ function courseLabel(){
 async function unlockLibrary(){
 
     document
-    .getElementById("loadingBox")
+    .getElementById(
+        "loadingBox"
+    )
     .style.display =
     "none";
 
 
     document
-    .getElementById("noPaidBox")
-    .classList.remove("show");
-
-
-    document
-    .getElementById("pendingBox")
-    .classList.remove("show");
-
-
-    document
-    .getElementById("libraryContent")
+    .getElementById(
+        "libraryContent"
+    )
     .style.display =
     "block";
 
 
     document
-    .getElementById("courseBadge")
+    .getElementById(
+        "courseBadge"
+    )
     .textContent =
     courseLabel();
 
@@ -1102,100 +1324,76 @@ async function unlockLibrary(){
 
 
 /* =====================================================
-   RESOURCE ACCESS CHECK
-===================================================== */
-
-function canAccessResource(resource){
-
-    const resourceCourse =
-    normalizeCourse(
-        resource.course_type ||
-        resource.course ||
-        resource.category_type ||
-        "all"
-    );
-
-
-    /*
-       Resource marked "all"
-       is available for every paid course.
-    */
-
-    if(
-        resourceCourse === "all" ||
-        !resourceCourse
-    ){
-
-        return true;
-
-    }
-
-
-    /*
-       ALL EXAM student gets everything.
-    */
-
-    if(
-        activeCourses.includes("all")
-    ){
-
-        return true;
-
-    }
-
-
-    return activeCourses.includes(
-        resourceCourse
-    );
-
-}
-
-
-/* =====================================================
-   LOAD RESOURCES
+   LOAD AUTHORIZED RESOURCES
 ===================================================== */
 
 async function loadResources(){
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("library_resources")
-    .select("*")
-    .eq("is_active", true)
-    .order(
-        "published_at",
-        {
-            ascending:false
+    try{
+
+        /*
+         * SECURITY:
+         *
+         * We use the Supabase RPC.
+         *
+         * The RPC checks:
+         *
+         * enrollments
+         *      ↓
+         * course_id
+         *      ↓
+         * courses.category
+         *      ↓
+         * library_resources.course_type
+         *
+         * So the browser does NOT simply
+         * download every library resource.
+         */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .rpc(
+            "get_my_library_resources"
+        );
+
+
+        if(error){
+
+            console.error(
+                "Library RPC error:",
+                error
+            );
+
+            renderEmpty(
+                "Unable to load your library resources."
+            );
+
+            return;
+
         }
-    );
 
 
-    if(error){
+        resources =
+        data || [];
+
+
+        renderResources();
+
+    }catch(error){
 
         console.error(
-            "Resource error:",
+            "Resource loading error:",
             error
         );
 
         renderEmpty(
-            "Unable to load library resources."
+            "Unable to load your library resources."
         );
 
-        return;
-
     }
-
-
-    resources =
-    (data || []).filter(
-        canAccessResource
-    );
-
-
-    renderResources();
 
 }
 
@@ -1229,8 +1427,9 @@ function categoryLabel(category){
     };
 
 
-    return labels[category] ||
-    category;
+    return labels[
+        category
+    ] || category;
 
 }
 
@@ -1243,23 +1442,30 @@ function resourceIcon(category){
 
     const icons = {
 
-        "marked-books":"📕",
+        "marked-books":
+        "📕",
 
-        "question-bank":"📝",
+        "question-bank":
+        "📝",
 
-        "important-notes":"📒",
+        "important-notes":
+        "📒",
 
-        "formula-sheets":"⚡",
+        "formula-sheets":
+        "⚡",
 
-        "previous-questions":"🧾",
+        "previous-questions":
+        "🧾",
 
-        "short-tricks":"🧠"
+        "short-tricks":
+        "🧠"
 
     };
 
 
-    return icons[category] ||
-    "📚";
+    return icons[
+        category
+    ] || "📚";
 
 }
 
@@ -1309,7 +1515,9 @@ function renderResources(){
 
             const searchMatch =
             !search ||
-            text.includes(search);
+            text.includes(
+                search
+            );
 
 
             return (
@@ -1324,7 +1532,9 @@ function renderResources(){
     grid.innerHTML = "";
 
 
-    if(filtered.length === 0){
+    if(
+        filtered.length === 0
+    ){
 
         renderEmpty(
             "No resources found."
@@ -1441,18 +1651,30 @@ function renderResources(){
             }
 
 
-            card.appendChild(icon);
+            card.appendChild(
+                icon
+            );
 
-            card.appendChild(category);
+            card.appendChild(
+                category
+            );
 
-            card.appendChild(title);
+            card.appendChild(
+                title
+            );
 
-            card.appendChild(description);
+            card.appendChild(
+                description
+            );
 
-            card.appendChild(button);
+            card.appendChild(
+                button
+            );
 
 
-            grid.appendChild(card);
+            grid.appendChild(
+                card
+            );
 
         }
     );
@@ -1503,7 +1725,9 @@ document
             () => {
 
                 document
-                .querySelectorAll(".filter")
+                .querySelectorAll(
+                    ".filter"
+                )
                 .forEach(
                     item => {
 
@@ -1538,7 +1762,9 @@ document
 ===================================================== */
 
 document
-.getElementById("searchInput")
+.getElementById(
+    "searchInput"
+)
 .addEventListener(
     "input",
     renderResources
@@ -1596,7 +1822,9 @@ startLibrary();
 supabaseClient.auth.onAuthStateChange(
     (event, session) => {
 
-        if(!session){
+        if(
+            !session
+        ){
 
             window.location.href =
             "index.html";
