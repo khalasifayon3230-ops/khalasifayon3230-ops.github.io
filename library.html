@@ -5,9 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dream Hunt | Library</title>
 
@@ -22,17 +20,12 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body{
-    font-family:
-        Inter,
-        Arial,
-        sans-serif;
-
+    font-family:Inter,Arial,sans-serif;
     background:#f5f7fb;
     color:#111827;
 }
 
-button,
-input{
+button,input{
     font:inherit;
 }
 
@@ -40,34 +33,23 @@ button{
     cursor:pointer;
 }
 
-
-/* =====================================================
-   TOPBAR
-===================================================== */
+/* TOPBAR */
 
 .topbar{
     position:sticky;
     top:0;
     z-index:1000;
-
     height:70px;
-
     background:rgba(255,255,255,.92);
-
     backdrop-filter:blur(18px);
-
     border-bottom:1px solid #e5e7eb;
 }
 
 .topbar-inner{
     max-width:1180px;
-
     height:100%;
-
     margin:auto;
-
     padding:0 20px;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -75,12 +57,9 @@ button{
 
 .logo{
     text-decoration:none;
-
     font-size:24px;
     font-weight:950;
-
     letter-spacing:-1px;
-
     color:#111827;
 }
 
@@ -90,371 +69,153 @@ button{
 
 .dashboard-btn{
     border:none;
-
     background:#111827;
     color:white;
-
     padding:10px 15px;
-
     border-radius:9px;
-
     font-size:12px;
     font-weight:850;
 }
 
-
-/* =====================================================
-   HERO
-===================================================== */
+/* HERO */
 
 .hero{
     position:relative;
-
     overflow:hidden;
-
     text-align:center;
-
     padding:75px 20px 55px;
-
     background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(99,102,241,.16),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 85% 20%,
-            rgba(14,165,233,.13),
-            transparent 25%
-        ),
+        radial-gradient(circle at 15% 20%,rgba(99,102,241,.16),transparent 25%),
+        radial-gradient(circle at 85% 20%,rgba(14,165,233,.13),transparent 25%),
         #f8fafc;
 }
 
 .hero::before{
     content:"";
-
     position:absolute;
-
     width:300px;
     height:300px;
-
     border:1px solid rgba(99,102,241,.15);
-
     border-radius:50%;
-
     top:-160px;
     left:-80px;
-
     animation:orbit 14s linear infinite;
 }
 
 .hero::after{
     content:"";
-
     position:absolute;
-
     width:240px;
     height:240px;
-
     border:1px dashed rgba(14,165,233,.18);
-
     border-radius:50%;
-
     right:-80px;
     bottom:-150px;
-
     animation:orbit 10s linear infinite reverse;
 }
 
 @keyframes orbit{
-    to{
-        transform:rotate(360deg);
-    }
+    to{transform:rotate(360deg);}
 }
 
 .eyebrow{
     color:#6366f1;
-
     font-size:10px;
-
     font-weight:950;
-
     letter-spacing:1.5px;
-
     text-transform:uppercase;
-
     margin-bottom:10px;
 }
 
 .hero h1{
     position:relative;
     z-index:2;
-
     font-size:48px;
-
     letter-spacing:-2.5px;
-
     margin-bottom:12px;
 }
 
 .hero p{
     position:relative;
     z-index:2;
-
     max-width:650px;
-
     margin:auto;
-
     color:#6b7280;
-
     font-size:14px;
-
     line-height:1.75;
 }
 
-
-/* =====================================================
-   LOCK BOX
-===================================================== */
+/* LOCK */
 
 .lock-wrapper{
     max-width:650px;
-
     margin:35px auto 90px;
-
     padding:0 20px;
 }
 
 .lock-box{
-
     position:relative;
-
     overflow:hidden;
-
     background:white;
-
     border:1px solid #e5e7eb;
-
     border-radius:25px;
-
     padding:45px 30px;
-
     text-align:center;
-
-    box-shadow:
-        0 25px 80px rgba(15,23,42,.08);
-
+    box-shadow:0 25px 80px rgba(15,23,42,.08);
     animation:boxIn .7s ease both;
 }
 
 @keyframes boxIn{
-
     from{
         opacity:0;
         transform:translateY(20px) scale(.98);
     }
-
     to{
         opacity:1;
         transform:none;
     }
-
 }
 
 .lock-box::before{
-
     content:"";
-
     position:absolute;
-
     width:180px;
     height:180px;
-
     border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(99,102,241,.13),
-            transparent 70%
-        );
-
+    background:radial-gradient(circle,rgba(99,102,241,.13),transparent 70%);
     top:-90px;
     left:-70px;
 }
 
 .lock-icon{
-
     position:relative;
-
     width:76px;
     height:76px;
-
     margin:0 auto 20px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     border-radius:23px;
-
     background:#eef2ff;
-
     font-size:33px;
-
-    box-shadow:
-        0 12px 30px rgba(99,102,241,.12);
-
-    animation:lockFloat 3s ease-in-out infinite;
-}
-
-@keyframes lockFloat{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-7px);
-    }
-
+    box-shadow:0 12px 30px rgba(99,102,241,.12);
 }
 
 .lock-box h2{
     position:relative;
-
     font-size:28px;
-
     letter-spacing:-1px;
-
     margin-bottom:10px;
 }
 
 .lock-box p{
     position:relative;
-
     max-width:520px;
-
     margin:0 auto 25px;
-
     color:#6b7280;
-
     font-size:13px;
-
     line-height:1.7;
 }
-
-.code-input{
-
-    width:100%;
-
-    padding:15px;
-
-    border:1px solid #d1d5db;
-
-    border-radius:11px;
-
-    outline:none;
-
-    text-align:center;
-
-    letter-spacing:2.5px;
-
-    font-weight:900;
-
-    text-transform:uppercase;
-
-    margin-bottom:10px;
-
-    transition:.2s;
-}
-
-.code-input:focus{
-
-    border-color:#6366f1;
-
-    box-shadow:
-        0 0 0 4px #eef2ff;
-}
-
-.unlock-btn{
-
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #6366f1
-        );
-
-    color:white;
-
-    font-size:13px;
-
-    font-weight:900;
-
-    transition:.2s;
-}
-
-.unlock-btn:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 12px 25px rgba(79,70,229,.25);
-}
-
-.unlock-btn:disabled{
-
-    opacity:.6;
-
-    cursor:not-allowed;
-
-    transform:none;
-}
-
-.message{
-
-    display:none;
-
-    margin-bottom:12px;
-
-    padding:11px;
-
-    border-radius:9px;
-
-    font-size:12px;
-
-    line-height:1.5;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.error{
-
-    background:#fef2f2;
-    color:#991b1b;
-}
-
-.message.success{
-
-    background:#ecfdf5;
-    color:#065f46;
-}
-
-
-/* =====================================================
-   NO ENROLLMENT
-===================================================== */
 
 .no-paid{
     display:none;
@@ -468,328 +229,222 @@ button{
     background:#fff7ed;
 }
 
+.payment-pending{
+    display:none;
+}
 
-/* =====================================================
-   LIBRARY CONTENT
-===================================================== */
+.payment-pending.show{
+    display:block;
+}
+
+.pending-icon{
+    background:#fff7ed;
+}
+
+/* LIBRARY */
 
 #libraryContent{
-
     display:none;
-
     max-width:1180px;
-
     margin:auto;
-
     padding:30px 20px 90px;
-
     animation:contentIn .6s ease;
 }
 
 @keyframes contentIn{
-
     from{
         opacity:0;
         transform:translateY(20px);
     }
-
     to{
         opacity:1;
         transform:none;
     }
-
 }
 
 .library-head{
-
     display:flex;
-
     align-items:flex-end;
-
     justify-content:space-between;
-
     gap:20px;
-
     margin-bottom:25px;
 }
 
 .library-head h2{
-
     font-size:29px;
-
     letter-spacing:-1.2px;
 }
 
 .library-head p{
-
     color:#6b7280;
-
     font-size:12px;
-
     margin-top:6px;
 }
 
 .unlocked-badge{
-
     display:inline-flex;
-
     align-items:center;
-
     gap:6px;
-
     padding:8px 12px;
-
     border-radius:20px;
-
     background:#ecfdf5;
-
     color:#047857;
-
     font-size:10px;
-
     font-weight:900;
-
     margin-bottom:8px;
 }
 
+.course-badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:7px 11px;
+    border-radius:20px;
+    background:#eef2ff;
+    color:#4f46e5;
+    font-size:10px;
+    font-weight:900;
+}
+
 .search{
-
     width:280px;
-
     padding:12px 14px;
-
     border:1px solid #d1d5db;
-
     border-radius:10px;
-
     outline:none;
-
     background:white;
 }
 
 .search:focus{
-
     border-color:#6366f1;
-
-    box-shadow:
-        0 0 0 3px #eef2ff;
+    box-shadow:0 0 0 3px #eef2ff;
 }
 
-
-/* =====================================================
-   FILTER
-===================================================== */
+/* FILTER */
 
 .filters{
-
     display:flex;
-
     flex-wrap:wrap;
-
     gap:8px;
-
     margin-bottom:25px;
 }
 
 .filter{
-
     border:1px solid #d1d5db;
-
     background:white;
-
     color:#4b5563;
-
     padding:8px 13px;
-
     border-radius:20px;
-
     font-size:11px;
-
     font-weight:850;
-
     transition:.2s;
 }
 
 .filter:hover{
-
     border-color:#818cf8;
-
     color:#4f46e5;
 }
 
 .filter.active{
-
     background:#4f46e5;
-
     border-color:#4f46e5;
-
     color:white;
 }
 
-
-/* =====================================================
-   RESOURCE GRID
-===================================================== */
+/* GRID */
 
 .resource-grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:18px;
 }
 
 .resource{
-
     background:white;
-
     border:1px solid #e5e7eb;
-
     border-radius:18px;
-
     padding:21px;
-
     transition:.3s;
-
     animation:cardIn .5s ease both;
 }
 
 .resource:hover{
-
     transform:translateY(-6px);
-
     border-color:#c7d2fe;
-
-    box-shadow:
-        0 25px 55px rgba(15,23,42,.08);
+    box-shadow:0 25px 55px rgba(15,23,42,.08);
 }
 
 @keyframes cardIn{
-
     from{
         opacity:0;
         transform:translateY(12px);
     }
-
     to{
         opacity:1;
         transform:none;
     }
-
 }
 
 .resource-icon{
-
     width:48px;
     height:48px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     border-radius:14px;
-
     background:#eef2ff;
-
     font-size:21px;
-
     margin-bottom:15px;
 }
 
 .resource-category{
-
     color:#6366f1;
-
     font-size:9px;
-
     font-weight:950;
-
     text-transform:uppercase;
-
     letter-spacing:.8px;
-
     margin-bottom:7px;
 }
 
 .resource h3{
-
     font-size:17px;
-
     margin-bottom:8px;
 }
 
 .resource p{
-
     color:#6b7280;
-
     font-size:12px;
-
     line-height:1.65;
-
     min-height:58px;
-
     margin-bottom:16px;
 }
 
 .resource-btn{
-
     width:100%;
-
     padding:10px;
-
     border:none;
-
     border-radius:9px;
-
     background:#111827;
-
     color:white;
-
     font-size:11px;
-
     font-weight:900;
 }
 
 .resource-btn.disabled{
-
     background:#f3f4f6;
-
     color:#9ca3af;
-
     cursor:not-allowed;
 }
 
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
 .empty{
-
     grid-column:1/-1;
-
     padding:70px 20px;
-
     background:white;
-
     border:1px dashed #d1d5db;
-
     border-radius:18px;
-
     text-align:center;
-
     color:#6b7280;
-
     font-size:13px;
 }
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media(max-width:800px){
 
@@ -832,42 +487,24 @@ button{
 
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     TOPBAR
-===================================================== -->
 
 <header class="topbar">
 
 <div class="topbar-inner">
 
-<a
-href="dashboard.html"
-class="logo">
-
+<a href="dashboard.html" class="logo">
 Dream<span>Hunt</span>
-
 </a>
 
-<button
-class="dashboard-btn"
-onclick="goDashboard()">
-
+<button class="dashboard-btn" onclick="goDashboard()">
 ← Dashboard
-
 </button>
 
 </div>
 
 </header>
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
 
 <section class="hero">
 
@@ -888,18 +525,12 @@ admission-focused resources.
 </section>
 
 
-<!-- =====================================================
-     LOCK AREA
-===================================================== -->
-
 <div class="lock-wrapper">
 
 
-<!-- NO PAID COURSE -->
+<!-- NO PAYMENT -->
 
-<div
-class="lock-box no-paid"
-id="noPaidBox">
+<div class="lock-box no-paid" id="noPaidBox">
 
 <div class="lock-icon">
 💳
@@ -915,67 +546,59 @@ with an approved paid course enrollment.
 Please enroll in a Dream Hunt course first.
 </p>
 
-<button
-class="unlock-btn"
-onclick="goCourses()">
-
+<button class="dashboard-btn" onclick="goCourses()">
 View Courses →
-
 </button>
 
 </div>
 
 
-<!-- ACCESS CODE -->
+<!-- PAYMENT PENDING -->
 
-<div
-class="lock-box"
-id="codeBox">
+<div class="lock-box payment-pending" id="pendingBox">
+
+<div class="lock-icon pending-icon">
+⏳
+</div>
+
+<h2>
+Payment Under Review
+</h2>
+
+<p>
+Your course payment has been submitted, but it has not
+been confirmed by Dream Hunt yet. Once your payment is
+approved, your Library access will automatically unlock.
+</p>
+
+<button class="dashboard-btn" onclick="goDashboard()">
+← Dashboard
+</button>
+
+</div>
+
+
+<!-- GENERAL ERROR -->
+
+<div class="lock-box" id="loadingBox">
 
 <div class="lock-icon">
 🔐
 </div>
 
 <h2>
-Library Locked
+Checking Access...
 </h2>
 
 <p>
-Your paid enrollment has been found.
-Enter the Library Access Code provided by Dream Hunt
-through SMS or another official channel.
+Please wait while we verify your Dream Hunt course
+enrollment.
 </p>
 
-<div
-class="message"
-id="lockMessage">
-</div>
-
-<input
-class="code-input"
-id="libraryCode"
-type="text"
-maxlength="50"
-placeholder="ENTER ACCESS CODE"
-autocomplete="off">
-
-<button
-class="unlock-btn"
-id="unlockButton"
-onclick="unlockLibrary()">
-
-🔓 Unlock Library
-
-</button>
-
 </div>
 
 </div>
 
-
-<!-- =====================================================
-     LIBRARY
-===================================================== -->
 
 <main id="libraryContent">
 
@@ -995,6 +618,10 @@ Study Resources
 Your private Dream Hunt resource collection.
 </p>
 
+<div class="course-badge" id="courseBadge">
+Paid Course
+</div>
+
 </div>
 
 <input
@@ -1006,72 +633,40 @@ placeholder="Search resources...">
 </div>
 
 
-<div
-class="filters"
-id="filters">
+<div class="filters" id="filters">
 
-<button
-class="filter active"
-data-category="all">
-
+<button class="filter active" data-category="all">
 All
-
 </button>
 
-<button
-class="filter"
-data-category="marked-books">
-
+<button class="filter" data-category="marked-books">
 দাগানো বই
-
 </button>
 
-<button
-class="filter"
-data-category="question-bank">
-
+<button class="filter" data-category="question-bank">
 Question Bank
-
 </button>
 
-<button
-class="filter"
-data-category="important-notes">
-
+<button class="filter" data-category="important-notes">
 Important Notes
-
 </button>
 
-<button
-class="filter"
-data-category="formula-sheets">
-
+<button class="filter" data-category="formula-sheets">
 Formula Sheets
-
 </button>
 
-<button
-class="filter"
-data-category="previous-questions">
-
+<button class="filter" data-category="previous-questions">
 Previous Questions
-
 </button>
 
-<button
-class="filter"
-data-category="short-tricks">
-
+<button class="filter" data-category="short-tricks">
 Short Tricks
-
 </button>
 
 </div>
 
 
-<div
-class="resource-grid"
-id="resourceGrid">
+<div class="resource-grid" id="resourceGrid">
 </div>
 
 </main>
@@ -1096,9 +691,15 @@ window.supabase.createClient(
 );
 
 
+/* =====================================================
+   GLOBAL
+===================================================== */
+
 let resources = [];
 
 let activeCategory = "all";
+
+let activeCourses = [];
 
 
 /* =====================================================
@@ -1112,6 +713,7 @@ function goDashboard(){
 
 }
 
+
 function goCourses(){
 
     window.location.href =
@@ -1121,30 +723,7 @@ function goCourses(){
 
 
 /* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-    message,
-    type
-){
-
-    const box =
-    document.getElementById(
-        "lockMessage"
-    );
-
-    box.textContent =
-    message;
-
-    box.className =
-    "message show " + type;
-
-}
-
-
-/* =====================================================
-   SESSION
+   USER
 ===================================================== */
 
 async function getCurrentUser(){
@@ -1155,13 +734,18 @@ async function getCurrentUser(){
     } =
     await supabaseClient.auth.getSession();
 
+
     if(error){
 
-        console.error(error);
+        console.error(
+            "Session error:",
+            error
+        );
 
         return null;
 
     }
+
 
     return data.session?.user || null;
 
@@ -1169,13 +753,68 @@ async function getCurrentUser(){
 
 
 /* =====================================================
-   CHECK PAID ENROLLMENT
+   NORMALIZE COURSE
+===================================================== */
+
+function normalizeCourse(value){
+
+    if(!value){
+        return "";
+    }
+
+    const v =
+    String(value)
+    .toLowerCase()
+    .trim();
+
+
+    if(
+        v.includes("all") ||
+        v.includes("সব")
+    ){
+        return "all";
+    }
+
+
+    if(
+        v.includes("medical") ||
+        v.includes("med")
+    ){
+        return "medical";
+    }
+
+
+    if(
+        v.includes("engineering") ||
+        v.includes("engi")
+    ){
+        return "engineering";
+    }
+
+
+    if(
+        v.includes("public") ||
+        v.includes("university") ||
+        v.includes("public university")
+    ){
+        return "public";
+    }
+
+
+    return v;
+
+}
+
+
+/* =====================================================
+   CHECK PAYMENT / ENROLLMENT
 ===================================================== */
 
 async function checkPaidEnrollment(){
 
     const user =
     await getCurrentUser();
+
 
     if(!user){
 
@@ -1193,9 +832,8 @@ async function checkPaidEnrollment(){
     } =
     await supabaseClient
     .from("enrollments")
-    .select("id")
-    .eq("user_id", user.id)
-    .limit(1);
+    .select("*")
+    .eq("user_id", user.id);
 
 
     if(error){
@@ -1205,9 +843,8 @@ async function checkPaidEnrollment(){
             error
         );
 
-        showMessage(
-            "Unable to verify your course enrollment.",
-            "error"
+        showOnly(
+            "loadingBox"
         );
 
         return false;
@@ -1217,15 +854,95 @@ async function checkPaidEnrollment(){
 
     if(!data || data.length === 0){
 
-        document
-        .getElementById("codeBox")
-        .style.display = "none";
-
-        document
-        .getElementById("noPaidBox")
-        .classList.add("show");
+        showOnly(
+            "noPaidBox"
+        );
 
         return false;
+
+    }
+
+
+    /*
+       ONLY CONFIRMED/APPROVED/PAID
+       ENROLLMENTS GET LIBRARY ACCESS.
+    */
+
+    const approved =
+    data.filter(
+        enrollment => {
+
+            const status =
+            String(
+                enrollment.status ||
+                enrollment.payment_status ||
+                enrollment.approval_status ||
+                ""
+            )
+            .toLowerCase()
+            .trim();
+
+
+            return [
+                "approved",
+                "confirmed",
+                "paid",
+                "active",
+                "success",
+                "completed"
+            ].includes(status);
+
+        }
+    );
+
+
+    if(approved.length === 0){
+
+        showOnly(
+            "pendingBox"
+        );
+
+        return false;
+
+    }
+
+
+    /*
+       SAVE USER'S ACTIVE COURSES
+    */
+
+    activeCourses =
+    approved
+    .map(
+        enrollment => {
+
+            return normalizeCourse(
+                enrollment.course_type ||
+                enrollment.course ||
+                enrollment.category ||
+                enrollment.course_name
+            );
+
+        }
+    )
+    .filter(Boolean);
+
+
+    /*
+       IF ALL COURSE EXISTS,
+       GIVE ACCESS TO EVERYTHING.
+    */
+
+    if(
+        activeCourses.includes("all")
+    ){
+
+        activeCourses = [
+            "all",
+            "public",
+            "medical",
+            "engineering"
+        ];
 
     }
 
@@ -1236,200 +953,200 @@ async function checkPaidEnrollment(){
 
 
 /* =====================================================
-   CHECK EXISTING LIBRARY ACCESS
+   SHOW ONLY ONE BOX
 ===================================================== */
 
-async function checkExistingAccess(){
+function showOnly(id){
 
-    const user =
-    await getCurrentUser();
-
-    if(!user){
-
-        window.location.href =
-        "index.html";
-
-        return;
-
-    }
+    const boxes = [
+        "noPaidBox",
+        "pendingBox",
+        "loadingBox"
+    ];
 
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient.rpc(
-        "has_library_access"
+    boxes.forEach(
+        boxId => {
+
+            const element =
+            document.getElementById(
+                boxId
+            );
+
+
+            if(boxId === id){
+
+                element.classList.add(
+                    "show"
+                );
+
+                if(
+                    boxId === "loadingBox"
+                ){
+
+                    element.style.display =
+                    "block";
+
+                }
+
+            }else{
+
+                element.classList.remove(
+                    "show"
+                );
+
+                element.style.display =
+                "none";
+
+            }
+
+        }
     );
-
-
-    if(error){
-
-        console.error(
-            "Access check error:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    if(data === true){
-
-        await unlockUI();
-
-    }
 
 }
 
 
 /* =====================================================
-   UNLOCK
+   COURSE LABEL
+===================================================== */
+
+function courseLabel(){
+
+    if(
+        activeCourses.includes("all")
+    ){
+
+        return "ALL EXAM ACCESS";
+
+    }
+
+
+    const labels = [];
+
+
+    if(
+        activeCourses.includes("public")
+    ){
+
+        labels.push(
+            "PUBLIC UNIVERSITY"
+        );
+
+    }
+
+
+    if(
+        activeCourses.includes("medical")
+    ){
+
+        labels.push(
+            "MEDICAL"
+        );
+
+    }
+
+
+    if(
+        activeCourses.includes("engineering")
+    ){
+
+        labels.push(
+            "ENGINEERING"
+        );
+
+    }
+
+
+    return labels.join(" + ");
+
+}
+
+
+/* =====================================================
+   UNLOCK LIBRARY
 ===================================================== */
 
 async function unlockLibrary(){
 
-    const input =
-    document.getElementById(
-        "libraryCode"
-    );
-
-    const button =
-    document.getElementById(
-        "unlockButton"
-    );
+    document
+    .getElementById("loadingBox")
+    .style.display =
+    "none";
 
 
-    const code =
-    input.value
-    .trim()
-    .toUpperCase();
+    document
+    .getElementById("noPaidBox")
+    .classList.remove("show");
 
 
-    if(!code){
-
-        showMessage(
-            "Please enter your access code.",
-            "error"
-        );
-
-        return;
-
-    }
+    document
+    .getElementById("pendingBox")
+    .classList.remove("show");
 
 
-    button.disabled = true;
-
-    button.textContent =
-    "Verifying...";
-
-
-    const user =
-    await getCurrentUser();
+    document
+    .getElementById("libraryContent")
+    .style.display =
+    "block";
 
 
-    if(!user){
-
-        window.location.href =
-        "index.html";
-
-        return;
-
-    }
+    document
+    .getElementById("courseBadge")
+    .textContent =
+    courseLabel();
 
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient.rpc(
-        "verify_library_access",
-        {
-            p_code: code
-        }
-    );
-
-
-    if(error){
-
-        console.error(error);
-
-        showMessage(
-            "Something went wrong while verifying the code.",
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-        "🔓 Unlock Library";
-
-        return;
-
-    }
-
-
-    if(!data || data.success !== true){
-
-        showMessage(
-            data?.message ||
-            "Access denied.",
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-        "🔓 Unlock Library";
-
-        return;
-
-    }
-
-
-    showMessage(
-        "Access verified. Welcome to the Dream Hunt Library.",
-        "success"
-    );
-
-
-    setTimeout(
-        unlockUI,
-        500
-    );
+    await loadResources();
 
 }
 
 
 /* =====================================================
-   UNLOCK UI
+   RESOURCE ACCESS CHECK
 ===================================================== */
 
-async function unlockUI(){
+function canAccessResource(resource){
 
-    document
-    .getElementById(
-        "noPaidBox"
-    )
-    .classList.remove("show");
-
-
-    document
-    .getElementById(
-        "codeBox"
-    )
-    .style.display = "none";
+    const resourceCourse =
+    normalizeCourse(
+        resource.course_type ||
+        resource.course ||
+        resource.category_type ||
+        "all"
+    );
 
 
-    document
-    .getElementById(
-        "libraryContent"
-    )
-    .style.display = "block";
+    /*
+       Resource marked "all"
+       is available for every paid course.
+    */
+
+    if(
+        resourceCourse === "all" ||
+        !resourceCourse
+    ){
+
+        return true;
+
+    }
 
 
-    await loadResources();
+    /*
+       ALL EXAM student gets everything.
+    */
+
+    if(
+        activeCourses.includes("all")
+    ){
+
+        return true;
+
+    }
+
+
+    return activeCourses.includes(
+        resourceCourse
+    );
 
 }
 
@@ -1473,7 +1190,9 @@ async function loadResources(){
 
 
     resources =
-    data || [];
+    (data || []).filter(
+        canAccessResource
+    );
 
 
     renderResources();
@@ -1482,7 +1201,7 @@ async function loadResources(){
 
 
 /* =====================================================
-   CATEGORY
+   CATEGORY LABEL
 ===================================================== */
 
 function categoryLabel(category){
@@ -1508,6 +1227,7 @@ function categoryLabel(category){
         "Short Tricks"
 
     };
+
 
     return labels[category] ||
     category;
@@ -1536,6 +1256,7 @@ function resourceIcon(category){
         "short-tricks":"🧠"
 
     };
+
 
     return icons[category] ||
     "📚";
@@ -1782,9 +1503,7 @@ document
             () => {
 
                 document
-                .querySelectorAll(
-                    ".filter"
-                )
+                .querySelectorAll(".filter")
                 .forEach(
                     item => {
 
@@ -1819,9 +1538,7 @@ document
 ===================================================== */
 
 document
-.getElementById(
-    "searchInput"
-)
+.getElementById("searchInput")
 .addEventListener(
     "input",
     renderResources
@@ -1833,6 +1550,11 @@ document
 ===================================================== */
 
 async function startLibrary(){
+
+    showOnly(
+        "loadingBox"
+    );
+
 
     const user =
     await getCurrentUser();
@@ -1859,7 +1581,7 @@ async function startLibrary(){
     }
 
 
-    await checkExistingAccess();
+    await unlockLibrary();
 
 }
 
