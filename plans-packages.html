@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dream Hunt | Plans & Packages</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fb;
+    color:#111827;
+}
+
+.header{
+    background:#ffffff;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:800;
+    color:#2563eb;
+}
+
+.subtitle{
+    margin-top:6px;
+    color:#6b7280;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 18px;
+}
+
+.title{
+    text-align:center;
+    font-size:32px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.description{
+    text-align:center;
+    color:#6b7280;
+    margin-bottom:35px;
+}
+
+.plans{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+.plan{
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.25s;
+    border:2px solid transparent;
+}
+
+.plan:hover{
+    transform:translateY(-6px);
+    border-color:#2563eb;
+}
+
+.plan h2{
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.price{
+    font-size:30px;
+    font-weight:800;
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+.plan ul{
+    list-style:none;
+    margin-bottom:22px;
+}
+
+.plan li{
+    margin:9px 0;
+    color:#4b5563;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    padding:13px;
+    border-radius:10px;
+    background:#2563eb;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.view{
+    display:block;
+    width:200px;
+    margin:35px auto 0;
+    text-align:center;
+    text-decoration:none;
+    background:#111827;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-weight:700;
+}
+
+.view:hover{
+    background:#000;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">Dream Hunt</div>
+    <div class="subtitle">Admission Preparation Platform</div>
+</header>
+
+<main class="container">
+
+    <h1 class="title">Plans & Packages</h1>
+
+    <p class="description">
+        Choose the admission package that matches your goal.
+    </p>
+
+    <div class="plans">
+
+        <!-- PUBLIC UNIVERSITY -->
+        <div class="plan"
+             onclick="window.location.href='buy-courses.html'">
+
+            <h2>Public University</h2>
+
+            <div class="price">৳300</div>
+
+            <ul>
+                <li>✓ Public University Admission</li>
+                <li>✓ Daily Exams</li>
+                <li>✓ Weekly Exams</li>
+                <li>✓ 300 Mark Exams</li>
+                <li>✓ Question Bank</li>
+            </ul>
+
+            <button class="btn">
+                Choose Plan
+            </button>
+
+        </div>
+
+
+        <!-- MEDICAL -->
+        <div class="plan"
+             onclick="window.location.href='buy-courses.html'">
+
+            <h2>Medical</h2>
+
+            <div class="price">৳300</div>
+
+            <ul>
+                <li>✓ Medical Admission</li>
+                <li>✓ Daily Exams</li>
+                <li>✓ Weekly Exams</li>
+                <li>✓ 300 Mark Exams</li>
+                <li>✓ Medical Question Bank</li>
+            </ul>
+
+            <button class="btn">
+                Choose Plan
+            </button>
+
+        </div>
+
+
+        <!-- ENGINEERING -->
+        <div class="plan"
+             onclick="window.location.href='buy-courses.html'">
+
+            <h2>Engineering</h2>
+
+            <div class="price">৳300</div>
+
+            <ul>
+                <li>✓ Engineering Admission</li>
+                <li>✓ Daily Exams</li>
+                <li>✓ Weekly Exams</li>
+                <li>✓ 300 Mark Exams</li>
+                <li>✓ Engineering Question Bank</li>
+            </ul>
+
+            <button class="btn">
+                Choose Plan
+            </button>
+
+        </div>
+
+
+        <!-- TWO CATEGORY -->
+        <div class="plan"
+             onclick="window.location.href='buy-courses.html'">
+
+            <h2>Any 2 Categories</h2>
+
+            <div class="price">৳500</div>
+
+            <ul>
+                <li>✓ Medical + Engineering</li>
+                <li>✓ Medical + Public</li>
+                <li>✓ Engineering + Public</li>
+                <li>✓ Combined Exams</li>
+                <li>✓ Full Question Bank</li>
+            </ul>
+
+            <button class="btn">
+                Choose Plan
+            </button>
+
+        </div>
+
+
+        <!-- ALL EXAM -->
+        <div class="plan"
+             onclick="window.location.href='buy-courses.html'">
+
+            <h2>All Exam</h2>
+
+            <div class="price">৳800</div>
+
+            <ul>
+                <li>✓ Public University</li>
+                <li>✓ Medical</li>
+                <li>✓ Engineering</li>
+                <li>✓ All Admission Exams</li>
+                <li>✓ Complete Access</li>
+            </ul>
+
+            <button class="btn">
+                Choose Plan
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- VIEW PLANS -->
+    <a href="buy-courses.html" class="view">
+        View Plans
+    </a>
+
+</main>
+
+</body>
+</html>
