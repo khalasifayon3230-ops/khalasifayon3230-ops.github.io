@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dream Hunt | Admin Panel</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dream Hunt | Admin Panel</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 
 *{
     margin:0;
@@ -20,24 +8,29 @@
 }
 
 body{
-    min-height:100vh;
     font-family:Arial,sans-serif;
     background:#f4f6f9;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    color:#111;
 }
 
 /* =========================
    LOGIN
 ========================= */
 
-.login-box{
-    width:90%;
+#loginBox{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-card{
+    width:100%;
     max-width:400px;
-    background:white;
-    padding:35px 25px;
-    border-radius:18px;
+    background:#fff;
+    padding:32px 25px;
+    border-radius:20px;
     box-shadow:0 10px 35px rgba(0,0,0,.12);
 }
 
@@ -45,151 +38,427 @@ body{
     text-align:center;
     font-size:30px;
     font-weight:800;
-    color:#111;
-    margin-bottom:8px;
+    margin-bottom:5px;
 }
 
 .subtitle{
     text-align:center;
     color:#777;
-    margin-bottom:30px;
+    margin-bottom:28px;
 }
 
 label{
     display:block;
-    margin-bottom:8px;
     font-weight:600;
-    color:#333;
+    margin-bottom:7px;
 }
 
-input{
+input,
+select,
+textarea{
     width:100%;
-    padding:14px;
-    margin-bottom:20px;
+    padding:13px;
     border:1px solid #ddd;
     border-radius:10px;
-    font-size:15px;
     outline:none;
+    font-size:14px;
+    margin-bottom:15px;
+    background:#fff;
 }
 
-input:focus{
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
     border-color:#111;
 }
 
 button{
-    width:100%;
-    padding:14px;
     border:none;
     border-radius:10px;
+    padding:12px 16px;
     background:#111;
-    color:white;
-    font-size:16px;
+    color:#fff;
     font-weight:700;
     cursor:pointer;
 }
 
+button:hover{
+    opacity:.9;
+}
+
 button:disabled{
-    opacity:.6;
+    opacity:.5;
     cursor:not-allowed;
 }
 
+.full-btn{
+    width:100%;
+}
+
 .message{
+    margin-top:15px;
     text-align:center;
-    margin-top:18px;
     font-size:14px;
     color:#d00;
 }
 
 /* =========================
-   ADMIN PANEL
+   ADMIN
 ========================= */
 
 #adminPanel{
     display:none;
-    width:100%;
     min-height:100vh;
-    background:#f4f6f9;
 }
 
 .header{
+    height:65px;
     background:#111;
-    color:white;
-    padding:20px;
+    color:#fff;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
-.header h1{
-    font-size:22px;
+.header-title{
+    font-size:21px;
+    font-weight:800;
 }
 
 .logout{
-    width:auto;
-    padding:10px 18px;
-    background:white;
+    background:#fff;
     color:#111;
+    padding:9px 15px;
 }
 
-.dashboard{
+.layout{
+    display:flex;
+    min-height:calc(100vh - 65px);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:240px;
+    background:#181818;
+    color:#fff;
+    padding:18px 12px;
+    flex-shrink:0;
+}
+
+.sidebar-title{
+    padding:10px;
+    color:#aaa;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.nav-btn{
+    width:100%;
+    text-align:left;
+    background:transparent;
+    color:#ddd;
+    margin-bottom:4px;
+    padding:12px;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:#333;
+    color:#fff;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    flex:1;
     padding:25px;
+    overflow-x:hidden;
 }
 
-.welcome{
-    background:white;
-    padding:25px;
-    border-radius:16px;
-    margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
+.section{
+    display:none;
 }
 
-.welcome h2{
-    margin-bottom:8px;
+.section.active{
+    display:block;
 }
+
+.section-title{
+    font-size:25px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.section-subtitle{
+    color:#777;
+    margin-bottom:22px;
+}
+
+/* =========================
+   CARDS
+========================= */
 
 .cards{
     display:grid;
     grid-template-columns:
         repeat(auto-fit,minmax(180px,1fr));
     gap:15px;
+    margin-bottom:25px;
 }
 
 .card{
-    background:white;
-    padding:25px;
+    background:#fff;
     border-radius:16px;
+    padding:22px;
     box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
 .card h3{
-    font-size:16px;
+    font-size:14px;
     color:#777;
-    margin-bottom:10px;
+    margin-bottom:9px;
 }
 
-.card p{
-    font-size:28px;
+.card .number{
+    font-size:30px;
     font-weight:800;
-    color:#111;
 }
 
-</style>
+/* =========================
+   PANEL
+========================= */
 
-</head>
+.panel{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
 
+.panel-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:18px;
+}
 
-<body>
+.form-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
 
+.form-group{
+    width:100%;
+}
 
-<!-- =========================
-     LOGIN BOX
-========================= -->
+.form-group.full{
+    grid-column:1/-1;
+}
 
-<div class="login-box" id="loginBox">
+.form-group label{
+    margin-bottom:7px;
+}
 
-    <div class="logo">
-        Dream Hunt
-    </div>
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th,
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#f7f7f7;
+    font-weight:800;
+}
+
+.action-btn{
+    padding:7px 10px;
+    font-size:12px;
+    margin:2px;
+}
+
+.danger{
+    background:#c62828;
+}
+
+.success{
+    background:#16803c;
+}
+
+.secondary{
+    background:#555;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.toolbar input,
+.toolbar select{
+    margin:0;
+    max-width:280px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:500;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:#fff;
+    width:100%;
+    max-width:600px;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:18px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close{
+    background:#eee;
+    color:#111;
+    padding:7px 11px;
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    background:#eee;
+}
+
+.badge.green{
+    background:#dff5e7;
+    color:#16723a;
+}
+
+.badge.red{
+    background:#ffe1e1;
+    color:#a00;
+}
+
+.badge.yellow{
+    background:#fff0bd;
+    color:#795d00;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-menu{
+    display:none;
+    background:#111;
+    color:#fff;
+    padding:10px 15px;
+}
+
+@media(max-width:800px){
+
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        display:none;
+    }
+
+    .sidebar.open{
+        display:block;
+    }
+
+    .mobile-menu{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .content{
+        padding:15px;
+    }
+
+    .header{
+        padding:0 12px;
+    }
+
+    .header-title{
+        font-size:18px;
+    }
+
+}
+
+</style></head><body><!-- =====================================================
+     LOGIN
+===================================================== --><div id="loginBox"><div class="login-card">
+
+    <div class="logo">Dream Hunt</div>
 
     <div class="subtitle">
         Admin Panel
@@ -197,9 +466,7 @@ button:disabled{
 
     <form id="adminLoginForm">
 
-        <label for="email">
-            Email
-        </label>
+        <label>Email</label>
 
         <input
             type="email"
@@ -208,9 +475,7 @@ button:disabled{
             required
         >
 
-        <label for="password">
-            Password
-        </label>
+        <label>Password</label>
 
         <input
             type="password"
@@ -220,8 +485,9 @@ button:disabled{
         >
 
         <button
-            type="submit"
+            class="full-btn"
             id="loginButton"
+            type="submit"
         >
             Login
         </button>
@@ -235,109 +501,960 @@ button:disabled{
 
 </div>
 
-
-<!-- =========================
+</div><!-- =====================================================
      ADMIN PANEL
-========================= -->
+===================================================== --><div id="adminPanel"><div class="header">
 
-<div id="adminPanel">
-
-    <div class="header">
-
-        <h1>
-            Dream Hunt Admin
-        </h1>
-
-        <button
-            class="logout"
-            id="logoutButton"
-        >
-            Logout
-        </button>
-
+    <div class="header-title">
+        Dream Hunt Admin
     </div>
 
-
-    <div class="dashboard">
-
-        <div class="welcome">
-
-            <h2>
-                Welcome, Admin 👋
-            </h2>
-
-            <p id="adminEmail">
-                Admin
-            </p>
-
-        </div>
-
-
-        <div class="cards">
-
-            <div class="card">
-
-                <h3>
-                    Students
-                </h3>
-
-                <p>
-                    0
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>
-                    Courses
-                </h3>
-
-                <p>
-                    0
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>
-                    Exams
-                </h3>
-
-                <p>
-                    0
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>
-                    Payments
-                </h3>
-
-                <p>
-                    0
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
+    <button
+        class="logout"
+        id="logoutButton"
+    >
+        Logout
+    </button>
 
 </div>
 
 
-<script>
+<div class="mobile-menu">
 
-/* =========================================
-   SUPABASE CONFIG
-========================================= */
+    <span>Admin Menu</span>
+
+    <button
+        onclick="toggleSidebar()"
+    >
+        Menu
+    </button>
+
+</div>
+
+
+<div class="layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-title">
+            Management
+        </div>
+
+        <button
+            class="nav-btn active"
+            onclick="showSection('dashboard',this)"
+        >
+            🏠 Dashboard
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('students',this)"
+        >
+            👨‍🎓 Students
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('courses',this)"
+        >
+            📚 Courses
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('exams',this)"
+        >
+            📝 Exams
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('library',this)"
+        >
+            📖 Library
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('payments',this)"
+        >
+            💳 Payments
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('results',this)"
+        >
+            🏆 Results
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('messages',this)"
+        >
+            💬 Messages
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('notifications',this)"
+        >
+            🔔 Notifications
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showSection('plans',this)"
+        >
+            💰 Plans / Pricing
+        </button>
+
+    </aside>
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================= -->
+
+    <main class="content">
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <section
+            id="dashboard"
+            class="section active"
+        >
+
+            <div class="section-title">
+                Dashboard
+            </div>
+
+            <div class="section-subtitle">
+                Dream Hunt administration overview
+            </div>
+
+
+            <div class="panel">
+
+                <h2>
+                    Welcome, Admin 👋
+                </h2>
+
+                <p
+                    id="adminEmail"
+                    style="margin-top:7px;color:#777"
+                >
+                    Admin
+                </p>
+
+            </div>
+
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Students</h3>
+                    <div
+                        class="number"
+                        id="dashStudents"
+                    >
+                        0
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Courses</h3>
+                    <div
+                        class="number"
+                        id="dashCourses"
+                    >
+                        0
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Exams</h3>
+                    <div
+                        class="number"
+                        id="dashExams"
+                    >
+                        0
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pending Payments</h3>
+                    <div
+                        class="number"
+                        id="dashPayments"
+                    >
+                        0
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STUDENTS
+        ================================================= -->
+
+        <section
+            id="students"
+            class="section"
+        >
+
+            <div class="section-title">
+                Student Management
+            </div>
+
+            <div class="section-subtitle">
+                Manage Dream Hunt students
+            </div>
+
+            <div class="panel">
+
+                <div class="toolbar">
+
+                    <input
+                        id="studentSearch"
+                        placeholder="Search student..."
+                    >
+
+                    <button
+                        onclick="loadStudents()"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Student ID</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentsTable">
+                            <tr>
+                                <td colspan="6">
+                                    Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COURSES
+        ================================================= -->
+
+        <section
+            id="courses"
+            class="section"
+        >
+
+            <div class="section-title">
+                Course Management
+            </div>
+
+            <div class="section-subtitle">
+                Dream Hunt admission categories
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Engineering</h3>
+                    <div class="number">Engineering</div>
+                </div>
+
+                <div class="card">
+                    <h3>Medical</h3>
+                    <div class="number">Medical</div>
+                </div>
+
+                <div class="card">
+                    <h3>Dental</h3>
+                    <div class="number">Dental</div>
+                </div>
+
+                <div class="card">
+                    <h3>Public University</h3>
+                    <div class="number">Public</div>
+                </div>
+
+                <div class="card">
+                    <h3>AB</h3>
+                    <div class="number">AB</div>
+                </div>
+
+                <div class="card">
+                    <h3>Textile</h3>
+                    <div class="number">Textile</div>
+                </div>
+
+                <div class="card">
+                    <h3>Agricultural</h3>
+                    <div class="number">Agriculture</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXAMS
+        ================================================= -->
+
+        <section
+            id="exams"
+            class="section"
+        >
+
+            <div class="section-title">
+                Exam Management
+            </div>
+
+            <div class="section-subtitle">
+                Create and manage admission exams
+            </div>
+
+            <div class="panel">
+
+                <button
+                    onclick="openModal('examModal')"
+                >
+                    + Create Exam
+                </button>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Marks</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Published</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="examsTable">
+
+                            <tr>
+                                <td colspan="6">
+                                    Click Exams menu to load
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LIBRARY
+        ================================================= -->
+
+        <section
+            id="library"
+            class="section"
+        >
+
+            <div class="section-title">
+                Library Management
+            </div>
+
+            <div class="section-subtitle">
+                Books, PDFs, question banks and study materials
+            </div>
+
+            <div class="panel">
+
+                <button
+                    onclick="openModal('libraryModal')"
+                >
+                    + Add Library Item
+                </button>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Course</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="libraryTable">
+
+                            <tr>
+                                <td colspan="5">
+                                    Click Library menu to load
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAYMENTS
+        ================================================= -->
+
+        <section
+            id="payments"
+            class="section"
+        >
+
+            <div class="section-title">
+                Payment Management
+            </div>
+
+            <div class="section-subtitle">
+                Orders, payment status and course access
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Student</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="paymentsTable">
+
+                            <tr>
+                                <td colspan="6">
+                                    Click Payments menu to load
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RESULTS
+        ================================================= -->
+
+        <section
+            id="results"
+            class="section"
+        >
+
+            <div class="section-title">
+                Result Management
+            </div>
+
+            <div class="section-subtitle">
+                MCQ, written marks and published results
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Exam</th>
+                                <th>Total Mark</th>
+                                <th>Merit</th>
+                                <th>Published</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="resultsTable">
+
+                            <tr>
+                                <td colspan="5">
+                                    Results will appear here
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MESSAGES
+        ================================================= -->
+
+        <section
+            id="messages"
+            class="section"
+        >
+
+            <div class="section-title">
+                Message Management
+            </div>
+
+            <div class="section-subtitle">
+                Student messages and replies
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="messagesTable">
+
+                            <tr>
+                                <td colspan="5">
+                                    Messages will appear here
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             NOTIFICATIONS
+        ================================================= -->
+
+        <section
+            id="notifications"
+            class="section"
+        >
+
+            <div class="section-title">
+                Notification Management
+            </div>
+
+            <div class="section-subtitle">
+                Create and manage student notifications
+            </div>
+
+            <div class="panel">
+
+                <button
+                    onclick="openModal('notificationModal')"
+                >
+                    + Create Notification
+                </button>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Title</th>
+                                <th>Message</th>
+                                <th>Active</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="notificationsTable">
+
+                            <tr>
+                                <td colspan="5">
+                                    Notifications will appear here
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PLANS
+        ================================================= -->
+
+        <section
+            id="plans"
+            class="section"
+        >
+
+            <div class="section-title">
+                Plans / Pricing
+            </div>
+
+            <div class="section-subtitle">
+                Dream Hunt admission packages
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>1 Category</h3>
+                    <div class="number">৳300</div>
+                </div>
+
+                <div class="card">
+                    <h3>2 Categories</h3>
+                    <div class="number">৳500</div>
+                </div>
+
+                <div class="card">
+                    <h3>3 Categories</h3>
+                    <div class="number">৳800</div>
+                </div>
+
+                <div class="card">
+                    <h3>All Categories</h3>
+                    <div class="number">৳1000</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+</div><!-- =====================================================
+     EXAM MODAL
+===================================================== --><div
+    class="modal"
+    id="examModal"
+><div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2>Create Exam</h2>
+
+        <button
+            class="close"
+            onclick="closeModal('examModal')"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <div class="form-grid">
+
+        <div class="form-group full">
+
+            <label>Exam Title</label>
+
+            <input
+                id="examTitle"
+                placeholder="Exam title"
+            >
+
+        </div>
+
+        <div class="form-group full">
+
+            <label>Description</label>
+
+            <textarea
+                id="examDescription"
+            ></textarea>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Total Marks</label>
+
+            <input
+                type="number"
+                id="examMarks"
+                value="50"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Pass Marks</label>
+
+            <input
+                type="number"
+                id="examPassMarks"
+                value="20"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Duration (minutes)</label>
+
+            <input
+                type="number"
+                id="examDuration"
+                value="60"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Status</label>
+
+            <select id="examStatus">
+
+                <option value="draft">
+                    Draft
+                </option>
+
+                <option value="published">
+                    Published
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <button
+        class="full-btn"
+        onclick="createExam()"
+    >
+        Create Exam
+    </button>
+
+</div>
+
+</div><!-- =====================================================
+     LIBRARY MODAL
+===================================================== --><div
+    class="modal"
+    id="libraryModal"
+><div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2>Add Library Item</h2>
+
+        <button
+            class="close"
+            onclick="closeModal('libraryModal')"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <label>Title</label>
+
+    <input
+        id="libraryTitle"
+        placeholder="Book / PDF title"
+    >
+
+    <label>Description</label>
+
+    <textarea
+        id="libraryDescription"
+    ></textarea>
+
+    <label>Item Type</label>
+
+    <select id="libraryType">
+
+        <option value="book">Book</option>
+        <option value="pdf">PDF</option>
+        <option value="question_bank">Question Bank</option>
+        <option value="study_material">Study Material</option>
+        <option value="other">Other</option>
+
+    </select>
+
+    <label>Course ID</label>
+
+    <input
+        id="libraryCourseId"
+        placeholder="Course UUID"
+    >
+
+    <label>Storage File Path</label>
+
+    <input
+        id="libraryFilePath"
+        placeholder="engineering/books/physics.pdf"
+    >
+
+    <button
+        class="full-btn"
+        onclick="createLibraryItem()"
+    >
+        Add Library Item
+    </button>
+
+</div>
+
+</div><!-- =====================================================
+     NOTIFICATION MODAL
+===================================================== --><div
+    class="modal"
+    id="notificationModal"
+><div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2>Create Notification</h2>
+
+        <button
+            class="close"
+            onclick="closeModal('notificationModal')"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <label>Title</label>
+
+    <input
+        id="notificationTitle"
+        placeholder="Notification title"
+    >
+
+    <label>Message</label>
+
+    <textarea
+        id="notificationMessage"
+        placeholder="Notification message"
+    ></textarea>
+
+    <button
+        class="full-btn"
+        onclick="createNotification()"
+    >
+        Create Notification
+    </button>
+
+</div>
+
+</div><script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
@@ -352,9 +1469,9 @@ const supabaseClient =
     );
 
 
-/* =========================================
+/* =====================================================
    ELEMENTS
-========================================= */
+===================================================== */
 
 const loginBox =
     document.getElementById("loginBox");
@@ -371,48 +1488,13 @@ const loginButton =
 const message =
     document.getElementById("message");
 
-const adminEmail =
-    document.getElementById("adminEmail");
-
 const logoutButton =
     document.getElementById("logoutButton");
 
 
-/* =========================================
-   SHOW ADMIN PANEL
-========================================= */
-
-function showAdminPanel(email){
-
-    loginBox.style.display = "none";
-
-    adminPanel.style.display = "block";
-
-    adminEmail.innerText =
-        email || "Admin";
-
-}
-
-
-/* =========================================
-   SHOW LOGIN
-========================================= */
-
-function showLogin(){
-
-    loginBox.style.display = "block";
-
-    adminPanel.style.display = "none";
-
-}
-
-
-/* =========================================
-   CHECK ADMIN
-   IMPORTANT:
-   Uses secure RPC instead of direct
-   SELECT from public.admins
-========================================= */
+/* =====================================================
+   ADMIN CHECK
+===================================================== */
 
 async function checkAdmin(user){
 
@@ -429,7 +1511,6 @@ async function checkAdmin(user){
         await supabaseClient
         .rpc("is_admin");
 
-
     if(error){
 
         console.error(
@@ -441,22 +1522,49 @@ async function checkAdmin(user){
 
     }
 
-
     return data === true;
 
 }
 
 
-/* =========================================
+/* =====================================================
+   SHOW / HIDE
+===================================================== */
+
+function showAdminPanel(email){
+
+    loginBox.style.display = "none";
+
+    adminPanel.style.display = "block";
+
+    document.getElementById(
+        "adminEmail"
+    ).innerText =
+        email || "Admin";
+
+    loadDashboard();
+
+}
+
+
+function showLogin(){
+
+    loginBox.style.display = "flex";
+
+    adminPanel.style.display = "none";
+
+}
+
+
+/* =====================================================
    LOGIN
-========================================= */
+===================================================== */
 
 loginForm.addEventListener(
     "submit",
     async function(e){
 
         e.preventDefault();
-
 
         message.innerText = "";
 
@@ -465,23 +1573,16 @@ loginForm.addEventListener(
         loginButton.innerText =
             "Logging in...";
 
-
         const email =
             document
             .getElementById("email")
             .value
             .trim();
 
-
         const password =
             document
             .getElementById("password")
             .value;
-
-
-        /* =========================
-           SUPABASE LOGIN
-        ========================= */
 
         const {
             data,
@@ -491,19 +1592,14 @@ loginForm.addEventListener(
             .auth
             .signInWithPassword({
 
-                email: email,
-
-                password: password
+                email,
+                password
 
             });
 
-
         if(error){
 
-            console.error(
-                "Login error:",
-                error
-            );
+            console.error(error);
 
             message.innerText =
                 "Invalid email or password.";
@@ -517,21 +1613,16 @@ loginForm.addEventListener(
 
         }
 
-
-        /* =========================
-           CHECK ADMIN
-        ========================= */
-
         const isAdmin =
-            await checkAdmin(data.user);
-
+            await checkAdmin(
+                data.user
+            );
 
         if(!isAdmin){
 
             await supabaseClient
                 .auth
                 .signOut();
-
 
             message.innerText =
                 "Access denied. You are not an admin.";
@@ -545,15 +1636,9 @@ loginForm.addEventListener(
 
         }
 
-
-        /* =========================
-           SUCCESS
-        ========================= */
-
         showAdminPanel(
             data.user.email
         );
-
 
         loginButton.disabled = false;
 
@@ -564,9 +1649,9 @@ loginForm.addEventListener(
 );
 
 
-/* =========================================
+/* =====================================================
    LOGOUT
-========================================= */
+===================================================== */
 
 logoutButton.addEventListener(
     "click",
@@ -578,31 +1663,1220 @@ logoutButton.addEventListener(
 
         showLogin();
 
-        document
-            .getElementById("password")
-            .value = "";
-
-        message.innerText = "";
+        document.getElementById(
+            "password"
+        ).value = "";
 
     }
 );
 
 
-/* =========================================
-   CHECK EXISTING SESSION
-========================================= */
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showSection(
+    sectionId,
+    button
+){
+
+    document
+        .querySelectorAll(".section")
+        .forEach(
+            section =>
+                section.classList.remove("active")
+        );
+
+    document
+        .getElementById(sectionId)
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(
+            btn =>
+                btn.classList.remove("active")
+        );
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+    if(sectionId === "dashboard")
+        loadDashboard();
+
+    if(sectionId === "students")
+        loadStudents();
+
+    if(sectionId === "exams")
+        loadExams();
+
+    if(sectionId === "library")
+        loadLibrary();
+
+    if(sectionId === "payments")
+        loadPayments();
+
+    if(sectionId === "messages")
+        loadMessages();
+
+    if(sectionId === "notifications")
+        loadNotifications();
+
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+function openModal(id){
+
+    document
+        .getElementById(id)
+        .classList.add("show");
+
+}
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+async function loadDashboard(){
+
+    try{
+
+        const students =
+            await supabaseClient
+            .rpc("admin_get_students");
+
+        if(!students.error){
+
+            document.getElementById(
+                "dashStudents"
+            ).innerText =
+                Array.isArray(students.data)
+                ? students.data.length
+                : 0;
+
+        }
+
+
+        const exams =
+            await supabaseClient
+            .rpc("admin_get_exams");
+
+        if(!exams.error){
+
+            document.getElementById(
+                "dashExams"
+            ).innerText =
+                Array.isArray(exams.data)
+                ? exams.data.length
+                : 0;
+
+        }
+
+        const courses =
+            await supabaseClient
+            .from("course_categories")
+            .select("id");
+
+        if(!courses.error){
+
+            document.getElementById(
+                "dashCourses"
+            ).innerText =
+                courses.data.length;
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   STUDENTS
+===================================================== */
+
+async function loadStudents(){
+
+    const tbody =
+        document.getElementById(
+            "studentsTable"
+        );
+
+    tbody.innerHTML =
+        "<tr><td colspan='6'>Loading...</td></tr>";
+
+    const search =
+        document.getElementById(
+            "studentSearch"
+        ).value.trim();
+
+    let result;
+
+    if(search){
+
+        result =
+            await supabaseClient
+            .rpc(
+                "admin_search_students",
+                {
+                    p_search: search
+                }
+            );
+
+    }else{
+
+        result =
+            await supabaseClient
+            .rpc(
+                "admin_get_students"
+            );
+
+    }
+
+    if(result.error){
+
+        console.error(result.error);
+
+        tbody.innerHTML =
+            "<tr><td colspan='6'>Unable to load students.</td></tr>";
+
+        return;
+
+    }
+
+    const students =
+        result.data || [];
+
+    if(!students.length){
+
+        tbody.innerHTML =
+            "<tr><td colspan='6'>No students found.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        students.map(
+            student => `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(student.full_name || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(student.email || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(student.phone || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(student.student_id || "-")}
+                </td>
+
+                <td>
+                    <span class="badge">
+                        ${escapeHtml(student.status || "-")}
+                    </span>
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn"
+                        onclick="viewStudent('${student.user_id}')"
+                    >
+                        View
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
+
+
+async function viewStudent(userId){
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_student",
+            {
+                p_user_id:userId
+            }
+        );
+
+    if(result.error){
+
+        alert(
+            "Unable to load student."
+        );
+
+        return;
+
+    }
+
+    alert(
+        JSON.stringify(
+            result.data,
+            null,
+            2
+        )
+    );
+
+}
+
+
+/* =====================================================
+   EXAMS
+===================================================== */
+
+async function loadExams(){
+
+    const tbody =
+        document.getElementById(
+            "examsTable"
+        );
+
+    tbody.innerHTML =
+        "<tr><td colspan='6'>Loading...</td></tr>";
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_exams"
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        tbody.innerHTML =
+            "<tr><td colspan='6'>Unable to load exams.</td></tr>";
+
+        return;
+
+    }
+
+    const exams =
+        result.data || [];
+
+    if(!exams.length){
+
+        tbody.innerHTML =
+            "<tr><td colspan='6'>No exams created yet.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        exams.map(
+            exam => `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(exam.title || "-")}
+                </td>
+
+                <td>
+                    ${exam.total_marks ?? "-"}
+                </td>
+
+                <td>
+                    ${exam.duration_minutes ?? "-"} min
+                </td>
+
+                <td>
+                    ${escapeHtml(exam.status || "-")}
+                </td>
+
+                <td>
+                    ${exam.is_published ? "Yes" : "No"}
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn"
+                        onclick="viewExamQuestions('${exam.id}')"
+                    >
+                        Questions
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
+
+
+async function createExam(){
+
+    const title =
+        document
+        .getElementById("examTitle")
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById("examDescription")
+        .value
+        .trim();
+
+    const totalMarks =
+        Number(
+            document
+            .getElementById("examMarks")
+            .value
+        );
+
+    const passMarks =
+        Number(
+            document
+            .getElementById("examPassMarks")
+            .value
+        );
+
+    const duration =
+        Number(
+            document
+            .getElementById("examDuration")
+            .value
+        );
+
+    if(!title){
+
+        alert("Exam title required.");
+
+        return;
+
+    }
+
+    /*
+       IMPORTANT:
+       The exact admin_create_exam signature is
+       already defined in Supabase.
+       This call uses the common parameter names.
+    */
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_create_exam",
+            {
+                p_title:title,
+                p_description:description,
+                p_total_marks:totalMarks,
+                p_pass_marks:passMarks,
+                p_duration_minutes:duration
+            }
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    closeModal("examModal");
+
+    alert(
+        "Exam created successfully."
+    );
+
+    loadExams();
+
+}
+
+
+/* =====================================================
+   EXAM QUESTIONS
+===================================================== */
+
+async function viewExamQuestions(
+    examId
+){
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_exam_questions",
+            {
+                p_exam_id:examId
+            }
+        );
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    const questions =
+        result.data || [];
+
+    alert(
+        "Questions: " +
+        questions.length
+    );
+
+}
+
+
+/* =====================================================
+   LIBRARY
+===================================================== */
+
+async function loadLibrary(){
+
+    const tbody =
+        document.getElementById(
+            "libraryTable"
+        );
+
+    tbody.innerHTML =
+        "<tr><td colspan='5'>Loading...</td></tr>";
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_library_items"
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        tbody.innerHTML =
+            "<tr><td colspan='5'>Unable to load library.</td></tr>";
+
+        return;
+
+    }
+
+    const items =
+        result.data || [];
+
+    if(!items.length){
+
+        tbody.innerHTML =
+            "<tr><td colspan='5'>No library items yet.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        items.map(
+            item => `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(item.title || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(item.item_type || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(item.course_id || "-")}
+                </td>
+
+                <td>
+                    ${item.is_published ? "Published" : "Draft"}
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn danger"
+                        onclick="deleteLibraryItem('${item.id}')"
+                    >
+                        Delete
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
+
+
+async function createLibraryItem(){
+
+    const title =
+        document
+        .getElementById("libraryTitle")
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById("libraryDescription")
+        .value
+        .trim();
+
+    const itemType =
+        document
+        .getElementById("libraryType")
+        .value;
+
+    const courseId =
+        document
+        .getElementById("libraryCourseId")
+        .value
+        .trim();
+
+    const filePath =
+        document
+        .getElementById("libraryFilePath")
+        .value
+        .trim();
+
+    if(!title){
+
+        alert("Title required.");
+
+        return;
+
+    }
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_create_library_item",
+            {
+                p_course_id:
+                    courseId || null,
+
+                p_title:
+                    title,
+
+                p_description:
+                    description || null,
+
+                p_item_type:
+                    itemType,
+
+                p_file_url:
+                    filePath || null
+            }
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    closeModal(
+        "libraryModal"
+    );
+
+    alert(
+        "Library item created."
+    );
+
+    loadLibrary();
+
+}
+
+
+async function deleteLibraryItem(
+    itemId
+){
+
+    if(
+        !confirm(
+            "Delete this library item?"
+        )
+    ){
+
+        return;
+
+    }
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_delete_library_item",
+            {
+                p_library_item_id:itemId
+            }
+        );
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    loadLibrary();
+
+}
+
+
+/* =====================================================
+   PAYMENTS
+===================================================== */
+
+async function loadPayments(){
+
+    const tbody =
+        document.getElementById(
+            "paymentsTable"
+        );
+
+    tbody.innerHTML =
+        "<tr><td colspan='6'>Loading...</td></tr>";
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_orders"
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        tbody.innerHTML =
+            "<tr><td colspan='6'>Unable to load payments.</td></tr>";
+
+        return;
+
+    }
+
+    const orders =
+        result.data || [];
+
+    if(!orders.length){
+
+        tbody.innerHTML =
+            "<tr><td colspan='6'>No orders found.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        orders.map(
+            order => `
+
+            <tr>
+
+                <td>
+                    ${order.id}
+                </td>
+
+                <td>
+                    ${escapeHtml(order.user_id || "-")}
+                </td>
+
+                <td>
+                    ৳${order.total_amount ?? 0}
+                </td>
+
+                <td>
+                    ${escapeHtml(order.status || "-")}
+                </td>
+
+                <td>
+                    ${order.created_at
+                        ? new Date(
+                            order.created_at
+                          ).toLocaleDateString()
+                        : "-"
+                    }
+                </td>
+
+                <td>
+                    <button
+                        class="action-btn"
+                        onclick="viewOrder('${order.id}')"
+                    >
+                        View
+                    </button>
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
+
+
+async function viewOrder(
+    orderId
+){
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_order_items",
+            {
+                p_order_id:Number(orderId)
+            }
+        );
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    alert(
+        "Order items: " +
+        (result.data || []).length
+    );
+
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+async function loadMessages(){
+
+    const tbody =
+        document.getElementById(
+            "messagesTable"
+        );
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_messages"
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        tbody.innerHTML =
+            "<tr><td colspan='5'>Unable to load messages.</td></tr>";
+
+        return;
+
+    }
+
+    const messages =
+        result.data || [];
+
+    if(!messages.length){
+
+        tbody.innerHTML =
+            "<tr><td colspan='5'>No messages.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        messages.map(
+            msg => `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(
+                        msg.sender_name || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        msg.subject || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        msg.status || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${msg.created_at
+                        ? new Date(
+                            msg.created_at
+                          ).toLocaleDateString()
+                        : "-"
+                    }
+                </td>
+
+                <td>
+                    <button
+                        class="action-btn"
+                        onclick="viewMessage('${msg.id}')"
+                    >
+                        View
+                    </button>
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
+
+
+async function viewMessage(
+    messageId
+){
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_message",
+            {
+                p_message_id:messageId
+            }
+        );
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    alert(
+        JSON.stringify(
+            result.data,
+            null,
+            2
+        )
+    );
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications(){
+
+    const tbody =
+        document.getElementById(
+            "notificationsTable"
+        );
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_get_notifications"
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        tbody.innerHTML =
+            "<tr><td colspan='5'>Unable to load notifications.</td></tr>";
+
+        return;
+
+    }
+
+    const notifications =
+        result.data || [];
+
+    if(!notifications.length){
+
+        tbody.innerHTML =
+            "<tr><td colspan='5'>No notifications.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        notifications.map(
+            n => `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(
+                        n.title || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        n.message || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${n.is_active
+                        ? "Yes"
+                        : "No"
+                    }
+                </td>
+
+                <td>
+                    ${n.created_at
+                        ? new Date(
+                            n.created_at
+                          ).toLocaleDateString()
+                        : "-"
+                    }
+                </td>
+
+                <td>
+                    <button
+                        class="action-btn danger"
+                        onclick="deleteNotification('${n.id}')"
+                    >
+                        Delete
+                    </button>
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
+
+
+async function createNotification(){
+
+    const title =
+        document
+        .getElementById(
+            "notificationTitle"
+        )
+        .value
+        .trim();
+
+    const msg =
+        document
+        .getElementById(
+            "notificationMessage"
+        )
+        .value
+        .trim();
+
+    if(!title || !msg){
+
+        alert(
+            "Title and message required."
+        );
+
+        return;
+
+    }
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_create_notification",
+            {
+                p_title:title,
+                p_message:msg
+            }
+        );
+
+    if(result.error){
+
+        console.error(result.error);
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    closeModal(
+        "notificationModal"
+    );
+
+    alert(
+        "Notification created."
+    );
+
+    loadNotifications();
+
+}
+
+
+async function deleteNotification(
+    id
+){
+
+    if(
+        !confirm(
+            "Delete this notification?"
+        )
+    ){
+
+        return;
+
+    }
+
+    const result =
+        await supabaseClient
+        .rpc(
+            "admin_delete_notification",
+            {
+                p_notification_id:id
+            }
+        );
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+    loadNotifications();
+
+}
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+async function loadResults(){
+
+    /*
+       Results are intentionally loaded through
+       student-specific/admin functions.
+       This section becomes fully populated
+       when result management is connected to
+       the selected student/exam workflow.
+    */
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   SESSION
+===================================================== */
 
 async function checkExistingSession(){
 
     const {
-        data: {
+        data:{
             session
         }
     } =
         await supabaseClient
         .auth
         .getSession();
-
 
     if(!session){
 
@@ -612,12 +2886,10 @@ async function checkExistingSession(){
 
     }
 
-
     const isAdmin =
         await checkAdmin(
             session.user
         );
-
 
     if(isAdmin){
 
@@ -638,20 +2910,23 @@ async function checkExistingSession(){
 }
 
 
-/* =========================================
-   AUTH STATE LISTENER
-========================================= */
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
 supabaseClient
 .auth
 .onAuthStateChange(
-    async function(event, session){
+    async function(
+        event,
+        session
+    ){
 
-        if(event === "SIGNED_OUT"){
+        if(
+            event === "SIGNED_OUT"
+        ){
 
             showLogin();
-
-            return;
 
         }
 
@@ -659,14 +2934,10 @@ supabaseClient
 );
 
 
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
 checkExistingSession();
 
-</script>
-
-</body>
-
-</html>
+</script></body></html>
