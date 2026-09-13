@@ -24,10 +24,7 @@ body{
     color:#111;
 }
 
-button,
-input,
-select,
-textarea{
+button,input,select,textarea{
     font-family:inherit;
 }
 
@@ -39,10 +36,6 @@ button{
 .hidden{
     display:none!important;
 }
-
-/* =====================================================
-LOGIN
-===================================================== */
 
 #loginBox{
     min-height:100vh;
@@ -80,9 +73,7 @@ label{
     margin-bottom:7px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
     width:100%;
     padding:13px;
     border:1px solid #ddd;
@@ -98,9 +89,7 @@ textarea{
     resize:vertical;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+input:focus,select:focus,textarea:focus{
     border-color:#111;
 }
 
@@ -132,10 +121,6 @@ button:disabled{
     margin-top:14px;
     font-size:13px;
 }
-
-/* =====================================================
-ADMIN
-===================================================== */
 
 #adminPanel{
     display:none;
@@ -170,10 +155,6 @@ ADMIN
     min-height:calc(100vh - 65px);
 }
 
-/* =====================================================
-SIDEBAR
-===================================================== */
-
 .sidebar{
     width:245px;
     background:#181818;
@@ -199,15 +180,10 @@ SIDEBAR
     padding:12px;
 }
 
-.nav-btn:hover,
-.nav-btn.active{
+.nav-btn:hover,.nav-btn.active{
     background:#333;
     color:#fff;
 }
-
-/* =====================================================
-CONTENT
-===================================================== */
 
 .content{
     flex:1;
@@ -233,10 +209,6 @@ CONTENT
     color:#777;
     margin-bottom:22px;
 }
-
-/* =====================================================
-CARDS
-===================================================== */
 
 .cards{
     display:grid;
@@ -267,10 +239,6 @@ CARDS
     color:#888;
 }
 
-/* =====================================================
-PANELS
-===================================================== */
-
 .panel{
     background:#fff;
     border-radius:17px;
@@ -291,10 +259,6 @@ PANELS
     gap:14px;
 }
 
-.full{
-    grid-column:1/-1;
-}
-
 .toolbar{
     display:flex;
     gap:10px;
@@ -302,8 +266,7 @@ PANELS
     margin-bottom:17px;
 }
 
-.toolbar input,
-.toolbar select{
+.toolbar input,.toolbar select{
     max-width:280px;
     margin:0;
 }
@@ -334,10 +297,6 @@ PANELS
     background:#2463a6;
 }
 
-/* =====================================================
-TABLE
-===================================================== */
-
 .table-wrap{
     width:100%;
     overflow-x:auto;
@@ -349,8 +308,7 @@ table{
     min-width:700px;
 }
 
-th,
-td{
+th,td{
     padding:12px;
     border-bottom:1px solid #eee;
     text-align:left;
@@ -362,10 +320,6 @@ th{
     background:#f7f7f7;
     font-weight:900;
 }
-
-/* =====================================================
-BADGES
-===================================================== */
 
 .badge{
     display:inline-block;
@@ -390,10 +344,6 @@ BADGES
     background:#fff0bd;
     color:#795d00;
 }
-
-/* =====================================================
-MODAL
-===================================================== */
 
 .modal{
     display:none;
@@ -437,10 +387,6 @@ MODAL
     padding:7px 11px;
 }
 
-/* =====================================================
-QUESTION CARD
-===================================================== */
-
 .question-card{
     background:#fafafa;
     border:1px solid #eee;
@@ -453,10 +399,6 @@ QUESTION CARD
     font-weight:900;
     margin-bottom:7px;
 }
-
-/* =====================================================
-PAYMENT DETAILS
-===================================================== */
 
 .payment-item{
     background:#f7f7f7;
@@ -477,9 +419,23 @@ PAYMENT DETAILS
     flex-wrap:wrap;
 }
 
-/* =====================================================
-MOBILE
-===================================================== */
+.payment-success{
+    background:#e8f7ee;
+    border:1px solid #bde5cb;
+    color:#126b35;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:15px;
+}
+
+.payment-warning{
+    background:#fff7db;
+    border:1px solid #f0dc91;
+    color:#765d00;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:15px;
+}
 
 .mobile-menu{
     display:none;
@@ -488,6 +444,18 @@ MOBILE
     padding:10px 15px;
     justify-content:space-between;
     align-items:center;
+}
+
+.loading{
+    padding:20px;
+    text-align:center;
+    color:#777;
+}
+
+.empty{
+    padding:20px;
+    text-align:center;
+    color:#888;
 }
 
 @media(max-width:800px){
@@ -524,7 +492,6 @@ MOBILE
     .cards{
         grid-template-columns:repeat(2,1fr);
     }
-
 }
 
 @media(max-width:450px){
@@ -532,23 +499,6 @@ MOBILE
     .cards{
         grid-template-columns:1fr;
     }
-
-}
-
-/* =====================================================
-LOADING
-===================================================== */
-
-.loading{
-    padding:20px;
-    text-align:center;
-    color:#777;
-}
-
-.empty{
-    padding:20px;
-    text-align:center;
-    color:#888;
 }
 
 </style>
@@ -557,91 +507,88 @@ LOADING
 
 <body>
 
-<!-- =====================================================
-LOGIN
-===================================================== -->
+
+<!-- LOGIN -->
 
 <div id="loginBox">
 
 <div class="login-card">
 
-    <div class="logo">
-        Dream Hunt
-    </div>
+<div class="logo">
+Dream Hunt
+</div>
 
-    <div class="subtitle">
-        Administrator Login
-    </div>
+<div class="subtitle">
+Administrator Login
+</div>
 
-    <form id="adminLoginForm">
+<form id="adminLoginForm">
 
-        <label>Email</label>
+<label>Email</label>
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Admin email"
-            required
-        >
+<input
+type="email"
+id="email"
+placeholder="Admin email"
+required
+>
 
-        <label>Password</label>
+<label>Password</label>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-        >
+<input
+type="password"
+id="password"
+placeholder="Password"
+required
+>
 
-        <button
-            class="full-btn"
-            id="loginButton"
-            type="submit"
-        >
-            Login
-        </button>
+<button
+class="full-btn"
+id="loginButton"
+type="submit"
+>
+Login
+</button>
 
-    </form>
+</form>
 
-    <div
-        class="login-message"
-        id="loginMessage"
-    ></div>
+<div
+class="login-message"
+id="loginMessage"
+></div>
 
 </div>
 
 </div>
 
 
-<!-- =====================================================
-ADMIN PANEL
-===================================================== -->
+<!-- ADMIN -->
 
 <div id="adminPanel">
 
 <header class="header">
 
-    <div class="header-title">
-        Dream Hunt Admin
-    </div>
+<div class="header-title">
+Dream Hunt Admin
+</div>
 
-    <button
-        class="logout"
-        id="logoutButton"
-    >
-        Logout
-    </button>
+<button
+class="logout"
+id="logoutButton"
+>
+Logout
+</button>
 
 </header>
 
 
 <div class="mobile-menu">
 
-    <span>Admin Menu</span>
+<span>Admin Menu</span>
 
-    <button onclick="toggleSidebar()">
-        Menu
-    </button>
+<button onclick="toggleSidebar()">
+Menu
+</button>
 
 </div>
 
@@ -649,1346 +596,1149 @@ ADMIN PANEL
 <div class="layout">
 
 
-<!-- =====================================================
-SIDEBAR
-===================================================== -->
+<!-- SIDEBAR -->
 
 <aside
-    class="sidebar"
-    id="sidebar"
+class="sidebar"
+id="sidebar"
 >
 
 <div class="sidebar-title">
-    Management
+Management
 </div>
 
-<button
-    class="nav-btn active"
-    onclick="showSection('dashboard',this)"
->
-    🏠 Dashboard
+<button class="nav-btn active"
+onclick="showSection('dashboard',this)">
+🏠 Dashboard
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('students',this)"
->
-    👨‍🎓 Students
+<button class="nav-btn"
+onclick="showSection('students',this)">
+👨‍🎓 Students
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('courses',this)"
->
-    📚 Courses
+<button class="nav-btn"
+onclick="showSection('courses',this)">
+📚 Courses
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('exams',this)"
->
-    📝 Exams
+<button class="nav-btn"
+onclick="showSection('exams',this)">
+📝 Exams
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('library',this)"
->
-    📖 Library
+<button class="nav-btn"
+onclick="showSection('library',this)">
+📖 Library
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('payments',this)"
->
-    💳 Payments
+<button class="nav-btn"
+onclick="showSection('payments',this)">
+💳 Payments
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('results',this)"
->
-    🏆 Results
+<button class="nav-btn"
+onclick="showSection('results',this)">
+🏆 Results
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('messages',this)"
->
-    💬 Messages
+<button class="nav-btn"
+onclick="showSection('messages',this)">
+💬 Messages
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('notifications',this)"
->
-    🔔 Notifications
+<button class="nav-btn"
+onclick="showSection('notifications',this)">
+🔔 Notifications
 </button>
 
-<button
-    class="nav-btn"
-    onclick="showSection('plans',this)"
->
-    💰 Plans / Pricing
+<button class="nav-btn"
+onclick="showSection('plans',this)">
+💰 Plans / Pricing
 </button>
 
 </aside>
 
 
-<!-- =====================================================
-MAIN
-===================================================== -->
-
 <main class="content">
 
 
-<!-- =====================================================
-DASHBOARD
-===================================================== -->
+<!-- DASHBOARD -->
 
 <section
-    id="dashboard"
-    class="section active"
+id="dashboard"
+class="section active"
 >
 
 <div class="section-title">
-    Dashboard
+Dashboard
 </div>
 
 <div class="section-subtitle">
-    Dream Hunt administration overview
+Dream Hunt administration overview
 </div>
 
 <div class="panel">
 
-    <div class="panel-title">
-        Welcome, Admin 👋
-    </div>
-
-    <div
-        id="adminEmail"
-        style="color:#777"
-    >
-        Admin
-    </div>
-
+<div class="panel-title">
+Welcome, Admin 👋
 </div>
 
+<div
+id="adminEmail"
+style="color:#777"
+>
+Admin
+</div>
+
+</div>
 
 <div class="cards">
 
-    <div class="card">
+<div class="card">
+<h3>Students</h3>
+<div class="number" id="dashStudents">0</div>
+</div>
 
-        <h3>Students</h3>
+<div class="card">
+<h3>Courses</h3>
+<div class="number" id="dashCourses">0</div>
+</div>
 
-        <div
-            class="number"
-            id="dashStudents"
-        >
-            0
-        </div>
+<div class="card">
+<h3>Exams</h3>
+<div class="number" id="dashExams">0</div>
+</div>
 
-    </div>
-
-
-    <div class="card">
-
-        <h3>Courses</h3>
-
-        <div
-            class="number"
-            id="dashCourses"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h3>Exams</h3>
-
-        <div
-            class="number"
-            id="dashExams"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h3>Pending Payments</h3>
-
-        <div
-            class="number"
-            id="dashPayments"
-        >
-            0
-        </div>
-
-    </div>
+<div class="card">
+<h3>Pending Payments</h3>
+<div class="number" id="dashPayments">0</div>
+</div>
 
 </div>
 
 </section>
 
 
-<!-- =====================================================
-STUDENTS
-===================================================== -->
+<!-- STUDENTS -->
 
 <section
-    id="students"
-    class="section"
+id="students"
+class="section"
 >
 
 <div class="section-title">
-    Student Management
+Student Management
 </div>
 
 <div class="section-subtitle">
-    Manage student profiles, status, courses and performance
+Manage student profiles, status, courses and performance
 </div>
-
 
 <div class="panel">
 
-    <div class="toolbar">
-
-        <input
-            id="studentSearch"
-            placeholder="Search name, email, phone or ID"
-        >
-
-        <button onclick="loadStudents()">
-            Search
-        </button>
-
-        <button
-            class="secondary"
-            onclick="document.getElementById('studentSearch').value='';loadStudents()"
-        >
-            Reset
-        </button>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Student ID</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="studentsTable">
-
-                <tr>
-                    <td
-                        colspan="6"
-                        class="loading"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-COURSES
-===================================================== -->
-
-<section
-    id="courses"
-    class="section"
->
-
-<div class="section-title">
-    Course Management
-</div>
-
-<div class="section-subtitle">
-    Dream Hunt admission categories and course access
-</div>
-
-
-<div
-    class="cards"
-    id="courseCards"
->
-
-    <div class="card">
-        <h3>Engineering</h3>
-        <div class="number">Engineering</div>
-    </div>
-
-    <div class="card">
-        <h3>Medical</h3>
-        <div class="number">Medical</div>
-    </div>
-
-    <div class="card">
-        <h3>Dental</h3>
-        <div class="number">Dental</div>
-    </div>
-
-    <div class="card">
-        <h3>Public University</h3>
-        <div class="number">Public</div>
-    </div>
-
-    <div class="card">
-        <h3>AB</h3>
-        <div class="number">AB</div>
-    </div>
-
-    <div class="card">
-        <h3>Textile</h3>
-        <div class="number">Textile</div>
-    </div>
-
-    <div class="card">
-        <h3>Agricultural</h3>
-        <div class="number">Agriculture</div>
-    </div>
-
-</div>
-
-
-<div class="panel">
-
-    <div class="panel-title">
-        Course Access Overview
-    </div>
-
-    <button onclick="loadCourseAccess()">
-        Refresh Access
-    </button>
-
-
-    <div
-        class="table-wrap"
-        style="margin-top:15px"
-    >
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Student</th>
-                    <th>Course</th>
-                    <th>Status</th>
-                    <th>Granted</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="courseAccessTable">
-
-                <tr>
-                    <td
-                        colspan="4"
-                        class="empty"
-                    >
-                        Click Refresh Access
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-EXAMS
-===================================================== -->
-
-<section
-    id="exams"
-    class="section"
->
-
-<div class="section-title">
-    Exam Management
-</div>
-
-<div class="section-subtitle">
-    Create exams, publish them and manage questions
-</div>
-
-
-<div class="panel">
-
-    <button onclick="openExamModal()">
-        + Create Exam
-    </button>
-
-</div>
-
-
-<div class="panel">
-
-    <div class="toolbar">
-
-        <input
-            id="examSearch"
-            placeholder="Search exams"
-            oninput="renderExams()"
-        >
-
-        <button
-            class="secondary"
-            onclick="loadExams()"
-        >
-            Refresh
-        </button>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Title</th>
-                    <th>Marks</th>
-                    <th>Pass</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th>Published</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="examsTable">
-
-                <tr>
-                    <td
-                        colspan="7"
-                        class="loading"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-LIBRARY
-===================================================== -->
-
-<section
-    id="library"
-    class="section"
->
-
-<div class="section-title">
-    Library Management
-</div>
-
-<div class="section-subtitle">
-    Books, PDFs, question banks and study materials
-</div>
-
-
-<div class="panel">
-
-    <button onclick="openLibraryModal()">
-        + Add Library Item
-    </button>
-
-</div>
-
-
-<div class="panel">
-
-    <div class="toolbar">
-
-        <input
-            id="librarySearch"
-            placeholder="Search library"
-            oninput="renderLibrary()"
-        >
-
-        <button
-            class="secondary"
-            onclick="loadLibrary()"
-        >
-            Refresh
-        </button>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Course</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="libraryTable">
-
-                <tr>
-                    <td
-                        colspan="5"
-                        class="loading"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-PAYMENTS
-===================================================== -->
-
-<section
-    id="payments"
-    class="section"
->
-
-<div class="section-title">
-    Payment Management
-</div>
-
-<div class="section-subtitle">
-    Orders, transaction IDs, payment verification and course access
-</div>
-
-
-<div class="panel">
-
-    <button
-        class="secondary"
-        onclick="loadPayments()"
-    >
-        Refresh Orders
-    </button>
-
-</div>
-
-
-<div class="panel">
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Order ID</th>
-                    <th>Student</th>
-                    <th>Trx ID</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="paymentsTable">
-
-                <tr>
-                    <td
-                        colspan="7"
-                        class="loading"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-RESULTS
-===================================================== -->
-
-<section
-    id="results"
-    class="section"
->
-
-<div class="section-title">
-    Result Management
-</div>
-
-<div class="section-subtitle">
-    Create, edit, publish and delete student results
-</div>
-
-
-<div class="panel">
-
-    <div class="panel-title">
-        Find Student Result
-    </div>
-
-    <div class="toolbar">
-
-        <input
-            id="resultStudentId"
-            placeholder="Student UUID"
-        >
-
-        <button onclick="loadStudentResults()">
-            Load Results
-        </button>
-
-    </div>
-
-</div>
-
-
-<div class="panel">
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Exam</th>
-                    <th>Total</th>
-                    <th>Correct</th>
-                    <th>Wrong</th>
-                    <th>Skipped</th>
-                    <th>Merit</th>
-                    <th>Published</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="resultsTable">
-
-                <tr>
-                    <td
-                        colspan="8"
-                        class="empty"
-                    >
-                        Enter a student UUID and load results
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-MESSAGES
-===================================================== -->
-
-<section
-    id="messages"
-    class="section"
->
-
-<div class="section-title">
-    Message Management
-</div>
-
-<div class="section-subtitle">
-    Student messages, replies and status
-</div>
-
-
-<div class="panel">
-
-    <div class="toolbar">
-
-        <button onclick="loadMessages()">
-            Refresh
-        </button>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Student</th>
-                    <th>Subject</th>
-                    <th>Status</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="messagesTable">
-
-                <tr>
-                    <td
-                        colspan="5"
-                        class="loading"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-NOTIFICATIONS
-===================================================== -->
-
-<section
-    id="notifications"
-    class="section"
->
-
-<div class="section-title">
-    Notification Management
-</div>
-
-<div class="section-subtitle">
-    Manage notifications shown to students
-</div>
-
-
-<div class="panel">
-
-    <button onclick="openNotificationModal()">
-        + Create Notification
-    </button>
-
-</div>
-
-
-<div class="panel">
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Title</th>
-                    <th>Message</th>
-                    <th>Active</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="notificationsTable">
-
-                <tr>
-                    <td
-                        colspan="5"
-                        class="loading"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-PLANS
-===================================================== -->
-
-<section
-    id="plans"
-    class="section"
->
-
-<div class="section-title">
-    Plans / Pricing
-</div>
-
-<div class="section-subtitle">
-    Dream Hunt admission packages
-</div>
-
-
-<div class="cards">
-
-    <div class="card">
-        <h3>1 Category</h3>
-        <div class="number">৳300</div>
-        <small>Public / Engineering / Medical etc.</small>
-    </div>
-
-    <div class="card">
-        <h3>2 Categories</h3>
-        <div class="number">৳500</div>
-        <small>Any two categories</small>
-    </div>
-
-    <div class="card">
-        <h3>3 Categories</h3>
-        <div class="number">৳800</div>
-        <small>Any three categories</small>
-    </div>
-
-    <div class="card">
-        <h3>All Categories</h3>
-        <div class="number">৳1000</div>
-        <small>Complete Dream Hunt package</small>
-    </div>
-
-</div>
-
-</section>
-
-</main>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-EXAM MODAL
-===================================================== -->
-
-<div
-    class="modal"
-    id="examModal"
->
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-    <h2>Create Exam</h2>
-
-    <button
-        class="close"
-        onclick="closeModal('examModal')"
-    >
-        ×
-    </button>
-
-</div>
-
-
-<label>Exam Title</label>
+<div class="toolbar">
 
 <input
-    id="examTitle"
-    placeholder="Daily Exam 01"
+id="studentSearch"
+placeholder="Search name, email, phone or ID"
 >
 
+<button onclick="loadStudents()">
+Search
+</button>
 
-<label>Description</label>
-
-<textarea
-    id="examDescription"
-    placeholder="Exam description"
-></textarea>
-
-
-<div class="form-grid">
-
-    <div>
-
-        <label>Total Marks</label>
-
-        <input
-            type="number"
-            id="examMarks"
-            value="50"
-        >
-
-    </div>
-
-
-    <div>
-
-        <label>Pass Marks</label>
-
-        <input
-            type="number"
-            id="examPassMarks"
-            value="20"
-        >
-
-    </div>
-
-
-    <div>
-
-        <label>Duration Minutes</label>
-
-        <input
-            type="number"
-            id="examDuration"
-            value="60"
-        >
-
-    </div>
+<button
+class="secondary"
+onclick="document.getElementById('studentSearch').value='';loadStudents()"
+>
+Reset
+</button>
 
 </div>
 
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Student ID</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="studentsTable">
+
+<tr>
+<td colspan="6" class="loading">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COURSES -->
+
+<section
+id="courses"
+class="section"
+>
+
+<div class="section-title">
+Course Management
+</div>
+
+<div class="section-subtitle">
+Dream Hunt admission categories and course access
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Engineering</h3>
+<div class="number">Engineering</div>
+</div>
+
+<div class="card">
+<h3>Medical</h3>
+<div class="number">Medical</div>
+</div>
+
+<div class="card">
+<h3>Dental</h3>
+<div class="number">Dental</div>
+</div>
+
+<div class="card">
+<h3>Public University</h3>
+<div class="number">Public</div>
+</div>
+
+<div class="card">
+<h3>AB</h3>
+<div class="number">AB</div>
+</div>
+
+<div class="card">
+<h3>Textile</h3>
+<div class="number">Textile</div>
+</div>
+
+<div class="card">
+<h3>Agricultural</h3>
+<div class="number">Agriculture</div>
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+Course Access Overview
+</div>
+
+<button onclick="loadCourseAccess()">
+Refresh Access
+</button>
+
+<div
+class="table-wrap"
+style="margin-top:15px"
+>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Student</th>
+<th>Course</th>
+<th>Status</th>
+<th>Granted</th>
+</tr>
+
+</thead>
+
+<tbody id="courseAccessTable">
+
+<tr>
+<td colspan="4" class="empty">
+Click Refresh Access
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- EXAMS -->
+
+<section
+id="exams"
+class="section"
+>
+
+<div class="section-title">
+Exam Management
+</div>
+
+<div class="section-subtitle">
+Create exams, publish them and manage questions
+</div>
+
+<div class="panel">
+
+<button onclick="openExamModal()">
++ Create Exam
+</button>
+
+</div>
+
+<div class="panel">
+
+<div class="toolbar">
+
+<input
+id="examSearch"
+placeholder="Search exams"
+oninput="renderExams()"
+>
 
 <button
-    class="full-btn"
-    onclick="createExam()"
+class="secondary"
+onclick="loadExams()"
 >
-    Create Exam
+Refresh
+</button>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Title</th>
+<th>Marks</th>
+<th>Pass</th>
+<th>Duration</th>
+<th>Status</th>
+<th>Published</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="examsTable">
+
+<tr>
+<td colspan="7" class="loading">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LIBRARY -->
+
+<section
+id="library"
+class="section"
+>
+
+<div class="section-title">
+Library Management
+</div>
+
+<div class="section-subtitle">
+Books, PDFs, question banks and study materials
+</div>
+
+<div class="panel">
+
+<button onclick="openLibraryModal()">
++ Add Library Item
+</button>
+
+</div>
+
+<div class="panel">
+
+<div class="toolbar">
+
+<input
+id="librarySearch"
+placeholder="Search library"
+oninput="renderLibrary()"
+>
+
+<button
+class="secondary"
+onclick="loadLibrary()"
+>
+Refresh
+</button>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Title</th>
+<th>Type</th>
+<th>Course</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="libraryTable">
+
+<tr>
+<td colspan="5" class="loading">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PAYMENTS -->
+
+<section
+id="payments"
+class="section"
+>
+
+<div class="section-title">
+Payment Management
+</div>
+
+<div class="section-subtitle">
+Verify payments and automatically grant purchased course access
+</div>
+
+<div class="panel">
+
+<button
+class="secondary"
+onclick="loadPayments()"
+>
+Refresh Orders
+</button>
+
+</div>
+
+<div class="panel">
+
+<div
+class="payment-warning"
+>
+<strong>Important:</strong>
+When you click <b>Accept</b>, the payment item becomes
+<b>paid</b> and the existing payment-access trigger processes
+the student's course access.
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Order ID</th>
+<th>Student</th>
+<th>Trx ID</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Created</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="paymentsTable">
+
+<tr>
+<td colspan="7" class="loading">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RESULTS -->
+
+<section
+id="results"
+class="section"
+>
+
+<div class="section-title">
+Result Management
+</div>
+
+<div class="section-subtitle">
+Create, edit, publish and delete student results
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+Find Student Result
+</div>
+
+<div class="toolbar">
+
+<input
+id="resultStudentId"
+placeholder="Student UUID"
+>
+
+<button onclick="loadStudentResults()">
+Load Results
 </button>
 
 </div>
 
 </div>
 
+<div class="panel">
 
-<!-- =====================================================
-LIBRARY MODAL
-===================================================== -->
+<div class="table-wrap">
 
-<div
-    class="modal"
-    id="libraryModal"
+<table>
+
+<thead>
+
+<tr>
+<th>Exam</th>
+<th>Total</th>
+<th>Correct</th>
+<th>Wrong</th>
+<th>Skipped</th>
+<th>Merit</th>
+<th>Published</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="resultsTable">
+
+<tr>
+<td colspan="8" class="empty">
+Enter a student UUID and load results
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MESSAGES -->
+
+<section
+id="messages"
+class="section"
 >
+
+<div class="section-title">
+Message Management
+</div>
+
+<div class="section-subtitle">
+Student messages, replies and status
+</div>
+
+<div class="panel">
+
+<button onclick="loadMessages()">
+Refresh
+</button>
+
+</div>
+
+<div class="panel">
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Student</th>
+<th>Subject</th>
+<th>Status</th>
+<th>Created</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="messagesTable">
+
+<tr>
+<td colspan="5" class="loading">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTIFICATIONS -->
+
+<section
+id="notifications"
+class="section"
+>
+
+<div class="section-title">
+Notification Management
+</div>
+
+<div class="section-subtitle">
+Manage notifications shown to students
+</div>
+
+<div class="panel">
+
+<button onclick="openNotificationModal()">
++ Create Notification
+</button>
+
+</div>
+
+<div class="panel">
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Title</th>
+<th>Message</th>
+<th>Active</th>
+<th>Created</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="notificationsTable">
+
+<tr>
+<td colspan="5" class="loading">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PLANS -->
+
+<section
+id="plans"
+class="section"
+>
+
+<div class="section-title">
+Plans / Pricing
+</div>
+
+<div class="section-subtitle">
+Dream Hunt admission packages
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>1 Category</h3>
+<div class="number">৳300</div>
+<small>Public / Engineering / Medical etc.</small>
+</div>
+
+<div class="card">
+<h3>2 Categories</h3>
+<div class="number">৳500</div>
+<small>Any two categories</small>
+</div>
+
+<div class="card">
+<h3>3 Categories</h3>
+<div class="number">৳800</div>
+<small>Any three categories</small>
+</div>
+
+<div class="card">
+<h3>All Categories</h3>
+<div class="number">৳1000</div>
+<small>Complete Dream Hunt package</small>
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+</div>
+</div>
+
+
+<!-- EXAM MODAL -->
+
+<div class="modal" id="examModal">
 
 <div class="modal-box">
 
 <div class="modal-header">
 
-    <h2>Add Library Item</h2>
+<h2>Create Exam</h2>
 
-    <button
-        class="close"
-        onclick="closeModal('libraryModal')"
-    >
-        ×
-    </button>
+<button
+class="close"
+onclick="closeModal('examModal')"
+>
+×
+</button>
 
 </div>
 
-
-<label>Title</label>
+<label>Exam Title</label>
 
 <input
-    id="libraryTitle"
-    placeholder="Physics Question Bank"
+id="examTitle"
+placeholder="Daily Exam 01"
 >
-
 
 <label>Description</label>
 
 <textarea
-    id="libraryDescription"
+id="examDescription"
+placeholder="Exam description"
 ></textarea>
 
+<div class="form-grid">
+
+<div>
+
+<label>Total Marks</label>
+
+<input
+type="number"
+id="examMarks"
+value="50"
+>
+
+</div>
+
+<div>
+
+<label>Pass Marks</label>
+
+<input
+type="number"
+id="examPassMarks"
+value="20"
+>
+
+</div>
+
+<div>
+
+<label>Duration Minutes</label>
+
+<input
+type="number"
+id="examDuration"
+value="60"
+>
+
+</div>
+
+</div>
+
+<button
+class="full-btn"
+onclick="createExam()"
+>
+Create Exam
+</button>
+
+</div>
+</div>
+
+
+<!-- LIBRARY MODAL -->
+
+<div class="modal" id="libraryModal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2>Add Library Item</h2>
+
+<button
+class="close"
+onclick="closeModal('libraryModal')"
+>
+×
+</button>
+
+</div>
+
+<label>Title</label>
+
+<input
+id="libraryTitle"
+placeholder="Physics Question Bank"
+>
+
+<label>Description</label>
+
+<textarea id="libraryDescription"></textarea>
 
 <label>Item Type</label>
 
 <select id="libraryType">
 
-    <option value="book">Book</option>
-    <option value="pdf">PDF</option>
-    <option value="question_bank">Question Bank</option>
-    <option value="study_material">Study Material</option>
-    <option value="other">Other</option>
+<option value="book">Book</option>
+<option value="pdf">PDF</option>
+<option value="question_bank">Question Bank</option>
+<option value="study_material">Study Material</option>
+<option value="other">Other</option>
 
 </select>
-
 
 <label>Course ID</label>
 
 <input
-    id="libraryCourseId"
-    placeholder="Course UUID"
+id="libraryCourseId"
+placeholder="Course UUID"
 >
-
 
 <label>Storage File Path</label>
 
 <input
-    id="libraryFilePath"
-    placeholder="engineering/books/physics.pdf"
+id="libraryFilePath"
+placeholder="engineering/books/physics.pdf"
 >
-
 
 <button
-    class="full-btn"
-    onclick="createLibraryItem()"
+class="full-btn"
+onclick="createLibraryItem()"
 >
-    Add Library Item
+Add Library Item
 </button>
 
 </div>
-
 </div>
 
 
-<!-- =====================================================
-NOTIFICATION MODAL
-===================================================== -->
+<!-- NOTIFICATION MODAL -->
 
-<div
-    class="modal"
-    id="notificationModal"
->
+<div class="modal" id="notificationModal">
 
 <div class="modal-box">
 
 <div class="modal-header">
 
-    <h2>Create Notification</h2>
+<h2>Create Notification</h2>
 
-    <button
-        class="close"
-        onclick="closeModal('notificationModal')"
-    >
-        ×
-    </button>
+<button
+class="close"
+onclick="closeModal('notificationModal')"
+>
+×
+</button>
 
 </div>
-
 
 <label>Title</label>
 
 <input
-    id="notificationTitle"
-    placeholder="New announcement"
+id="notificationTitle"
+placeholder="New announcement"
 >
-
 
 <label>Message</label>
 
 <textarea
-    id="notificationMessage"
-    placeholder="Write notification..."
+id="notificationMessage"
+placeholder="Write notification..."
 ></textarea>
 
-
 <button
-    class="full-btn"
-    onclick="createNotification()"
+class="full-btn"
+onclick="createNotification()"
 >
-    Create Notification
+Create Notification
 </button>
 
 </div>
-
 </div>
 
 
-<!-- =====================================================
-STUDENT MODAL
-===================================================== -->
+<!-- STUDENT MODAL -->
 
-<div
-    class="modal"
-    id="studentModal"
->
+<div class="modal" id="studentModal">
 
 <div class="modal-box">
 
 <div class="modal-header">
 
-    <h2>Student Details</h2>
+<h2>Student Details</h2>
 
-    <button
-        class="close"
-        onclick="closeModal('studentModal')"
-    >
-        ×
-    </button>
+<button
+class="close"
+onclick="closeModal('studentModal')"
+>
+×
+</button>
 
 </div>
 
 <div id="studentDetails">
-    Loading...
+Loading...
 </div>
 
 </div>
-
 </div>
 
 
-<!-- =====================================================
-MESSAGE MODAL
-===================================================== -->
+<!-- MESSAGE MODAL -->
 
-<div
-    class="modal"
-    id="messageModal"
->
+<div class="modal" id="messageModal">
 
 <div class="modal-box">
 
 <div class="modal-header">
 
-    <h2>Student Message</h2>
+<h2>Student Message</h2>
 
-    <button
-        class="close"
-        onclick="closeModal('messageModal')"
-    >
-        ×
-    </button>
+<button
+class="close"
+onclick="closeModal('messageModal')"
+>
+×
+</button>
 
 </div>
 
 <div id="messageDetails">
-    Loading...
+Loading...
 </div>
 
-
-<hr
-    style="
-        margin:20px 0;
-        border:0;
-        border-top:1px solid #eee;
-    "
->
-
+<hr style="margin:20px 0;border:0;border-top:1px solid #eee">
 
 <label>Reply</label>
 
 <textarea
-    id="messageReply"
-    placeholder="Write your reply..."
+id="messageReply"
+placeholder="Write your reply..."
 ></textarea>
 
-
 <button
-    class="full-btn"
-    onclick="replyCurrentMessage()"
+class="full-btn"
+onclick="replyCurrentMessage()"
 >
-    Send Reply
+Send Reply
 </button>
 
 </div>
-
 </div>
 
 
-<!-- =====================================================
-RESULT EDIT MODAL
-===================================================== -->
+<!-- RESULT MODAL -->
 
-<div
-    class="modal"
-    id="resultModal"
->
+<div class="modal" id="resultModal">
 
 <div class="modal-box">
 
 <div class="modal-header">
 
-    <h2>Edit Result</h2>
+<h2>Edit Result</h2>
 
-    <button
-        class="close"
-        onclick="closeModal('resultModal')"
-    >
-        ×
-    </button>
+<button
+class="close"
+onclick="closeModal('resultModal')"
+>
+×
+</button>
 
 </div>
 
-
 <input
-    type="hidden"
-    id="editResultId"
+type="hidden"
+id="editResultId"
 >
-
 
 <label>Correct Answers</label>
 
 <input
-    type="number"
-    id="editCorrect"
+type="number"
+id="editCorrect"
 >
-
 
 <label>Wrong Answers</label>
 
 <input
-    type="number"
-    id="editWrong"
+type="number"
+id="editWrong"
 >
-
 
 <label>Skipped Answers</label>
 
 <input
-    type="number"
-    id="editSkipped"
+type="number"
+id="editSkipped"
 >
-
 
 <label>Negative Mark</label>
 
 <input
-    type="number"
-    step="0.01"
-    id="editNegative"
+type="number"
+step="0.01"
+id="editNegative"
 >
-
 
 <label>Total Mark</label>
 
 <input
-    type="number"
-    step="0.01"
-    id="editTotal"
+type="number"
+step="0.01"
+id="editTotal"
 >
-
 
 <label>Merit Position</label>
 
 <input
-    type="number"
-    id="editMerit"
+type="number"
+id="editMerit"
 >
-
 
 <button
-    class="full-btn"
-    onclick="updateResult()"
+class="full-btn"
+onclick="updateResult()"
 >
-    Save Result
+Save Result
 </button>
 
 </div>
-
 </div>
 
 
-<!-- =====================================================
-ORDER DETAILS MODAL
-===================================================== -->
+<!-- ORDER MODAL -->
 
-<div
-    class="modal"
-    id="orderModal"
->
+<div class="modal" id="orderModal">
 
 <div class="modal-box">
 
 <div class="modal-header">
 
-    <h2>Order Details</h2>
+<h2>Order Details</h2>
 
-    <button
-        class="close"
-        onclick="closeModal('orderModal')"
-    >
-        ×
-    </button>
+<button
+class="close"
+onclick="closeModal('orderModal')"
+>
+×
+</button>
 
 </div>
 
 <div id="orderDetails">
-    Loading...
+Loading...
 </div>
 
 </div>
-
 </div>
 
 
@@ -1999,20 +1749,20 @@ SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
-    "https://rndtgjuwwsxxiiezennr.supabase.co";
+"https://rndtgjuwwsxxiiezennr.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
 /* =====================================================
-GLOBAL STATE
+GLOBAL
 ===================================================== */
 
 let examsCache = [];
@@ -2028,157 +1778,124 @@ HELPERS
 
 function escapeHtml(value){
 
-    return String(value ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+return String(value ?? "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 
 function formatDate(value){
 
-    if(!value){
-        return "-";
-    }
+if(!value) return "-";
 
-    try{
-
-        return new Date(value)
-            .toLocaleString();
-
-    }catch{
-
-        return "-";
-
-    }
+try{
+return new Date(value).toLocaleString();
+}catch{
+return "-";
+}
 
 }
 
 
 function badge(value){
 
-    const v =
-        String(value || "")
-        .toLowerCase();
+const v =
+String(value || "").toLowerCase();
 
-    let cls = "";
+let cls = "";
 
-    if(
-        v === "active" ||
-        v === "paid" ||
-        v === "published" ||
-        v === "replied"
-    ){
+if(
+v === "active" ||
+v === "paid" ||
+v === "published" ||
+v === "replied"
+){
+cls = "green";
+}
 
-        cls = "green";
+if(
+v === "rejected" ||
+v === "blocked" ||
+v === "cancelled" ||
+v === "revoked" ||
+v === "inactive"
+){
+cls = "red";
+}
 
-    }
+if(
+v === "pending" ||
+v === "draft" ||
+v === "read"
+){
+cls = "yellow";
+}
 
-
-    if(
-        v === "rejected" ||
-        v === "blocked" ||
-        v === "cancelled" ||
-        v === "revoked"
-    ){
-
-        cls = "red";
-
-    }
-
-
-    if(
-        v === "pending" ||
-        v === "draft" ||
-        v === "read"
-    ){
-
-        cls = "yellow";
-
-    }
-
-
-    return `
-        <span class="badge ${cls}">
-            ${escapeHtml(value || "-")}
-        </span>
-    `;
+return `
+<span class="badge ${cls}">
+${escapeHtml(value || "-")}
+</span>
+`;
 
 }
 
 
 /* =====================================================
-AUTH / ADMIN
+AUTH
 ===================================================== */
 
 async function checkAdmin(user){
 
-    if(!user){
-        return false;
-    }
+if(!user) return false;
 
+const {
+data,
+error
+} =
+await supabaseClient
+.rpc("is_admin");
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-        .rpc("is_admin");
+if(error){
 
+console.error("Admin check:",error);
 
-    if(error){
+return false;
 
-        console.error(
-            "Admin check:",
-            error
-        );
+}
 
-        return false;
-
-    }
-
-
-    return data === true;
+return data === true;
 
 }
 
 
 function showAdminPanel(email){
 
-    document
-        .getElementById("loginBox")
-        .style.display = "none";
+document.getElementById("loginBox")
+.style.display = "none";
 
+document.getElementById("adminPanel")
+.style.display = "block";
 
-    document
-        .getElementById("adminPanel")
-        .style.display = "block";
+document.getElementById("adminEmail")
+.innerText =
+email || "Admin";
 
-
-    document
-        .getElementById("adminEmail")
-        .innerText =
-            email || "Admin";
-
-
-    loadDashboard();
+loadDashboard();
 
 }
 
 
 function showLogin(){
 
-    document
-        .getElementById("loginBox")
-        .style.display = "flex";
+document.getElementById("loginBox")
+.style.display = "flex";
 
-
-    document
-        .getElementById("adminPanel")
-        .style.display = "none";
+document.getElementById("adminPanel")
+.style.display = "none";
 
 }
 
@@ -2190,102 +1907,76 @@ LOGIN
 document
 .getElementById("adminLoginForm")
 .addEventListener(
-    "submit",
-    async function(e){
+"submit",
+async function(e){
 
-        e.preventDefault();
+e.preventDefault();
 
+const message =
+document.getElementById("loginMessage");
 
-        const message =
-            document.getElementById(
-                "loginMessage"
-            );
+const button =
+document.getElementById("loginButton");
 
+message.innerText = "";
 
-        const button =
-            document.getElementById(
-                "loginButton"
-            );
+button.disabled = true;
+button.innerText = "Logging in...";
 
+const email =
+document.getElementById("email")
+.value.trim();
 
-        message.innerText = "";
+const password =
+document.getElementById("password")
+.value;
 
-        button.disabled = true;
-        button.innerText = "Logging in...";
+const {
+data,
+error
+} =
+await supabaseClient
+.auth
+.signInWithPassword({
+email,
+password
+});
 
+if(error){
 
-        const email =
-            document.getElementById(
-                "email"
-            ).value.trim();
+message.innerText =
+"Invalid email or password.";
 
+button.disabled = false;
+button.innerText = "Login";
 
-        const password =
-            document.getElementById(
-                "password"
-            ).value;
+return;
 
+}
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-            .auth
-            .signInWithPassword({
-                email,
-                password
-            });
+const admin =
+await checkAdmin(data.user);
 
+if(!admin){
 
-        if(error){
+await supabaseClient.auth.signOut();
 
-            console.error(error);
+message.innerText =
+"Access denied. Admin account required.";
 
-            message.innerText =
-                "Invalid email or password.";
+button.disabled = false;
+button.innerText = "Login";
 
-            button.disabled = false;
-            button.innerText = "Login";
+return;
 
-            return;
+}
 
-        }
+showAdminPanel(data.user.email);
 
+button.disabled = false;
+button.innerText = "Login";
 
-        const admin =
-            await checkAdmin(
-                data.user
-            );
-
-
-        if(!admin){
-
-            await supabaseClient
-                .auth
-                .signOut();
-
-
-            message.innerText =
-                "Access denied. Admin account required.";
-
-            button.disabled = false;
-            button.innerText = "Login";
-
-            return;
-
-        }
-
-
-        showAdminPanel(
-            data.user.email
-        );
-
-
-        button.disabled = false;
-        button.innerText = "Login";
-
-    }
+}
 );
 
 
@@ -2296,16 +1987,16 @@ LOGOUT
 document
 .getElementById("logoutButton")
 .addEventListener(
-    "click",
-    async function(){
+"click",
+async function(){
 
-        await supabaseClient
-            .auth
-            .signOut();
+await supabaseClient
+.auth
+.signOut();
 
-        showLogin();
+showLogin();
 
-    }
+}
 );
 
 
@@ -2313,108 +2004,97 @@ document
 NAVIGATION
 ===================================================== */
 
-function showSection(
-    sectionId,
-    button
-){
+function showSection(sectionId,button){
 
-    document
-        .querySelectorAll(".section")
-        .forEach(
-            section =>
-                section.classList.remove("active")
-        );
+document
+.querySelectorAll(".section")
+.forEach(
+section =>
+section.classList.remove("active")
+);
 
+const section =
+document.getElementById(sectionId);
 
-    const section =
-        document.getElementById(
-            sectionId
-        );
+if(section){
+section.classList.add("active");
+}
 
+document
+.querySelectorAll(".nav-btn")
+.forEach(
+btn =>
+btn.classList.remove("active")
+);
 
-    if(section){
-        section.classList.add("active");
-    }
+if(button){
+button.classList.add("active");
+}
 
+document
+.getElementById("sidebar")
+.classList.remove("open");
 
-    document
-        .querySelectorAll(".nav-btn")
-        .forEach(
-            btn =>
-                btn.classList.remove("active")
-        );
+if(sectionId === "dashboard")
+loadDashboard();
 
+if(sectionId === "students")
+loadStudents();
 
-    if(button){
-        button.classList.add("active");
-    }
+if(sectionId === "courses")
+loadCourseAccess();
 
+if(sectionId === "exams")
+loadExams();
 
-    document
-        .getElementById("sidebar")
-        .classList.remove("open");
+if(sectionId === "library")
+loadLibrary();
 
+if(sectionId === "payments")
+loadPayments();
 
-    if(sectionId === "dashboard")
-        loadDashboard();
+if(sectionId === "messages")
+loadMessages();
 
-    if(sectionId === "students")
-        loadStudents();
-
-    if(sectionId === "courses")
-        loadCourseAccess();
-
-    if(sectionId === "exams")
-        loadExams();
-
-    if(sectionId === "library")
-        loadLibrary();
-
-    if(sectionId === "payments")
-        loadPayments();
-
-    if(sectionId === "messages")
-        loadMessages();
-
-    if(sectionId === "notifications")
-        loadNotifications();
+if(sectionId === "notifications")
+loadNotifications();
 
 }
 
 
 function toggleSidebar(){
 
-    document
-        .getElementById("sidebar")
-        .classList.toggle("open");
+document
+.getElementById("sidebar")
+.classList.toggle("open");
 
 }
 
 
 /* =====================================================
-MODALS
+MODAL
 ===================================================== */
 
 function openModal(id){
 
-    const modal =
-        document.getElementById(id);
+const modal =
+document.getElementById(id);
 
-    if(modal){
-        modal.classList.add("show");
-    }
+if(modal){
+modal.classList.add("show");
+}
 
 }
 
 
 function closeModal(id){
 
-    const modal =
-        document.getElementById(id);
+const modal =
+document.getElementById(id);
 
-    if(modal){
-        modal.classList.remove("show");
-    }
+if(modal){
+modal.classList.remove("show");
+}
 
 }
 
@@ -2425,89 +2105,77 @@ DASHBOARD
 
 async function loadDashboard(){
 
-    try{
+try{
 
-        const students =
-            await supabaseClient
-            .rpc("admin_get_students");
+const students =
+await supabaseClient
+.rpc("admin_get_students");
 
+if(!students.error){
 
-        if(!students.error){
+document.getElementById("dashStudents")
+.innerText =
+Array.isArray(students.data)
+? students.data.length
+: 0;
 
-            document.getElementById(
-                "dashStudents"
-            ).innerText =
-                Array.isArray(students.data)
-                ? students.data.length
-                : 0;
+}
 
-        }
+const exams =
+await supabaseClient
+.rpc("admin_get_exams");
 
+if(!exams.error){
 
-        const exams =
-            await supabaseClient
-            .rpc("admin_get_exams");
+document.getElementById("dashExams")
+.innerText =
+Array.isArray(exams.data)
+? exams.data.length
+: 0;
 
+}
 
-        if(!exams.error){
+const courses =
+await supabaseClient
+.from("course_categories")
+.select("id");
 
-            document.getElementById(
-                "dashExams"
-            ).innerText =
-                Array.isArray(exams.data)
-                ? exams.data.length
-                : 0;
+if(!courses.error){
 
-        }
+document.getElementById("dashCourses")
+.innerText =
+(courses.data || []).length;
 
+}
 
-        const courses =
-            await supabaseClient
-            .from("course_categories")
-            .select("id");
+const orders =
+await supabaseClient
+.rpc("admin_get_orders");
 
+if(!orders.error){
 
-        if(!courses.error){
+const pending =
+(orders.data || [])
+.filter(
+o =>
+String(o.status || "")
+.toLowerCase()
+===
+"pending"
+)
+.length;
 
-            document.getElementById(
-                "dashCourses"
-            ).innerText =
-                courses.data.length;
+document.getElementById("dashPayments")
+.innerText =
+pending;
 
-        }
+}
 
+}catch(error){
 
-        const orders =
-            await supabaseClient
-            .rpc("admin_get_orders");
+console.error("Dashboard:",error);
 
-
-        if(!orders.error){
-
-            const pending =
-                (orders.data || [])
-                .filter(
-                    o =>
-                        String(o.status || "")
-                        .toLowerCase() === "pending"
-                )
-                .length;
-
-
-            document.getElementById(
-                "dashPayments"
-            ).innerText = pending;
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Dashboard:",
-            error
-        );
-
-    }
+}
 
 }
 
@@ -2518,323 +2186,256 @@ STUDENTS
 
 async function loadStudents(){
 
-    const tbody =
-        document.getElementById(
-            "studentsTable"
-        );
+const tbody =
+document.getElementById("studentsTable");
 
+tbody.innerHTML = `
+<tr>
+<td colspan="6" class="loading">
+Loading...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="6" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const search =
+document.getElementById("studentSearch")
+.value.trim();
 
+let result;
 
-    const search =
-        document.getElementById(
-            "studentSearch"
-        ).value.trim();
+if(search){
 
+result =
+await supabaseClient
+.rpc(
+"admin_search_students",
+{
+p_search:search
+}
+);
 
-    let result;
+}else{
 
+result =
+await supabaseClient
+.rpc("admin_get_students");
 
-    if(search){
+}
 
-        result =
-            await supabaseClient
-            .rpc(
-                "admin_search_students",
-                {
-                    p_search:search
-                }
-            );
+if(result.error){
 
-    }else{
+tbody.innerHTML = `
+<tr>
+<td colspan="6" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
-        result =
-            await supabaseClient
-            .rpc(
-                "admin_get_students"
-            );
+return;
 
-    }
+}
 
+const students =
+result.data || [];
 
-    if(result.error){
+if(!students.length){
 
-        console.error(result.error);
+tbody.innerHTML = `
+<tr>
+<td colspan="6" class="empty">
+No students found.
+</td>
+</tr>
+`;
 
+return;
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="6" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+}
 
-        return;
+tbody.innerHTML =
+students.map(
+student => `
 
-    }
+<tr>
 
+<td>
+<strong>
+${escapeHtml(student.full_name || "-")}
+</strong>
+</td>
 
-    const students =
-        result.data || [];
+<td>
+${escapeHtml(student.email || "-")}
+</td>
 
+<td>
+${escapeHtml(student.phone || "-")}
+</td>
 
-    if(!students.length){
+<td>
+${escapeHtml(student.student_id || "-")}
+</td>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="6" class="empty">
-                    No students found.
-                </td>
-            </tr>
-            `;
+<td>
+${badge(student.status)}
+</td>
 
-        return;
+<td>
 
-    }
+<button
+class="action-btn info"
+onclick="viewStudent('${student.user_id}')"
+>
+View
+</button>
 
+<button
+class="action-btn"
+onclick="studentPerformance('${student.user_id}')"
+>
+Performance
+</button>
 
-    tbody.innerHTML =
-        students.map(
-            student => `
+</td>
 
-            <tr>
+</tr>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            student.full_name || "-"
-                        )}
-                    </strong>
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        student.email || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        student.phone || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        student.student_id || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${badge(
-                        student.status
-                    )}
-                </td>
-
-                <td>
-
-                    <button
-                        class="action-btn info"
-                        onclick="viewStudent('${student.user_id}')"
-                    >
-                        View
-                    </button>
-
-                    <button
-                        class="action-btn"
-                        onclick="studentPerformance('${student.user_id}')"
-                    >
-                        Performance
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 async function viewStudent(userId){
 
-    currentStudentId = userId;
+currentStudentId = userId;
 
-    openModal("studentModal");
+openModal("studentModal");
 
+const box =
+document.getElementById("studentDetails");
 
-    const box =
-        document.getElementById(
-            "studentDetails"
-        );
+box.innerHTML =
+`<div class="loading">Loading student...</div>`;
 
+const result =
+await supabaseClient
+.rpc(
+"admin_get_student",
+{
+p_user_id:userId
+}
+);
 
-    box.innerHTML =
-        `
-        <div class="loading">
-            Loading student...
-        </div>
-        `;
+if(result.error){
 
+box.innerHTML =
+`<p>${escapeHtml(result.error.message)}</p>`;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_student",
-            {
-                p_user_id:userId
-            }
-        );
+return;
 
+}
 
-    if(result.error){
+const student =
+Array.isArray(result.data)
+? result.data[0]
+: result.data;
 
-        box.innerHTML =
-            `
-            <p>
-                ${escapeHtml(
-                    result.error.message
-                )}
-            </p>
-            `;
+if(!student){
 
-        return;
+box.innerHTML =
+"<p>Student not found.</p>";
 
-    }
+return;
 
+}
 
-    const student =
-        Array.isArray(result.data)
-        ? result.data[0]
-        : result.data;
+box.innerHTML = `
 
+<p>
+<strong>Name:</strong>
+${escapeHtml(student.full_name || "-")}
+</p>
 
-    if(!student){
+<p style="margin-top:8px">
+<strong>Email:</strong>
+${escapeHtml(student.email || "-")}
+</p>
 
-        box.innerHTML =
-            "<p>Student not found.</p>";
+<p style="margin-top:8px">
+<strong>Phone:</strong>
+${escapeHtml(student.phone || "-")}
+</p>
 
-        return;
+<p style="margin-top:8px">
+<strong>Student ID:</strong>
+${escapeHtml(student.student_id || "-")}
+</p>
 
-    }
+<p style="margin-top:8px">
+<strong>Institution:</strong>
+${escapeHtml(student.institution || "-")}
+</p>
 
+<p style="margin-top:8px">
+<strong>HSC Batch:</strong>
+${escapeHtml(student.hsc_batch || "-")}
+</p>
 
-    box.innerHTML = `
+<p style="margin-top:8px">
+<strong>Status:</strong>
+${badge(student.status)}
+</p>
 
-        <p>
-            <strong>Name:</strong>
-            ${escapeHtml(
-                student.full_name || "-"
-            )}
-        </p>
+<div style="margin-top:20px">
 
-        <p style="margin-top:8px">
-            <strong>Email:</strong>
-            ${escapeHtml(
-                student.email || "-"
-            )}
-        </p>
+<button
+class="action-btn"
+onclick="loadStudentCourses('${userId}')"
+>
+Courses
+</button>
 
-        <p style="margin-top:8px">
-            <strong>Phone:</strong>
-            ${escapeHtml(
-                student.phone || "-"
-            )}
-        </p>
+<button
+class="action-btn"
+onclick="loadStudentResultsFor('${userId}')"
+>
+Results
+</button>
 
-        <p style="margin-top:8px">
-            <strong>Student ID:</strong>
-            ${escapeHtml(
-                student.student_id || "-"
-            )}
-        </p>
+</div>
 
-        <p style="margin-top:8px">
-            <strong>Institution:</strong>
-            ${escapeHtml(
-                student.institution || "-"
-            )}
-        </p>
-
-        <p style="margin-top:8px">
-            <strong>HSC Batch:</strong>
-            ${escapeHtml(
-                student.hsc_batch || "-"
-            )}
-        </p>
-
-        <p style="margin-top:8px">
-            <strong>Status:</strong>
-            ${badge(
-                student.status
-            )}
-        </p>
-
-        <div style="margin-top:20px">
-
-            <button
-                class="action-btn"
-                onclick="loadStudentCourses('${userId}')"
-            >
-                Courses
-            </button>
-
-            <button
-                class="action-btn"
-                onclick="loadStudentResultsFor('${userId}')"
-            >
-                Results
-            </button>
-
-        </div>
-
-    `;
+`;
 
 }
 
 
 async function studentPerformance(userId){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_student_summary",
-            {
-                p_user_id:userId
-            }
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_get_student_summary",
+{
+p_user_id:userId
+}
+);
 
+if(result.error){
 
-    if(result.error){
+alert(result.error.message);
+return;
 
-        alert(result.error.message);
+}
 
-        return;
-
-    }
-
-
-    alert(
-        JSON.stringify(
-            result.data,
-            null,
-            2
-        )
-    );
+alert(
+JSON.stringify(
+result.data,
+null,
+2
+)
+);
 
 }
 
@@ -2845,138 +2446,116 @@ COURSE ACCESS
 
 async function loadCourseAccess(){
 
-    const tbody =
-        document.getElementById(
-            "courseAccessTable"
-        );
+const tbody =
+document.getElementById("courseAccessTable");
 
+tbody.innerHTML = `
+<tr>
+<td colspan="4" class="loading">
+Loading...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="4" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const result =
+await supabaseClient
+.rpc("admin_get_all_course_access");
 
+if(result.error){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_all_course_access"
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
+return;
 
-    if(result.error){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="4" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+const rows =
+result.data || [];
 
-        return;
+if(!rows.length){
 
-    }
+tbody.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
+No course access records.
+</td>
+</tr>
+`;
 
+return;
 
-    const rows =
-        result.data || [];
+}
 
+tbody.innerHTML =
+rows.map(
+row => `
 
-    if(!rows.length){
+<tr>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="4" class="empty">
-                    No course access records.
-                </td>
-            </tr>
-            `;
+<td>
+${escapeHtml(
+row.email ||
+row.full_name ||
+row.user_id ||
+"-"
+)}
+</td>
 
-        return;
+<td>
+${escapeHtml(
+row.course_name ||
+row.course_id ||
+"-"
+)}
+</td>
 
-    }
+<td>
+${badge(row.access_status)}
+</td>
 
+<td>
+${formatDate(row.granted_at)}
+</td>
 
-    tbody.innerHTML =
-        rows.map(
-            row => `
+</tr>
 
-            <tr>
-
-                <td>
-                    ${escapeHtml(
-                        row.email ||
-                        row.full_name ||
-                        row.user_id ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        row.course_name ||
-                        row.course_id ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${badge(
-                        row.access_status
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        row.granted_at
-                    )}
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 async function loadStudentCourses(userId){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_student_courses",
-            {
-                p_user_id:userId
-            }
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_get_student_courses",
+{
+p_user_id:userId
+}
+);
 
+if(result.error){
 
-    if(result.error){
+alert(result.error.message);
+return;
 
-        alert(result.error.message);
+}
 
-        return;
-
-    }
-
-
-    alert(
-        JSON.stringify(
-            result.data,
-            null,
-            2
-        )
-    );
+alert(
+JSON.stringify(
+result.data,
+null,
+2
+)
+);
 
 }
 
@@ -2987,426 +2566,310 @@ EXAMS
 
 function openExamModal(){
 
-    document.getElementById(
-        "examTitle"
-    ).value = "";
+document.getElementById("examTitle").value = "";
 
+document.getElementById("examDescription").value = "";
 
-    document.getElementById(
-        "examDescription"
-    ).value = "";
+document.getElementById("examMarks").value = 50;
 
+document.getElementById("examPassMarks").value = 20;
 
-    document.getElementById(
-        "examMarks"
-    ).value = 50;
+document.getElementById("examDuration").value = 60;
 
-
-    document.getElementById(
-        "examPassMarks"
-    ).value = 20;
-
-
-    document.getElementById(
-        "examDuration"
-    ).value = 60;
-
-
-    openModal("examModal");
+openModal("examModal");
 
 }
 
 
 async function loadExams(){
 
-    const tbody =
-        document.getElementById(
-            "examsTable"
-        );
+const tbody =
+document.getElementById("examsTable");
 
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="loading">
+Loading...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="7" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const result =
+await supabaseClient
+.rpc("admin_get_exams");
 
+if(result.error){
 
-    const result =
-        await supabaseClient
-        .rpc("admin_get_exams");
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
+return;
 
-    if(result.error){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="7" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+examsCache =
+result.data || [];
 
-        return;
-
-    }
-
-
-    examsCache =
-        result.data || [];
-
-
-    renderExams();
+renderExams();
 
 }
 
 
 function renderExams(){
 
-    const tbody =
-        document.getElementById(
-            "examsTable"
-        );
+const tbody =
+document.getElementById("examsTable");
 
+const search =
+document.getElementById("examSearch")
+.value
+.trim()
+.toLowerCase();
 
-    const search =
-        document.getElementById(
-            "examSearch"
-        ).value
-        .trim()
-        .toLowerCase();
+const exams =
+examsCache.filter(
+exam =>
+!search ||
+String(exam.title || "")
+.toLowerCase()
+.includes(search)
+);
 
+if(!exams.length){
 
-    const exams =
-        examsCache.filter(
-            exam =>
-                !search ||
-                String(
-                    exam.title || ""
-                )
-                .toLowerCase()
-                .includes(search)
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+No exams found.
+</td>
+</tr>
+`;
 
+return;
 
-    if(!exams.length){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="7" class="empty">
-                    No exams found.
-                </td>
-            </tr>
-            `;
+tbody.innerHTML =
+exams.map(
+exam => `
 
-        return;
+<tr>
 
-    }
+<td>
+<strong>
+${escapeHtml(exam.title || "-")}
+</strong>
+</td>
 
+<td>${exam.total_marks ?? "-"}</td>
 
-    tbody.innerHTML =
-        exams.map(
-            exam => `
+<td>${exam.pass_marks ?? "-"}</td>
 
-            <tr>
+<td>${exam.duration_minutes ?? "-"} min</td>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            exam.title || "-"
-                        )}
-                    </strong>
-                </td>
+<td>${badge(exam.status)}</td>
 
-                <td>
-                    ${exam.total_marks ?? "-"}
-                </td>
+<td>
+${
+exam.is_published
+? badge("published")
+: badge("draft")
+}
+</td>
 
-                <td>
-                    ${exam.pass_marks ?? "-"}
-                </td>
+<td>
 
-                <td>
-                    ${exam.duration_minutes ?? "-"} min
-                </td>
+<button
+class="action-btn"
+onclick="manageExam('${exam.id}')"
+>
+Manage
+</button>
 
-                <td>
-                    ${badge(
-                        exam.status
-                    )}
-                </td>
+<button
+class="action-btn info"
+onclick="viewExamQuestions('${exam.id}')"
+>
+Questions
+</button>
 
-                <td>
-                    ${
-                        exam.is_published
-                        ? badge("published")
-                        : badge("draft")
-                    }
-                </td>
+</td>
 
-                <td>
+</tr>
 
-                    <button
-                        class="action-btn"
-                        onclick="manageExam('${exam.id}')"
-                    >
-                        Manage
-                    </button>
-
-                    <button
-                        class="action-btn info"
-                        onclick="viewExamQuestions('${exam.id}')"
-                    >
-                        Questions
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 async function createExam(){
 
-    const title =
-        document.getElementById(
-            "examTitle"
-        ).value.trim();
+const title =
+document.getElementById("examTitle")
+.value.trim();
 
+const description =
+document.getElementById("examDescription")
+.value.trim();
 
-    const description =
-        document.getElementById(
-            "examDescription"
-        ).value.trim();
+const totalMarks =
+Number(
+document.getElementById("examMarks").value
+);
 
+const passMarks =
+Number(
+document.getElementById("examPassMarks").value
+);
 
-    const totalMarks =
-        Number(
-            document.getElementById(
-                "examMarks"
-            ).value
-        );
+const duration =
+Number(
+document.getElementById("examDuration").value
+);
 
+if(!title){
 
-    const passMarks =
-        Number(
-            document.getElementById(
-                "examPassMarks"
-            ).value
-        );
+alert("Exam title required.");
+return;
 
+}
 
-    const duration =
-        Number(
-            document.getElementById(
-                "examDuration"
-            ).value
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_create_exam",
+{
+p_title:title,
+p_description:description || null,
+p_total_marks:totalMarks,
+p_pass_marks:passMarks,
+p_duration_minutes:duration
+}
+);
 
+if(result.error){
 
-    if(!title){
+alert(result.error.message);
+return;
 
-        alert(
-            "Exam title required."
-        );
+}
 
-        return;
+closeModal("examModal");
 
-    }
+alert("Exam created successfully.");
 
-
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_create_exam",
-            {
-                p_title:title,
-                p_description:
-                    description || null,
-                p_total_marks:totalMarks,
-                p_pass_marks:passMarks,
-                p_duration_minutes:duration
-            }
-        );
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    closeModal("examModal");
-
-
-    alert(
-        "Exam created successfully."
-    );
-
-
-    loadExams();
+loadExams();
 
 }
 
 
 async function manageExam(examId){
 
-    const exam =
-        examsCache.find(
-            e => e.id === examId
-        );
+const exam =
+examsCache.find(
+e => e.id === examId
+);
 
+if(!exam) return;
 
-    if(!exam){
+const publish =
+confirm(
+exam.is_published
+? "Unpublish this exam?"
+: "Publish this exam?"
+);
 
-        return;
+if(!publish) return;
 
-    }
+const result =
+await supabaseClient
+.rpc(
+"admin_update_exam_status",
+{
+p_exam_id:examId,
+p_status:
+exam.is_published
+? "draft"
+: "published",
+p_is_published:
+!exam.is_published
+}
+);
 
+if(result.error){
 
-    const publish =
-        confirm(
-            exam.is_published
-            ? "Unpublish this exam?"
-            : "Publish this exam?"
-        );
+alert(result.error.message);
+return;
 
+}
 
-    if(!publish){
-
-        return;
-
-    }
-
-
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_update_exam_status",
-            {
-                p_exam_id:examId,
-                p_status:
-                    exam.is_published
-                    ? "draft"
-                    : "published",
-                p_is_published:
-                    !exam.is_published
-            }
-        );
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    loadExams();
+loadExams();
 
 }
 
 
 async function viewExamQuestions(examId){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_exam_questions",
-            {
-                p_exam_id:examId
-            }
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_get_exam_questions",
+{
+p_exam_id:examId
+}
+);
 
+if(result.error){
 
-    if(result.error){
+alert(result.error.message);
+return;
 
-        alert(
-            result.error.message
-        );
+}
 
-        return;
+const questions =
+result.data || [];
 
-    }
+if(!questions.length){
 
+alert("No questions found for this exam.");
+return;
 
-    const questions =
-        result.data || [];
+}
 
+let text =
+`Questions: ${questions.length}\n\n`;
 
-    if(!questions.length){
+questions.forEach(
+(q,index) => {
 
-        alert(
-            "No questions found for this exam."
-        );
+text +=
+`${index+1}. ${q.question_text || ""}\n`;
 
-        return;
+text +=
+`A: ${q.option_a || ""}\n`;
 
-    }
+text +=
+`B: ${q.option_b || ""}\n`;
 
+text +=
+`C: ${q.option_c || ""}\n`;
 
-    let text =
-        `Questions: ${questions.length}\n\n`;
+text +=
+`D: ${q.option_d || ""}\n`;
 
+text +=
+`Correct: ${q.correct_answer || ""}\n\n`;
 
-    questions.forEach(
-        (q,index) => {
+}
+);
 
-            text +=
-                `${index+1}. ${
-                    q.question_text || ""
-                }\n`;
-
-            text +=
-                `A: ${
-                    q.option_a || ""
-                }\n`;
-
-            text +=
-                `B: ${
-                    q.option_b || ""
-                }\n`;
-
-            text +=
-                `C: ${
-                    q.option_c || ""
-                }\n`;
-
-            text +=
-                `D: ${
-                    q.option_d || ""
-                }\n`;
-
-            text +=
-                `Correct: ${
-                    q.correct_answer || ""
-                }\n\n`;
-
-        }
-    );
-
-
-    alert(text);
+alert(text);
 
 }
 
@@ -3417,303 +2880,223 @@ LIBRARY
 
 function openLibraryModal(){
 
-    document.getElementById(
-        "libraryTitle"
-    ).value = "";
+document.getElementById("libraryTitle").value = "";
 
+document.getElementById("libraryDescription").value = "";
 
-    document.getElementById(
-        "libraryDescription"
-    ).value = "";
+document.getElementById("libraryCourseId").value = "";
 
+document.getElementById("libraryFilePath").value = "";
 
-    document.getElementById(
-        "libraryCourseId"
-    ).value = "";
-
-
-    document.getElementById(
-        "libraryFilePath"
-    ).value = "";
-
-
-    openModal(
-        "libraryModal"
-    );
+openModal("libraryModal");
 
 }
 
 
 async function loadLibrary(){
 
-    const tbody =
-        document.getElementById(
-            "libraryTable"
-        );
+const tbody =
+document.getElementById("libraryTable");
 
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="loading">
+Loading...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="5" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const result =
+await supabaseClient
+.rpc("admin_get_library_items");
 
+if(result.error){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_library_items"
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
+return;
 
-    if(result.error){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="5" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+libraryCache =
+result.data || [];
 
-        return;
-
-    }
-
-
-    libraryCache =
-        result.data || [];
-
-
-    renderLibrary();
+renderLibrary();
 
 }
 
 
 function renderLibrary(){
 
-    const tbody =
-        document.getElementById(
-            "libraryTable"
-        );
+const tbody =
+document.getElementById("libraryTable");
 
+const search =
+document.getElementById("librarySearch")
+.value
+.trim()
+.toLowerCase();
 
-    const search =
-        document.getElementById(
-            "librarySearch"
-        ).value
-        .trim()
-        .toLowerCase();
+const items =
+libraryCache.filter(
+item =>
+!search ||
+String(item.title || "")
+.toLowerCase()
+.includes(search)
+);
 
+if(!items.length){
 
-    const items =
-        libraryCache.filter(
-            item =>
-                !search ||
-                String(
-                    item.title || ""
-                )
-                .toLowerCase()
-                .includes(search)
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="empty">
+No library items found.
+</td>
+</tr>
+`;
 
+return;
 
-    if(!items.length){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="5" class="empty">
-                    No library items found.
-                </td>
-            </tr>
-            `;
+tbody.innerHTML =
+items.map(
+item => `
 
-        return;
+<tr>
 
-    }
+<td>
+<strong>
+${escapeHtml(item.title || "-")}
+</strong>
+</td>
 
+<td>
+${escapeHtml(item.item_type || "-")}
+</td>
 
-    tbody.innerHTML =
-        items.map(
-            item => `
+<td>
+${escapeHtml(item.course_id || "-")}
+</td>
 
-            <tr>
+<td>
+${
+item.is_published
+? badge("published")
+: badge("draft")
+}
+</td>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            item.title || "-"
-                        )}
-                    </strong>
-                </td>
+<td>
 
-                <td>
-                    ${escapeHtml(
-                        item.item_type || "-"
-                    )}
-                </td>
+<button
+class="action-btn danger"
+onclick="deleteLibraryItem('${item.id}')"
+>
+Delete
+</button>
 
-                <td>
-                    ${escapeHtml(
-                        item.course_id || "-"
-                    )}
-                </td>
+</td>
 
-                <td>
-                    ${
-                        item.is_published
-                        ? badge("published")
-                        : badge("draft")
-                    }
-                </td>
+</tr>
 
-                <td>
-
-                    <button
-                        class="action-btn danger"
-                        onclick="deleteLibraryItem('${item.id}')"
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 async function createLibraryItem(){
 
-    const title =
-        document.getElementById(
-            "libraryTitle"
-        ).value.trim();
+const title =
+document.getElementById("libraryTitle")
+.value.trim();
 
+const description =
+document.getElementById("libraryDescription")
+.value.trim();
 
-    const description =
-        document.getElementById(
-            "libraryDescription"
-        ).value.trim();
+const itemType =
+document.getElementById("libraryType").value;
 
+const courseId =
+document.getElementById("libraryCourseId")
+.value.trim();
 
-    const itemType =
-        document.getElementById(
-            "libraryType"
-        ).value;
+const filePath =
+document.getElementById("libraryFilePath")
+.value.trim();
 
+if(!title){
 
-    const courseId =
-        document.getElementById(
-            "libraryCourseId"
-        ).value.trim();
+alert("Title required.");
+return;
 
+}
 
-    const filePath =
-        document.getElementById(
-            "libraryFilePath"
-        ).value.trim();
+const result =
+await supabaseClient
+.rpc(
+"admin_create_library_item",
+{
+p_course_id:courseId || null,
+p_title:title,
+p_description:description || null,
+p_item_type:itemType,
+p_file_url:filePath || null
+}
+);
 
+if(result.error){
 
-    if(!title){
+alert(result.error.message);
+return;
 
-        alert(
-            "Title required."
-        );
+}
 
-        return;
+closeModal("libraryModal");
 
-    }
+alert("Library item created successfully.");
 
-
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_create_library_item",
-            {
-                p_course_id:
-                    courseId || null,
-                p_title:title,
-                p_description:
-                    description || null,
-                p_item_type:itemType,
-                p_file_url:
-                    filePath || null
-            }
-        );
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    closeModal(
-        "libraryModal"
-    );
-
-
-    alert(
-        "Library item created successfully."
-    );
-
-
-    loadLibrary();
+loadLibrary();
 
 }
 
 
 async function deleteLibraryItem(itemId){
 
-    if(
-        !confirm(
-            "Delete this library item?"
-        )
-    ){
+if(
+!confirm(
+"Delete this library item?"
+)
+){
+return;
+}
 
-        return;
+const result =
+await supabaseClient
+.rpc(
+"admin_delete_library_item",
+{
+p_library_item_id:itemId
+}
+);
 
-    }
+if(result.error){
 
+alert(result.error.message);
+return;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_delete_library_item",
-            {
-                p_library_item_id:itemId
-            }
-        );
+}
 
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    loadLibrary();
+loadLibrary();
 
 }
 
@@ -3724,235 +3107,210 @@ PAYMENTS
 
 async function loadPayments(){
 
-    const tbody =
-        document.getElementById(
-            "paymentsTable"
-        );
+const tbody =
+document.getElementById("paymentsTable");
+
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="loading">
+Loading orders...
+</td>
+</tr>
+`;
+
+const result =
+await supabaseClient
+.rpc("admin_get_orders");
+
+if(result.error){
+
+console.error("Payments:",result.error);
+
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+const orders =
+result.data || [];
+
+if(!orders.length){
+
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+No orders found.
+</td>
+</tr>
+`;
 
+return;
+
+}
+
+tbody.innerHTML =
+orders.map(
+order => {
+
+const status =
+String(order.status || "")
+.trim()
+.toLowerCase();
+
+const transactionId =
+order.transaction_id ||
+order.trx_id ||
+order.transactionId ||
+"-";
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="7" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const student =
+order.email ||
+order.student_email ||
+order.student_name ||
+order.user_email ||
+order.user_id ||
+"-";
 
+const amount =
+order.total_amount ??
+order.amount ??
+0;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_orders"
-        );
+let buttons = `
+
+<button
+class="action-btn info"
+onclick="viewOrder('${order.id}')"
+>
+Items
+</button>
 
+`;
 
-    if(result.error){
+if(status === "pending"){
 
-        console.error(
-            "Payments:",
-            result.error
-        );
+buttons = `
 
+<button
+class="action-btn success"
+onclick="acceptOrder('${order.id}')"
+>
+Accept
+</button>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="7" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+<button
+class="action-btn danger"
+onclick="rejectOrder('${order.id}')"
+>
+Reject
+</button>
 
-        return;
+<button
+class="action-btn info"
+onclick="viewOrder('${order.id}')"
+>
+Items
+</button>
 
-    }
+`;
 
+}
 
-    const orders =
-        result.data || [];
+else if(status === "paid"){
 
+buttons = `
 
-    if(!orders.length){
+<button
+class="action-btn success"
+disabled
+>
+Accepted ✓
+</button>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="7" class="empty">
-                    No orders found.
-                </td>
-            </tr>
-            `;
+<button
+class="action-btn info"
+onclick="viewOrder('${order.id}')"
+>
+Items
+</button>
 
-        return;
+`;
 
-    }
+}
 
+else if(status === "rejected"){
 
-    tbody.innerHTML =
-        orders.map(
-            order => {
+buttons = `
 
-                const status =
-                    String(
-                        order.status || ""
-                    ).toLowerCase();
+<button
+class="action-btn danger"
+disabled
+>
+Rejected
+</button>
 
+<button
+class="action-btn info"
+onclick="viewOrder('${order.id}')"
+>
+Items
+</button>
 
-                const transactionId =
-                    order.transaction_id ||
-                    order.trx_id ||
-                    order.transactionId ||
-                    "-";
+`;
 
+}
 
-                const student =
-                    order.email ||
-                    order.student_email ||
-                    order.student_name ||
-                    order.user_email ||
-                    order.user_id ||
-                    "-";
+return `
 
+<tr>
 
-                const amount =
-                    order.total_amount ??
-                    order.amount ??
-                    0;
+<td>
+#${escapeHtml(order.id)}
+</td>
 
+<td>
+${escapeHtml(student)}
+</td>
 
-                let actionButtons = `
-                    <button
-                        class="action-btn info"
-                        onclick="viewOrder('${order.id}')"
-                    >
-                        Items
-                    </button>
-                `;
+<td>
+<strong>
+${escapeHtml(transactionId)}
+</strong>
+</td>
 
+<td>
+৳${escapeHtml(amount)}
+</td>
 
-                if(status === "pending"){
+<td>
+${badge(order.status)}
+</td>
 
-                    actionButtons = `
+<td>
+${formatDate(order.created_at)}
+</td>
 
-                        <button
-                            class="action-btn success"
-                            onclick="acceptOrder('${order.id}')"
-                        >
-                            Accept
-                        </button>
+<td>
 
-                        <button
-                            class="action-btn danger"
-                            onclick="rejectOrder('${order.id}')"
-                        >
-                            Reject
-                        </button>
+<div class="payment-actions">
+${buttons}
+</div>
 
-                        <button
-                            class="action-btn info"
-                            onclick="viewOrder('${order.id}')"
-                        >
-                            Items
-                        </button>
+</td>
 
-                    `;
+</tr>
 
-                }
+`;
 
-
-                if(status === "paid"){
-
-                    actionButtons = `
-
-                        <button
-                            class="action-btn success"
-                            disabled
-                        >
-                            Accepted
-                        </button>
-
-                        <button
-                            class="action-btn info"
-                            onclick="viewOrder('${order.id}')"
-                        >
-                            Items
-                        </button>
-
-                    `;
-
-                }
-
-
-                if(status === "rejected"){
-
-                    actionButtons = `
-
-                        <button
-                            class="action-btn danger"
-                            disabled
-                        >
-                            Rejected
-                        </button>
-
-                        <button
-                            class="action-btn info"
-                            onclick="viewOrder('${order.id}')"
-                        >
-                            Items
-                        </button>
-
-                    `;
-
-                }
-
-
-                return `
-
-                <tr>
-
-                    <td>
-                        #${escapeHtml(order.id)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(student)}
-                    </td>
-
-                    <td>
-                        <strong>
-                            ${escapeHtml(transactionId)}
-                        </strong>
-                    </td>
-
-                    <td>
-                        ৳${escapeHtml(amount)}
-                    </td>
-
-                    <td>
-                        ${badge(order.status)}
-                    </td>
-
-                    <td>
-                        ${formatDate(
-                            order.created_at
-                        )}
-                    </td>
-
-                    <td>
-                        <div class="payment-actions">
-                            ${actionButtons}
-                        </div>
-                    </td>
-
-                </tr>
-
-                `;
-
-            }
-        ).join("");
+}
+).join("");
 
 }
 
@@ -3963,130 +3321,115 @@ VIEW ORDER
 
 async function viewOrder(orderId){
 
-    openModal(
-        "orderModal"
-    );
+openModal("orderModal");
 
+const box =
+document.getElementById("orderDetails");
 
-    const box =
-        document.getElementById(
-            "orderDetails"
-        );
+box.innerHTML = `
+<div class="loading">
+Loading order...
+</div>
+`;
 
+const result =
+await supabaseClient
+.rpc(
+"admin_get_order_items",
+{
+p_order_id:Number(orderId)
+}
+);
 
-    box.innerHTML =
-        `
-        <div class="loading">
-            Loading order...
-        </div>
-        `;
+if(result.error){
 
+box.innerHTML = `
+<p>
+${escapeHtml(result.error.message)}
+</p>
+`;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_order_items",
-            {
-                p_order_id:Number(orderId)
-            }
-        );
+return;
 
+}
 
-    if(result.error){
+const items =
+result.data || [];
 
-        box.innerHTML =
-            `
-            <p>
-                ${escapeHtml(
-                    result.error.message
-                )}
-            </p>
-            `;
+if(!items.length){
 
-        return;
+box.innerHTML = `
+<p>
+No items found for this order.
+</p>
+`;
 
-    }
+return;
 
+}
 
-    const items =
-        result.data || [];
+box.innerHTML = `
 
+<div style="margin-bottom:15px">
 
-    if(!items.length){
+<strong>
+Order #${escapeHtml(orderId)}
+</strong>
 
-        box.innerHTML =
-            `
-            <p>
-                No items found for this order.
-            </p>
-            `;
+</div>
 
-        return;
+${items.map(
+(item,index) => `
 
-    }
+<div class="payment-item">
 
+<strong>
+Item ${index + 1}
+</strong>
 
-    box.innerHTML = `
+<div>
+Course:
+<b>
+${escapeHtml(
+item.course_name ||
+item.course_id ||
+"-"
+)}
+</b>
+</div>
 
-        <div style="margin-bottom:15px">
+<div style="margin-top:5px">
+Course ID:
+${escapeHtml(item.course_id || "-")}
+</div>
 
-            <strong>
-                Order #${escapeHtml(orderId)}
-            </strong>
+<div style="margin-top:5px">
+Price:
+৳${escapeHtml(item.price ?? 0)}
+</div>
 
-        </div>
+<div style="margin-top:5px">
+Payment Status:
+${badge(item.payment_status)}
+</div>
 
-        ${items.map(
-            (item,index) => `
+${
+item.paid_at
+? `
+<div style="margin-top:5px">
+Paid:
+${formatDate(item.paid_at)}
+</div>
+`
+: ""
+}
 
-            <div class="payment-item">
+</div>
 
-                <strong>
-                    Item ${index + 1}
-                </strong>
+`
+).join("")}
 
-                <div>
-                    Course:
-                    ${escapeHtml(
-                        item.course_name ||
-                        item.course_id ||
-                        "-"
-                    )}
-                </div>
-
-                <div style="margin-top:5px">
-                    Price:
-                    ৳${escapeHtml(
-                        item.price ?? 0
-                    )}
-                </div>
-
-                <div style="margin-top:5px">
-                    Payment Status:
-                    ${badge(
-                        item.payment_status
-                    )}
-                </div>
-
-                ${
-                    item.paid_at
-                    ? `
-                    <div style="margin-top:5px">
-                        Paid:
-                        ${formatDate(
-                            item.paid_at
-                        )}
-                    </div>
-                    `
-                    : ""
-                }
-
-            </div>
-
-        `
-        ).join("")}
-
-    `;
+`;
 
 }
 
@@ -4097,96 +3440,97 @@ ACCEPT ORDER
 
 async function acceptOrder(orderId){
 
-    if(
-        !confirm(
-            "Accept this payment and grant access to all courses in this order?"
-        )
-    ){
+if(
+!confirm(
+"Payment accepted korle order-er purchased course access active hobe. Continue?"
+)
+){
+return;
+}
 
-        return;
+const itemsResult =
+await supabaseClient
+.rpc(
+"admin_get_order_items",
+{
+p_order_id:Number(orderId)
+}
+);
 
-    }
+if(itemsResult.error){
 
+alert(itemsResult.error.message);
+return;
 
-    const itemsResult =
-        await supabaseClient
-        .rpc(
-            "admin_get_order_items",
-            {
-                p_order_id:Number(orderId)
-            }
-        );
+}
 
+const items =
+itemsResult.data || [];
 
-    if(itemsResult.error){
+if(!items.length){
 
-        alert(
-            itemsResult.error.message
-        );
+alert("No order items found.");
 
-        return;
+return;
 
-    }
+}
 
+/*
+IMPORTANT:
 
-    const items =
-        itemsResult.data || [];
+Each order item is updated to PAID.
 
+Existing backend function:
+admin_update_payment_status()
 
-    if(!items.length){
+and existing payment trigger:
+grant_course_access_on_payment()
 
-        alert(
-            "No order items found."
-        );
+will process course_access.
+*/
 
-        return;
+for(const item of items){
 
-    }
+const result =
+await supabaseClient
+.rpc(
+"admin_update_payment_status",
+{
+p_order_item_id:
+Number(item.id),
 
+p_status:
+"paid",
 
-    for(
-        const item of items
-    ){
+p_admin_note:
+"Payment accepted by admin. Course access granted through payment flow."
+}
+);
 
-        const result =
-            await supabaseClient
-            .rpc(
-                "admin_update_payment_status",
-                {
-                    p_order_item_id:
-                        Number(item.id),
+if(result.error){
 
-                    p_status:
-                        "paid",
+alert(
+"Payment update failed:\n" +
+result.error.message
+);
 
-                    p_admin_note:
-                        "Payment accepted by admin."
-                }
-            );
+return;
 
+}
 
-        if(result.error){
+}
 
-            alert(
-                "Payment update failed: " +
-                result.error.message
-            );
+alert(
+"✅ Payment accepted.\n\nCourse access has been processed."
+);
 
-            return;
+closeModal("orderModal");
 
-        }
+await loadPayments();
 
-    }
+await loadDashboard();
 
-
-    alert(
-        "Payment accepted successfully. Course access has been processed."
-    );
-
-
-    loadPayments();
-
-    loadDashboard();
+await loadCourseAccess();
 
 }
 
@@ -4197,96 +3541,81 @@ REJECT ORDER
 
 async function rejectOrder(orderId){
 
-    if(
-        !confirm(
-            "Reject this payment?"
-        )
-    ){
+if(
+!confirm(
+"Reject this payment?"
+)
+){
+return;
+}
 
-        return;
+const itemsResult =
+await supabaseClient
+.rpc(
+"admin_get_order_items",
+{
+p_order_id:Number(orderId)
+}
+);
 
-    }
+if(itemsResult.error){
 
+alert(itemsResult.error.message);
+return;
 
-    const itemsResult =
-        await supabaseClient
-        .rpc(
-            "admin_get_order_items",
-            {
-                p_order_id:Number(orderId)
-            }
-        );
+}
 
+const items =
+itemsResult.data || [];
 
-    if(itemsResult.error){
+if(!items.length){
 
-        alert(
-            itemsResult.error.message
-        );
+alert("No order items found.");
 
-        return;
+return;
 
-    }
+}
 
+for(const item of items){
 
-    const items =
-        itemsResult.data || [];
+const result =
+await supabaseClient
+.rpc(
+"admin_update_payment_status",
+{
+p_order_item_id:
+Number(item.id),
 
+p_status:
+"rejected",
 
-    if(!items.length){
+p_admin_note:
+"Payment rejected by admin."
+}
+);
 
-        alert(
-            "No order items found."
-        );
+if(result.error){
 
-        return;
+alert(
+"Payment update failed:\n" +
+result.error.message
+);
 
-    }
+return;
 
+}
 
-    for(
-        const item of items
-    ){
+}
 
-        const result =
-            await supabaseClient
-            .rpc(
-                "admin_update_payment_status",
-                {
-                    p_order_item_id:
-                        Number(item.id),
+alert(
+"❌ Payment rejected."
+);
 
-                    p_status:
-                        "rejected",
+closeModal("orderModal");
 
-                    p_admin_note:
-                        "Payment rejected by admin."
-                }
-            );
+await loadPayments();
 
-
-        if(result.error){
-
-            alert(
-                "Payment update failed: " +
-                result.error.message
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    alert(
-        "Payment rejected successfully."
-    );
-
-
-    loadPayments();
-
-    loadDashboard();
+await loadDashboard();
 
 }
 
@@ -4297,442 +3626,367 @@ RESULTS
 
 async function loadStudentResults(){
 
-    const userId =
-        document.getElementById(
-            "resultStudentId"
-        ).value.trim();
+const userId =
+document.getElementById("resultStudentId")
+.value.trim();
 
+if(!userId){
 
-    if(!userId){
+alert("Student UUID required.");
+return;
 
-        alert(
-            "Student UUID required."
-        );
+}
 
-        return;
-
-    }
-
-
-    await loadStudentResultsFor(
-        userId
-    );
+await loadStudentResultsFor(userId);
 
 }
 
 
 async function loadStudentResultsFor(userId){
 
-    currentStudentId = userId;
+currentStudentId = userId;
 
+const tbody =
+document.getElementById("resultsTable");
 
-    const tbody =
-        document.getElementById(
-            "resultsTable"
-        );
+/*
+FIX:
+আগে [7] ছিল এবং সেটা ভুল nav button select
+করতে পারত।
+এখন সরাসরি Results button খুঁজে নেওয়া হচ্ছে।
+*/
 
+const resultButton =
+Array.from(
+document.querySelectorAll(".nav-btn")
+)
+.find(
+btn =>
+btn.textContent
+.toLowerCase()
+.includes("results")
+);
 
-    showSection(
-        "results",
-        document.querySelectorAll(
-            ".nav-btn"
-        )[7]
-    );
+showSection(
+"results",
+resultButton
+);
 
+tbody.innerHTML = `
+<tr>
+<td colspan="8" class="loading">
+Loading results...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="8" class="loading">
-                Loading results...
-            </td>
-        </tr>
-        `;
+const result =
+await supabaseClient
+.rpc(
+"admin_get_student_results",
+{
+p_user_id:userId
+}
+);
 
+if(result.error){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_student_results",
-            {
-                p_user_id:userId
-            }
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="8" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
+return;
 
-    if(result.error){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="8" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+const results =
+result.data || [];
 
-        return;
+if(!results.length){
 
-    }
+tbody.innerHTML = `
+<tr>
+<td colspan="8" class="empty">
+No results found.
+</td>
+</tr>
+`;
 
+return;
 
-    const results =
-        result.data || [];
+}
 
+tbody.innerHTML =
+results.map(
+result => `
 
-    if(!results.length){
+<tr>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="8" class="empty">
-                    No results found.
-                </td>
-            </tr>
-            `;
+<td>
+${escapeHtml(result.exam_name || "-")}
+</td>
 
-        return;
+<td>
+${result.total_mark ?? 0}
+</td>
 
-    }
+<td>
+${result.correct_answers ?? 0}
+</td>
 
+<td>
+${result.wrong_answers ?? 0}
+</td>
 
-    tbody.innerHTML =
-        results.map(
-            result => `
+<td>
+${result.skipped_answers ?? 0}
+</td>
 
-            <tr>
+<td>
+${result.merit_position ?? "-"}
+</td>
 
-                <td>
-                    ${escapeHtml(
-                        result.exam_name || "-"
-                    )}
-                </td>
+<td>
+${
+result.is_published
+? badge("published")
+: badge("draft")
+}
+</td>
 
-                <td>
-                    ${result.total_mark ?? 0}
-                </td>
+<td>
 
-                <td>
-                    ${result.correct_answers ?? 0}
-                </td>
+<button
+class="action-btn"
+onclick="openResultEdit(
+'${result.id}',
+${result.correct_answers ?? 0},
+${result.wrong_answers ?? 0},
+${result.skipped_answers ?? 0},
+${result.negative_mark ?? 0},
+${result.total_mark ?? 0},
+${result.merit_position ?? 0}
+)"
+>
+Edit
+</button>
 
-                <td>
-                    ${result.wrong_answers ?? 0}
-                </td>
+<button
+class="action-btn success"
+onclick="toggleResultPublish(
+'${result.id}',
+${result.is_published ? "true" : "false"}
+)"
+>
+${
+result.is_published
+? "Unpublish"
+: "Publish"
+}
+</button>
 
-                <td>
-                    ${result.skipped_answers ?? 0}
-                </td>
+<button
+class="action-btn danger"
+onclick="deleteResult('${result.id}')"
+>
+Delete
+</button>
 
-                <td>
-                    ${result.merit_position ?? "-"}
-                </td>
+</td>
 
-                <td>
-                    ${
-                        result.is_published
-                        ? badge("published")
-                        : badge("draft")
-                    }
-                </td>
+</tr>
 
-                <td>
-
-                    <button
-                        class="action-btn"
-                        onclick="openResultEdit(
-                            '${result.id}',
-                            ${result.correct_answers ?? 0},
-                            ${result.wrong_answers ?? 0},
-                            ${result.skipped_answers ?? 0},
-                            ${result.negative_mark ?? 0},
-                            ${result.total_mark ?? 0},
-                            ${result.merit_position ?? 0}
-                        )"
-                    >
-                        Edit
-                    </button>
-
-
-                    <button
-                        class="action-btn success"
-                        onclick="toggleResultPublish(
-                            '${result.id}',
-                            ${result.is_published ? "true" : "false"}
-                        )"
-                    >
-                        ${
-                            result.is_published
-                            ? "Unpublish"
-                            : "Publish"
-                        }
-                    </button>
-
-
-                    <button
-                        class="action-btn danger"
-                        onclick="deleteResult('${result.id}')"
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 function openResultEdit(
-    id,
-    correct,
-    wrong,
-    skipped,
-    negative,
-    total,
-    merit
+id,
+correct,
+wrong,
+skipped,
+negative,
+total,
+merit
 ){
 
-    document.getElementById(
-        "editResultId"
-    ).value = id;
+document.getElementById("editResultId")
+.value = id;
 
+document.getElementById("editCorrect")
+.value = correct;
 
-    document.getElementById(
-        "editCorrect"
-    ).value = correct;
+document.getElementById("editWrong")
+.value = wrong;
 
+document.getElementById("editSkipped")
+.value = skipped;
 
-    document.getElementById(
-        "editWrong"
-    ).value = wrong;
+document.getElementById("editNegative")
+.value = negative;
 
+document.getElementById("editTotal")
+.value = total;
 
-    document.getElementById(
-        "editSkipped"
-    ).value = skipped;
+document.getElementById("editMerit")
+.value =
+merit || "";
 
-
-    document.getElementById(
-        "editNegative"
-    ).value = negative;
-
-
-    document.getElementById(
-        "editTotal"
-    ).value = total;
-
-
-    document.getElementById(
-        "editMerit"
-    ).value =
-        merit || "";
-
-
-    openModal(
-        "resultModal"
-    );
+openModal("resultModal");
 
 }
 
 
 async function updateResult(){
 
-    const id =
-        document.getElementById(
-            "editResultId"
-        ).value;
+const id =
+document.getElementById("editResultId")
+.value;
 
+const correct =
+Number(
+document.getElementById("editCorrect").value
+);
 
-    const correct =
-        Number(
-            document.getElementById(
-                "editCorrect"
-            ).value
-        );
+const wrong =
+Number(
+document.getElementById("editWrong").value
+);
 
+const skipped =
+Number(
+document.getElementById("editSkipped").value
+);
 
-    const wrong =
-        Number(
-            document.getElementById(
-                "editWrong"
-            ).value
-        );
+const negative =
+Number(
+document.getElementById("editNegative").value
+);
 
+const total =
+Number(
+document.getElementById("editTotal").value
+);
 
-    const skipped =
-        Number(
-            document.getElementById(
-                "editSkipped"
-            ).value
-        );
+const meritRaw =
+document.getElementById("editMerit").value;
 
+const merit =
+meritRaw === ""
+? null
+: Number(meritRaw);
 
-    const negative =
-        Number(
-            document.getElementById(
-                "editNegative"
-            ).value
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_update_exam_result",
+{
+p_result_id:id,
+p_correct_answers:correct,
+p_wrong_answers:wrong,
+p_skipped_answers:skipped,
+p_negative_mark:negative,
+p_total_mark:total,
+p_merit_position:merit
+}
+);
 
+if(result.error){
 
-    const total =
-        Number(
-            document.getElementById(
-                "editTotal"
-            ).value
-        );
+alert(result.error.message);
+return;
 
+}
 
-    const meritRaw =
-        document.getElementById(
-            "editMerit"
-        ).value;
+closeModal("resultModal");
 
+alert("Result updated successfully.");
 
-    const merit =
-        meritRaw === ""
-        ? null
-        : Number(meritRaw);
+if(currentStudentId){
 
+await loadStudentResultsFor(
+currentStudentId
+);
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_update_exam_result",
-            {
-                p_result_id:id,
-                p_correct_answers:correct,
-                p_wrong_answers:wrong,
-                p_skipped_answers:skipped,
-                p_negative_mark:negative,
-                p_total_mark:total,
-                p_merit_position:merit
-            }
-        );
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    closeModal(
-        "resultModal"
-    );
-
-
-    alert(
-        "Result updated successfully."
-    );
-
-
-    if(currentStudentId){
-
-        loadStudentResultsFor(
-            currentStudentId
-        );
-
-    }
+}
 
 }
 
 
 async function toggleResultPublish(
-    resultId,
-    current
+resultId,
+current
 ){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_update_result_publish_status",
-            {
-                p_result_id:resultId,
-                p_is_published:!current
-            }
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_update_result_publish_status",
+{
+p_result_id:resultId,
+p_is_published:!current
+}
+);
 
+if(result.error){
 
-    if(result.error){
+alert(result.error.message);
+return;
 
-        alert(
-            result.error.message
-        );
+}
 
-        return;
+if(currentStudentId){
 
-    }
+await loadStudentResultsFor(
+currentStudentId
+);
 
-
-    if(currentStudentId){
-
-        loadStudentResultsFor(
-            currentStudentId
-        );
-
-    }
+}
 
 }
 
 
 async function deleteResult(resultId){
 
-    if(
-        !confirm(
-            "Delete this result permanently?"
-        )
-    ){
+if(
+!confirm(
+"Delete this result permanently?"
+)
+){
+return;
+}
 
-        return;
+const result =
+await supabaseClient
+.rpc(
+"admin_delete_exam_result",
+{
+p_result_id:resultId
+}
+);
 
-    }
+if(result.error){
 
+alert(result.error.message);
+return;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_delete_exam_result",
-            {
-                p_result_id:resultId
-            }
-        );
+}
 
+alert("Result deleted.");
 
-    if(result.error){
+if(currentStudentId){
 
-        alert(
-            result.error.message
-        );
+await loadStudentResultsFor(
+currentStudentId
+);
 
-        return;
-
-    }
-
-
-    alert(
-        "Result deleted."
-    );
-
-
-    if(currentStudentId){
-
-        loadStudentResultsFor(
-            currentStudentId
-        );
-
-    }
+}
 
 }
 
@@ -4743,326 +3997,243 @@ MESSAGES
 
 async function loadMessages(){
 
-    const tbody =
-        document.getElementById(
-            "messagesTable"
-        );
+const tbody =
+document.getElementById("messagesTable");
 
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="loading">
+Loading...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="5" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const result =
+await supabaseClient
+.rpc("admin_get_messages");
 
+if(result.error){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_messages"
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
+return;
 
-    if(result.error){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="5" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+const messages =
+result.data || [];
 
-        return;
+if(!messages.length){
 
-    }
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="empty">
+No messages.
+</td>
+</tr>
+`;
 
+return;
 
-    const messages =
-        result.data || [];
+}
 
+tbody.innerHTML =
+messages.map(
+msg => `
 
-    if(!messages.length){
+<tr>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="5" class="empty">
-                    No messages.
-                </td>
-            </tr>
-            `;
+<td>
 
-        return;
+${escapeHtml(msg.sender_name || "-")}
 
-    }
+<br>
 
+<small>
+${escapeHtml(msg.sender_email || "")}
+</small>
 
-    tbody.innerHTML =
-        messages.map(
-            msg => `
+</td>
 
-            <tr>
+<td>
+${escapeHtml(msg.subject || "-")}
+</td>
 
-                <td>
+<td>
+${badge(msg.status)}
+</td>
 
-                    ${escapeHtml(
-                        msg.sender_name || "-"
-                    )}
+<td>
+${formatDate(msg.created_at)}
+</td>
 
-                    <br>
+<td>
 
-                    <small>
-                        ${escapeHtml(
-                            msg.sender_email || ""
-                        )}
-                    </small>
+<button
+class="action-btn info"
+onclick="viewMessage('${msg.id}')"
+>
+View
+</button>
 
-                </td>
+</td>
 
+</tr>
 
-                <td>
-                    ${escapeHtml(
-                        msg.subject || "-"
-                    )}
-                </td>
-
-
-                <td>
-                    ${badge(
-                        msg.status
-                    )}
-                </td>
-
-
-                <td>
-                    ${formatDate(
-                        msg.created_at
-                    )}
-                </td>
-
-
-                <td>
-
-                    <button
-                        class="action-btn info"
-                        onclick="viewMessage('${msg.id}')"
-                    >
-                        View
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 async function viewMessage(messageId){
 
-    currentMessageId = messageId;
+currentMessageId = messageId;
 
+openModal("messageModal");
 
-    openModal(
-        "messageModal"
-    );
+const box =
+document.getElementById("messageDetails");
 
+box.innerHTML =
+`<div class="loading">Loading...</div>`;
 
-    const box =
-        document.getElementById(
-            "messageDetails"
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_get_message",
+{
+p_message_id:messageId
+}
+);
 
+if(result.error){
 
-    box.innerHTML =
-        `
-        <div class="loading">
-            Loading...
-        </div>
-        `;
+box.innerHTML =
+`<p>${escapeHtml(result.error.message)}</p>`;
 
+return;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_message",
-            {
-                p_message_id:messageId
-            }
-        );
+}
 
+const msg =
+Array.isArray(result.data)
+? result.data[0]
+: result.data;
 
-    if(result.error){
+if(!msg){
 
-        box.innerHTML =
-            `
-            <p>
-                ${escapeHtml(
-                    result.error.message
-                )}
-            </p>
-            `;
+box.innerHTML =
+"<p>Message not found.</p>";
 
-        return;
+return;
 
-    }
+}
 
+box.innerHTML = `
 
-    const msg =
-        Array.isArray(result.data)
-        ? result.data[0]
-        : result.data;
+<p>
+<strong>Student:</strong>
+${escapeHtml(msg.sender_name || "-")}
+</p>
 
+<p style="margin-top:8px">
+<strong>Email:</strong>
+${escapeHtml(msg.sender_email || "-")}
+</p>
 
-    box.innerHTML = `
+<p style="margin-top:8px">
+<strong>Subject:</strong>
+${escapeHtml(msg.subject || "-")}
+</p>
 
-        <p>
-            <strong>Student:</strong>
-            ${escapeHtml(
-                msg.sender_name || "-"
-            )}
-        </p>
+<p style="margin-top:15px">
+<strong>Message:</strong>
+</p>
 
+<div
+style="
+background:#f7f7f7;
+padding:14px;
+border-radius:10px;
+margin-top:7px;
+"
+>
+${escapeHtml(msg.message || "")}
+</div>
 
-        <p style="margin-top:8px">
-            <strong>Email:</strong>
-            ${escapeHtml(
-                msg.sender_email || "-"
-            )}
-        </p>
+${
+msg.admin_reply
+? `
+<p style="margin-top:15px">
+<strong>Previous Reply:</strong>
+</p>
 
+<div
+style="
+background:#eef7ff;
+padding:14px;
+border-radius:10px;
+margin-top:7px;
+"
+>
+${escapeHtml(msg.admin_reply)}
+</div>
+`
+: ""
+}
 
-        <p style="margin-top:8px">
-            <strong>Subject:</strong>
-            ${escapeHtml(
-                msg.subject || "-"
-            )}
-        </p>
+`;
 
-
-        <p style="margin-top:15px">
-            <strong>Message:</strong>
-        </p>
-
-
-        <div
-            style="
-                background:#f7f7f7;
-                padding:14px;
-                border-radius:10px;
-                margin-top:7px;
-            "
-        >
-            ${escapeHtml(
-                msg.message || ""
-            )}
-        </div>
-
-
-        ${
-            msg.admin_reply
-            ? `
-            <p style="margin-top:15px">
-                <strong>Previous Reply:</strong>
-            </p>
-
-            <div
-                style="
-                    background:#eef7ff;
-                    padding:14px;
-                    border-radius:10px;
-                    margin-top:7px;
-                "
-            >
-                ${escapeHtml(
-                    msg.admin_reply
-                )}
-            </div>
-            `
-            : ""
-        }
-
-    `;
-
-
-    document.getElementById(
-        "messageReply"
-    ).value = "";
+document.getElementById("messageReply")
+.value = "";
 
 }
 
 
 async function replyCurrentMessage(){
 
-    if(!currentMessageId){
+if(!currentMessageId) return;
 
-        return;
+const reply =
+document.getElementById("messageReply")
+.value.trim();
 
-    }
+if(!reply){
 
+alert("Reply required.");
+return;
 
-    const reply =
-        document.getElementById(
-            "messageReply"
-        ).value.trim();
+}
 
+const result =
+await supabaseClient
+.rpc(
+"admin_reply_message",
+{
+p_message_id:currentMessageId,
+p_admin_reply:reply
+}
+);
 
-    if(!reply){
+if(result.error){
 
-        alert(
-            "Reply required."
-        );
+alert(result.error.message);
+return;
 
-        return;
+}
 
-    }
+alert("Reply sent successfully.");
 
+closeModal("messageModal");
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_reply_message",
-            {
-                p_message_id:
-                    currentMessageId,
-
-                p_admin_reply:
-                    reply
-            }
-        );
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    alert(
-        "Reply sent successfully."
-    );
-
-
-    closeModal(
-        "messageModal"
-    );
-
-
-    loadMessages();
+loadMessages();
 
 }
 
@@ -5073,287 +4244,223 @@ NOTIFICATIONS
 
 function openNotificationModal(){
 
-    document.getElementById(
-        "notificationTitle"
-    ).value = "";
+document.getElementById("notificationTitle")
+.value = "";
 
+document.getElementById("notificationMessage")
+.value = "";
 
-    document.getElementById(
-        "notificationMessage"
-    ).value = "";
-
-
-    openModal(
-        "notificationModal"
-    );
+openModal("notificationModal");
 
 }
 
 
 async function loadNotifications(){
 
-    const tbody =
-        document.getElementById(
-            "notificationsTable"
-        );
+const tbody =
+document.getElementById("notificationsTable");
 
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="loading">
+Loading...
+</td>
+</tr>
+`;
 
-    tbody.innerHTML =
-        `
-        <tr>
-            <td colspan="5" class="loading">
-                Loading...
-            </td>
-        </tr>
-        `;
+const result =
+await supabaseClient
+.rpc("admin_get_notifications");
 
+if(result.error){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_get_notifications"
-        );
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="empty">
+${escapeHtml(result.error.message)}
+</td>
+</tr>
+`;
 
+return;
 
-    if(result.error){
+}
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="5" class="empty">
-                    ${escapeHtml(
-                        result.error.message
-                    )}
-                </td>
-            </tr>
-            `;
+const notifications =
+result.data || [];
 
-        return;
+if(!notifications.length){
 
-    }
+tbody.innerHTML = `
+<tr>
+<td colspan="5" class="empty">
+No notifications.
+</td>
+</tr>
+`;
 
+return;
 
-    const notifications =
-        result.data || [];
+}
 
+tbody.innerHTML =
+notifications.map(
+n => `
 
-    if(!notifications.length){
+<tr>
 
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="5" class="empty">
-                    No notifications.
-                </td>
-            </tr>
-            `;
+<td>
+<strong>
+${escapeHtml(n.title || "-")}
+</strong>
+</td>
 
-        return;
+<td>
+${escapeHtml(n.message || "-")}
+</td>
 
-    }
+<td>
+${
+n.is_active
+? badge("active")
+: badge("inactive")
+}
+</td>
 
+<td>
+${formatDate(n.created_at)}
+</td>
 
-    tbody.innerHTML =
-        notifications.map(
-            n => `
+<td>
 
-            <tr>
+<button
+class="action-btn"
+onclick="toggleNotification(
+'${n.id}',
+${n.is_active ? "true" : "false"}
+)"
+>
+${
+n.is_active
+? "Disable"
+: "Enable"
+}
+</button>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            n.title || "-"
-                        )}
-                    </strong>
-                </td>
+<button
+class="action-btn danger"
+onclick="deleteNotification('${n.id}')"
+>
+Delete
+</button>
 
+</td>
 
-                <td>
-                    ${escapeHtml(
-                        n.message || "-"
-                    )}
-                </td>
+</tr>
 
-
-                <td>
-                    ${
-                        n.is_active
-                        ? badge("active")
-                        : badge("inactive")
-                    }
-                </td>
-
-
-                <td>
-                    ${formatDate(
-                        n.created_at
-                    )}
-                </td>
-
-
-                <td>
-
-                    <button
-                        class="action-btn"
-                        onclick="toggleNotification(
-                            '${n.id}',
-                            ${n.is_active ? "true" : "false"}
-                        )"
-                    >
-                        ${
-                            n.is_active
-                            ? "Disable"
-                            : "Enable"
-                        }
-                    </button>
-
-
-                    <button
-                        class="action-btn danger"
-                        onclick="deleteNotification('${n.id}')"
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
+`
+).join("");
 
 }
 
 
 async function createNotification(){
 
-    const title =
-        document.getElementById(
-            "notificationTitle"
-        ).value.trim();
+const title =
+document.getElementById("notificationTitle")
+.value.trim();
 
+const msg =
+document.getElementById("notificationMessage")
+.value.trim();
 
-    const msg =
-        document.getElementById(
-            "notificationMessage"
-        ).value.trim();
+if(!title || !msg){
 
+alert("Title and message required.");
+return;
 
-    if(!title || !msg){
+}
 
-        alert(
-            "Title and message required."
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_create_notification",
+{
+p_title:title,
+p_message:msg
+}
+);
 
-        return;
+if(result.error){
 
-    }
+alert(result.error.message);
+return;
 
+}
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_create_notification",
-            {
-                p_title:title,
-                p_message:msg
-            }
-        );
+closeModal("notificationModal");
 
+alert("Notification created.");
 
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    closeModal(
-        "notificationModal"
-    );
-
-
-    alert(
-        "Notification created."
-    );
-
-
-    loadNotifications();
+loadNotifications();
 
 }
 
 
 async function toggleNotification(
-    id,
-    current
+id,
+current
 ){
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_update_notification_status",
-            {
-                p_notification_id:id,
-                p_is_active:!current
-            }
-        );
+const result =
+await supabaseClient
+.rpc(
+"admin_update_notification_status",
+{
+p_notification_id:id,
+p_is_active:!current
+}
+);
 
+if(result.error){
 
-    if(result.error){
+alert(result.error.message);
+return;
 
-        alert(
-            result.error.message
-        );
+}
 
-        return;
-
-    }
-
-
-    loadNotifications();
+loadNotifications();
 
 }
 
 
 async function deleteNotification(id){
 
-    if(
-        !confirm(
-            "Delete this notification?"
-        )
-    ){
+if(
+!confirm(
+"Delete this notification?"
+)
+){
+return;
+}
 
-        return;
+const result =
+await supabaseClient
+.rpc(
+"admin_delete_notification",
+{
+p_notification_id:id
+}
+);
 
-    }
+if(result.error){
 
+alert(result.error.message);
+return;
 
-    const result =
-        await supabaseClient
-        .rpc(
-            "admin_delete_notification",
-            {
-                p_notification_id:id
-            }
-        );
+}
 
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    loadNotifications();
+loadNotifications();
 
 }
 
@@ -5364,48 +4471,41 @@ SESSION
 
 async function checkExistingSession(){
 
-    const {
-        data
-    } =
-        await supabaseClient
-        .auth
-        .getSession();
+const {
+data
+} =
+await supabaseClient
+.auth
+.getSession();
 
+const session =
+data.session;
 
-    const session =
-        data.session;
+if(!session){
 
+showLogin();
+return;
 
-    if(!session){
+}
 
-        showLogin();
+const admin =
+await checkAdmin(session.user);
 
-        return;
+if(admin){
 
-    }
+showAdminPanel(
+session.user.email
+);
 
+}else{
 
-    const admin =
-        await checkAdmin(
-            session.user
-        );
+await supabaseClient
+.auth
+.signOut();
 
+showLogin();
 
-    if(admin){
-
-        showAdminPanel(
-            session.user.email
-        );
-
-    }else{
-
-        await supabaseClient
-            .auth
-            .signOut();
-
-        showLogin();
-
-    }
+}
 
 }
 
@@ -5417,17 +4517,15 @@ AUTH STATE
 supabaseClient
 .auth
 .onAuthStateChange(
-    async function(event){
+async function(event){
 
-        if(
-            event === "SIGNED_OUT"
-        ){
+if(event === "SIGNED_OUT"){
 
-            showLogin();
+showLogin();
 
-        }
+}
 
-    }
+}
 );
 
 
@@ -5440,5 +4538,4 @@ checkExistingSession();
 </script>
 
 </body>
-
-    </html>
+</html>
