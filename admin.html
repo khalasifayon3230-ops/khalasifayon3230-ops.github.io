@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dream Hunt | Admin Login</title>
+<title>Dream Hunt | Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -21,14 +21,16 @@
 
 body{
     min-height:100vh;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     background:#f4f6f9;
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
 
 .login-box{
     width:90%;
@@ -36,7 +38,7 @@ body{
     background:white;
     padding:35px 25px;
     border-radius:18px;
-    box-shadow:0 10px 35px rgba(0,0,0,0.12);
+    box-shadow:0 10px 35px rgba(0,0,0,.12);
 }
 
 .logo{
@@ -98,7 +100,9 @@ button:disabled{
     color:#d00;
 }
 
-/* ADMIN PANEL */
+/* =========================
+   ADMIN PANEL
+========================= */
 
 #adminPanel{
     display:none;
@@ -145,7 +149,8 @@ button:disabled{
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
     gap:15px;
 }
 
@@ -177,7 +182,7 @@ button:disabled{
 
 
 <!-- =========================
-     LOGIN
+     LOGIN BOX
 ========================= -->
 
 <div class="login-box" id="loginBox">
@@ -340,7 +345,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
-
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
@@ -384,7 +388,8 @@ function showAdminPanel(email){
 
     adminPanel.style.display = "block";
 
-    adminEmail.innerText = email;
+    adminEmail.innerText =
+        email || "Admin";
 
 }
 
@@ -404,6 +409,9 @@ function showLogin(){
 
 /* =========================================
    CHECK ADMIN
+   IMPORTANT:
+   Uses secure RPC instead of direct
+   SELECT from public.admins
 ========================================= */
 
 async function checkAdmin(user){
@@ -414,25 +422,27 @@ async function checkAdmin(user){
 
     }
 
-
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
-        .from("admins")
-        .select("id,email")
-        .eq("id", user.id)
-        .maybeSingle();
+        .rpc("is_admin");
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Admin check error:",
+            error
+        );
 
         return false;
 
     }
 
 
-    return !!data;
+    return data === true;
 
 }
 
@@ -452,7 +462,8 @@ loginForm.addEventListener(
 
         loginButton.disabled = true;
 
-        loginButton.innerText = "Logging in...";
+        loginButton.innerText =
+            "Logging in...";
 
 
         const email =
@@ -468,9 +479,14 @@ loginForm.addEventListener(
             .value;
 
 
-        /* SUPABASE LOGIN */
+        /* =========================
+           SUPABASE LOGIN
+        ========================= */
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
             .auth
             .signInWithPassword({
@@ -484,19 +500,27 @@ loginForm.addEventListener(
 
         if(error){
 
+            console.error(
+                "Login error:",
+                error
+            );
+
             message.innerText =
                 "Invalid email or password.";
 
             loginButton.disabled = false;
 
-            loginButton.innerText = "Login";
+            loginButton.innerText =
+                "Login";
 
             return;
 
         }
 
 
-        /* CHECK ADMIN */
+        /* =========================
+           CHECK ADMIN
+        ========================= */
 
         const isAdmin =
             await checkAdmin(data.user);
@@ -514,21 +538,27 @@ loginForm.addEventListener(
 
             loginButton.disabled = false;
 
-            loginButton.innerText = "Login";
+            loginButton.innerText =
+                "Login";
 
             return;
 
         }
 
 
-        /* SUCCESS */
+        /* =========================
+           SUCCESS
+        ========================= */
 
-        showAdminPanel(data.user.email);
+        showAdminPanel(
+            data.user.email
+        );
 
 
         loginButton.disabled = false;
 
-        loginButton.innerText = "Login";
+        loginButton.innerText =
+            "Login";
 
     }
 );
@@ -551,6 +581,8 @@ logoutButton.addEventListener(
         document
             .getElementById("password")
             .value = "";
+
+        message.innerText = "";
 
     }
 );
@@ -582,7 +614,9 @@ async function checkExistingSession(){
 
 
     const isAdmin =
-        await checkAdmin(session.user);
+        await checkAdmin(
+            session.user
+        );
 
 
     if(isAdmin){
@@ -605,11 +639,31 @@ async function checkExistingSession(){
 
 
 /* =========================================
+   AUTH STATE LISTENER
+========================================= */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+    async function(event, session){
+
+        if(event === "SIGNED_OUT"){
+
+            showLogin();
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =========================================
    START
 ========================================= */
 
 checkExistingSession();
-
 
 </script>
 
