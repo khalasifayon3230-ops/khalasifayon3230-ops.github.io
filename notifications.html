@@ -15,6 +15,10 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
@@ -22,47 +26,69 @@ content="width=device-width, initial-scale=1.0">
 }
 
 :root{
+
     --bg:#03050d;
-    --card:rgba(11,16,31,.82);
-    --card2:rgba(15,21,40,.9);
+
+    --card:rgba(11,16,31,.84);
+
+    --card2:rgba(15,21,40,.92);
+
     --line:rgba(255,255,255,.075);
+
     --white:#f5f7ff;
+
     --muted:#8792aa;
+
     --blue:#4f8cff;
+
     --cyan:#31d9ff;
+
     --purple:#9a68ff;
+
     --green:#36e5a1;
-    --yellow:#ffc85b;
+
 }
+
+
+/* =========================================================
+   BODY
+========================================================= */
 
 html{
     scroll-behavior:smooth;
 }
 
 body{
+
     min-height:100vh;
+
     color:var(--white);
+
     font-family:
         Inter,
         Arial,
         sans-serif;
 
     background:
+
         radial-gradient(
             circle at 8% 0%,
             rgba(65,110,255,.18),
             transparent 28%
         ),
+
         radial-gradient(
             circle at 92% 8%,
             rgba(155,92,255,.17),
             transparent 28%
         ),
+
         radial-gradient(
             circle at 50% 100%,
             rgba(0,211,255,.08),
             transparent 35%
         ),
+
         linear-gradient(
             135deg,
             #02040b,
@@ -79,66 +105,108 @@ body{
 ========================================================= */
 
 .aura{
+
     position:fixed;
+
     border-radius:50%;
+
     pointer-events:none;
+
     filter:blur(110px);
-    opacity:.25;
+
+    opacity:.24;
+
     z-index:0;
 }
 
 .aura.one{
+
     width:350px;
     height:350px;
+
     left:-150px;
     top:-150px;
+
     background:#326eff;
 
     animation:
-        auraOne 12s ease-in-out infinite
+        auraOne
+        12s
+        ease-in-out
+        infinite
         alternate;
 }
 
 .aura.two{
+
     width:370px;
     height:370px;
+
     right:-160px;
     top:25%;
+
     background:#914fff;
 
     animation:
-        auraTwo 15s ease-in-out infinite
+        auraTwo
+        15s
+        ease-in-out
+        infinite
         alternate;
 }
 
 .aura.three{
+
     width:300px;
     height:300px;
+
     left:40%;
     bottom:-170px;
+
     background:#00cfff;
 
     animation:
-        auraThree 13s ease-in-out infinite
+        auraThree
+        13s
+        ease-in-out
+        infinite
         alternate;
 }
 
 @keyframes auraOne{
+
     to{
-        transform:translate(100px,110px);
+        transform:
+            translate(
+                100px,
+                110px
+            );
     }
+
 }
 
 @keyframes auraTwo{
+
     to{
-        transform:translate(-90px,-70px);
+        transform:
+            translate(
+                -90px,
+                -70px
+            );
     }
+
 }
 
 @keyframes auraThree{
+
     to{
-        transform:translate(60px,-70px);
+        transform:
+            translate(
+                60px,
+                -70px
+            );
     }
+
 }
 
 
@@ -147,10 +215,13 @@ body{
 ========================================================= */
 
 .page{
+
     position:relative;
+
     z-index:1;
 
     width:100%;
+
     max-width:1200px;
 
     margin:auto;
@@ -163,37 +234,47 @@ body{
 
 
 /* =========================================================
-   HEADER
+   TOP BAR
 ========================================================= */
 
 .topbar{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
     margin-bottom:25px;
 }
 
 .brand{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
 }
 
 .brand-mark{
+
     width:45px;
     height:45px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     border-radius:14px;
 
     font-size:15px;
+
     font-weight:950;
 
     background:
+
         linear-gradient(
             135deg,
             #4f8cff,
@@ -201,16 +282,20 @@ body{
         );
 
     box-shadow:
+
         0 0 30px
         rgba(79,140,255,.35);
 }
 
 .brand-name{
+
     font-size:16px;
+
     font-weight:900;
 }
 
 .brand-sub{
+
     margin-top:3px;
 
     color:#586681;
@@ -221,8 +306,11 @@ body{
 }
 
 .account{
+
     display:flex;
+
     align-items:center;
+
     gap:8px;
 
     padding:
@@ -235,10 +323,12 @@ body{
         rgba(8,13,27,.75);
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 }
 
 .account-dot{
+
     width:7px;
     height:7px;
 
@@ -247,518 +337,15 @@ body{
     background:var(--green);
 
     box-shadow:
-        0 0 12px var(--green);
+        0 0 12px
+        var(--green);
 }
 
 .account-email{
+
     color:#929db5;
-    font-size:10px;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-    position:relative;
-
-    min-height:250px;
-
-    padding:
-        42px
-        43px;
-
-    border-radius:29px;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(13,25,58,.96),
-            rgba(7,11,25,.93)
-        );
-
-    border:
-        1px solid
-        rgba(79,140,255,.16);
-
-    box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.32);
-
-    margin-bottom:22px;
-}
-
-.hero-grid{
-    position:absolute;
-    inset:0;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.035) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.035) 1px,
-            transparent 1px
-        );
-
-    background-size:45px 45px;
-
-    mask-image:
-        linear-gradient(
-            to right,
-            black,
-            transparent
-        );
-}
-
-.hero-glow{
-    position:absolute;
-
-    width:300px;
-    height:300px;
-
-    right:-70px;
-    top:-130px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(99,150,255,.13);
-
-    box-shadow:
-        0 0 0 45px
-        rgba(99,150,255,.025),
-        0 0 0 90px
-        rgba(99,150,255,.018);
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-}
-
-.tag{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-
-    padding:
-        7px
-        11px;
-
-    border-radius:100px;
-
-    color:#8eb4ff;
-
-    background:
-        rgba(79,140,255,.07);
-
-    border:
-        1px solid
-        rgba(79,140,255,.17);
-
-    font-size:8px;
-    font-weight:900;
-
-    letter-spacing:1.6px;
-
-    margin-bottom:17px;
-}
-
-.hero h1{
-    font-size:43px;
-    line-height:1.04;
-
-    letter-spacing:-2px;
-}
-
-.hero h1 span{
-    background:
-        linear-gradient(
-            90deg,
-            #65a1ff,
-            #a876ff,
-            #45dcff
-        );
-
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.hero p{
-    max-width:650px;
-
-    color:#8995ad;
-
-    font-size:12px;
-    line-height:1.8;
-
-    margin-top:14px;
-}
-
-
-/* =========================================================
-   TOOLBAR
-========================================================= */
-
-.toolbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin:
-        25px
-        0
-        15px;
-}
-
-.section-title{
-    font-size:20px;
-    font-weight:900;
-}
-
-.section-sub{
-    color:#606d86;
-    font-size:9px;
-    margin-top:4px;
-}
-
-.refresh{
-    border:
-        1px solid
-        rgba(79,140,255,.2);
-
-    background:
-        rgba(79,140,255,.07);
-
-    color:#8caeff;
-
-    padding:
-        9px
-        13px;
-
-    border-radius:11px;
-
-    cursor:pointer;
 
     font-size:10px;
-    font-weight:850;
-
-    transition:.25s;
-}
-
-.refresh:hover{
-    transform:translateY(-2px);
-
-    background:
-        rgba(79,140,255,.14);
-}
-
-.refresh.loading span{
-    display:inline-block;
-
-    animation:
-        spin .7s linear infinite;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-.notifications{
-    display:flex;
-    flex-direction:column;
-    gap:13px;
-}
-
-.notification{
-    position:relative;
-
-    padding:
-        21px
-        23px;
-
-    border-radius:19px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(17,24,45,.9),
-            rgba(8,12,25,.86)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.07);
-
-    box-shadow:
-        0 18px 45px
-        rgba(0,0,0,.22);
-
-    overflow:hidden;
-
-    transition:.3s;
-}
-
-.notification:hover{
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(79,140,255,.22);
-
-    box-shadow:
-        0 25px 55px
-        rgba(0,0,0,.3),
-        0 0 30px
-        rgba(79,140,255,.05);
-}
-
-.notification:before{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:0;
-    bottom:0;
-
-    width:3px;
-
-    background:
-        linear-gradient(
-            #4f8cff,
-            #9a68ff
-        );
-}
-
-.notification-head{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-
-    gap:20px;
-
-    margin-bottom:10px;
-}
-
-.notification-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.notification-icon{
-    width:38px;
-    height:38px;
-
-    flex-shrink:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:11px;
-
-    background:
-        rgba(79,140,255,.08);
-
-    border:
-        1px solid
-        rgba(79,140,255,.13);
-
-    font-size:16px;
-}
-
-.notification h2{
-    font-size:16px;
-    font-weight:900;
-}
-
-.status{
-    padding:
-        6px
-        9px;
-
-    border-radius:8px;
-
-    color:#73a5ff;
-
-    background:
-        rgba(79,140,255,.07);
-
-    border:
-        1px solid
-        rgba(79,140,255,.12);
-
-    font-size:7px;
-    font-weight:950;
-
-    text-transform:uppercase;
-
-    white-space:nowrap;
-}
-
-.message{
-    color:#8d98ae;
-
-    font-size:11px;
-    line-height:1.75;
-
-    white-space:pre-line;
-
-    margin-left:48px;
-
-    margin-bottom:13px;
-}
-
-.notification-bottom{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-left:48px;
-
-    padding-top:11px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.055);
-}
-
-.date{
-    color:#59657d;
-    font-size:9px;
-}
-
-.unread{
-    color:#45dfa5;
-
-    display:flex;
-    align-items:center;
-    gap:6px;
-
-    font-size:8px;
-    font-weight:850;
-}
-
-.unread i{
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:var(--green);
-
-    box-shadow:
-        0 0 10px var(--green);
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty{
-    padding:
-        70px
-        20px;
-
-    text-align:center;
-
-    border-radius:21px;
-
-    border:
-        1px dashed
-        rgba(255,255,255,.09);
-
-    background:
-        rgba(8,12,24,.48);
-}
-
-.empty-icon{
-    width:64px;
-    height:64px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    margin:
-        0 auto
-        15px;
-
-    border-radius:19px;
-
-    background:
-        rgba(79,140,255,.07);
-
-    border:
-        1px solid
-        rgba(79,140,255,.12);
-
-    font-size:26px;
-}
-
-.empty h2{
-    font-size:18px;
-    margin-bottom:7px;
-}
-
-.empty p{
-    color:#68748c;
-    font-size:10px;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-    min-height:240px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    flex-direction:column;
-
-    gap:13px;
-
-    color:#66728b;
-
-    font-size:10px;
-}
-
-.loader{
-    width:34px;
-    height:34px;
-
-    border-radius:50%;
-
-    border:
-        3px solid
-        rgba(255,255,255,.07);
-
-    border-top-color:
-        var(--blue);
-
-    animation:
-        spin .7s linear infinite;
 }
 
 
@@ -767,6 +354,7 @@ body{
 ========================================================= */
 
 .error{
+
     display:none;
 
     margin-bottom:15px;
@@ -791,12 +379,622 @@ body{
 
 
 /* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    position:relative;
+
+    min-height:270px;
+
+    padding:
+        43px;
+
+    border-radius:29px;
+
+    overflow:hidden;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            rgba(13,25,58,.96),
+            rgba(7,11,25,.93)
+        );
+
+    border:
+        1px solid
+        rgba(79,140,255,.16);
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(0,0,0,.32);
+
+    margin-bottom:25px;
+}
+
+.hero-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:45px 45px;
+
+    mask-image:
+
+        linear-gradient(
+            to right,
+            black,
+            transparent
+        );
+}
+
+.hero-glow{
+
+    position:absolute;
+
+    width:320px;
+    height:320px;
+
+    right:-80px;
+    top:-140px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(99,150,255,.13);
+
+    box-shadow:
+
+        0 0 0 45px
+        rgba(99,150,255,.025),
+
+        0 0 0 90px
+        rgba(99,150,255,.018),
+
+        0 0 0 135px
+        rgba(99,150,255,.012);
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+}
+
+.tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        7px
+        11px;
+
+    border-radius:100px;
+
+    color:#8eb4ff;
+
+    background:
+        rgba(79,140,255,.07);
+
+    border:
+        1px solid
+        rgba(79,140,255,.17);
+
+    font-size:8px;
+
+    font-weight:900;
+
+    letter-spacing:1.6px;
+
+    margin-bottom:17px;
+}
+
+.hero h1{
+
+    font-size:45px;
+
+    line-height:1.03;
+
+    letter-spacing:-2.2px;
+}
+
+.hero h1 span{
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #65a1ff,
+            #a876ff,
+            #45dcff
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.hero p{
+
+    max-width:670px;
+
+    color:#8995ad;
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    margin-top:15px;
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    margin:
+        0
+        0
+        15px;
+}
+
+.section-title{
+
+    font-size:20px;
+
+    font-weight:900;
+}
+
+.section-sub{
+
+    color:#606d86;
+
+    font-size:9px;
+
+    margin-top:4px;
+}
+
+.refresh{
+
+    border:
+        1px solid
+        rgba(79,140,255,.2);
+
+    background:
+        rgba(79,140,255,.07);
+
+    color:#8caeff;
+
+    padding:
+        9px
+        13px;
+
+    border-radius:11px;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    font-weight:850;
+
+    transition:.25s;
+}
+
+.refresh:hover{
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(79,140,255,.14);
+}
+
+.refresh.loading span{
+
+    display:inline-block;
+
+    animation:
+        spin
+        .7s
+        linear
+        infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+========================================================= */
+
+.notifications{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:13px;
+}
+
+
+/* =========================================================
+   NOTIFICATION CARD
+========================================================= */
+
+.notification{
+
+    position:relative;
+
+    padding:
+        21px
+        23px;
+
+    border-radius:19px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(17,24,45,.90),
+            rgba(8,12,25,.86)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    box-shadow:
+
+        0 18px 45px
+        rgba(0,0,0,.22);
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.notification:hover{
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(79,140,255,.22);
+
+    box-shadow:
+
+        0 25px 55px
+        rgba(0,0,0,.30),
+
+        0 0 30px
+        rgba(79,140,255,.05);
+}
+
+.notification:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:3px;
+
+    background:
+
+        linear-gradient(
+            #4f8cff,
+            #9a68ff
+        );
+}
+
+
+/* =========================================================
+   NOTIFICATION HEADER
+========================================================= */
+
+.notification-head{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-bottom:10px;
+}
+
+.notification-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.notification-icon{
+
+    width:38px;
+    height:38px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:
+        rgba(79,140,255,.08);
+
+    border:
+        1px solid
+        rgba(79,140,255,.13);
+
+    font-size:16px;
+}
+
+.notification h2{
+
+    font-size:16px;
+
+    font-weight:900;
+
+    line-height:1.35;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+
+    padding:
+        6px
+        9px;
+
+    border-radius:8px;
+
+    color:#73a5ff;
+
+    background:
+        rgba(79,140,255,.07);
+
+    border:
+        1px solid
+        rgba(79,140,255,.12);
+
+    font-size:7px;
+
+    font-weight:950;
+
+    text-transform:uppercase;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message{
+
+    color:#8d98ae;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    white-space:pre-line;
+
+    margin-left:48px;
+
+    margin-bottom:13px;
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.notification-bottom{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-left:48px;
+
+    padding-top:11px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.055);
+}
+
+.date{
+
+    color:#59657d;
+
+    font-size:9px;
+}
+
+.notification-label{
+
+    color:#65718a;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty{
+
+    padding:
+        70px
+        20px;
+
+    text-align:center;
+
+    border-radius:21px;
+
+    border:
+        1px dashed
+        rgba(255,255,255,.09);
+
+    background:
+        rgba(8,12,24,.48);
+}
+
+.empty-icon{
+
+    width:64px;
+    height:64px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    margin:
+        0 auto
+        15px;
+
+    border-radius:19px;
+
+    background:
+        rgba(79,140,255,.07);
+
+    border:
+        1px solid
+        rgba(79,140,255,.12);
+
+    font-size:26px;
+}
+
+.empty h2{
+
+    font-size:18px;
+
+    margin-bottom:7px;
+}
+
+.empty p{
+
+    color:#68748c;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+
+    min-height:240px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    gap:13px;
+
+    color:#66728b;
+
+    font-size:10px;
+}
+
+.loader{
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    border:
+        3px solid
+        rgba(255,255,255,.07);
+
+    border-top-color:
+        var(--blue);
+
+    animation:
+        spin
+        .7s
+        linear
+        infinite;
+}
+
+
+/* =========================================================
    MOBILE
 ========================================================= */
 
 @media(max-width:700px){
 
     .page{
+
         padding:
             20px
             14px
@@ -808,53 +1006,71 @@ body{
     }
 
     .hero{
-        min-height:280px;
+
+        min-height:290px;
 
         padding:
-            30px
+            31px
             23px;
+
+        border-radius:24px;
     }
 
     .hero h1{
-        font-size:34px;
+
+        font-size:35px;
     }
 
     .hero p{
+
         font-size:10px;
     }
 
     .toolbar{
+
         align-items:flex-end;
+
+        gap:10px;
     }
 
     .section-title{
+
         font-size:18px;
     }
 
     .notification{
+
         padding:
             18px
             17px;
     }
 
     .notification-head{
+
         flex-direction:column;
+
         gap:10px;
     }
 
     .status{
+
         margin-left:48px;
     }
 
     .message{
+
         margin-left:0;
+
         margin-top:12px;
     }
 
     .notification-bottom{
+
         margin-left:0;
     }
+
 }
+
 
 @media(max-width:420px){
 
@@ -866,12 +1082,8 @@ body{
         font-size:30px;
     }
 
-    .hero{
-        border-radius:23px;
-    }
-
     .toolbar{
-        gap:10px;
+        gap:7px;
     }
 
     .refresh{
@@ -879,6 +1091,23 @@ body{
             8px
             10px;
     }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(
+    prefers-reduced-motion:reduce
+){
+
+    *{
+        animation:none !important;
+        transition:none !important;
+    }
+
 }
 
 </style>
@@ -888,16 +1117,27 @@ body{
 
 <body>
 
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
 <div class="aura one"></div>
+
 <div class="aura two"></div>
+
 <div class="aura three"></div>
 
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
 
 <main class="page">
 
 
 <!-- =====================================================
-     TOP
+     TOP BAR
 ===================================================== -->
 
 <header class="topbar">
@@ -963,20 +1203,27 @@ body{
     <div class="hero-content">
 
         <div class="tag">
+
             ✦ DREAM HUNT UPDATES
+
         </div>
 
 
         <h1>
+
             Stay in the<br>
+
             <span>loop.</span>
+
         </h1>
 
 
         <p>
+
             Important announcements, exam updates,
             admission information, results and other
             updates from Dream Hunt — all in one place.
+
         </p>
 
     </div>
@@ -1008,15 +1255,18 @@ body{
         id="refreshBtn"
         onclick="loadNotifications(true)"
     >
+
         <span>↻</span>
+
         Refresh
+
     </button>
 
 </div>
 
 
 <!-- =====================================================
-     CONTENT
+     NOTIFICATIONS
 ===================================================== -->
 
 <section
@@ -1041,26 +1291,27 @@ body{
 <script>
 
 /* =========================================================
-   SUPABASE
-   EXISTING CONFIG — UNCHANGED
+   SUPABASE CONFIG
+   UNCHANGED
 ========================================================= */
 
 const SUPABASE_URL =
-"https://rndtgjuwwsxxiiezennr.supabase.co";
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
+
 
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 
 /* =========================================================
-   HELPERS
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHTML(value){
@@ -1093,8 +1344,13 @@ function escapeHTML(value){
         /'/g,
         "&#039;"
     );
+
 }
 
+
+/* =========================================================
+   DATE
+========================================================= */
 
 function formatDate(value){
 
@@ -1111,7 +1367,9 @@ function formatDate(value){
             date.getTime()
         )
     ){
+
         return "Date unavailable";
+
     }
 
 
@@ -1125,8 +1383,13 @@ function formatDate(value){
             minute:"2-digit"
         }
     );
+
 }
 
+
+/* =========================================================
+   ERROR
+========================================================= */
 
 function showError(message){
 
@@ -1135,11 +1398,14 @@ function showError(message){
             "errorBox"
         );
 
+
     box.textContent =
         message;
 
+
     box.style.display =
         "block";
+
 }
 
 
@@ -1149,6 +1415,7 @@ function hideError(){
         "errorBox"
     ).style.display =
         "none";
+
 }
 
 
@@ -1165,10 +1432,8 @@ async function checkUser(){
     await supabaseClient.auth.getSession();
 
 
-    if(error){
-
+    if(error)
         throw error;
-    }
 
 
     if(
@@ -1180,23 +1445,28 @@ async function checkUser(){
             "login.html";
 
         return false;
+
     }
+
+
+    const user =
+        data.session.user;
 
 
     document.getElementById(
         "userEmail"
     ).textContent =
-        data.session.user.email ||
+        user.email ||
         "Student";
 
 
     return true;
+
 }
 
 
 /* =========================================================
    LOAD NOTIFICATIONS
-   EXISTING SECURE RPC
 ========================================================= */
 
 async function loadNotifications(
@@ -1214,6 +1484,7 @@ async function loadNotifications(
         button.classList.add(
             "loading"
         );
+
     }
 
 
@@ -1231,29 +1502,47 @@ async function loadNotifications(
 
 
         /*
-         * IMPORTANT:
+         * IMPORTANT
          *
-         * Using the existing secure RPC:
+         * NO SUPABASE STRUCTURE CHANGE.
          *
-         * get_student_notifications()
+         * Only existing notification
+         * columns are used:
          *
-         * No direct SELECT from notifications.
-         * No new backend changes required.
+         * id
+         * title
+         * message
+         * is_active
+         * created_at
          */
 
         const {
             data,
             error
         } =
-        await supabaseClient.rpc(
-            "get_student_notifications"
-        );
+        await supabaseClient
+
+            .from("notifications")
+
+            .select(
+                "id,title,message,is_active,created_at"
+            )
+
+            .eq(
+                "is_active",
+                true
+            )
+
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
 
 
-        if(error){
-
+        if(error)
             throw error;
-        }
 
 
         renderNotifications(
@@ -1278,7 +1567,7 @@ async function loadNotifications(
 
         showEmpty(
             "Unable to load notifications",
-            "Please refresh the page and try again."
+            "Please try again later."
         );
 
     }
@@ -1294,7 +1583,7 @@ async function loadNotifications(
 
 
 /* =========================================================
-   RENDER
+   RENDER NOTIFICATIONS
 ========================================================= */
 
 function renderNotifications(
@@ -1321,6 +1610,7 @@ function renderNotifications(
         );
 
         return;
+
     }
 
 
@@ -1328,7 +1618,8 @@ function renderNotifications(
 
 
     notifications.forEach(
-        item=>{
+        item => {
+
 
             const title =
                 escapeHTML(
@@ -1350,34 +1641,38 @@ function renderNotifications(
                 );
 
 
-            const isRead =
-                item.is_read === true;
-
-
             html += `
 
                 <article
                     class="notification"
                 >
 
+
                     <div
                         class="notification-head"
                     >
+
 
                         <div
                             class="notification-title"
                         >
 
+
                             <div
                                 class="notification-icon"
                             >
+
                                 🔔
+
                             </div>
 
 
                             <h2>
+
                                 ${title}
+
                             </h2>
+
 
                         </div>
 
@@ -1386,12 +1681,10 @@ function renderNotifications(
                             class="status"
                         >
 
-                            ${isRead
-                                ? "READ"
-                                : "NEW"
-                            }
+                            DREAM HUNT
 
                         </div>
+
 
                     </div>
 
@@ -1409,6 +1702,7 @@ function renderNotifications(
                         class="notification-bottom"
                     >
 
+
                         <div
                             class="date"
                         >
@@ -1418,31 +1712,17 @@ function renderNotifications(
                         </div>
 
 
-                        ${
-                            !isRead
+                        <div
+                            class="notification-label"
+                        >
 
-                            ?
+                            DREAM HUNT
 
-                            `
-                            <div class="unread">
+                        </div>
 
-                                <i></i>
-
-                                New notification
-
-                            </div>
-                            `
-
-                            :
-
-                            `
-                            <div class="date">
-                                Dream Hunt
-                            </div>
-                            `
-                        }
 
                     </div>
+
 
                 </article>
 
@@ -1473,17 +1753,31 @@ function showEmpty(
 
         <div class="empty">
 
+
             <div class="empty-icon">
+
                 🔔
+
             </div>
 
+
             <h2>
-                ${escapeHTML(title)}
+
+                ${escapeHTML(
+                    title
+                )}
+
             </h2>
 
+
             <p>
-                ${escapeHTML(message)}
+
+                ${escapeHTML(
+                    message
+                )}
+
             </p>
+
 
         </div>
 
@@ -1498,8 +1792,10 @@ function showEmpty(
 
 document.addEventListener(
     "DOMContentLoaded",
-    ()=>{
+    function(){
+
         loadNotifications(false);
+
     }
 );
 
