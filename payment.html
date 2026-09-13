@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -16,48 +19,80 @@
 }
 
 :root{
-    --bg:#07070b;
-    --card:rgba(18,18,27,.78);
-    --card2:rgba(25,25,36,.82);
-    --border:rgba(255,255,255,.09);
+    --bg:#06070b;
+    --card:#0d1018;
+    --card2:#111521;
+    --border:rgba(255,255,255,.08);
     --text:#fff;
-    --muted:#9b9bab;
+    --muted:#9299aa;
     --accent:#7c5cff;
-    --accent2:#a98cff;
-    --success:#35d69a;
-    --danger:#ff5c7a;
+    --accent2:#a28cff;
+    --green:#35d49a;
+    --red:#ff647f;
+    --yellow:#ffc857;
 }
 
 body{
-    min-height:100vh;
-    font-family:Inter,Arial,sans-serif;
+    font-family:Inter,Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at 10% 0%,rgba(124,92,255,.18),transparent 30%),
-        radial-gradient(circle at 90% 10%,rgba(0,212,255,.10),transparent 25%),
+        radial-gradient(
+            circle at 15% 0%,
+            rgba(124,92,255,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(0,200,255,.08),
+            transparent 28%
+        ),
         var(--bg);
     color:var(--text);
+    min-height:100vh;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+button,
+input,
+select{
+    font:inherit;
+}
 
-.navbar{
-    height:72px;
-    padding:0 6%;
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:92%;
+    max-width:1050px;
+    margin:auto;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:70px;
+
+    background:rgba(6,7,11,.78);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid var(--border);
+}
+
+.header-inner{
+    height:100%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    border-bottom:1px solid var(--border);
-    background:rgba(7,7,11,.72);
-    backdrop-filter:blur(20px);
-    position:sticky;
-    top:0;
-    z-index:100;
 }
 
 .logo{
-    font-size:22px;
+    font-size:23px;
     font-weight:900;
     letter-spacing:-.7px;
 }
@@ -66,441 +101,678 @@ body{
     color:var(--accent2);
 }
 
-.back-btn{
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.04);
-    color:white;
+.home-btn{
     padding:10px 16px;
-    border-radius:12px;
-    cursor:pointer;
+
+    border-radius:11px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff;
+
+    font-weight:700;
+
     transition:.25s;
 }
 
-.back-btn:hover{
-    background:rgba(124,92,255,.15);
-    transform:translateY(-2px);
+.home-btn:hover{
+    background:rgba(124,92,255,.13);
+    border-color:rgba(124,92,255,.4);
 }
 
-/* =========================
+/* =====================================================
    HERO
-========================= */
+===================================================== */
 
 .hero{
-    max-width:1100px;
-    margin:auto;
-    padding:55px 20px 25px;
+    padding:52px 0 28px;
 }
 
-.hero-badge{
+.badge{
     display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 13px;
-    border:1px solid rgba(124,92,255,.3);
-    background:rgba(124,92,255,.09);
+
+    padding:7px 12px;
+
     border-radius:100px;
-    color:#c8bcff;
-    font-size:12px;
-    font-weight:700;
-    margin-bottom:16px;
+
+    background:rgba(124,92,255,.09);
+
+    border:1px solid rgba(124,92,255,.22);
+
+    color:#bdb1ff;
+
+    font-size:11px;
+    font-weight:800;
+
+    margin-bottom:15px;
 }
 
 .hero h1{
-    font-size:clamp(34px,6vw,58px);
+    font-size:clamp(34px,6vw,52px);
     line-height:1;
+
     letter-spacing:-2px;
 }
 
 .hero h1 span{
-    background:linear-gradient(90deg,#fff,#9f88ff);
-    -webkit-background-clip:text;
-    color:transparent;
+    color:var(--accent2);
 }
 
 .hero p{
-    color:var(--muted);
     margin-top:14px;
+
     max-width:650px;
-    line-height:1.7;
+
+    color:var(--muted);
+
+    font-size:14px;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
-}
+/* =====================================================
+   GRID
+===================================================== */
 
 .grid{
     display:grid;
-    grid-template-columns:1.25fr .75fr;
-    gap:22px;
+    grid-template-columns:1.1fr .9fr;
+    gap:16px;
+
+    padding-bottom:40px;
 }
 
-@media(max-width:850px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-}
-
-/* =========================
-   CARDS
-========================= */
+/* =====================================================
+   CARD
+===================================================== */
 
 .card{
-    background:linear-gradient(
-        145deg,
-        rgba(25,25,37,.86),
-        rgba(12,12,18,.88)
-    );
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,21,31,.94),
+            rgba(8,10,15,.96)
+        );
+
     border:1px solid var(--border);
-    border-radius:24px;
-    padding:25px;
-    box-shadow:0 25px 80px rgba(0,0,0,.25);
+
+    border-radius:20px;
+
+    padding:21px;
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.18);
 }
 
 .card-title{
     font-size:18px;
-    font-weight:800;
-    margin-bottom:5px;
+    font-weight:900;
+
+    margin-bottom:4px;
 }
 
-.card-sub{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:20px;
-}
-
-/* =========================
-   ORDER ITEMS
-========================= */
-
-.order-list{
-    display:flex;
-    flex-direction:column;
-    gap:11px;
-}
-
-.order-item{
-    padding:15px;
-    border:1px solid var(--border);
-    border-radius:16px;
-    background:rgba(255,255,255,.025);
-    transition:.25s;
-}
-
-.order-item:hover{
-    transform:translateX(3px);
-    border-color:rgba(124,92,255,.35);
-}
-
-.item-top{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    font-weight:700;
-}
-
-.item-price{
-    color:#c9bcff;
-    white-space:nowrap;
-}
-
-.item-details{
-    margin-top:8px;
+.card-subtitle{
     color:var(--muted);
     font-size:12px;
-    line-height:1.6;
-}
 
-/* =========================
-   SUMMARY
-========================= */
-
-.summary{
-    position:sticky;
-    top:92px;
-}
-
-.amount-box{
-    padding:24px;
-    border-radius:20px;
-    background:
-        radial-gradient(circle at top right,rgba(124,92,255,.22),transparent 55%),
-        rgba(255,255,255,.035);
-    border:1px solid rgba(124,92,255,.22);
     margin-bottom:18px;
 }
 
-.amount-label{
-    color:var(--muted);
-    font-size:12px;
-}
+/* =====================================================
+   ORDER ITEMS
+===================================================== */
 
-.amount{
-    font-size:43px;
-    font-weight:900;
-    margin-top:4px;
-    letter-spacing:-1.5px;
-}
-
-.amount small{
-    font-size:17px;
-    color:#b7b4c4;
-}
-
-.price-row{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    color:#c4c2ce;
-    font-size:14px;
-}
-
-.price-row.total{
-    border-top:1px solid var(--border);
-    margin-top:7px;
-    padding-top:17px;
-    color:white;
-    font-size:17px;
-    font-weight:800;
-}
-
-.discount{
-    color:var(--success);
-}
-
-/* =========================
-   PAYMENT METHODS
-========================= */
-
-.methods{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:15px;
-}
-
-.method{
+.order-item{
     padding:14px;
-    border:1px solid var(--border);
-    border-radius:15px;
-    background:rgba(255,255,255,.025);
-    cursor:pointer;
-    transition:.25s;
-    text-align:center;
-    font-weight:700;
-    font-size:13px;
-}
 
-.method:hover{
-    transform:translateY(-2px);
-    border-color:rgba(124,92,255,.45);
-}
-
-.method.active{
-    border-color:var(--accent);
-    background:rgba(124,92,255,.14);
-    box-shadow:0 0 25px rgba(124,92,255,.13);
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-}
-
-label{
-    font-size:12px;
-    color:#b8b6c3;
-    font-weight:700;
-    margin-bottom:6px;
-    display:block;
-}
-
-input{
-    width:100%;
-    padding:14px 15px;
     background:rgba(255,255,255,.035);
+
     border:1px solid var(--border);
+
     border-radius:13px;
-    color:white;
-    outline:none;
-    font-size:14px;
-    transition:.25s;
+
+    margin-bottom:9px;
 }
 
-input:focus{
-    border-color:var(--accent);
-    box-shadow:0 0 0 4px rgba(124,92,255,.08);
+.order-item:last-child{
+    margin-bottom:0;
 }
 
-input::placeholder{
-    color:#686775;
-}
-
-/* =========================
-   INSTRUCTIONS
-========================= */
-
-.instructions{
-    margin-top:18px;
-    padding:17px;
-    border-radius:17px;
-    background:rgba(124,92,255,.06);
-    border:1px solid rgba(124,92,255,.15);
-}
-
-.instructions h3{
-    font-size:14px;
-    margin-bottom:10px;
-}
-
-.instructions p{
-    color:#aaa8b6;
-    font-size:12px;
-    line-height:1.8;
-}
-
-.number{
-    display:inline-block;
-    margin-top:9px;
-    padding:8px 11px;
-    border-radius:10px;
-    background:rgba(255,255,255,.06);
-    color:white;
-    font-weight:800;
-    letter-spacing:.5px;
-}
-
-/* =========================
-   SUBMIT
-========================= */
-
-.submit{
-    width:100%;
-    border:none;
-    margin-top:18px;
-    padding:16px;
-    border-radius:15px;
-    color:white;
-    font-size:15px;
-    font-weight:900;
-    cursor:pointer;
-    background:linear-gradient(135deg,#7656ff,#9c7cff);
-    box-shadow:0 15px 40px rgba(124,92,255,.22);
-    transition:.25s;
-}
-
-.submit:hover{
-    transform:translateY(-2px);
-    box-shadow:0 20px 50px rgba(124,92,255,.35);
-}
-
-.submit:disabled{
-    opacity:.55;
-    cursor:not-allowed;
-    transform:none;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    border-radius:14px;
+.order-name{
     font-size:13px;
+    font-weight:800;
+}
+
+.order-details{
+    margin-top:4px;
+
+    color:#7f8798;
+
+    font-size:11px;
+
     line-height:1.6;
 }
 
-.status.error{
-    display:block;
-    color:#ff9bae;
-    background:rgba(255,92,122,.08);
-    border:1px solid rgba(255,92,122,.18);
+.order-price{
+    margin-top:8px;
+
+    color:#b9aeff;
+
+    font-size:12px;
+
+    font-weight:800;
 }
 
-.status.success{
-    display:block;
-    color:#7ff1c5;
-    background:rgba(53,214,154,.08);
-    border:1px solid rgba(53,214,154,.18);
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary{
+    margin-top:17px;
+
+    padding-top:15px;
+
+    border-top:1px solid var(--border);
 }
+
+.row{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:7px 0;
+
+    color:#9da4b4;
+
+    font-size:13px;
+}
+
+.row.discount{
+    color:var(--green);
+}
+
+.row.total{
+    margin-top:7px;
+
+    padding-top:15px;
+
+    border-top:1px solid var(--border);
+
+    color:#fff;
+
+    font-size:21px;
+
+    font-weight:900;
+}
+
+/* =====================================================
+   PAYMENT METHOD
+===================================================== */
+
+.method-title{
+    font-size:14px;
+    font-weight:800;
+
+    margin-bottom:10px;
+}
+
+.methods{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.method{
+    padding:12px 6px;
+
+    border-radius:11px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.035);
+
+    color:#bfc4cf;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.method:hover{
+    border-color:rgba(124,92,255,.4);
+}
+
+.method.active{
+    background:rgba(124,92,255,.14);
+
+    border-color:var(--accent);
+
+    color:#fff;
+}
+
+/* =====================================================
+   PAYMENT NUMBER
+===================================================== */
+
+.pay-box{
+    margin-top:14px;
+
+    padding:14px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,.10),
+            rgba(124,92,255,.03)
+        );
+
+    border:1px solid rgba(124,92,255,.17);
+}
+
+.pay-label{
+    color:#858da0;
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+    font-weight:800;
+}
+
+.pay-number{
+    margin-top:4px;
+
+    font-size:22px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+}
+
+.pay-note{
+    margin-top:4px;
+
+    color:#858da0;
+
+    font-size:10px;
+}
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+    margin-top:15px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#aeb4c1;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+
+    padding:13px 14px;
+
+    border-radius:11px;
+
+    border:1px solid var(--border);
+
+    outline:none;
+
+    background:#080a10;
+
+    color:#fff;
+
+    transition:.2s;
+}
+
+.form-group input::placeholder{
+    color:#596171;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:var(--accent);
+
+    box-shadow:
+        0 0 0 3px rgba(124,92,255,.08);
+}
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+.submit-btn{
+    width:100%;
+
+    margin-top:17px;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7051ff,
+            #9b7dff
+        );
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 15px 40px rgba(124,92,255,.2);
+
+    transition:.25s;
+}
+
+.submit-btn:hover:not(:disabled){
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 20px 50px rgba(124,92,255,.3);
+}
+
+.submit-btn:disabled{
+    background:#202531;
+
+    color:#697284;
+
+    box-shadow:none;
+
+    cursor:not-allowed;
+}
+
+/* =====================================================
+   LOGIN NOTICE
+===================================================== */
+
+.login-notice{
+    display:none;
+
+    margin-top:12px;
+
+    padding:12px;
+
+    border-radius:11px;
+
+    background:rgba(255,200,87,.07);
+
+    border:1px solid rgba(255,200,87,.15);
+
+    color:#d6b96c;
+
+    font-size:11px;
+
+    text-align:center;
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-box{
+    display:none;
+
+    margin-bottom:15px;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:rgba(255,100,127,.07);
+
+    border:1px solid rgba(255,100,127,.18);
+
+    color:#ff879b;
+
+    font-size:12px;
+}
+
+/* =====================================================
+   PENDING
+===================================================== */
 
 .pending{
     display:none;
+
     margin-top:18px;
-    padding:20px;
+
+    padding:25px 18px;
+
     border-radius:18px;
-    border:1px solid rgba(53,214,154,.2);
-    background:rgba(53,214,154,.06);
+
+    border:1px solid rgba(53,212,154,.22);
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(53,212,154,.11),
+            transparent 65%
+        ),
+        #0b1212;
+
+    text-align:center;
+
+    animation:appear .5s ease;
 }
 
-.pending h3{
-    margin-bottom:7px;
+.pending-icon{
+    width:58px;
+    height:58px;
+
+    margin:0 auto 13px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(53,212,154,.13);
+
+    border:1px solid rgba(53,212,154,.3);
+
+    color:var(--green);
+
+    font-size:27px;
+    font-weight:900;
+}
+
+.pending h2{
+    font-size:20px;
+}
+
+.pending-status{
+    display:inline-block;
+
+    margin-top:9px;
+
+    padding:6px 10px;
+
+    border-radius:100px;
+
+    background:rgba(255,200,87,.1);
+
+    border:1px solid rgba(255,200,87,.18);
+
+    color:#ffd36c;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:.4px;
 }
 
 .pending p{
-    color:#aaa8b6;
-    font-size:13px;
+    margin-top:12px;
+
+    color:#8d96a7;
+
+    font-size:12px;
+
     line-height:1.7;
 }
 
-/* =========================
-   EMPTY
-========================= */
+.pending-details{
+    margin-top:17px;
 
-.empty{
+    text-align:left;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
+}
+
+.pending-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:6px 0;
+
+    color:#8d95a6;
+
+    font-size:11px;
+}
+
+.pending-row strong{
+    color:#fff;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
     text-align:center;
-    padding:40px 10px;
-    color:var(--muted);
+
+    padding:25px 0 40px;
+
+    color:#626b7b;
+
+    font-size:10px;
 }
 
-/* =========================
+/* =====================================================
    ANIMATION
-========================= */
+===================================================== */
 
-.fade{
-    animation:fade .55s ease both;
-}
+@keyframes appear{
 
-@keyframes fade{
     from{
         opacity:0;
-        transform:translateY(15px);
+        transform:translateY(10px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .hero{
+        padding-top:38px;
+    }
+
+    .methods{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .card{
+        padding:17px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<header class="navbar">
-    <div class="logo">Dream <span>Hunt</span></div>
 
-    <button class="back-btn" onclick="goBack()">
-        ← Back
-    </button>
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="container header-inner">
+
+        <div class="logo">
+            Dream <span>Hunt</span>
+        </div>
+
+        <button
+            class="home-btn"
+            onclick="window.location.href='index.html'">
+
+            Home
+
+        </button>
+
+    </div>
+
 </header>
 
 
-<section class="hero fade">
-    <div class="hero-badge">
-        ✦ SECURE CHECKOUT
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero container">
+
+    <div class="badge">
+        ✦ SECURE ENROLLMENT
     </div>
 
     <h1>
@@ -508,220 +780,354 @@ input::placeholder{
     </h1>
 
     <p>
-        Review your selected courses, choose a payment method,
-        submit your transaction details and complete your Dream Hunt enrollment.
+        Submit your payment information and wait for
+        Dream Hunt verification. Your selected course
+        access will be activated after confirmation.
     </p>
+
 </section>
 
 
-<main class="container">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<div class="grid">
+<main class="container grid">
 
-<!-- =========================
-     LEFT
-========================= -->
 
-<section class="card fade">
+<!-- =====================================================
+     LEFT — ORDER
+===================================================== -->
+
+<section class="card">
 
     <div class="card-title">
         Your Selection
     </div>
 
-    <div class="card-sub">
-        Review everything before making payment.
+    <div class="card-subtitle">
+        Review your admission package before payment.
     </div>
 
-    <div id="orderList" class="order-list">
-        <div class="empty">
-            Loading your selection...
+
+    <div id="order-items">
+
+        <div class="order-item">
+
+            <div class="order-name">
+                Loading selection...
+            </div>
+
         </div>
+
+    </div>
+
+
+    <div class="summary">
+
+        <div class="row">
+
+            <span>
+                Package Price
+            </span>
+
+            <span id="subtotal">
+                ৳0
+            </span>
+
+        </div>
+
+
+        <div class="row discount">
+
+            <span>
+                Coupon Discount
+            </span>
+
+            <span id="discount">
+                −৳0
+            </span>
+
+        </div>
+
+
+        <div class="row total">
+
+            <span>
+                Payable
+            </span>
+
+            <span id="total">
+                ৳0
+            </span>
+
+        </div>
+
     </div>
 
 </section>
 
 
-<!-- =========================
-     RIGHT
-========================= -->
+<!-- =====================================================
+     RIGHT — PAYMENT
+===================================================== -->
 
-<section class="card summary fade">
+<section class="card">
 
     <div class="card-title">
-        Payment
+        Payment Details
     </div>
 
-    <div class="card-sub">
-        Complete the information below.
-    </div>
-
-
-    <div class="amount-box">
-
-        <div class="amount-label">
-            Total payable
-        </div>
-
-        <div class="amount">
-            ৳<span id="totalAmount">0</span>
-        </div>
-
+    <div class="card-subtitle">
+        Select your payment method and submit the transaction.
     </div>
 
 
-    <div id="priceBreakdown">
-
-        <div class="price-row">
-            <span>Subtotal</span>
-            <span id="subtotal">৳0</span>
-        </div>
-
-        <div class="price-row">
-            <span>Coupon discount</span>
-            <span id="discount" class="discount">
-                −৳0
-            </span>
-        </div>
-
-        <div class="price-row total">
-            <span>Total</span>
-            <span id="finalAmount">৳0</span>
-        </div>
-
+    <div
+        id="error-box"
+        class="error-box">
     </div>
 
 
-    <div style="margin-top:24px">
+    <!-- PAYMENT METHOD -->
 
-        <label>
-            Payment method
-        </label>
+    <div class="method-title">
+        Payment Method
+    </div>
 
-        <div class="methods">
 
-            <div
-                class="method"
-                data-method="bKash"
-                onclick="selectMethod(this)"
-            >
-                bKash
-            </div>
+    <div class="methods">
 
-            <div
-                class="method"
-                data-method="Nagad"
-                onclick="selectMethod(this)"
-            >
-                Nagad
-            </div>
+        <button
+            class="method active"
+            data-method="bKash"
+            onclick="selectMethod('bKash')">
 
-            <div
-                class="method"
-                data-method="Rocket"
-                onclick="selectMethod(this)"
-            >
-                Rocket
-            </div>
+            bKash
 
-            <div
-                class="method"
-                data-method="Upay"
-                onclick="selectMethod(this)"
-            >
-                Upay
-            </div>
+        </button>
 
-        </div>
+
+        <button
+            class="method"
+            data-method="Nagad"
+            onclick="selectMethod('Nagad')">
+
+            Nagad
+
+        </button>
+
+
+        <button
+            class="method"
+            data-method="Rocket"
+            onclick="selectMethod('Rocket')">
+
+            Rocket
+
+        </button>
+
+
+        <button
+            class="method"
+            data-method="Upay"
+            onclick="selectMethod('Upay')">
+
+            Upay
+
+        </button>
 
     </div>
 
 
-    <div class="instructions">
+    <!-- PAYMENT NUMBER -->
 
-        <h3>
-            Send Money
-        </h3>
+    <div class="pay-box">
 
-        <p>
-            Send the exact payable amount to the Dream Hunt
-            payment number using your selected payment method.
-        </p>
+        <div class="pay-label">
+            Send payment to
+        </div>
 
-        <div class="number">
+        <div class="pay-number">
             01342-210515
         </div>
 
-    </div>
-
-
-    <div class="form" style="margin-top:20px">
-
-        <div>
-            <label>Transaction ID</label>
-
-            <input
-                id="trxId"
-                type="text"
-                placeholder="Enter transaction ID"
-            >
-        </div>
-
-
-        <div>
-            <label>HSC Roll</label>
-
-            <input
-                id="hscRoll"
-                type="text"
-                placeholder="Enter HSC roll"
-            >
-        </div>
-
-
-        <div>
-            <label>HSC Registration</label>
-
-            <input
-                id="hscRegistration"
-                type="text"
-                placeholder="Enter HSC registration"
-            >
+        <div class="pay-note">
+            Send the exact payable amount.
         </div>
 
     </div>
 
 
-    <div id="status" class="status"></div>
+    <!-- TRX -->
 
+    <div class="form-group">
+
+        <label>
+            Transaction ID *
+        </label>
+
+        <input
+            type="text"
+            id="trx"
+            placeholder="Enter your transaction ID"
+            autocomplete="off">
+
+    </div>
+
+
+    <!-- HSC ROLL -->
+
+    <div class="form-group">
+
+        <label>
+            HSC Roll *
+        </label>
+
+        <input
+            type="text"
+            id="hsc-roll"
+            placeholder="Enter HSC roll number"
+            autocomplete="off">
+
+    </div>
+
+
+    <!-- HSC REG -->
+
+    <div class="form-group">
+
+        <label>
+            HSC Registration *
+        </label>
+
+        <input
+            type="text"
+            id="hsc-reg"
+            placeholder="Enter HSC registration number"
+            autocomplete="off">
+
+    </div>
+
+
+    <!-- SUBMIT -->
 
     <button
-        id="submitBtn"
-        class="submit"
-        onclick="submitPayment()"
-    >
-        Submit Payment →
+        class="submit-btn"
+        id="submit-btn"
+        onclick="submitPayment()">
+
+        Submit Payment
+
     </button>
 
 
-    <div id="pendingBox" class="pending">
+    <div
+        id="login-notice"
+        class="login-notice">
 
-        <h3>
-            ✓ Payment submitted
-        </h3>
-
-        <p>
-            Your payment information has been submitted.
-            Please wait for verification. You can continue
-            using Dream Hunt after your enrollment is confirmed.
-        </p>
+        Please login first to complete your enrollment.
 
     </div>
 
+
+    <!-- =================================================
+         PENDING
+    ================================================== -->
+
+    <div
+        id="pending"
+        class="pending">
+
+        <div class="pending-icon">
+            ✓
+        </div>
+
+        <h2>
+            Payment Submitted
+        </h2>
+
+        <div class="pending-status">
+            STATUS: PENDING CONFIRMATION
+        </div>
+
+        <p>
+            Your payment information has been submitted
+            successfully. Please wait for confirmation.
+            Your course access will be activated after
+            verification.
+        </p>
+
+
+        <div class="pending-details">
+
+            <div class="pending-row">
+
+                <span>
+                    Order ID
+                </span>
+
+                <strong id="pending-order-id">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="pending-row">
+
+                <span>
+                    Amount
+                </span>
+
+                <strong id="pending-amount">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="pending-row">
+
+                <span>
+                    Method
+                </span>
+
+                <strong id="pending-method">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="pending-row">
+
+                <span>
+                    Transaction
+                </span>
+
+                <strong id="pending-trx">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
 </section>
 
-</div>
 
 </main>
+
+
+<footer class="footer">
+
+    Dream Hunt © 2026
+
+</footer>
 
 
 <script>
@@ -731,256 +1137,406 @@ input::placeholder{
 ========================================================= */
 
 const SUPABASE_URL =
-"https://rndtgjuwwsxxiiezennr.supabase.co";
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
 
 const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 /* =========================================================
-   STATE
+   GLOBAL STATE
 ========================================================= */
 
-let checkoutData = null;
+let checkout = null;
 
-let selectedMethod = "";
+let selectedMethod = "bKash";
+
+let currentUser = null;
+
+let submitted = false;
 
 
 /* =========================================================
-   LOAD CHECKOUT
+   GET CHECKOUT
 ========================================================= */
 
-function loadCheckout(){
+function getCheckout(){
 
-    const saved =
-        sessionStorage.getItem("dreamHuntCheckout");
+    let raw =
+        sessionStorage.getItem(
+            "dreamHuntCheckout"
+        );
 
-    const fallback =
-        sessionStorage.getItem("dream_hunt_course_order");
+
+    if(!raw){
+
+        raw =
+            sessionStorage.getItem(
+                "dream_hunt_course_order"
+            );
+
+    }
+
+
+    if(!raw){
+
+        return null;
+
+    }
+
 
     try{
 
-        checkoutData =
-            saved
-            ? JSON.parse(saved)
-            : fallback
-                ? JSON.parse(fallback)
-                : null;
+        return JSON.parse(raw);
 
     }catch(error){
 
-        checkoutData = null;
+        console.error(
+            "Checkout parse error:",
+            error
+        );
+
+        return null;
 
     }
 
+}
 
-    if(!checkoutData){
 
-        showStatus(
-            "No checkout information found. Please select your courses first.",
-            "error"
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
         );
 
-        document.getElementById("orderList").innerHTML = `
-            <div class="empty">
-                No active checkout found.<br><br>
-                Please go back and select a course.
+}
+
+
+/* =========================================================
+   DISPLAY ORDER
+========================================================= */
+
+function renderOrder(){
+
+    const box =
+        document.getElementById(
+            "order-items"
+        );
+
+
+    if(!checkout){
+
+        box.innerHTML = `
+
+            <div class="order-item">
+
+                <div class="order-name">
+                    No checkout found
+                </div>
+
+                <div class="order-details">
+
+                    Please return to Buy Courses
+                    and select a package.
+
+                </div>
+
             </div>
+
         `;
 
+
+        document.getElementById(
+            "submit-btn"
+        ).disabled = true;
+
+
         return;
-    }
-
-
-    renderCheckout();
-
-}
-
-
-/* =========================================================
-   GET TOTAL
-========================================================= */
-
-function getTotal(){
-
-    return Number(
-        checkoutData.amount ??
-        checkoutData.totalAmount ??
-        checkoutData.total ??
-        checkoutData.payableAmount ??
-        checkoutData.finalAmount ??
-        0
-    );
-
-}
-
-
-/* =========================================================
-   GET SUBTOTAL
-========================================================= */
-
-function getSubtotal(){
-
-    const subtotal =
-        checkoutData.subtotal;
-
-    if(
-        subtotal !== undefined &&
-        subtotal !== null
-    ){
-
-        return Number(subtotal);
 
     }
 
-    const total = getTotal();
 
-    const discount =
-        Number(
-            checkoutData.discount ??
-            checkoutData.couponDiscount ??
-            0
-        );
-
-    return total + discount;
-
-}
-
-
-/* =========================================================
-   GET DISCOUNT
-========================================================= */
-
-function getDiscount(){
-
-    return Number(
-        checkoutData.discount ??
-        checkoutData.couponDiscount ??
-        0
-    );
-
-}
-
-
-/* =========================================================
-   NORMALIZE ITEMS
-========================================================= */
-
-function getItems(){
-
-    let items = [];
+    let items =
+        Array.isArray(
+            checkout.selectedItems
+        )
+            ? checkout.selectedItems
+            : [];
 
 
     /*
-       New checkout format
+       Fallback if selectedItems doesn't exist.
     */
+
+    if(!items.length){
+
+        items =
+            buildFallbackItems();
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    items.forEach(item => {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "order-item";
+
+
+        div.innerHTML = `
+
+            <div class="order-name">
+
+                ${escapeHTML(item.name)}
+
+            </div>
+
+
+            <div class="order-details">
+
+                ${escapeHTML(item.details || "")}
+
+            </div>
+
+
+            <div class="order-price">
+
+                ${
+                    Number(item.price || 0) > 0
+                        ? "৳" +
+                          Number(
+                              item.price
+                          ).toLocaleString()
+                        : ""
+                }
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        "৳" +
+        Number(
+            checkout.subtotal || 0
+        ).toLocaleString();
+
+
+    document.getElementById(
+        "discount"
+    ).textContent =
+        "−৳" +
+        Number(
+            checkout.discount || 0
+        ).toLocaleString();
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        "৳" +
+        Number(
+            checkout.total || 0
+        ).toLocaleString();
+
+}
+
+
+/* =========================================================
+   FALLBACK ITEMS
+========================================================= */
+
+function buildFallbackItems(){
+
+    const items = [];
+
+    const selected =
+        checkout.selected || {};
+
+
+    const names = {
+
+        engineering:
+            "Engineering",
+
+        medical:
+            "Medical",
+
+        dental:
+            "Dental",
+
+        agriculture:
+            "Agriculture & Veterinary",
+
+        textile:
+            "Textile"
+
+    };
+
+
+    const main =
+        Array.isArray(
+            selected.main_categories
+        )
+            ? selected.main_categories
+            : [];
+
+
+    if(main.length){
+
+        items.push({
+
+            name:
+                main.length === 1
+                    ? names[main[0]]
+                    : `${main.length} Main Categories`,
+
+            details:
+                main
+                    .map(
+                        x => names[x] || x
+                    )
+                    .join(" • "),
+
+            price:
+                checkout.subtotal || 0
+
+        });
+
+    }
+
+
+    const pu =
+        selected.public_university || {};
+
 
     if(
         Array.isArray(
-            checkoutData.selectedItems
-        )
+            pu.fixed_units
+        ) &&
+        pu.fixed_units.length
     ){
 
-        items =
-            checkoutData.selectedItems.map(
-                item => {
+        items.push({
 
-                    return {
+            name:
+                `${pu.fixed_units.length} Public University Unit(s)`,
 
-                        name:
-                            item.name ||
-                            item.title ||
-                            "Selected Course",
+            details:
+                pu.fixed_units
+                    .map(
+                        x =>
+                            `${x.university} — ${x.unit}`
+                    )
+                    .join(" • "),
 
-                        price:
-                            Number(
-                                item.price ||
-                                item.amount ||
-                                0
-                            ),
+            price:
+                0
 
-                        details:
-                            item.details ||
-                            item.description ||
-                            ""
-
-                    };
-
-                }
-            );
+        });
 
     }
 
 
-    /*
-       Alternative categories format
-    */
+    if(pu.university_all){
 
-    if(
-        !items.length &&
-        Array.isArray(checkoutData.categories)
-    ){
+        items.push({
 
-        items =
-            checkoutData.categories.map(
-                (category,index) => {
+            name:
+                "University All Units",
 
-                    const price =
-                        Array.isArray(
-                            checkoutData.prices
-                        )
-                        ? Number(
-                            checkoutData.prices[index] || 0
-                        )
-                        : 0;
+            details:
+                pu.university_all.university,
 
-                    return {
+            price:
+                1000
 
-                        name:formatName(category),
-
-                        price:price,
-
-                        details:"Course access"
-
-                    };
-
-                }
-            );
+        });
 
     }
 
 
-    /*
-       courseSlugs fallback
-    */
+    if(pu.unit_all){
+
+        items.push({
+
+            name:
+                `${pu.unit_all} Unit — All Universities`,
+
+            details:
+                "All universities offering this unit",
+
+            price:
+                1000
+
+        });
+
+    }
+
 
     if(
-        !items.length &&
-        Array.isArray(checkoutData.courseSlugs)
+        Array.isArray(
+            selected.abroad
+        ) &&
+        selected.abroad.length
     ){
 
-        items =
-            checkoutData.courseSlugs.map(
-                slug => {
+        items.push({
 
-                    return {
+            name:
+                "Abroad",
 
-                        name:formatName(slug),
+            details:
+                selected.abroad.join(" • "),
 
-                        price:0,
+            price:
+                0
 
-                        details:"Course access"
-
-                    };
-
-                }
-            );
+        });
 
     }
 
@@ -991,354 +1547,191 @@ function getItems(){
 
 
 /* =========================================================
-   FORMAT NAME
+   SELECT METHOD
 ========================================================= */
 
-function formatName(value){
+function selectMethod(method){
 
-    if(!value) return "Course";
+    selectedMethod =
+        method;
 
-    return String(value)
-        .replaceAll("-"," ")
-        .replace(/\b\w/g,
-            letter => letter.toUpperCase()
-        );
-
-}
-
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function renderCheckout(){
-
-    const items =
-        getItems();
-
-    const total =
-        getTotal();
-
-    const subtotal =
-        getSubtotal();
-
-    const discount =
-        getDiscount();
-
-
-    document.getElementById(
-        "totalAmount"
-    ).textContent =
-        total.toLocaleString();
-
-
-    document.getElementById(
-        "subtotal"
-    ).textContent =
-        "৳" +
-        subtotal.toLocaleString();
-
-
-    document.getElementById(
-        "discount"
-    ).textContent =
-        "−৳" +
-        discount.toLocaleString();
-
-
-    document.getElementById(
-        "finalAmount"
-    ).textContent =
-        "৳" +
-        total.toLocaleString();
-
-
-    const list =
-        document.getElementById(
-            "orderList"
-        );
-
-
-    if(!items.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                Your package details are available in checkout.
-                <br>
-                Total: ৳${total.toLocaleString()}
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        items.map(
-            item => `
-
-            <div class="order-item">
-
-                <div class="item-top">
-
-                    <span>
-                        ${escapeHTML(item.name)}
-                    </span>
-
-                    ${
-                        item.price
-                        ? `
-                        <span class="item-price">
-                            ৳${Number(item.price).toLocaleString()}
-                        </span>
-                        `
-                        : ""
-                    }
-
-                </div>
-
-                ${
-                    item.details
-                    ? `
-                    <div class="item-details">
-                        ${escapeHTML(item.details)}
-                    </div>
-                    `
-                    : ""
-                }
-
-            </div>
-
-            `
-        ).join("");
-
-}
-
-
-/* =========================================================
-   PAYMENT METHOD
-========================================================= */
-
-function selectMethod(element){
 
     document
         .querySelectorAll(".method")
-        .forEach(
-            item =>
-                item.classList.remove("active")
-        );
+        .forEach(button => {
 
+            button.classList.toggle(
+                "active",
+                button.dataset.method ===
+                    method
+            );
 
-    element.classList.add("active");
-
-    selectedMethod =
-        element.dataset.method;
+        });
 
 }
 
 
 /* =========================================================
-   STATUS
+   ERROR
 ========================================================= */
 
-function showStatus(message,type){
+function showError(message){
 
     const box =
-        document.getElementById("status");
+        document.getElementById(
+            "error-box"
+        );
 
-    box.className =
-        "status " + type;
 
     box.textContent =
         message;
 
-}
 
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    box.style.display =
+        "block";
 
 }
 
 
-/* =========================================================
-   FIND BROAD COURSE SLUG
-========================================================= */
+function clearError(){
 
-function normalizeCourseSlug(value){
-
-    const v =
-        String(value)
-        .toLowerCase()
-        .trim();
+    const box =
+        document.getElementById(
+            "error-box"
+        );
 
 
-    if(
-        v.includes("engineering")
-    ){
+    box.textContent =
+        "";
 
-        return "engineering";
-
-    }
-
-
-    if(
-        v.includes("medical")
-    ){
-
-        return "medical";
-
-    }
-
-
-    if(
-        v.includes("dental")
-    ){
-
-        return "dental";
-
-    }
-
-
-    if(
-        v.includes("agriculture") ||
-        v.includes("agricultural") ||
-        v.includes("veterinary")
-    ){
-
-        return "agricultural";
-
-    }
-
-
-    if(
-        v.includes("textile")
-    ){
-
-        return "textile";
-
-    }
-
-
-    if(
-        v.includes("public") ||
-        v.includes("university") ||
-        v.includes("pu-")
-    ){
-
-        return "public-university";
-
-    }
-
-
-    if(
-        v.includes("sat") ||
-        v.includes("ielts") ||
-        v === "ab"
-    ){
-
-        return "ab";
-
-    }
-
-
-    return v;
+    box.style.display =
+        "none";
 
 }
 
 
 /* =========================================================
-   GET COURSE CATEGORIES
+   AUTH
 ========================================================= */
 
-function getCategories(){
+async function checkAuth(){
 
-    let categories = [];
+    try{
 
-
-    if(
-        Array.isArray(
-            checkoutData.orderCategories
-        )
-    ){
-
-        categories =
-            checkoutData.orderCategories;
-
-    }
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getUser();
 
 
-    else if(
-        Array.isArray(
-            checkoutData.categories
-        )
-    ){
+        if(error){
 
-        categories =
-            checkoutData.categories;
+            currentUser =
+                null;
 
-    }
+        }else{
 
+            currentUser =
+                data.user || null;
 
-    else if(
-        Array.isArray(
-            checkoutData.courseSlugs
-        )
-    ){
+        }
 
-        categories =
-            checkoutData.courseSlugs;
+    }catch(error){
+
+        currentUser =
+            null;
 
     }
-
-
-    else if(
-        Array.isArray(
-            checkoutData.courses
-        )
-    ){
-
-        categories =
-            checkoutData.courses;
-
-    }
-
-
-    categories =
-        categories
-        .map(normalizeCourseSlug)
-        .filter(Boolean);
 
 
     /*
-       Remove duplicates.
+       We don't redirect automatically.
+
+       Student can see payment page,
+       but must login before submission.
     */
 
-    return [
-        ...new Set(categories)
-    ];
+    if(!currentUser){
+
+        document.getElementById(
+            "login-notice"
+        ).style.display =
+            "block";
+
+        document.getElementById(
+            "submit-btn"
+        ).textContent =
+            "Login to Complete Payment →";
+
+    }
 
 }
 
 
 /* =========================================================
-   GET COURSE IDS
+   FIND SUPABASE COURSES
 ========================================================= */
 
-async function findCourseIds(categories){
+async function findCourseIds(
+    categories
+){
 
-    if(!categories.length){
+    if(
+        !Array.isArray(categories) ||
+        !categories.length
+    ){
+
+        return [];
+
+    }
+
+
+    /*
+       ONLY existing broad course slugs.
+       Never send DU A / JU B etc.
+       as individual DB courses.
+    */
+
+    const allowedSlugs = [
+
+        "engineering",
+        "medical",
+        "dental",
+        "agricultural",
+        "textile",
+        "public-university",
+        "ab"
+
+    ];
+
+
+    const cleanCategories = [
+
+        ...new Set(
+
+            categories
+
+                .map(
+                    slug =>
+                        String(slug)
+                            .trim()
+                            .toLowerCase()
+                )
+
+                .filter(
+                    slug =>
+                        allowedSlugs.includes(
+                            slug
+                        )
+                )
+
+        )
+
+    ];
+
+
+    if(!cleanCategories.length){
 
         return [];
 
@@ -1350,9 +1743,14 @@ async function findCourseIds(categories){
         error
     } =
         await supabaseClient
-        .from("courses")
-        .select("id,slug")
-        .in("slug",categories);
+            .from("courses")
+            .select(
+                "id,slug,name,is_active,is_published"
+            )
+            .in(
+                "slug",
+                cleanCategories
+            );
 
 
     if(error){
@@ -1362,29 +1760,45 @@ async function findCourseIds(categories){
     }
 
 
-    return categories
-        .map(
-            slug =>
-                data.find(
-                    row =>
-                        row.slug === slug
-                )
-        )
-        .filter(Boolean);
+    const found = [];
+
+
+    cleanCategories.forEach(slug => {
+
+        const row =
+            (data || []).find(
+                item =>
+                    String(
+                        item.slug
+                    ).toLowerCase() ===
+                    slug
+            );
+
+
+        if(row){
+
+            found.push(row);
+
+        }
+
+    });
+
+
+    return found;
 
 }
 
 
 /* =========================================================
-   BUILD PRICES
+   BUILD RPC PRICES
 ========================================================= */
 
 function buildRPCPrices(
-    courseRows,
+    courses,
     total
 ){
 
-    if(!courseRows.length){
+    if(!courses.length){
 
         return [];
 
@@ -1392,64 +1806,59 @@ function buildRPCPrices(
 
 
     /*
-       If Buy Courses already provided
-       prices matching course rows,
-       use them.
-    */
+       Existing RPC accepts:
 
-    const provided =
-        checkoutData.rpcPrices ||
-        checkoutData.prices ||
-        checkoutData.coursePrices ||
-        checkoutData.selectedPrices;
+       p_course_ids UUID[]
+       p_prices numeric[]
 
+       Because the DB only has broad course rows,
+       the exact student package total is assigned
+       to the first matched course and remaining
+       broad rows receive 0.
 
-    if(
-        Array.isArray(provided) &&
-        provided.length === courseRows.length
-    ){
-
-        const prices =
-            provided.map(Number);
-
-        const sum =
-            prices.reduce(
-                (a,b) => a+b,
-                0
-            );
-
-
-        if(
-            Math.abs(sum-total) < 0.01
-        ){
-
-            return prices;
-
-        }
-
-    }
-
-
-    /*
-       Existing backend only accepts
-       broad course rows.
-
-       Therefore distribute the checkout
-       total across the matched broad rows
-       without changing Supabase.
+       This requires NO schema change.
     */
 
     const prices =
-        new Array(
-            courseRows.length
-        ).fill(0);
+        courses.map(
+            () => 0
+        );
 
 
     prices[0] =
-        Number(total);
+        Number(total || 0);
 
 
     return prices;
+
+}
+
+
+/* =========================================================
+   GENERATE ORDER ID
+========================================================= */
+
+function generateOrderId(){
+
+    const time =
+        Date.now()
+            .toString(36)
+            .toUpperCase();
+
+
+    const random =
+        Math.random()
+            .toString(36)
+            .substring(2,7)
+            .toUpperCase();
+
+
+    return (
+        "DH-" +
+        time +
+        "-" +
+        random
+    );
 
 }
 
@@ -1460,35 +1869,24 @@ function buildRPCPrices(
 
 async function submitPayment(){
 
-    const btn =
-        document.getElementById(
-            "submitBtn"
-        );
+    clearError();
 
 
-    const trxId =
-        document.getElementById(
-            "trxId"
-        ).value.trim();
+    if(submitted){
+
+        return;
+
+    }
 
 
-    const hscRoll =
-        document.getElementById(
-            "hscRoll"
-        ).value.trim();
+    /*
+       No checkout
+    */
 
+    if(!checkout){
 
-    const hscRegistration =
-        document.getElementById(
-            "hscRegistration"
-        ).value.trim();
-
-
-    if(!selectedMethod){
-
-        showStatus(
-            "Please select a payment method.",
-            "error"
+        showError(
+            "No valid checkout found. Please return to Buy Courses and select your package again."
         );
 
         return;
@@ -1496,11 +1894,55 @@ async function submitPayment(){
     }
 
 
-    if(!trxId){
+    /*
+       Login
+    */
 
-        showStatus(
-            "Please enter your transaction ID.",
-            "error"
+    if(!currentUser){
+
+        document.getElementById(
+            "login-notice"
+        ).style.display =
+            "block";
+
+
+        window.location.href =
+            "login.html?redirect=payment.html";
+
+
+        return;
+
+    }
+
+
+    const trx =
+        document.getElementById(
+            "trx"
+        )
+        .value
+        .trim();
+
+
+    const roll =
+        document.getElementById(
+            "hsc-roll"
+        )
+        .value
+        .trim();
+
+
+    const registration =
+        document.getElementById(
+            "hsc-reg"
+        )
+        .value
+        .trim();
+
+
+    if(!trx){
+
+        showError(
+            "Please enter your Transaction ID."
         );
 
         return;
@@ -1508,11 +1950,10 @@ async function submitPayment(){
     }
 
 
-    if(!hscRoll){
+    if(!roll){
 
-        showStatus(
-            "Please enter your HSC roll.",
-            "error"
+        showError(
+            "Please enter your HSC Roll."
         );
 
         return;
@@ -1520,33 +1961,10 @@ async function submitPayment(){
     }
 
 
-    if(!hscRegistration){
+    if(!registration){
 
-        showStatus(
-            "Please enter your HSC registration number.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const {
-        data:{
-            session
-        }
-    } =
-        await supabaseClient
-        .auth
-        .getSession();
-
-
-    if(!session){
-
-        showStatus(
-            "Please login first to complete enrollment.",
-            "error"
+        showError(
+            "Please enter your HSC Registration."
         );
 
         return;
@@ -1555,14 +1973,15 @@ async function submitPayment(){
 
 
     const total =
-        getTotal();
+        Number(
+            checkout.total || 0
+        );
 
 
-    if(!total || total <= 0){
+    if(total <= 0){
 
-        showStatus(
-            "Invalid checkout amount. Please go back and create your package again.",
-            "error"
+        showError(
+            "Invalid payable amount."
         );
 
         return;
@@ -1570,82 +1989,97 @@ async function submitPayment(){
     }
 
 
-    btn.disabled = true;
+    const button =
+        document.getElementById(
+            "submit-btn"
+        );
 
-    btn.textContent =
-        "Processing...";
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "Submitting...";
 
 
     try{
 
+        /*
+           1. Get broad categories
+        */
+
         const categories =
-            getCategories();
+            Array.isArray(
+                checkout.categories
+            )
+                ? checkout.categories
+                : Array.isArray(
+                    checkout.orderCategories
+                )
+                    ? checkout.orderCategories
+                    : [];
 
 
         if(!categories.length){
 
             throw new Error(
-                "No course category found."
+                "No valid course category was found in this checkout."
             );
 
         }
 
 
-        const courseRows =
+        /*
+           2. Find existing DB courses
+        */
+
+        const courses =
             await findCourseIds(
                 categories
             );
 
 
-        if(!courseRows.length){
+        if(!courses.length){
 
             throw new Error(
-                "Selected course could not be found."
+                "Selected course could not be found. Please return to Buy Courses and select your package again."
             );
 
         }
 
 
+        /*
+           3. Prepare IDs
+        */
+
         const courseIds =
-            courseRows.map(
-                row => row.id
+            courses.map(
+                course =>
+                    course.id
             );
 
 
+        /*
+           4. Existing RPC prices
+        */
+
         const prices =
             buildRPCPrices(
-                courseRows,
+                courses,
                 total
             );
 
 
-        const priceSum =
-            prices.reduce(
-                (a,b) =>
-                    Number(a)+Number(b),
-                0
-            );
-
-
-        if(
-            Math.abs(
-                priceSum-total
-            ) > 0.01
-        ){
-
-            throw new Error(
-                "Payment amount mismatch. Please restart checkout."
-            );
-
-        }
-
+        /*
+           5. Create student order
+        */
 
         const {
-            data,
-            error
+            data: orderData,
+            error: orderError
         } =
-            await supabaseClient
-            .rpc(
+            await supabaseClient.rpc(
                 "create_student_order",
                 {
                     p_course_ids:
@@ -1657,81 +2091,167 @@ async function submitPayment(){
             );
 
 
-        if(error){
+        if(orderError){
 
-            throw error;
+            throw orderError;
 
         }
 
 
         /*
-           Store payment metadata locally.
-           Existing RPC/schema remains untouched.
+           6. Generate local reference
         */
 
-        const paymentData = {
+        let orderId =
+            generateOrderId();
 
-            orderResult:data,
 
-            amount:total,
+        /*
+           If RPC returns an order ID,
+           use it when possible.
+        */
 
-            categories:categories,
+        if(typeof orderData === "string"){
 
-            trxId:trxId,
+            orderId =
+                orderData;
 
-            paymentMethod:selectedMethod,
+        }
 
-            hscRoll:hscRoll,
 
-            hscRegistration:
-                hscRegistration,
+        if(
+            orderData &&
+            typeof orderData === "object"
+        ){
 
-            submittedAt:
+            orderId =
+                orderData.id ||
+                orderData.order_id ||
+                orderData.orderId ||
+                orderId;
+
+        }
+
+
+        /*
+           7. Save payment submission locally.
+
+           IMPORTANT:
+           Existing RPC doesn't accept trx,
+           HSC roll, registration or method,
+           so these are kept locally for this
+           frontend flow.
+        */
+
+        const paymentRecord = {
+
+            order_id:
+                orderId,
+
+            user_id:
+                currentUser.id,
+
+            email:
+                currentUser.email || "",
+
+            payment_method:
+                selectedMethod,
+
+            trx_id:
+                trx,
+
+            hsc_roll:
+                roll,
+
+            hsc_registration:
+                registration,
+
+            amount:
+                total,
+
+            subtotal:
+                Number(
+                    checkout.subtotal || 0
+                ),
+
+            discount:
+                Number(
+                    checkout.discount || 0
+                ),
+
+            coupon:
+                checkout.coupon || "",
+
+            categories:
+                categories,
+
+            selected:
+                checkout.selected || {},
+
+            selectedItems:
+                checkout.selectedItems || [],
+
+            status:
+                "pending_confirmation",
+
+            submitted_at:
                 new Date().toISOString()
 
         };
 
 
         localStorage.setItem(
-            "dreamHuntPaymentSubmitted",
-            JSON.stringify(paymentData)
+
+            "dreamHuntPayment_" +
+            orderId,
+
+            JSON.stringify(
+                paymentRecord
+            )
+
         );
 
 
-        document.getElementById(
-            "submitBtn"
-        ).style.display =
-            "none";
+        localStorage.setItem(
+
+            "dreamHuntLatestPayment",
+
+            JSON.stringify(
+                paymentRecord
+            )
+
+        );
 
 
-        document.getElementById(
-            "pendingBox"
-        ).style.display =
-            "block";
+        /*
+           8. Show pending screen
+        */
 
-
-        showStatus(
-            "Payment submitted successfully. Your enrollment is now pending verification.",
-            "success"
+        showPending(
+            paymentRecord
         );
 
 
     }catch(error){
 
-        console.error(error);
-
-
-        showStatus(
-            error.message ||
-            "Something went wrong. Please try again.",
-            "error"
+        console.error(
+            "Payment submit error:",
+            error
         );
 
 
-        btn.disabled = false;
+        showError(
+            error.message ||
+            "Something went wrong while submitting your payment."
+        );
 
-        btn.textContent =
-            "Submit Payment →";
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "Submit Payment";
 
     }
 
@@ -1739,71 +2259,130 @@ async function submitPayment(){
 
 
 /* =========================================================
-   BACK
+   PENDING SCREEN
 ========================================================= */
 
-function goBack(){
+function showPending(
+    paymentRecord
+){
 
-    window.location.href =
-        "buy-courses.html";
-
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-async function checkAuth(){
-
-    const {
-        data:{
-            session
-        }
-    } =
-        await supabaseClient
-        .auth
-        .getSession();
+    submitted =
+        true;
 
 
-    /*
-       Don't silently redirect.
-       User can still see checkout.
-    */
+    document.getElementById(
+        "submit-btn"
+    ).style.display =
+        "none";
 
-    if(!session){
 
-        const btn =
+    document.getElementById(
+        "login-notice"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "pending-order-id"
+    ).textContent =
+        paymentRecord.order_id;
+
+
+    document.getElementById(
+        "pending-amount"
+    ).textContent =
+        "৳" +
+        Number(
+            paymentRecord.amount
+        ).toLocaleString();
+
+
+    document.getElementById(
+        "pending-method"
+    ).textContent =
+        paymentRecord.payment_method;
+
+
+    document.getElementById(
+        "pending-trx"
+    ).textContent =
+        paymentRecord.trx_id;
+
+
+    document.getElementById(
+        "pending"
+    ).style.display =
+        "block";
+
+
+    window.scrollTo({
+
+        top:
             document.getElementById(
-                "submitBtn"
-            );
+                "pending"
+            ).offsetTop - 100,
 
-        btn.textContent =
-            "Login to Complete Payment →";
+        behavior:
+            "smooth"
 
-        btn.onclick = () => {
-
-            window.location.href =
-                "login.html";
-
-        };
-
-    }
+    });
 
 }
 
 
 /* =========================================================
-   INIT
+   INITIALIZE
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
+async function init(){
 
-        loadCheckout();
+    checkout =
+        getCheckout();
 
-        await checkAuth();
+
+    renderOrder();
+
+
+    await checkAuth();
+
+}
+
+
+init();
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    (
+        event,
+        session
+    ) => {
+
+        currentUser =
+            session?.user || null;
+
+
+        if(currentUser){
+
+            document.getElementById(
+                "login-notice"
+            ).style.display =
+                "none";
+
+
+            if(!submitted){
+
+                document.getElementById(
+                    "submit-btn"
+                ).textContent =
+                    "Submit Payment";
+
+            }
+
+        }
 
     }
 );
