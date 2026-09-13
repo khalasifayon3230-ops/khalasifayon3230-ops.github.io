@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dream Hunt | Buy Courses</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#03040b;
+    --panel:#0b0d17;
+    --panel2:#101321;
+    --line:rgba(255,255,255,.08);
+    --white:#f8f9ff;
+    --muted:#8991aa;
+    --blue:#4d8dff;
+    --violet:#9b6cff;
+    --cyan:#35ddff;
+    --green:#36e5a0;
+    --red:#ff5d7d;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    color:var(--white);
+    font-family:Inter,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%,rgba(77,141,255,.15),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(155,108,255,.14),transparent 28%),
+        radial-gradient(circle at 55% 90%,rgba(53,221,255,.08),transparent 30%),
+        #03040b;
+    overflow-x:hidden;
+}
+
+/* =========================================================
+   AURA
+========================================================= */
+
+.aura{
+    position:fixed;
+    pointer-events:none;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.25;
+    z-index:0;
+}
+
+.aura.one{
+    width:330px;
+    height:330px;
+    background:#326cff;
+    top:-150px;
+    left:-120px;
+    animation:aura1 13s ease-in-out infinite alternate;
+}
+
+.aura.two{
+    width:360px;
+    height:360px;
+    background:#8b48ff;
+    right:-150px;
+    top:25%;
+    animation:aura2 15s ease-in-out infinite alternate;
+}
+
+.aura.three{
+    width:300px;
+    height:300px;
+    background:#00c9ff;
+    bottom:-180px;
+    left:40%;
+    animation:aura3 12s ease-in-out infinite alternate;
+}
+
+@keyframes aura1{
+    to{
+        transform:translate(100px,130px);
+    }
+}
+
+@keyframes aura2{
+    to{
+        transform:translate(-100px,-70px);
+    }
+}
+
+@keyframes aura3{
+    to{
+        transform:translate(60px,-80px);
+    }
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:250px;
+    height:100vh;
+    padding:25px 15px;
+    background:rgba(4,6,14,.90);
+    border-right:1px solid var(--line);
+    backdrop-filter:blur(25px);
+    z-index:50;
+    overflow-y:auto;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:4px 10px 27px;
+}
+
+.logo-box{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:950;
+    font-size:18px;
+    background:
+        linear-gradient(135deg,#4d8dff,#9864ff);
+    box-shadow:
+        0 0 28px rgba(77,141,255,.4);
+}
+
+.logo-title{
+    font-weight:900;
+    font-size:18px;
+}
+
+.logo-title small{
+    display:block;
+    color:#6579ac;
+    font-size:8px;
+    letter-spacing:2px;
+    margin-top:3px;
+}
+
+.menu-label{
+    color:#505a74;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:2px;
+    padding:12px 12px 8px;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:#818ba5;
+    font-size:12px;
+    font-weight:700;
+    padding:11px 12px;
+    border-radius:12px;
+    transition:.25s;
+}
+
+.nav a:hover{
+    color:white;
+    background:rgba(255,255,255,.045);
+    transform:translateX(3px);
+}
+
+.nav a.active{
+    color:white;
+    background:
+        linear-gradient(
+            100deg,
+            rgba(77,141,255,.17),
+            rgba(155,108,255,.10)
+        );
+    border:1px solid rgba(77,141,255,.18);
+}
+
+.nav-icon{
+    width:28px;
+    height:28px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,.04);
+}
+
+.active .nav-icon{
+    background:linear-gradient(135deg,#4d8dff,#885fff);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    position:relative;
+    z-index:1;
+    margin-left:250px;
+    min-height:100vh;
+    padding:30px 42px 70px;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:28px;
+}
+
+.crumb{
+    color:#59627a;
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.crumb span{
+    color:#82aaff;
+}
+
+.title{
+    font-size:30px;
+    font-weight:950;
+    letter-spacing:-1.3px;
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:6px;
+}
+
+.account{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:9px 12px;
+    border-radius:13px;
+    background:rgba(10,14,29,.75);
+    border:1px solid var(--line);
+}
+
+.account-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#39e5a0;
+    box-shadow:0 0 12px #39e5a0;
+}
+
+.account-email{
+    font-size:10px;
+    color:#a7afc5;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+    min-height:290px;
+    padding:40px;
+    border-radius:30px;
+    overflow:hidden;
+    margin-bottom:30px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(13,22,52,.96),
+            rgba(9,10,23,.88)
+        );
+
+    border:1px solid rgba(77,141,255,.18);
+
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+.hero-grid{
+    position:absolute;
+    inset:0;
+    opacity:.08;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px);
+
+    background-size:45px 45px;
+}
+
+.hero-glow{
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    right:-160px;
+    top:-190px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(115,105,255,.38),
+            transparent 65%
+        );
+
+    filter:blur(10px);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:680px;
+}
+
+.hero-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 11px;
+    border-radius:100px;
+
+    color:#8fb3ff;
+    background:rgba(77,141,255,.08);
+    border:1px solid rgba(77,141,255,.18);
+
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.7px;
+
+    margin-bottom:17px;
+}
+
+.hero h1{
+    font-size:43px;
+    line-height:1.04;
+    letter-spacing:-2px;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    background:
+        linear-gradient(
+            90deg,
+            #5e9cff,
+            #aa76ff,
+            #41dcff
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    color:#8995b1;
+    font-size:13px;
+    line-height:1.8;
+    max-width:590px;
+}
+
+/* =========================================================
+   CATEGORY SWITCH
+========================================================= */
+
+.package-bar{
+    display:flex;
+    gap:8px;
+    padding:7px;
+    border:1px solid var(--line);
+    background:rgba(9,13,27,.75);
+    border-radius:16px;
+    width:max-content;
+    margin-bottom:25px;
+}
+
+.package-btn{
+    border:0;
+    color:#737e99;
+    background:transparent;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:10px;
+    font-weight:850;
+    transition:.25s;
+}
+
+.package-btn.active{
+    color:white;
+    background:linear-gradient(135deg,#386fe5,#7753dc);
+    box-shadow:0 8px 20px rgba(68,88,220,.2);
+}
+
+/* =========================================================
+   CONTENT GRID
+========================================================= */
+
+.content{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 350px;
+    gap:22px;
+    align-items:start;
+}
+
+/* =========================================================
+   COURSES PANEL
+========================================================= */
+
+.panel{
+    background:rgba(9,13,28,.72);
+    border:1px solid var(--line);
+    border-radius:23px;
+    padding:22px;
+    backdrop-filter:blur(18px);
+}
+
+.panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:18px;
+}
+
+.panel-title{
+    font-size:18px;
+    font-weight:900;
+}
+
+.panel-desc{
+    color:#5f6a84;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.selected-count{
+    color:#82aaff;
+    font-size:10px;
+    font-weight:850;
+}
+
+/* =========================================================
+   COURSE GRID
+========================================================= */
+
+.course-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+}
+
+.course{
+    position:relative;
+    min-height:165px;
+    padding:19px;
+    border-radius:19px;
+    border:1px solid rgba(255,255,255,.07);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,27,53,.78),
+            rgba(8,11,24,.88)
+        );
+
+    cursor:pointer;
+    transition:.3s;
+    overflow:hidden;
+}
+
+.course:hover{
+    transform:translateY(-5px);
+    border-color:rgba(77,141,255,.3);
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.course.selected{
+    border-color:rgba(77,141,255,.65);
+    box-shadow:
+        0 0 0 1px rgba(77,141,255,.16),
+        0 20px 45px rgba(30,80,180,.14);
+}
+
+.course.selected:before{
+    opacity:1;
+}
+
+.course:before{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    right:-80px;
+    top:-80px;
+    border-radius:50%;
+    background:rgba(77,141,255,.17);
+    filter:blur(25px);
+    opacity:.35;
+    transition:.3s;
+}
+
+.course-check{
+    position:absolute;
+    right:15px;
+    top:15px;
+
+    width:24px;
+    height:24px;
+
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(255,255,255,.12);
+    color:transparent;
+
+    font-size:12px;
+    font-weight:900;
+
+    transition:.25s;
+}
+
+.course.selected .course-check{
+    color:white;
+    background:linear-gradient(135deg,#4d8dff,#875fff);
+    border-color:transparent;
+    box-shadow:0 0 18px rgba(77,141,255,.35);
+}
+
+.course-icon{
+    width:45px;
+    height:45px;
+    border-radius:13px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(77,141,255,.17),
+            rgba(155,108,255,.10)
+        );
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.course-name{
+    margin-top:15px;
+    font-size:15px;
+    font-weight:900;
+}
+
+.course-slug{
+    color:#5f6a85;
+    font-size:9px;
+    margin-top:4px;
+    font-family:monospace;
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary{
+    position:sticky;
+    top:25px;
+}
+
+.summary-title{
+    font-size:17px;
+    font-weight:900;
+}
+
+.summary-sub{
+    color:#5e6880;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.summary-line{
+    height:1px;
+    background:var(--line);
+    margin:18px 0;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:12px 0;
+}
+
+.summary-label{
+    color:#727d97;
+    font-size:11px;
+}
+
+.summary-value{
+    color:#dfe5f5;
+    font-size:12px;
+    font-weight:850;
+}
+
+.total{
+    padding:17px;
+    border-radius:16px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(77,141,255,.10),
+            rgba(155,108,255,.07)
+        );
+    border:1px solid rgba(77,141,255,.14);
+}
+
+.total-label{
+    color:#77839e;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.total-price{
+    font-size:31px;
+    font-weight:950;
+    margin-top:6px;
+}
+
+.total-price span{
+    font-size:12px;
+    color:#707b96;
+    font-weight:600;
+}
+
+/* =========================================================
+   COUPON
+========================================================= */
+
+.coupon{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+}
+
+.coupon input{
+    min-width:0;
+    flex:1;
+    padding:12px;
+    border-radius:11px;
+    outline:none;
+
+    color:white;
+    background:#070b17;
+    border:1px solid rgba(255,255,255,.09);
+
+    font-size:11px;
+}
+
+.coupon input:focus{
+    border-color:rgba(77,141,255,.5);
+}
+
+.coupon button{
+    padding:0 14px;
+    border:0;
+    border-radius:11px;
+
+    cursor:pointer;
+
+    color:white;
+    background:linear-gradient(135deg,#376fe8,#7654dc);
+
+    font-size:10px;
+    font-weight:850;
+}
+
+.coupon-message{
+    min-height:16px;
+    margin-top:8px;
+    font-size:9px;
+}
+
+.coupon-message.success{
+    color:#40e4a0;
+}
+
+.coupon-message.error{
+    color:#ff718b;
+}
+
+/* =========================================================
+   BUY BUTTON
+========================================================= */
+
+.buy-btn{
+    width:100%;
+    border:0;
+    padding:14px;
+    margin-top:16px;
+
+    border-radius:13px;
+
+    color:white;
+    background:
+        linear-gradient(
+            100deg,
+            #3b79ee,
+            #7a54df
+        );
+
+    cursor:pointer;
+
+    font-size:11px;
+    font-weight:950;
+    letter-spacing:.3px;
+
+    box-shadow:
+        0 12px 30px rgba(61,93,220,.2);
+
+    transition:.25s;
+}
+
+.buy-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 17px 35px rgba(61,93,220,.3);
+}
+
+.buy-btn:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info{
+    margin-top:14px;
+    padding:12px;
+    border-radius:12px;
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.05);
+    color:#68738c;
+    font-size:9px;
+    line-height:1.6;
+    text-align:center;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error{
+    display:none;
+    margin-bottom:18px;
+    padding:12px 14px;
+    border-radius:12px;
+
+    background:rgba(255,75,105,.08);
+    border:1px solid rgba(255,75,105,.2);
+
+    color:#ff7d94;
+    font-size:11px;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    grid-column:1/-1;
+    min-height:220px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+
+    color:#67728b;
+    font-size:10px;
+}
+
+.loader{
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    border:3px solid rgba(255,255,255,.08);
+    border-top-color:#5d91ff;
+
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+
+    z-index:100;
+
+    padding:13px 17px;
+
+    border-radius:13px;
+
+    background:rgba(13,18,38,.96);
+    border:1px solid rgba(77,141,255,.25);
+
+    color:#dce5ff;
+
+    font-size:10px;
+    font-weight:750;
+
+    transform:translateY(80px);
+    opacity:0;
+
+    transition:.3s;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .content{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        position:relative;
+        top:auto;
+    }
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        width:70px;
+        padding:18px 9px;
+    }
+
+    .logo{
+        justify-content:center;
+        padding-bottom:20px;
+    }
+
+    .logo-title,
+    .menu-label,
+    .nav a span{
+        display:none;
+    }
+
+    .nav a{
+        justify-content:center;
+        padding:10px;
+    }
+
+    .nav-icon{
+        width:35px;
+        height:35px;
+    }
+
+    .main{
+        margin-left:70px;
+        padding:22px 18px 50px;
+    }
+}
+
+@media(max-width:650px){
+
+    .main{
+        padding:18px 12px 45px;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+    .title{
+        font-size:25px;
+    }
+
+    .account-email{
+        display:none;
+    }
+
+    .hero{
+        padding:27px 21px;
+        min-height:255px;
+    }
+
+    .hero h1{
+        font-size:32px;
+        letter-spacing:-1.3px;
+    }
+
+    .hero p{
+        font-size:11px;
+    }
+
+    .package-bar{
+        width:100%;
+        overflow-x:auto;
+    }
+
+    .package-btn{
+        white-space:nowrap;
+        flex:1;
+    }
+
+    .panel{
+        padding:15px;
+    }
+
+    .course-grid{
+        grid-template-columns:1fr;
+    }
+
+    .course{
+        min-height:150px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="aura one"></div>
+<div class="aura two"></div>
+<div class="aura three"></div>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-box">
+            DH
+        </div>
+
+        <div class="logo-title">
+            Dream Hunt
+            <small>ADMISSION PLATFORM</small>
+        </div>
+
+    </div>
+
+
+    <div class="menu-label">
+        MAIN
+    </div>
+
+    <nav class="nav">
+
+        <a href="dashboard.html">
+            <div class="nav-icon">⌂</div>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="profile.html">
+            <div class="nav-icon">👤</div>
+            <span>Profile</span>
+        </a>
+
+        <a href="enrolled-courses.html">
+            <div class="nav-icon">◈</div>
+            <span>Enrolled Courses</span>
+        </a>
+
+        <a href="buy-courses.html" class="active">
+            <div class="nav-icon">＋</div>
+            <span>Buy Courses</span>
+        </a>
+
+        <a href="progress.html">
+            <div class="nav-icon">◔</div>
+            <span>Progress</span>
+        </a>
+
+        <a href="exams.html">
+            <div class="nav-icon">✦</div>
+            <span>Exams</span>
+        </a>
+
+        <a href="results.html">
+            <div class="nav-icon">▣</div>
+            <span>Results</span>
+        </a>
+
+
+        <div class="menu-label">
+            DISCOVER
+        </div>
+
+        <a href="target.html">
+            <div class="nav-icon">◎</div>
+            <span>My Target</span>
+        </a>
+
+        <a href="admission-updates.html">
+            <div class="nav-icon">◉</div>
+            <span>Admission Updates</span>
+        </a>
+
+        <a href="notifications.html">
+            <div class="nav-icon">♢</div>
+            <span>Notifications</span>
+        </a>
+
+
+        <div class="menu-label">
+            SUPPORT
+        </div>
+
+        <a href="contact.html">
+            <div class="nav-icon">✉</div>
+            <span>Contact</span>
+        </a>
+
+        <a href="faq.html">
+            <div class="nav-icon">?</div>
+            <span>FAQ</span>
+        </a>
+
+        <a href="#" onclick="logout();return false;">
+            <div class="nav-icon">↪</div>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <header class="topbar">
+
+        <div>
+
+            <div class="crumb">
+                Dream Hunt / <span>Choose Your Path</span>
+            </div>
+
+            <div class="title">
+                Buy Courses
+            </div>
+
+            <div class="subtitle">
+                Build your admission preparation plan.
+            </div>
+
+        </div>
+
+
+        <div class="account">
+
+            <div class="account-dot"></div>
+
+            <div
+                class="account-email"
+                id="userEmail"
+            >
+                Connecting...
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div
+        class="error"
+        id="errorBox"
+    ></div>
+
+
+    <!-- =================================================
+         HERO
+    ================================================= -->
+
+    <section class="hero">
+
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                ✦ BUILD YOUR FUTURE
+            </div>
+
+            <h1>
+                Choose your path.<br>
+                <span>Own your preparation.</span>
+            </h1>
+
+            <p>
+                Select the admission categories you want to prepare for.
+                Your package price updates automatically as you build
+                your learning plan.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PACKAGE QUICK SELECT
+    ================================================= -->
+
+    <div class="package-bar">
+
+        <button
+            class="package-btn active"
+            onclick="quickSelect(1)"
+        >
+            1 CATEGORY · ৳300
+        </button>
+
+        <button
+            class="package-btn"
+            onclick="quickSelect(2)"
+        >
+            2 CATEGORIES · ৳500
+        </button>
+
+        <button
+            class="package-btn"
+            onclick="quickSelect(3)"
+        >
+            3 CATEGORIES · ৳800
+        </button>
+
+        <button
+            class="package-btn"
+            onclick="quickSelect(4)"
+        >
+            ALL · ৳1000
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================= -->
+
+    <div class="content">
+
+
+        <!-- COURSES -->
+
+        <section class="panel">
+
+            <div class="panel-head">
+
+                <div>
+
+                    <div class="panel-title">
+                        Select Categories
+                    </div>
+
+                    <div class="panel-desc">
+                        Choose the admission paths you want.
+                    </div>
+
+                </div>
+
+                <div
+                    class="selected-count"
+                    id="selectedCount"
+                >
+                    0 selected
+                </div>
+
+            </div>
+
+
+            <div
+                class="course-grid"
+                id="courseGrid"
+            >
+
+                <div class="loading">
+
+                    <div class="loader"></div>
+
+                    Loading available courses...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUMMARY -->
+
+        <aside class="panel summary">
+
+            <div class="summary-title">
+                Your Plan
+            </div>
+
+            <div class="summary-sub">
+                Review your selection before continuing.
+            </div>
+
+
+            <div class="summary-line"></div>
+
+
+            <div class="summary-row">
+
+                <div class="summary-label">
+                    Categories
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="summaryCategories"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <div class="summary-label">
+                    Package
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="summaryPackage"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <div class="summary-label">
+                    Original Price
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="originalPrice"
+                >
+                    ৳0
+                </div>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <div class="summary-label">
+                    Discount
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="discount"
+                    style="color:#40e4a0;"
+                >
+                    ৳0
+                </div>
+
+            </div>
+
+
+            <div class="total">
+
+                <div class="total-label">
+                    Total Payable
+                </div>
+
+                <div
+                    class="total-price"
+                    id="totalPrice"
+                >
+                    ৳0
+                    <span>BDT</span>
+                </div>
+
+            </div>
+
+
+            <!-- COUPON -->
+
+            <div class="coupon">
+
+                <input
+                    id="couponInput"
+                    type="text"
+                    placeholder="Enter coupon code"
+                    autocomplete="off"
+                >
+
+                <button
+                    onclick="applyCoupon()"
+                >
+                    APPLY
+                </button>
+
+            </div>
+
+
+            <div
+                class="coupon-message"
+                id="couponMessage"
+            ></div>
+
+
+            <button
+                class="buy-btn"
+                id="continueBtn"
+                onclick="continueToPayment()"
+                disabled
+            >
+                CONTINUE TO PAYMENT →
+            </button>
+
+
+            <div class="info">
+                Secure enrollment • Dynamic pricing •
+                Your course access is activated after payment verification.
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser = null;
+
+let courses = [];
+
+let selectedCourses = [];
+
+let appliedCoupon = "";
+
+let discountAmount = 0;
+
+
+/* =========================================================
+   PRICING
+========================================================= */
+
+const PACKAGE_PRICES = {
+
+    1:300,
+
+    2:500,
+
+    3:800,
+
+    4:1000
+
+};
+
+
+const COUPONS = {
+
+    "DH151044":50
+
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHtml(value){
+
+    if(value === null || value === undefined)
+        return "";
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2500);
+}
+
+
+function showError(message){
+
+    const box =
+        document.getElementById("errorBox");
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+}
+
+
+function hideError(){
+
+    document.getElementById(
+        "errorBox"
+    ).style.display =
+        "none";
+}
+
+
+/* =========================================================
+   COURSE ICON
+========================================================= */
+
+function courseIcon(name){
+
+    const n =
+        String(name || "")
+            .toLowerCase();
+
+    if(n.includes("engineering"))
+        return "⚙️";
+
+    if(n.includes("medical"))
+        return "🧬";
+
+    if(n.includes("dental"))
+        return "🦷";
+
+    if(n.includes("public"))
+        return "🏛️";
+
+    if(n.includes("agri"))
+        return "🌱";
+
+    if(n.includes("textile"))
+        return "🧵";
+
+    if(n.includes("ab"))
+        return "🎓";
+
+    return "✦";
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+async function loadUser(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth.getSession();
+
+    if(error){
+
+        showError(error.message);
+
+        return false;
+    }
+
+    if(!data?.session){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    currentUser =
+        data.session.user;
+
+    document.getElementById(
+        "userEmail"
+    ).textContent =
+        currentUser.email || "Student";
+
+    return true;
+}
+
+
+/* =========================================================
+   LOAD COURSES
+========================================================= */
+
+async function loadCourses(){
+
+    const ok =
+        await loadUser();
+
+    if(!ok)
+        return;
+
+
+    hideError();
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("courses")
+            .select(`
+                id,
+                name,
+                slug,
+                category,
+                description,
+                is_active,
+                created_at,
+                is_published
+            `)
+            .eq("is_active",true)
+            .eq("is_published",true)
+            .order("name");
+
+
+        if(error)
+            throw error;
+
+
+        courses =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        renderCourses();
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showError(
+            error?.message ||
+            "Unable to load courses."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER COURSES
+========================================================= */
+
+function renderCourses(){
+
+    const grid =
+        document.getElementById(
+            "courseGrid"
+        );
+
+
+    if(!courses.length){
+
+        grid.innerHTML = `
+            <div class="loading">
+                No courses are currently available.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    grid.innerHTML =
+        courses.map(course=>{
+
+            const selected =
+                selectedCourses.includes(
+                    course.id
+                );
+
+
+            return `
+
+                <article
+                    class="course ${selected ? "selected" : ""}"
+                    data-id="${escapeHtml(course.id)}"
+                    onclick="toggleCourse('${escapeHtml(course.id)}')"
+                >
+
+                    <div class="course-check">
+                        ✓
+                    </div>
+
+                    <div class="course-icon">
+                        ${courseIcon(course.name)}
+                    </div>
+
+                    <div class="course-name">
+                        ${escapeHtml(course.name)}
+                    </div>
+
+                    <div class="course-slug">
+                        /${escapeHtml(course.slug || "")}
+                    </div>
+
+                </article>
+
+            `;
+
+        }).join("");
+}
+
+
+/* =========================================================
+   TOGGLE COURSE
+========================================================= */
+
+function toggleCourse(id){
+
+    const index =
+        selectedCourses.indexOf(id);
+
+
+    if(index >= 0){
+
+        selectedCourses.splice(
+            index,
+            1
+        );
+
+    }else{
+
+        if(selectedCourses.length >= 4){
+
+            showToast(
+                "Maximum package is All Categories."
+            );
+
+            return;
+        }
+
+        selectedCourses.push(id);
+    }
+
+
+    appliedCoupon = "";
+    discountAmount = 0;
+
+    document.getElementById(
+        "couponInput"
+    ).value = "";
+
+    document.getElementById(
+        "couponMessage"
+    ).textContent = "";
+
+    renderCourses();
+    updateSummary();
+}
+
+
+/* =========================================================
+   QUICK SELECT
+========================================================= */
+
+function quickSelect(count){
+
+    if(!courses.length)
+        return;
+
+
+    if(count === 4){
+
+        selectedCourses =
+            courses
+                .slice(0,4)
+                .map(c=>c.id);
+
+    }else{
+
+        selectedCourses =
+            courses
+                .slice(0,count)
+                .map(c=>c.id);
+    }
+
+
+    appliedCoupon = "";
+    discountAmount = 0;
+
+    document.getElementById(
+        "couponInput"
+    ).value = "";
+
+    document.getElementById(
+        "couponMessage"
+    ).textContent = "";
+
+
+    document.querySelectorAll(
+        ".package-btn"
+    ).forEach(
+        btn =>
+        btn.classList.remove("active")
+    );
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".package-btn"
+        );
+
+
+    if(count === 1)
+        buttons[0].classList.add("active");
+
+    if(count === 2)
+        buttons[1].classList.add("active");
+
+    if(count === 3)
+        buttons[2].classList.add("active");
+
+    if(count === 4)
+        buttons[3].classList.add("active");
+
+
+    renderCourses();
+    updateSummary();
+
+    showToast(
+        count === 4
+            ? "All categories selected."
+            : `${count} category selected.`
+    );
+}
+
+
+/* =========================================================
+   PACKAGE
+========================================================= */
+
+function getPackagePrice(){
+
+    const count =
+        selectedCourses.length;
+
+
+    if(count <= 0)
+        return 0;
+
+    if(count === 1)
+        return PACKAGE_PRICES[1];
+
+    if(count === 2)
+        return PACKAGE_PRICES[2];
+
+    if(count === 3)
+        return PACKAGE_PRICES[3];
+
+    return PACKAGE_PRICES[4];
+}
+
+
+function getPackageName(){
+
+    const count =
+        selectedCourses.length;
+
+
+    if(count === 1)
+        return "1 Category";
+
+    if(count === 2)
+        return "2 Categories";
+
+    if(count === 3)
+        return "3 Categories";
+
+    if(count >= 4)
+        return "All Categories";
+
+    return "—";
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function updateSummary(){
+
+    const count =
+        selectedCourses.length;
+
+
+    const price =
+        getPackagePrice();
+
+
+    const finalPrice =
+        Math.max(
+            0,
+            price - discountAmount
+        );
+
+
+    document.getElementById(
+        "selectedCount"
+    ).textContent =
+        `${count} selected`;
+
+
+    document.getElementById(
+        "summaryCategories"
+    ).textContent =
+        count;
+
+
+    document.getElementById(
+        "summaryPackage"
+    ).textContent =
+        getPackageName();
+
+
+    document.getElementById(
+        "originalPrice"
+    ).textContent =
+        `৳${price}`;
+
+
+    document.getElementById(
+        "discount"
+    ).textContent =
+        `৳${discountAmount}`;
+
+
+    document.getElementById(
+        "totalPrice"
+    ).innerHTML =
+        `৳${finalPrice}
+         <span>BDT</span>`;
+
+
+    document.getElementById(
+        "continueBtn"
+    ).disabled =
+        count === 0;
+}
+
+
+/* =========================================================
+   COUPON
+========================================================= */
+
+function applyCoupon(){
+
+    const input =
+        document.getElementById(
+            "couponInput"
+        );
+
+
+    const message =
+        document.getElementById(
+            "couponMessage"
+        );
+
+
+    const code =
+        input.value
+            .trim()
+            .toUpperCase();
+
+
+    if(!selectedCourses.length){
+
+        message.textContent =
+            "Select a course first.";
+
+        message.className =
+            "coupon-message error";
+
+        return;
+    }
+
+
+    if(!code){
+
+        discountAmount = 0;
+        appliedCoupon = "";
+
+        message.textContent =
+            "Enter a valid coupon code.";
+
+        message.className =
+            "coupon-message error";
+
+        updateSummary();
+
+        return;
+    }
+
+
+    if(COUPONS[code]){
+
+        appliedCoupon =
+            code;
+
+        discountAmount =
+            COUPONS[code];
+
+
+        message.textContent =
+            `Coupon applied — ৳${discountAmount} discount.`;
+
+        message.className =
+            "coupon-message success";
+
+
+        updateSummary();
+
+        showToast(
+            "Coupon applied successfully."
+        );
+
+    }else{
+
+        appliedCoupon = "";
+        discountAmount = 0;
+
+
+        message.textContent =
+            "Invalid coupon code.";
+
+        message.className =
+            "coupon-message error";
+
+
+        updateSummary();
+    }
+}
+
+
+/* =========================================================
+   CONTINUE PAYMENT
+========================================================= */
+
+function continueToPayment(){
+
+    if(!currentUser){
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
+
+
+    if(!selectedCourses.length){
+
+        showToast(
+            "Please select at least one category."
+        );
+
+        return;
+    }
+
+
+    const originalAmount =
+        getPackagePrice();
+
+
+    const finalAmount =
+        Math.max(
+            0,
+            originalAmount -
+            discountAmount
+        );
+
+
+    const selectedCourseObjects =
+        courses.filter(
+            course =>
+            selectedCourses.includes(
+                course.id
+            )
+        );
+
+
+    const orderData = {
+
+        course_ids:
+            selectedCourses,
+
+        courses:
+            selectedCourseObjects.map(
+                course => ({
+                    id:course.id,
+                    name:course.name,
+                    slug:course.slug
+                })
+            ),
+
+        package:
+            getPackageName(),
+
+        original_amount:
+            originalAmount,
+
+        coupon:
+            appliedCoupon || null,
+
+        discount:
+            discountAmount,
+
+        final_amount:
+            finalAmount,
+
+        user_id:
+            currentUser.id
+
+    };
+
+
+    /*
+       Stored only for the next page.
+       Supabase structure is NOT changed.
+    */
+
+    sessionStorage.setItem(
+        "dream_hunt_course_order",
+        JSON.stringify(orderData)
+    );
+
+
+    window.location.href =
+        "payment.html";
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout(){
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async ()=>{
+
+        await loadCourses();
+
+        updateSummary();
+
+    }
+);
+
+</script>
+
+</body>
+   </html>
