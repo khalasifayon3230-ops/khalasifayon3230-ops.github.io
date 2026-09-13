@@ -17,10 +17,34 @@
     box-sizing:border-box;
 }
 
+:root{
+    --bg:#06070b;
+    --card:#0d1018;
+    --card2:#111521;
+    --border:rgba(255,255,255,.08);
+    --text:#fff;
+    --muted:#9299aa;
+    --accent:#7c5cff;
+    --accent2:#9b82ff;
+    --green:#35d49a;
+    --red:#ff647f;
+}
+
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#080b12;
-    color:#fff;
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(
+            circle at 15% 0%,
+            rgba(124,92,255,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(0,200,255,.08),
+            transparent 25%
+        ),
+        var(--bg);
+    color:var(--text);
     line-height:1.5;
 }
 
@@ -35,77 +59,142 @@ button{
 
 .container{
     width:92%;
-    max-width:1100px;
+    max-width:1120px;
     margin:auto;
 }
 
-/* HEADER */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .header{
     position:sticky;
     top:0;
-    z-index:100;
-    background:#080b12;
-    border-bottom:1px solid #1d2330;
+    z-index:1000;
+
+    background:rgba(6,7,11,.75);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid var(--border);
 }
 
 .header-inner{
-    height:65px;
+    height:70px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
 
 .logo{
-    font-size:22px;
-    font-weight:800;
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:-.7px;
 }
 
-.back{
-    padding:9px 14px;
-    border:1px solid #303746;
-    border-radius:8px;
-    color:#cbd2df;
-    background:#10141d;
+.logo span{
+    color:var(--accent2);
 }
 
-/* HERO */
+.home-btn{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    color:#fff;
+
+    padding:10px 16px;
+    border-radius:12px;
+
+    transition:.25s;
+}
+
+.home-btn:hover{
+    background:rgba(124,92,255,.15);
+    border-color:rgba(124,92,255,.4);
+    transform:translateY(-2px);
+}
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero{
-    padding:35px 0 20px;
+    padding:55px 0 25px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    padding:8px 13px;
+
+    border-radius:100px;
+
+    background:rgba(124,92,255,.09);
+    border:1px solid rgba(124,92,255,.25);
+
+    color:#c5b8ff;
+
+    font-size:11px;
+    font-weight:800;
+
+    margin-bottom:16px;
 }
 
 .hero h1{
-    font-size:32px;
-    margin-bottom:8px;
+    font-size:clamp(34px,6vw,58px);
+    line-height:1;
+    letter-spacing:-2.5px;
+}
+
+.hero h1 span{
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #9b82ff
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .hero p{
-    color:#8e98aa;
+    margin-top:15px;
+
+    max-width:680px;
+
+    color:var(--muted);
+
     font-size:14px;
 }
 
-/* SECTIONS */
+/* =====================================================
+   SECTION
+===================================================== */
 
 .section{
-    margin-top:28px;
+    margin-top:30px;
 }
 
-.section-title{
-    margin-bottom:14px;
+.section-head{
+    margin-bottom:15px;
 }
 
-.section-title h2{
+.section-head h2{
     font-size:21px;
+    letter-spacing:-.5px;
 }
 
-.section-title p{
-    color:#858fa2;
+.section-head p{
+    color:var(--muted);
     font-size:13px;
     margin-top:4px;
 }
 
-/* PLANS */
+/* =====================================================
+   PLAN CARDS
+===================================================== */
 
 .plans{
     display:grid;
@@ -114,151 +203,264 @@ button{
 }
 
 .plan{
-    background:#10141d;
-    border:1px solid #242b38;
-    border-radius:12px;
-    padding:17px;
+    position:relative;
+
+    padding:20px;
+
+    border:1px solid var(--border);
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
+        );
+
+    overflow:hidden;
+
+    transition:.3s;
 }
 
-.plan strong{
-    display:block;
-    font-size:25px;
-    margin-bottom:4px;
+.plan::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    right:-45px;
+    top:-45px;
+
+    background:rgba(124,92,255,.12);
+
+    filter:blur(25px);
+
+    border-radius:50%;
 }
 
-.plan span{
-    color:#8993a7;
+.plan:hover{
+    transform:translateY(-4px);
+    border-color:rgba(124,92,255,.3);
+}
+
+.plan-price{
+    font-size:27px;
+    font-weight:900;
+}
+
+.plan-title{
+    color:#c4c8d3;
     font-size:13px;
+    margin-top:3px;
 }
 
-/* MAIN CATEGORY */
+.plan-desc{
+    color:#71798a;
+    font-size:11px;
+    margin-top:9px;
+}
+
+/* =====================================================
+   MAIN CATEGORY
+===================================================== */
 
 .category-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:12px;
+    gap:13px;
 }
 
 .category{
-    background:#10141d;
-    border:1px solid #252d3a;
-    border-radius:12px;
-    padding:17px;
-    transition:.2s;
+    position:relative;
+
+    padding:19px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,23,34,.95),
+            rgba(10,12,18,.95)
+        );
+
+    border:1px solid var(--border);
+    border-radius:19px;
+
+    transition:.3s;
+    overflow:hidden;
 }
 
 .category:hover{
-    border-color:#58647a;
+    transform:translateY(-3px);
+    border-color:rgba(124,92,255,.25);
 }
 
 .category.selected{
-    border-color:#6c5ce7;
-    background:#151329;
+    border-color:var(--accent);
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124,92,255,.18),
+            transparent 50%
+        ),
+        #111020;
+
+    box-shadow:
+        0 0 35px rgba(124,92,255,.08);
+}
+
+.category-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .category h3{
     font-size:16px;
-    margin-bottom:5px;
 }
 
 .category p{
-    color:#858fa2;
+    color:var(--muted);
     font-size:12px;
+    margin-top:6px;
+    min-height:36px;
 }
 
-.category button{
-    margin-top:13px;
+.check{
+    width:26px;
+    height:26px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.05);
+
+    color:transparent;
+
+    font-size:13px;
+
+    transition:.25s;
+}
+
+.category.selected .check{
+    background:var(--accent);
+    color:#fff;
+}
+
+.category-action{
     width:100%;
-    padding:9px;
-    border:0;
-    border-radius:7px;
-    background:#202735;
-    color:#fff;
-}
 
-.category.selected button{
-    background:#6c5ce7;
-}
+    margin-top:16px;
 
-/* DYNAMIC AREA */
-
-.dynamic-box{
-    display:none;
-    background:#0e121a;
-    border:1px solid #252d3a;
-    border-radius:12px;
-    padding:18px;
-    margin-top:15px;
-}
-
-.dynamic-box.show{
-    display:block;
-}
-
-.dynamic-title{
-    font-size:17px;
-    font-weight:700;
-    margin-bottom:12px;
-}
-
-.option-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:9px;
-}
-
-.option{
     padding:11px;
-    background:#141923;
-    border:1px solid #293140;
-    color:#dfe4ed;
-    border-radius:8px;
-    text-align:left;
-}
 
-.option:hover{
-    border-color:#6c5ce7;
-}
+    border-radius:11px;
 
-.option.selected{
-    background:#1b1735;
-    border-color:#6c5ce7;
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.04);
+
     color:#fff;
+
+    font-weight:700;
+
+    transition:.25s;
 }
 
-/* PUBLIC UNIVERSITY */
+.category.selected .category-action{
+    background:var(--accent);
+    border-color:var(--accent);
+}
 
-.pu-mode{
+.category-action:hover{
+    transform:translateY(-1px);
+}
+
+/* =====================================================
+   PUBLIC UNIVERSITY
+===================================================== */
+
+.pu-wrapper{
+    padding:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,20,30,.94),
+            rgba(8,10,15,.96)
+        );
+
+    border:1px solid var(--border);
+    border-radius:21px;
+}
+
+.pu-modes{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
-    margin-bottom:15px;
+
+    margin-bottom:18px;
 }
 
-.mode-btn{
-    padding:12px;
-    border:1px solid #293140;
-    background:#141923;
+.mode{
+    padding:13px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.035);
+
+    color:#cdd2dc;
+
+    font-size:13px;
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.mode:hover{
+    border-color:rgba(124,92,255,.4);
+}
+
+.mode.active{
+    background:var(--accent);
     color:#fff;
-    border-radius:8px;
-}
+    border-color:var(--accent);
 
-.mode-btn.active{
-    background:#6c5ce7;
-    border-color:#6c5ce7;
+    box-shadow:
+        0 10px 30px rgba(124,92,255,.18);
 }
 
 .info{
-    background:#111722;
-    border:1px solid #252d3a;
-    border-radius:8px;
-    padding:11px;
-    margin-bottom:13px;
-    color:#929caf;
+    padding:13px 15px;
+
+    background:rgba(124,92,255,.055);
+
+    border:1px solid rgba(124,92,255,.13);
+
+    border-radius:13px;
+
+    color:#a4a9b8;
+
     font-size:12px;
+
+    margin-bottom:16px;
 }
 
-/* UNIVERSITY LIST */
+.info strong{
+    color:#fff;
+}
+
+/* =====================================================
+   UNIVERSITY LIST
+===================================================== */
 
 .university-list{
     display:grid;
@@ -267,26 +469,43 @@ button{
 }
 
 .university{
-    padding:12px;
-    border:1px solid #293140;
-    border-radius:8px;
-    background:#141923;
-    color:#fff;
+    padding:12px 13px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    color:#e4e6eb;
+
     text-align:left;
+
+    transition:.25s;
 }
 
 .university:hover{
-    border-color:#6c5ce7;
+    border-color:rgba(124,92,255,.4);
+    transform:translateY(-1px);
 }
 
-.unit-box{
-    margin-top:15px;
+.university.active{
+    background:rgba(124,92,255,.13);
+    border-color:var(--accent);
+}
+
+/* =====================================================
+   UNIT
+===================================================== */
+
+.unit-section{
+    margin-top:17px;
 }
 
 .unit-title{
-    font-size:14px;
-    font-weight:bold;
-    margin-bottom:9px;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:10px;
 }
 
 .units{
@@ -297,128 +516,258 @@ button{
 
 .unit{
     padding:9px 13px;
-    border:1px solid #293140;
-    background:#141923;
-    color:#fff;
-    border-radius:7px;
+
+    border-radius:9px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.03);
+
+    color:#d9dce5;
+
+    transition:.2s;
+}
+
+.unit:hover{
+    border-color:rgba(124,92,255,.45);
 }
 
 .unit.selected{
-    background:#6c5ce7;
-    border-color:#6c5ce7;
+    background:var(--accent);
+    border-color:var(--accent);
 }
 
-/* ABROAD */
+/* =====================================================
+   RESULT
+===================================================== */
 
-.abroad-grid{
+.result{
+    margin-top:15px;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--border);
+}
+
+.result-title{
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:9px;
+}
+
+.result-items{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.result-tag{
+    padding:7px 9px;
+
+    border-radius:8px;
+
+    background:rgba(124,92,255,.09);
+
+    border:1px solid rgba(124,92,255,.15);
+
+    color:#bdb2ff;
+
+    font-size:11px;
+}
+
+/* =====================================================
+   ABROAD
+===================================================== */
+
+.abroad{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    gap:12px;
 }
 
-/* SELECTED */
+.abroad-card{
+    padding:17px;
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.025);
+
+    color:#fff;
+
+    text-align:left;
+
+    transition:.25s;
+}
+
+.abroad-card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(124,92,255,.4);
+}
+
+.abroad-card.selected{
+    background:rgba(124,92,255,.12);
+    border-color:var(--accent);
+}
+
+.abroad-name{
+    font-weight:800;
+}
+
+.abroad-price{
+    color:#9d91ff;
+    font-size:13px;
+    margin-top:4px;
+}
+
+/* =====================================================
+   SELECTED
+===================================================== */
 
 .selected-section{
-    margin-top:30px;
+    margin-top:34px;
 }
 
 .selected-box{
-    background:#10141d;
-    border:1px solid #252d3a;
-    border-radius:12px;
-    padding:17px;
-}
+    padding:18px;
 
-.selected-empty{
-    color:#7f899b;
-    font-size:13px;
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,20,29,.9),
+            rgba(9,11,16,.94)
+        );
 }
 
 .selected-item{
     display:flex;
+
     align-items:center;
     justify-content:space-between;
-    gap:10px;
 
-    padding:12px;
+    gap:15px;
 
-    background:#151a24;
-    border:1px solid #252d3a;
-
-    border-radius:8px;
+    padding:13px;
 
     margin-bottom:8px;
-}
-
-.item-info{
-    min-width:0;
-}
-
-.item-name{
-    font-size:14px;
-    font-weight:bold;
-}
-
-.item-price{
-    color:#9ba5b8;
-    font-size:12px;
-    margin-top:3px;
-}
-
-.remove{
-    flex-shrink:0;
-
-    border:0;
-    background:#35191d;
-    color:#ff929b;
-
-    padding:7px 10px;
-
-    border-radius:6px;
-
-    font-size:12px;
-}
-
-/* CHECKOUT */
-
-.checkout{
-    margin-top:15px;
-
-    background:#10141d;
-
-    border:1px solid #252d3a;
 
     border-radius:12px;
 
-    padding:18px;
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
 }
 
-.row{
+.selected-item:last-child{
+    margin-bottom:0;
+}
+
+.selected-name{
+    font-size:13px;
+    font-weight:800;
+}
+
+.selected-details{
+    color:#777f91;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.selected-price{
+    color:#b8adff;
+    font-size:12px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.remove{
+    border:0;
+
+    background:rgba(255,92,122,.1);
+
+    color:#ff8498;
+
+    padding:7px 9px;
+
+    border-radius:8px;
+
+    font-size:11px;
+}
+
+.empty{
+    color:#70798a;
+    font-size:13px;
+    text-align:center;
+    padding:15px;
+}
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+.checkout{
+    margin-top:16px;
+
+    padding:22px;
+
+    border-radius:21px;
+
+    border:1px solid rgba(124,92,255,.18);
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124,92,255,.12),
+            transparent 45%
+        ),
+        #0d1018;
+}
+
+.price-row{
     display:flex;
     justify-content:space-between;
-    gap:15px;
 
-    padding:8px 0;
+    padding:9px 0;
 
-    color:#aab3c3;
+    color:#a4aab8;
 
     font-size:14px;
 }
 
-.row.total{
-    border-top:1px solid #252d3a;
+.price-row.total{
     margin-top:8px;
-    padding-top:15px;
+    padding-top:16px;
+
+    border-top:1px solid var(--border);
 
     color:#fff;
-    font-size:20px;
-    font-weight:bold;
+
+    font-size:21px;
+    font-weight:900;
 }
+
+.discount{
+    color:var(--green);
+}
+
+/* =====================================================
+   COUPON
+===================================================== */
 
 .coupon{
     display:flex;
-    gap:8px;
-    margin-top:14px;
+    gap:9px;
+
+    margin-top:16px;
 }
 
 .coupon input{
@@ -426,75 +775,138 @@ button{
 
     min-width:0;
 
-    background:#0b0f16;
-    border:1px solid #293140;
+    padding:12px 13px;
+
+    border-radius:11px;
+
+    border:1px solid var(--border);
+
+    background:#080a10;
 
     color:#fff;
-
-    padding:11px;
-
-    border-radius:7px;
 
     outline:none;
 }
 
+.coupon input:focus{
+    border-color:var(--accent);
+}
+
 .coupon button{
-    padding:11px 15px;
+    padding:12px 17px;
 
-    border:0;
-    border-radius:7px;
+    border:1px solid var(--border);
 
-    background:#293140;
+    border-radius:11px;
+
+    background:#191d29;
+
     color:#fff;
+
+    font-weight:800;
+}
+
+.coupon button:hover{
+    background:#242938;
 }
 
 .coupon-message{
+    min-height:18px;
+
     margin-top:7px;
-    font-size:12px;
-    color:#7f899b;
+
+    font-size:11px;
+
+    color:#7e8798;
 }
+
+/* =====================================================
+   PAYMENT BUTTON
+===================================================== */
 
 .payment-btn{
     width:100%;
 
-    margin-top:16px;
+    margin-top:14px;
 
-    padding:14px;
+    padding:16px;
 
     border:0;
 
-    border-radius:8px;
+    border-radius:13px;
 
-    background:#6c5ce7;
+    background:
+        linear-gradient(
+            135deg,
+            #7253ff,
+            #9a7cff
+        );
 
     color:#fff;
 
     font-size:15px;
-    font-weight:bold;
+
+    font-weight:900;
+
+    box-shadow:
+        0 14px 35px rgba(124,92,255,.2);
+
+    transition:.25s;
 }
 
-.payment-btn:hover{
-    background:#7b6cf0;
+.payment-btn:hover:not(:disabled){
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 20px 45px rgba(124,92,255,.3);
 }
 
 .payment-btn:disabled{
-    background:#292e39;
-    color:#687184;
+    background:#202531;
+    color:#687183;
+    box-shadow:none;
     cursor:not-allowed;
 }
 
-/* FOOTER */
+/* =====================================================
+   FOOTER
+===================================================== */
 
 .footer{
     text-align:center;
-    color:#626c7d;
-    font-size:12px;
-    padding:35px 0;
+
+    padding:40px 0;
+
+    color:#626b7d;
+
+    font-size:11px;
 }
 
-/* MOBILE */
+/* =====================================================
+   ANIMATION
+===================================================== */
 
-@media(max-width:800px){
+.fade{
+    animation:fade .55s ease both;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:850px){
 
     .plans{
         grid-template-columns:repeat(2,1fr);
@@ -504,20 +916,20 @@ button{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .option-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .pu-mode{
+    .pu-modes{
         grid-template-columns:1fr;
     }
 
 }
 
-@media(max-width:520px){
+@media(max-width:550px){
+
+    .hero{
+        padding-top:40px;
+    }
 
     .hero h1{
-        font-size:27px;
+        font-size:35px;
     }
 
     .plans{
@@ -528,20 +940,20 @@ button{
         grid-template-columns:1fr;
     }
 
-    .option-grid{
-        grid-template-columns:1fr;
-    }
-
     .university-list{
         grid-template-columns:1fr;
     }
 
-    .abroad-grid{
+    .abroad{
         grid-template-columns:1fr;
     }
 
     .selected-item{
         align-items:flex-start;
+    }
+
+    .selected-price{
+        display:none;
     }
 
 }
@@ -550,18 +962,24 @@ button{
 
 </head>
 
+
 <body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
 
 <header class="header">
 
     <div class="container header-inner">
 
         <div class="logo">
-            Dream Hunt
+            Dream <span>Hunt</span>
         </div>
 
         <button
-            class="back"
+            class="home-btn"
             onclick="window.location.href='index.html'">
 
             Home
@@ -573,485 +991,671 @@ button{
 </header>
 
 
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
 <main class="container">
 
-    <section class="hero">
 
-        <h1>Choose Your Courses</h1>
+<!-- HERO -->
+
+<section class="hero fade">
+
+    <div class="badge">
+        ✦ DREAM HUNT ADMISSION PROGRAM
+    </div>
+
+    <h1>
+        Build your <span>admission package.</span>
+    </h1>
+
+    <p>
+        Choose the admission categories and Public University
+        units you need. Your package price updates automatically.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     PLANS
+====================================================== -->
+
+<section class="section fade">
+
+    <div class="section-head">
+
+        <h2>Admission Plans</h2>
 
         <p>
-            Select the admission courses you need.
-            Your total price will be calculated automatically.
+            Main category package pricing
         </p>
 
-    </section>
+    </div>
 
 
-    <!-- =====================================================
-         PLANS
-    ====================================================== -->
+    <div class="plans">
 
-    <section class="section">
+        <div class="plan">
 
-        <div class="section-title">
-
-            <h2>Plans</h2>
-
-            <p>
-                Main admission course package pricing
-            </p>
-
-        </div>
-
-
-        <div class="plans">
-
-            <div class="plan">
-                <strong>৳300</strong>
-                <span>1 Main Category</span>
+            <div class="plan-price">
+                ৳300
             </div>
 
-            <div class="plan">
-                <strong>৳500</strong>
-                <span>2 Main Categories</span>
+            <div class="plan-title">
+                1 Main Category
             </div>
 
-            <div class="plan">
-                <strong>৳800</strong>
-                <span>3 Main Categories</span>
-            </div>
-
-            <div class="plan">
-                <strong>৳1000</strong>
-                <span>4 Main Categories</span>
+            <div class="plan-desc">
+                Choose any one main admission category.
             </div>
 
         </div>
 
-    </section>
 
+        <div class="plan">
 
-    <!-- =====================================================
-         MAIN CATEGORIES
-    ====================================================== -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>Main Admission Categories</h2>
-
-            <p>
-                Maximum 4 main categories can be selected.
-            </p>
-
-        </div>
-
-
-        <div class="category-grid">
-
-            <div
-                class="category"
-                id="cat-engineering">
-
-                <h3>Engineering</h3>
-
-                <p>
-                    Combined Engineering admission preparation
-                </p>
-
-                <button
-                    onclick="toggleMain('engineering')">
-
-                    Select
-
-                </button>
-
+            <div class="plan-price">
+                ৳500
             </div>
 
-
-            <div
-                class="category"
-                id="cat-medical">
-
-                <h3>Medical</h3>
-
-                <p>
-                    Medical admission preparation
-                </p>
-
-                <button
-                    onclick="toggleMain('medical')">
-
-                    Select
-
-                </button>
-
+            <div class="plan-title">
+                2 Main Categories
             </div>
 
-
-            <div
-                class="category"
-                id="cat-dental">
-
-                <h3>Dental</h3>
-
-                <p>
-                    Dental admission preparation
-                </p>
-
-                <button
-                    onclick="toggleMain('dental')">
-
-                    Select
-
-                </button>
-
-            </div>
-
-
-            <div
-                class="category"
-                id="cat-agriculture">
-
-                <h3>Agriculture & Veterinary</h3>
-
-                <p>
-                    Agricultural and veterinary admission
-                </p>
-
-                <button
-                    onclick="toggleMain('agriculture')">
-
-                    Select
-
-                </button>
-
-            </div>
-
-
-            <div
-                class="category"
-                id="cat-textile">
-
-                <h3>Textile</h3>
-
-                <p>
-                    Textile admission including BUTEX
-                </p>
-
-                <button
-                    onclick="toggleMain('textile')">
-
-                    Select
-
-                </button>
-
+            <div class="plan-desc">
+                Combine any two main categories.
             </div>
 
         </div>
 
-    </section>
 
+        <div class="plan">
 
-    <!-- =====================================================
-         PUBLIC UNIVERSITY
-    ====================================================== -->
+            <div class="plan-price">
+                ৳800
+            </div>
 
-    <section class="section">
+            <div class="plan-title">
+                3 Main Categories
+            </div>
 
-        <div class="section-title">
-
-            <h2>Public University</h2>
-
-            <p>
-                Select individual units or choose an All package.
-            </p>
+            <div class="plan-desc">
+                Combine three main categories.
+            </div>
 
         </div>
 
 
-        <div class="dynamic-box show">
+        <div class="plan">
 
-            <div class="pu-mode">
-
-                <button
-                    class="mode-btn active"
-                    id="mode-fixed"
-                    onclick="setPUMode('fixed')">
-
-                    Individual Units
-
-                </button>
-
-
-                <button
-                    class="mode-btn"
-                    id="mode-university-all"
-                    onclick="setPUMode('universityAll')">
-
-                    University All Units
-
-                </button>
-
-
-                <button
-                    class="mode-btn"
-                    id="mode-unit-all"
-                    onclick="setPUMode('unitAll')">
-
-                    Units All Universities
-
-                </button>
-
+            <div class="plan-price">
+                ৳1000
             </div>
 
+            <div class="plan-title">
+                4 Main Categories
+            </div>
 
-            <!-- FIXED -->
+            <div class="plan-desc">
+                Maximum main-category package.
+            </div>
 
-            <div id="pu-fixed">
+        </div>
 
-                <div class="info">
+    </div>
 
-                    Select a university first.
-                    Then select the unit you want.
+</section>
 
-                    <br><br>
 
-                    Fixed unit pricing:
+<!-- =====================================================
+     MAIN CATEGORIES
+====================================================== -->
 
-                    1 = ৳300,
-                    2 = ৳500,
-                    3 = ৳600,
-                    4 = ৳700,
-                    5 = ৳800,
-                    6 = ৳900.
+<section class="section fade">
+
+    <div class="section-head">
+
+        <h2>Main Admission Categories</h2>
+
+        <p>
+            Select maximum 4 categories.
+        </p>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+        <div
+            class="category"
+            id="cat-engineering">
+
+            <div class="category-top">
+
+                <div>
+
+                    <h3>
+                        Engineering
+                    </h3>
+
+                    <p>
+                        Combined engineering admission preparation.
+                    </p>
 
                 </div>
 
-
-                <div class="university-list" id="fixed-universities"></div>
-
-                <div id="fixed-units"></div>
+                <div class="check">
+                    ✓
+                </div>
 
             </div>
-
-
-            <!-- UNIVERSITY ALL -->
-
-            <div
-                id="pu-university-all"
-                style="display:none;">
-
-                <div class="info">
-
-                    Select one university.
-
-                    You will get all admission units
-                    available under that university.
-
-                    <br><br>
-
-                    Price: <strong>৳1000</strong>
-
-                </div>
-
-
-                <div
-                    class="university-list"
-                    id="university-all-list">
-
-                </div>
-
-                <div id="university-all-result"></div>
-
-            </div>
-
-
-            <!-- UNIT ALL -->
-
-            <div
-                id="pu-unit-all"
-                style="display:none;">
-
-                <div class="info">
-
-                    Select a unit.
-
-                    The universities offering that unit
-                    will be shown below.
-
-                    <br><br>
-
-                    Price: <strong>৳1000</strong>
-
-                </div>
-
-
-                <div
-                    class="units"
-                    id="unit-all-list">
-
-                </div>
-
-
-                <div id="unit-all-result"></div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         ABROAD
-    ====================================================== -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>Abroad</h2>
-
-            <p>
-                International admission preparation
-            </p>
-
-        </div>
-
-
-        <div class="abroad-grid">
 
             <button
-                class="option"
-                id="abroad-sat"
-                onclick="toggleAbroad('sat')">
+                class="category-action"
+                onclick="toggleMain('engineering')">
 
-                SAT — ৳300
+                Select
 
-            </button>
-
-
-            <button
-                class="option"
-                id="abroad-ielts"
-                onclick="toggleAbroad('ielts')">
-
-                IELTS — ৳300
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         SELECTED ITEMS
-    ====================================================== -->
-
-    <section class="selected-section">
-
-        <div class="section-title">
-
-            <h2>Selected Items</h2>
-
-            <p>
-                Check everything before proceeding to payment.
-                You can remove any item here.
-            </p>
-
-        </div>
-
-
-        <div class="selected-box">
-
-            <div
-                id="selected-items"
-                class="selected-empty">
-
-                No course selected yet.
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         CHECKOUT
-    ====================================================== -->
-
-    <section class="checkout">
-
-        <div class="row">
-
-            <span>Course Price</span>
-
-            <span id="subtotal">
-                ৳0
-            </span>
-
-        </div>
-
-
-        <div class="row">
-
-            <span>Coupon Discount</span>
-
-            <span id="discount">
-                ৳0
-            </span>
-
-        </div>
-
-
-        <div class="row total">
-
-            <span>Total</span>
-
-            <span id="total">
-                ৳0
-            </span>
-
-        </div>
-
-
-        <div class="coupon">
-
-            <input
-                type="text"
-                id="coupon"
-                placeholder="Enter coupon code"
-                autocomplete="off">
-
-            <button onclick="applyCoupon()">
-                Apply
             </button>
 
         </div>
 
 
         <div
-            class="coupon-message"
-            id="coupon-message">
+            class="category"
+            id="cat-medical">
+
+            <div class="category-top">
+
+                <div>
+
+                    <h3>
+                        Medical
+                    </h3>
+
+                    <p>
+                        Medical admission preparation.
+                    </p>
+
+                </div>
+
+                <div class="check">
+                    ✓
+                </div>
+
+            </div>
+
+            <button
+                class="category-action"
+                onclick="toggleMain('medical')">
+
+                Select
+
+            </button>
 
         </div>
 
 
-        <button
-            class="payment-btn"
-            id="payment-btn"
-            onclick="proceedPayment()"
-            disabled>
+        <div
+            class="category"
+            id="cat-dental">
 
-            Proceed to Payment
+            <div class="category-top">
+
+                <div>
+
+                    <h3>
+                        Dental
+                    </h3>
+
+                    <p>
+                        Dental admission preparation.
+                    </p>
+
+                </div>
+
+                <div class="check">
+                    ✓
+                </div>
+
+            </div>
+
+            <button
+                class="category-action"
+                onclick="toggleMain('dental')">
+
+                Select
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="category"
+            id="cat-agriculture">
+
+            <div class="category-top">
+
+                <div>
+
+                    <h3>
+                        Agriculture & Veterinary
+                    </h3>
+
+                    <p>
+                        Agricultural and veterinary admission preparation.
+                    </p>
+
+                </div>
+
+                <div class="check">
+                    ✓
+                </div>
+
+            </div>
+
+            <button
+                class="category-action"
+                onclick="toggleMain('agriculture')">
+
+                Select
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="category"
+            id="cat-textile">
+
+            <div class="category-top">
+
+                <div>
+
+                    <h3>
+                        Textile
+                    </h3>
+
+                    <p>
+                        Textile admission preparation including BUTEX.
+                    </p>
+
+                </div>
+
+                <div class="check">
+                    ✓
+                </div>
+
+            </div>
+
+            <button
+                class="category-action"
+                onclick="toggleMain('textile')">
+
+                Select
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PUBLIC UNIVERSITY
+====================================================== -->
+
+<section class="section fade">
+
+    <div class="section-head">
+
+        <h2>Public University</h2>
+
+        <p>
+            Select individual units or choose an All package.
+        </p>
+
+    </div>
+
+
+    <div class="pu-wrapper">
+
+
+        <div class="pu-modes">
+
+            <button
+                class="mode active"
+                id="mode-fixed"
+                onclick="setPUMode('fixed')">
+
+                Individual Units
+
+            </button>
+
+
+            <button
+                class="mode"
+                id="mode-university-all"
+                onclick="setPUMode('universityAll')">
+
+                University All Units
+
+            </button>
+
+
+            <button
+                class="mode"
+                id="mode-unit-all"
+                onclick="setPUMode('unitAll')">
+
+                Units All Universities
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             FIXED MODE
+        ================================================== -->
+
+        <div id="pu-fixed">
+
+            <div class="info">
+
+                Select a university, then choose its admission unit.
+
+                <br><br>
+
+                <strong>
+                    1 = ৳300
+                    &nbsp;•&nbsp;
+                    2 = ৳500
+                    &nbsp;•&nbsp;
+                    3 = ৳600
+                    &nbsp;•&nbsp;
+                    4 = ৳700
+                    &nbsp;•&nbsp;
+                    5 = ৳800
+                    &nbsp;•&nbsp;
+                    6 = ৳900
+                </strong>
+
+            </div>
+
+
+            <div
+                class="university-list"
+                id="fixed-universities">
+            </div>
+
+
+            <div id="fixed-units"></div>
+
+        </div>
+
+
+        <!-- =================================================
+             UNIVERSITY ALL
+        ================================================== -->
+
+        <div
+            id="pu-university-all"
+            style="display:none;">
+
+            <div class="info">
+
+                Select one university.
+
+                <br><br>
+
+                You will receive all available admission
+                units of that university.
+
+                <br><br>
+
+                <strong>
+                    Price: ৳1000
+                </strong>
+
+            </div>
+
+
+            <div
+                class="university-list"
+                id="university-all-list">
+            </div>
+
+
+            <div id="university-all-result"></div>
+
+        </div>
+
+
+        <!-- =================================================
+             UNIT ALL
+        ================================================== -->
+
+        <div
+            id="pu-unit-all"
+            style="display:none;">
+
+            <div class="info">
+
+                Select one admission unit.
+
+                <br><br>
+
+                All universities offering that unit
+                will be shown.
+
+                <br><br>
+
+                <strong>
+                    Price: ৳1000
+                </strong>
+
+            </div>
+
+
+            <div
+                class="units"
+                id="unit-all-list">
+            </div>
+
+
+            <div id="unit-all-result"></div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABROAD
+====================================================== -->
+
+<section class="section fade">
+
+    <div class="section-head">
+
+        <h2>Abroad</h2>
+
+        <p>
+            International admission preparation.
+        </p>
+
+    </div>
+
+
+    <div class="abroad">
+
+
+        <button
+            class="abroad-card"
+            id="abroad-sat"
+            onclick="toggleAbroad('sat')">
+
+            <div class="abroad-name">
+                SAT
+            </div>
+
+            <div class="abroad-price">
+                ৳300
+            </div>
 
         </button>
 
-    </section>
+
+        <button
+            class="abroad-card"
+            id="abroad-ielts"
+            onclick="toggleAbroad('ielts')">
+
+            <div class="abroad-name">
+                IELTS
+            </div>
+
+            <div class="abroad-price">
+                ৳300
+            </div>
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SELECTED ITEMS
+====================================================== -->
+
+<section class="selected-section fade">
+
+    <div class="section-head">
+
+        <h2>Your Package</h2>
+
+        <p>
+            Everything you've selected will appear here.
+        </p>
+
+    </div>
+
+
+    <div class="selected-box">
+
+        <div
+            id="selected-items"
+            class="empty">
+
+            No course selected yet.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CHECKOUT
+====================================================== -->
+
+<section class="checkout fade">
+
+    <div class="price-row">
+
+        <span>
+            Package Price
+        </span>
+
+        <span id="subtotal">
+            ৳0
+        </span>
+
+    </div>
+
+
+    <div class="price-row">
+
+        <span>
+            Coupon Discount
+        </span>
+
+        <span
+            class="discount"
+            id="discount">
+
+            −৳0
+
+        </span>
+
+    </div>
+
+
+    <div class="price-row total">
+
+        <span>
+            Total
+        </span>
+
+        <span id="total">
+            ৳0
+        </span>
+
+    </div>
+
+
+    <div class="coupon">
+
+        <input
+            type="text"
+            id="coupon"
+            placeholder="Enter coupon code"
+            autocomplete="off">
+
+        <button
+            onclick="applyCoupon()">
+
+            Apply
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="coupon-message"
+        id="coupon-message">
+    </div>
+
+
+    <button
+        class="payment-btn"
+        id="payment-btn"
+        onclick="proceedPayment()"
+        disabled>
+
+        Proceed to Payment →
+
+    </button>
+
+</section>
+
 
 </main>
 
@@ -1089,83 +1693,184 @@ const supabaseClient =
 const universities = {
 
     "Dhaka University (DU)":{
-        units:["A","B","C","D","Fine Arts","IBA"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D",
+            "Fine Arts",
+            "IBA"
+        ]
     },
 
     "Jahangirnagar University (JU)":{
-        units:["A","B","C","D","E","F","G","H","I"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I"
+        ]
     },
 
     "Chittagong University (CU)":{
-        units:["A","B","C","D","B1","D1"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D",
+            "B1",
+            "D1"
+        ]
     },
 
     "Rajshahi University (RU)":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Khulna University (KU)":{
-        units:["A","B","C","D"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D"
+        ]
     },
 
     "Jagannath University (JnU)":{
-        units:["A","B","C","D","E"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+        ]
     },
 
     "Comilla University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Barishal University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Islamic University":{
-        units:["A","B","C","D"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D"
+        ]
     },
 
     "Jatiya Kabi Kazi Nazrul Islam University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Begum Rokeya University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Rabindra University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Sheikh Hasina University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Patuakhali Science and Technology University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Noakhali Science and Technology University":{
-        units:["A","B","C","D"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D"
+        ]
     },
 
     "Mawlana Bhashani Science and Technology University":{
-        units:["A","B","C","D"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D"
+        ]
     },
 
     "Jashore University of Science and Technology":{
-        units:["A","B","C","D"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D"
+        ]
     },
 
     "Pabna University of Science and Technology":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     },
 
     "Hajee Mohammad Danesh Science and Technology University":{
-        units:["A","B","C","D","E"]
+        units:[
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+        ]
     },
 
     "Rangamati Science and Technology University":{
-        units:["A","B","C"]
+        units:[
+            "A",
+            "B",
+            "C"
+        ]
     }
 
 };
@@ -1193,7 +1898,7 @@ let appliedCoupon = "";
 
 
 /* =========================================================
-   MAIN CATEGORY PRICES
+   MAIN PRICE
 ========================================================= */
 
 function getMainPrice(){
@@ -1212,11 +1917,12 @@ function getMainPrice(){
     if(count === 4) return 1000;
 
     return 0;
+
 }
 
 
 /* =========================================================
-   MAIN CATEGORY SELECT
+   MAIN SELECT
 ========================================================= */
 
 function toggleMain(category){
@@ -1234,13 +1940,14 @@ function toggleMain(category){
         if(mainSelected.length >= 4){
 
             alert(
-                "You can select maximum 4 main categories."
+                "Maximum 4 main categories can be selected."
             );
 
             return;
         }
 
         mainSelected.push(category);
+
     }
 
 
@@ -1252,12 +1959,12 @@ function toggleMain(category){
 
 
 /* =========================================================
-   MAIN CATEGORY UI
+   MAIN UI
 ========================================================= */
 
 function updateMainUI(){
 
-    const names = [
+    const categories = [
         "engineering",
         "medical",
         "dental",
@@ -1266,33 +1973,37 @@ function updateMainUI(){
     ];
 
 
-    names.forEach(name => {
+    categories.forEach(category => {
 
         const card =
             document.getElementById(
-                "cat-" + name
+                "cat-" + category
             );
+
 
         if(!card) return;
 
+
         const button =
-            card.querySelector("button");
+            card.querySelector(
+                ".category-action"
+            );
 
 
-        if(mainSelected.includes(name)){
+        const selected =
+            mainSelected.includes(category);
 
-            card.classList.add("selected");
 
-            button.textContent =
-                "Selected";
+        card.classList.toggle(
+            "selected",
+            selected
+        );
 
-        }else{
 
-            card.classList.remove("selected");
-
-            button.textContent =
-                "Select";
-        }
+        button.textContent =
+            selected
+                ? "Selected ✓"
+                : "Select";
 
     });
 
@@ -1320,23 +2031,20 @@ function toggleAbroad(type){
     }
 
 
-    const sat =
-        document.getElementById("abroad-sat");
-
-    const ielts =
-        document.getElementById("abroad-ielts");
-
-
-    sat.classList.toggle(
-        "selected",
-        abroadSelected.includes("sat")
-    );
+    document
+        .getElementById("abroad-sat")
+        .classList.toggle(
+            "selected",
+            abroadSelected.includes("sat")
+        );
 
 
-    ielts.classList.toggle(
-        "selected",
-        abroadSelected.includes("ielts")
-    );
+    document
+        .getElementById("abroad-ielts")
+        .classList.toggle(
+            "selected",
+            abroadSelected.includes("ielts")
+        );
 
 
     renderSelected();
@@ -1345,43 +2053,27 @@ function toggleAbroad(type){
 
 
 /* =========================================================
-   PUBLIC UNIVERSITY MODE
+   PU MODE
 ========================================================= */
 
 function setPUMode(mode){
 
     document
-        .querySelectorAll(".mode-btn")
+        .querySelectorAll(".mode")
         .forEach(btn =>
             btn.classList.remove("active")
         );
 
 
-    if(mode === "fixed"){
-
-        document
-            .getElementById("mode-fixed")
-            .classList.add("active");
-
-    }
-
-
-    if(mode === "universityAll"){
-
-        document
-            .getElementById("mode-university-all")
-            .classList.add("active");
-
-    }
-
-
-    if(mode === "unitAll"){
-
-        document
-            .getElementById("mode-unit-all")
-            .classList.add("active");
-
-    }
+    document
+        .getElementById(
+            mode === "fixed"
+                ? "mode-fixed"
+                : mode === "universityAll"
+                    ? "mode-university-all"
+                    : "mode-unit-all"
+        )
+        .classList.add("active");
 
 
     document.getElementById(
@@ -1411,7 +2103,7 @@ function setPUMode(mode){
 
 
 /* =========================================================
-   FIXED UNIVERSITY LIST
+   FIXED UNIVERSITIES
 ========================================================= */
 
 function renderFixedUniversities(){
@@ -1429,7 +2121,9 @@ function renderFixedUniversities(){
         .forEach(name => {
 
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             button.className =
@@ -1438,6 +2132,15 @@ function renderFixedUniversities(){
 
             button.textContent =
                 name;
+
+
+            if(currentUniversity === name){
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
 
 
             button.onclick =
@@ -1451,16 +2154,6 @@ function renderFixedUniversities(){
                     renderFixedUnits();
 
                 };
-
-
-            if(currentUniversity === name){
-
-                button.style.borderColor =
-                    "#6c5ce7";
-
-                button.style.background =
-                    "#1b1735";
-            }
 
 
             box.appendChild(button);
@@ -1484,33 +2177,50 @@ function renderFixedUnits(){
 
     if(!currentUniversity){
 
-        box.innerHTML =
-            "<div class='info' style='margin-top:15px'>Select a university to see its units.</div>";
+        box.innerHTML = `
+
+            <div class="result">
+
+                <div class="empty">
+                    Select a university to see its units.
+                </div>
+
+            </div>
+
+        `;
 
         return;
+
     }
 
 
     const units =
-        universities[currentUniversity].units;
+        universities[
+            currentUniversity
+        ].units;
 
 
     box.innerHTML = `
 
-        <div class="unit-box">
+        <div class="unit-section">
 
             <div class="unit-title">
-                ${currentUniversity} — Select Unit
+
+                ${currentUniversity}
+
             </div>
 
-            <div class="units" id="current-unit-list"></div>
+            <div
+                class="units"
+                id="current-unit-list">
+            </div>
 
         </div>
 
     `;
 
 
-    const unitList =
+    const list =
         document.getElementById(
             "current-unit-list"
         );
@@ -1519,7 +2229,9 @@ function renderFixedUnits(){
     units.forEach(unit => {
 
         const button =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
 
 
         button.className =
@@ -1530,16 +2242,19 @@ function renderFixedUnits(){
             unit;
 
 
-        const already =
+        const selected =
             puFixed.some(item =>
-                item.university === currentUniversity &&
+                item.university ===
+                    currentUniversity &&
                 item.unit === unit
             );
 
 
-        if(already){
+        if(selected){
 
-            button.classList.add("selected");
+            button.classList.add(
+                "selected"
+            );
 
         }
 
@@ -1555,7 +2270,7 @@ function renderFixedUnits(){
             };
 
 
-        unitList.appendChild(button);
+        list.appendChild(button);
 
     });
 
@@ -1563,7 +2278,7 @@ function renderFixedUnits(){
 
 
 /* =========================================================
-   FIXED UNIT SELECT
+   FIXED UNIT
 ========================================================= */
 
 function toggleFixedUnit(
@@ -1587,16 +2302,22 @@ function toggleFixedUnit(
         if(puFixed.length >= 6){
 
             alert(
-                "You can select maximum 6 individual Public University units."
+                "Maximum 6 individual Public University units."
             );
 
             return;
+
         }
 
 
         puFixed.push({
-            university:university,
-            unit:unit
+
+            university:
+                university,
+
+            unit:
+                unit
+
         });
 
     }
@@ -1628,7 +2349,9 @@ function renderUniversityAll(){
         .forEach(name => {
 
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             button.className =
@@ -1644,11 +2367,10 @@ function renderUniversityAll(){
                 puUniversityAll.university === name
             ){
 
-                button.style.borderColor =
-                    "#6c5ce7";
+                button.classList.add(
+                    "active"
+                );
 
-                button.style.background =
-                    "#1b1735";
             }
 
 
@@ -1660,17 +2382,20 @@ function renderUniversityAll(){
                         puUniversityAll.university === name
                     ){
 
-                        puUniversityAll = null;
+                        puUniversityAll =
+                            null;
 
                     }else{
 
                         puUniversityAll = {
 
-                            university:name,
+                            university:
+                                name,
 
-                            units:[
-                                ...universities[name].units
-                            ]
+                            units:
+                                [
+                                    ...universities[name].units
+                                ]
 
                         };
 
@@ -1710,27 +2435,33 @@ function renderUniversityAllResult(){
         box.innerHTML = "";
 
         return;
+
     }
 
 
     box.innerHTML = `
 
-        <div class="unit-box">
+        <div class="result">
 
-            <div class="unit-title">
+            <div class="result-title">
 
-                Included Units — 
-                ${puUniversityAll.university}
+                Included Units
 
             </div>
 
-            <div class="units">
+            <div class="result-items">
 
-                ${puUniversityAll.units
-                    .map(unit =>
-                        `<span class="unit selected">${unit}</span>`
-                    )
-                    .join("")}
+                ${
+                    puUniversityAll.units
+                        .map(unit =>
+                            `
+                            <span class="result-tag">
+                                ${unit}
+                            </span>
+                            `
+                        )
+                        .join("")
+                }
 
             </div>
 
@@ -1742,7 +2473,7 @@ function renderUniversityAllResult(){
 
 
 /* =========================================================
-   UNIT ALL UNIVERSITIES
+   ALL UNITS
 ========================================================= */
 
 function getAllUnits(){
@@ -1781,7 +2512,9 @@ function renderUnitAll(){
         .forEach(unit => {
 
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             button.className =
@@ -1794,7 +2527,9 @@ function renderUnitAll(){
 
             if(puUnitAll === unit){
 
-                button.classList.add("selected");
+                button.classList.add(
+                    "selected"
+                );
 
             }
 
@@ -1802,15 +2537,10 @@ function renderUnitAll(){
             button.onclick =
                 () => {
 
-                    if(puUnitAll === unit){
-
-                        puUnitAll = null;
-
-                    }else{
-
-                        puUnitAll = unit;
-
-                    }
+                    puUnitAll =
+                        puUnitAll === unit
+                            ? null
+                            : unit;
 
 
                     renderUnitAll();
@@ -1830,7 +2560,7 @@ function renderUnitAll(){
 
 
 /* =========================================================
-   UNIT ALL RESULT
+   ALL UNIT RESULT
 ========================================================= */
 
 function renderUnitAllResult(){
@@ -1846,6 +2576,7 @@ function renderUnitAllResult(){
         box.innerHTML = "";
 
         return;
+
     }
 
 
@@ -1854,29 +2585,35 @@ function renderUnitAllResult(){
             .filter(name =>
                 universities[name]
                     .units
-                    .includes(puUnitAll)
+                    .includes(
+                        puUnitAll
+                    )
             );
 
 
     box.innerHTML = `
 
-        <div class="unit-box">
+        <div class="result">
 
-            <div class="unit-title">
+            <div class="result-title">
 
-                ${puUnitAll} Unit is available at:
+                ${puUnitAll} Unit is available at
 
             </div>
 
-            <div class="university-list">
+            <div class="result-items">
 
-                ${matching
-                    .map(name =>
-                        `<div class="university">
-                            ${name}
-                        </div>`
-                    )
-                    .join("")}
+                ${
+                    matching
+                        .map(name =>
+                            `
+                            <span class="result-tag">
+                                ${name}
+                            </span>
+                            `
+                        )
+                        .join("")
+                }
 
             </div>
 
@@ -1893,8 +2630,6 @@ function renderUnitAllResult(){
 
 function getPUPrice(){
 
-    /* University All */
-
     if(puUniversityAll){
 
         return 1000;
@@ -1902,16 +2637,12 @@ function getPUPrice(){
     }
 
 
-    /* Units All Universities */
-
     if(puUnitAll){
 
         return 1000;
 
     }
 
-
-    /* Fixed units */
 
     const count =
         puFixed.length;
@@ -1938,7 +2669,7 @@ function getPUPrice(){
 
 
 /* =========================================================
-   TOTAL PRICE
+   SUBTOTAL
 ========================================================= */
 
 function getSubtotal(){
@@ -1947,33 +2678,33 @@ function getSubtotal(){
         mainSelected.length;
 
 
-    let mainPrice =
+    const mainPrice =
         getMainPrice();
 
 
-    let puPrice =
+    const puPrice =
         getPUPrice();
 
 
+    const abroadPrice =
+        getAbroadPrice();
+
+
     /*
-       Special rule:
-
-       One main category + PU
-
-       1 PU = 500
-       2 PU = 600
-       3 PU = 700
-       4 PU = 800
-       5 PU = 900
-       6 PU = 1000
-       PU All = 1300
+       One main + PU special pricing.
     */
 
-    if(mainCount === 1 && getPUPrice() > 0){
+    if(
+        mainCount === 1 &&
+        puPrice > 0
+    ){
 
-        if(puUniversityAll || puUnitAll){
+        if(
+            puUniversityAll ||
+            puUnitAll
+        ){
 
-            return 1300;
+            return 1300 + abroadPrice;
 
         }
 
@@ -1982,30 +2713,31 @@ function getSubtotal(){
             puFixed.length;
 
 
-        if(count === 1) return 500;
+        if(count === 1)
+            return 500 + abroadPrice;
 
-        if(count === 2) return 600;
+        if(count === 2)
+            return 600 + abroadPrice;
 
-        if(count === 3) return 700;
+        if(count === 3)
+            return 700 + abroadPrice;
 
-        if(count === 4) return 800;
+        if(count === 4)
+            return 800 + abroadPrice;
 
-        if(count === 5) return 900;
+        if(count === 5)
+            return 900 + abroadPrice;
 
-        if(count === 6) return 1000;
+        if(count === 6)
+            return 1000 + abroadPrice;
 
     }
 
 
     /*
-       Multiple main categories + PU
-
-       Main package + PU package
+       Multiple main categories
+       + PU = package price + PU price.
     */
-
-    let abroadPrice =
-        getAbroadPrice();
-
 
     return (
         mainPrice +
@@ -2026,11 +2758,17 @@ function getAbroadPrice(){
         abroadSelected.length;
 
 
-    if(count === 0) return 0;
+    if(count === 0)
+        return 0;
 
-    if(count === 1) return 300;
 
-    if(count === 2) return 500;
+    if(count === 1)
+        return 300;
+
+
+    if(count === 2)
+        return 500;
+
 
     return 0;
 
@@ -2041,20 +2779,16 @@ function getAbroadPrice(){
    SELECTED ITEMS
 ========================================================= */
 
-function renderSelected(){
+function getSelectedDisplayItems(){
 
-    const box =
-        document.getElementById(
-            "selected-items"
-        );
+    const items = [];
 
 
-    let items = [];
+    /*
+       MAIN PACKAGE
+    */
 
-
-    /* MAIN */
-
-    mainSelected.forEach(category => {
+    if(mainSelected.length){
 
         const names = {
 
@@ -2078,92 +2812,101 @@ function renderSelected(){
 
         items.push({
 
-            type:"main",
-
-            id:category,
-
-            name:names[category],
-
-            price:getMainPrice()
-
-        });
-
-    });
-
-
-    /* ABROAD */
-
-    abroadSelected.forEach(type => {
-
-        items.push({
-
-            type:"abroad",
-
-            id:type,
-
-            name:
-                type === "sat"
-                    ? "SAT"
-                    : "IELTS",
-
-            price:300
-
-        });
-
-    });
-
-
-    /* FIXED PU */
-
-    puFixed.forEach(item => {
-
-        items.push({
-
-            type:"pu-fixed",
+            type:
+                "main-package",
 
             id:
-                item.university +
-                "|" +
-                item.unit,
+                "main-package",
 
             name:
-                "Public University — " +
-                item.university +
-                " — " +
-                item.unit +
-                " Unit",
+                mainSelected.length === 1
+                    ? names[mainSelected[0]]
+                    : `${mainSelected.length} Main Categories`,
 
-            price:0
+            details:
+                mainSelected
+                    .map(
+                        item =>
+                            names[item]
+                    )
+                    .join(" • "),
 
-        });
-
-    });
-
-
-    /* UNIVERSITY ALL */
-
-    if(puUniversityAll){
-
-        items.push({
-
-            type:"pu-university-all",
-
-            id:
-                puUniversityAll.university,
-
-            name:
-                "Public University — " +
-                puUniversityAll.university +
-                " — All Units",
-
-            price:1000
+            price:
+                getMainPrice()
 
         });
 
     }
 
 
-    /* UNIT ALL */
+    /*
+       FIXED PU
+    */
+
+    if(puFixed.length){
+
+        items.push({
+
+            type:
+                "pu-package",
+
+            id:
+                "pu-fixed",
+
+            name:
+                `${puFixed.length} Public University Unit${
+                    puFixed.length > 1
+                        ? "s"
+                        : ""
+                }`,
+
+            details:
+                puFixed
+                    .map(
+                        item =>
+                            `${item.university} — ${item.unit}`
+                    )
+                    .join(" • "),
+
+            price:
+                getPUPrice()
+
+        });
+
+    }
+
+
+    /*
+       UNIVERSITY ALL
+    */
+
+    if(puUniversityAll){
+
+        items.push({
+
+            type:
+                "pu-university-all",
+
+            id:
+                "pu-university-all",
+
+            name:
+                "University All Units",
+
+            details:
+                `${puUniversityAll.university} — All Units`,
+
+            price:
+                1000
+
+        });
+
+    }
+
+
+    /*
+       UNIT ALL
+    */
 
     if(puUnitAll){
 
@@ -2172,32 +2915,94 @@ function renderSelected(){
                 .filter(name =>
                     universities[name]
                         .units
-                        .includes(puUnitAll)
+                        .includes(
+                            puUnitAll
+                        )
                 );
 
 
         items.push({
 
-            type:"pu-unit-all",
+            type:
+                "pu-unit-all",
 
-            id:puUnitAll,
+            id:
+                "pu-unit-all",
 
             name:
-                "Public University — " +
-                puUnitAll +
-                " Unit — All Applicable Universities",
+                `${puUnitAll} Unit — All Universities`,
 
-            price:1000,
+            details:
+                matching.join(" • "),
 
-            extra:
-                matching.join(", ")
+            price:
+                1000
 
         });
 
     }
 
 
-    if(items.length === 0){
+    /*
+       ABROAD
+    */
+
+    if(abroadSelected.length){
+
+        items.push({
+
+            type:
+                "abroad",
+
+            id:
+                "abroad",
+
+            name:
+                "Abroad",
+
+            details:
+                abroadSelected
+                    .map(
+                        item =>
+                            item === "sat"
+                                ? "SAT"
+                                : "IELTS"
+                    )
+                    .join(" • "),
+
+            price:
+                getAbroadPrice()
+
+        });
+
+    }
+
+
+    return items;
+
+}
+
+
+/* =========================================================
+   RENDER SELECTED
+========================================================= */
+
+function renderSelected(){
+
+    const box =
+        document.getElementById(
+            "selected-items"
+        );
+
+
+    const items =
+        getSelectedDisplayItems();
+
+
+    if(!items.length){
+
+        box.className =
+            "empty";
 
         box.innerHTML =
             "No course selected yet.";
@@ -2209,48 +3014,74 @@ function renderSelected(){
     }
 
 
+    box.className = "";
+
+
     box.innerHTML = "";
 
 
     items.forEach(item => {
 
         const div =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         div.className =
             "selected-item";
 
 
-        let extra =
-            item.extra
-                ? `<div class="item-price">${item.extra}</div>`
-                : "";
-
-
         div.innerHTML = `
 
-            <div class="item-info">
+            <div>
 
-                <div class="item-name">
-                    ${item.name}
+                <div class="selected-name">
+
+                    ${escapeHTML(item.name)}
+
                 </div>
 
-                ${extra}
+                <div class="selected-details">
+
+                    ${escapeHTML(item.details)}
+
+                </div>
 
             </div>
 
 
-            <button
-                class="remove"
-                onclick="removeItem(
-                    '${item.type}',
-                    '${item.id.replace(/'/g,"&#39;")}'
-                )">
+            <div style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+            ">
 
-                Remove
+                <div class="selected-price">
 
-            </button>
+                    ${
+                        item.price
+                            ? "৳" +
+                              Number(
+                                  item.price
+                              ).toLocaleString()
+                            : ""
+                    }
+
+                </div>
+
+
+                <button
+                    class="remove"
+                    onclick="removeSelected(
+                        '${item.type}'
+                    )">
+
+                    Remove
+
+                </button>
+
+            </div>
 
         `;
 
@@ -2266,53 +3097,28 @@ function renderSelected(){
 
 
 /* =========================================================
-   REMOVE ITEM
+   REMOVE SELECTED
 ========================================================= */
 
-function removeItem(type,id){
+function removeSelected(type){
 
-    if(type === "main"){
+    if(type === "main-package"){
 
-        mainSelected =
-            mainSelected.filter(
-                item => item !== id
-            );
+        mainSelected = [];
 
         updateMainUI();
 
     }
 
 
-    if(type === "abroad"){
+    if(type === "pu-package"){
 
-        abroadSelected =
-            abroadSelected.filter(
-                item => item !== id
-            );
+        puFixed = [];
 
-        document
-            .getElementById(
-                "abroad-" + id
-            )
-            .classList.remove("selected");
+        currentUniversity =
+            null;
 
-    }
-
-
-    if(type === "pu-fixed"){
-
-        const parts =
-            id.split("|");
-
-
-        puFixed =
-            puFixed.filter(item =>
-                !(
-                    item.university === parts[0] &&
-                    item.unit === parts[1]
-                )
-            );
-
+        renderFixedUniversities();
 
         renderFixedUnits();
 
@@ -2321,7 +3127,8 @@ function removeItem(type,id){
 
     if(type === "pu-university-all"){
 
-        puUniversityAll = null;
+        puUniversityAll =
+            null;
 
         renderUniversityAll();
 
@@ -2332,11 +3139,35 @@ function removeItem(type,id){
 
     if(type === "pu-unit-all"){
 
-        puUnitAll = null;
+        puUnitAll =
+            null;
 
         renderUnitAll();
 
         renderUnitAllResult();
+
+    }
+
+
+    if(type === "abroad"){
+
+        abroadSelected = [];
+
+        document
+            .getElementById(
+                "abroad-sat"
+            )
+            .classList.remove(
+                "selected"
+            );
+
+        document
+            .getElementById(
+                "abroad-ielts"
+            )
+            .classList.remove(
+                "selected"
+            );
 
     }
 
@@ -2393,9 +3224,11 @@ function applyCoupon(){
         appliedCoupon =
             "DH151044";
 
-
         message.textContent =
-            "Coupon applied. ৳50 discount added.";
+            "✓ Coupon applied — ৳50 discount.";
+
+        message.style.color =
+            "#35d49a";
 
     }else{
 
@@ -2405,6 +3238,9 @@ function applyCoupon(){
 
         message.textContent =
             "Invalid coupon code.";
+
+        message.style.color =
+            "#ff647f";
 
     }
 
@@ -2420,20 +3256,17 @@ function applyCoupon(){
 
 function updatePrice(){
 
-    let subtotal =
-        getSubtotal();
-
-
-    if(subtotal < 0){
-
-        subtotal = 0;
-
-    }
+    const subtotal =
+        Math.max(
+            0,
+            getSubtotal()
+        );
 
 
     if(discount > subtotal){
 
-        discount = subtotal;
+        discount =
+            subtotal;
 
     }
 
@@ -2448,77 +3281,226 @@ function updatePrice(){
     document.getElementById(
         "subtotal"
     ).textContent =
-        "৳" + subtotal;
+        "৳" +
+        subtotal.toLocaleString();
 
 
     document.getElementById(
         "discount"
     ).textContent =
-        "৳" + discount;
+        "−৳" +
+        discount.toLocaleString();
 
 
     document.getElementById(
         "total"
     ).textContent =
-        "৳" + total;
+        "৳" +
+        total.toLocaleString();
+
+
+    const hasSelection =
+        mainSelected.length > 0 ||
+        puFixed.length > 0 ||
+        puUniversityAll !== null ||
+        puUnitAll !== null ||
+        abroadSelected.length > 0;
 
 
     document.getElementById(
         "payment-btn"
     ).disabled =
-        (
-            mainSelected.length === 0 &&
-            puFixed.length === 0 &&
-            !puUniversityAll &&
-            !puUnitAll &&
-            abroadSelected.length === 0
-        );
+        !hasSelection;
 
 }
 
 
 /* =========================================================
-   CHECKOUT DATA
+   BROAD COURSE SLUGS
+========================================================= */
+
+function getBroadCategories(){
+
+    const categories = [];
+
+
+    /*
+       Main categories
+    */
+
+    if(
+        mainSelected.includes(
+            "engineering"
+        )
+    ){
+
+        categories.push(
+            "engineering"
+        );
+
+    }
+
+
+    if(
+        mainSelected.includes(
+            "medical"
+        )
+    ){
+
+        categories.push(
+            "medical"
+        );
+
+    }
+
+
+    if(
+        mainSelected.includes(
+            "dental"
+        )
+    ){
+
+        categories.push(
+            "dental"
+        );
+
+    }
+
+
+    if(
+        mainSelected.includes(
+            "agriculture"
+        )
+    ){
+
+        categories.push(
+            "agricultural"
+        );
+
+    }
+
+
+    if(
+        mainSelected.includes(
+            "textile"
+        )
+    ){
+
+        categories.push(
+            "textile"
+        );
+
+    }
+
+
+    /*
+       Public University
+    */
+
+    const hasPU =
+        puFixed.length > 0 ||
+        puUniversityAll !== null ||
+        puUnitAll !== null;
+
+
+    if(hasPU){
+
+        categories.push(
+            "public-university"
+        );
+
+    }
+
+
+    /*
+       Abroad
+    */
+
+    if(
+        abroadSelected.length > 0
+    ){
+
+        categories.push(
+            "ab"
+        );
+
+    }
+
+
+    return [
+        ...new Set(categories)
+    ];
+
+}
+
+
+/* =========================================================
+   CREATE CHECKOUT
 ========================================================= */
 
 function createCheckout(){
 
-    const selected = {
+    const subtotal =
+        getSubtotal();
 
-        main_categories:[
-            ...mainSelected
-        ],
+
+    const total =
+        Math.max(
+            0,
+            subtotal - discount
+        );
+
+
+    const selectedItems =
+        getSelectedDisplayItems();
+
+
+    const detailedSelection = {
+
+        main_categories:
+            [...mainSelected],
 
         public_university:{
 
-            fixed_units:[
-                ...puFixed
-            ],
+            fixed_units:
+                [...puFixed],
 
             university_all:
-                puUniversityAll,
+                puUniversityAll
+                    ? {
+                        university:
+                            puUniversityAll.university,
+
+                        units:
+                            [
+                                ...puUniversityAll.units
+                            ]
+                    }
+                    : null,
 
             unit_all:
                 puUnitAll
 
         },
 
-        abroad:[
-            ...abroadSelected
-        ]
+        abroad:
+            [...abroadSelected]
 
     };
 
 
-    const subtotal =
-        getSubtotal();
+    /*
+       IMPORTANT:
 
+       categories = ONLY existing
+       Supabase course slugs.
 
-    const finalTotal =
-        Math.max(
-            0,
-            subtotal - discount
-        );
+       selectedItems = detailed
+       student-facing package data.
+    */
+
+    const categories =
+        getBroadCategories();
 
 
     return {
@@ -2529,8 +3511,37 @@ function createCheckout(){
         created_at:
             new Date().toISOString(),
 
+
+        /*
+           Detailed information
+        */
+
         selected:
-            selected,
+            detailedSelection,
+
+        selectedItems:
+            selectedItems,
+
+
+        /*
+           Existing Supabase course slugs
+        */
+
+        categories:
+            categories,
+
+
+        orderCategories:
+            categories,
+
+
+        courseSlugs:
+            categories,
+
+
+        /*
+           Price information
+        */
 
         subtotal:
             subtotal,
@@ -2542,53 +3553,19 @@ function createCheckout(){
             appliedCoupon,
 
         total:
-            finalTotal,
+            total,
 
-        /*
-           Existing broad Supabase
-           course mapping.
+        amount:
+            total,
 
-           No new Supabase table,
-           column or RPC is required.
-        */
+        totalAmount:
+            total,
 
-        categories:[
-            ...mainSelected.map(item => {
+        payableAmount:
+            total,
 
-                if(item === "engineering")
-                    return "engineering";
-
-                if(item === "medical")
-                    return "medical";
-
-                if(item === "dental")
-                    return "dental";
-
-                if(item === "agriculture")
-                    return "agricultural";
-
-                if(item === "textile")
-                    return "textile";
-
-                return item;
-
-            }),
-
-            ...((
-                puFixed.length > 0 ||
-                puUniversityAll ||
-                puUnitAll
-            )
-                ? ["public-university"]
-                : []
-            ),
-
-            ...(abroadSelected.length > 0
-                ? ["ab"]
-                : []
-            )
-
-        ]
+        finalAmount:
+            total
 
     };
 
@@ -2596,7 +3573,7 @@ function createCheckout(){
 
 
 /* =========================================================
-   PROCEED TO PAYMENT
+   PROCEED PAYMENT
 ========================================================= */
 
 function proceedPayment(){
@@ -2618,38 +3595,86 @@ function proceedPayment(){
         createCheckout();
 
 
-    /*
-       Save both keys.
+    if(
+        !checkout.categories.length
+    ){
 
-       This keeps compatibility
-       with the existing payment page.
+        alert(
+            "No valid course category selected."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        checkout.total <= 0
+    ){
+
+        alert(
+            "Please select a valid course package."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Save the exact same checkout
+       under both keys for compatibility.
     */
 
     sessionStorage.setItem(
-
         "dreamHuntCheckout",
-
         JSON.stringify(checkout)
-
     );
 
 
     sessionStorage.setItem(
-
         "dream_hunt_course_order",
-
         JSON.stringify(checkout)
-
     );
 
 
     /*
-       Direct navigation.
-       No Supabase call here.
+       Go directly to payment.
     */
 
     window.location.href =
         "payment.html";
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -2666,17 +3691,15 @@ renderUniversityAll();
 
 renderUnitAll();
 
-renderSelected();
-
 updateMainUI();
+
+renderSelected();
 
 updatePrice();
 
 
 /* =========================================================
-   OPTIONAL: LOAD ACTIVE COURSES
-   Existing Supabase structure only.
-   This does NOT change database.
+   OPTIONAL COURSE CHECK
 ========================================================= */
 
 async function checkCourses(){
@@ -2687,19 +3710,19 @@ async function checkCourses(){
             data,
             error
         } =
-        await supabaseClient
-            .from("courses")
-            .select(
-                "id,name,slug,is_active,is_published"
-            )
-            .eq(
-                "is_active",
-                true
-            )
-            .eq(
-                "is_published",
-                true
-            );
+            await supabaseClient
+                .from("courses")
+                .select(
+                    "id,name,slug,is_active,is_published"
+                )
+                .eq(
+                    "is_active",
+                    true
+                )
+                .eq(
+                    "is_published",
+                    true
+                );
 
 
         if(error){
@@ -2715,14 +3738,14 @@ async function checkCourses(){
 
 
         console.log(
-            "Active Dream Hunt courses:",
+            "Dream Hunt active courses:",
             data
         );
 
     }catch(error){
 
         console.log(
-            "Course loading skipped."
+            "Course check skipped."
         );
 
     }
