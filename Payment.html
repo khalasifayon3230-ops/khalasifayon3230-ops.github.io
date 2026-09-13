@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment | Dream Hunt</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+.container{
+    max-width:850px;
+    margin:auto;
+    padding:25px 15px 50px;
+}
+
+.header{
+    background:#111827;
+    color:white;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+}
+
+.logo span{
+    color:#38bdf8;
+}
+
+.header p{
+    color:#cbd5e1;
+    margin-top:7px;
+    font-size:13px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(15,23,42,.05);
+}
+
+.card h2{
+    font-size:19px;
+    margin-bottom:16px;
+}
+
+.package{
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    border-radius:13px;
+    padding:16px;
+}
+
+.package-title{
+    font-weight:800;
+    font-size:17px;
+    color:#1d4ed8;
+    margin-bottom:8px;
+}
+
+.course-list{
+    color:#475569;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.amount-box{
+    margin-top:15px;
+    background:#111827;
+    color:white;
+    border-radius:13px;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.amount-label{
+    color:#cbd5e1;
+    font-size:13px;
+}
+
+.amount{
+    font-size:27px;
+    font-weight:900;
+}
+
+.methods{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.method{
+    border:2px solid #e2e8f0;
+    background:white;
+    border-radius:12px;
+    padding:14px 8px;
+    text-align:center;
+    cursor:pointer;
+    font-weight:800;
+    font-size:13px;
+    transition:.2s;
+}
+
+.method:hover{
+    border-color:#2563eb;
+}
+
+.method.selected{
+    border-color:#2563eb;
+    background:#eff6ff;
+    color:#1d4ed8;
+}
+
+.method-icon{
+    font-size:22px;
+    display:block;
+    margin-bottom:5px;
+}
+
+.instructions{
+    background:#f8fafc;
+    border-radius:13px;
+    padding:17px;
+    line-height:1.8;
+    font-size:13px;
+    color:#334155;
+}
+
+.number{
+    display:block;
+    background:#111827;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    text-align:center;
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin:12px 0;
+}
+
+.warning{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#9a3412;
+    border-radius:10px;
+    padding:12px;
+    font-size:12px;
+    line-height:1.6;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    font-size:14px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#2563eb;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.submit-btn{
+    width:100%;
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:14px;
+    border-radius:11px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.submit-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    color:#475569;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.pending{
+    display:none;
+    text-align:center;
+    padding:30px 20px;
+}
+
+.pending.show{
+    display:block;
+}
+
+.pending-icon{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#fef3c7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 15px;
+    font-size:32px;
+}
+
+.pending h2{
+    margin-bottom:8px;
+}
+
+.pending p{
+    color:#64748b;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.pending-status{
+    display:inline-block;
+    margin-top:18px;
+    background:#fef3c7;
+    color:#92400e;
+    padding:10px 16px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:13px;
+    border-radius:10px;
+    margin-bottom:15px;
+    display:none;
+    font-size:13px;
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:15px 10px 40px;
+    }
+
+    .methods{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .amount-box{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:5px;
+    }
+
+    .amount{
+        font-size:24px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+            Dream<span>Hunt</span>
+        </div>
+
+        <p>
+            Secure Admission Course Payment
+        </p>
+
+    </div>
+
+
+    <!-- PAYMENT FORM -->
+
+    <div id="paymentArea">
+
+
+        <!-- PACKAGE -->
+
+        <div class="card">
+
+            <h2>
+                Order Summary
+            </h2>
+
+            <div class="package">
+
+                <div
+                    class="package-title"
+                    id="packageName"
+                >
+                    Loading...
+                </div>
+
+                <div
+                    class="course-list"
+                    id="courseList"
+                >
+                    Loading selected courses...
+                </div>
+
+                <div class="amount-box">
+
+                    <div class="amount-label">
+                        Amount to Pay
+                    </div>
+
+                    <div
+                        class="amount"
+                        id="amount"
+                    >
+                        ৳0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT METHOD -->
+
+        <div class="card">
+
+            <h2>
+                Select Payment Method
+            </h2>
+
+            <div class="methods">
+
+                <div
+                    class="method"
+                    data-method="bKash"
+                    onclick="selectMethod(this)"
+                >
+                    <span class="method-icon">💳</span>
+                    bKash
+                </div>
+
+                <div
+                    class="method"
+                    data-method="Nagad"
+                    onclick="selectMethod(this)"
+                >
+                    <span class="method-icon">💰</span>
+                    Nagad
+                </div>
+
+                <div
+                    class="method"
+                    data-method="Rocket"
+                    onclick="selectMethod(this)"
+                >
+                    <span class="method-icon">🚀</span>
+                    Rocket
+                </div>
+
+                <div
+                    class="method"
+                    data-method="Upay"
+                    onclick="selectMethod(this)"
+                >
+                    <span class="method-icon">💵</span>
+                    Upay
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INSTRUCTIONS -->
+
+        <div class="card">
+
+            <h2>
+                Payment Instructions
+            </h2>
+
+            <div class="instructions">
+
+                <strong>
+                    Send Money
+                </strong>
+
+                <span class="number">
+                    01342-210515
+                </span>
+
+                1. Select your preferred payment method above.<br>
+
+                2. Send the exact amount shown in
+                <strong>Amount to Pay</strong> to the number above.<br>
+
+                3. Complete the payment using
+                <strong>Send Money</strong>.<br>
+
+                4. Copy the
+                <strong>Transaction ID (TRX ID)</strong>
+                from your payment confirmation.<br>
+
+                5. Enter the TRX ID below and submit your payment.
+
+                <br><br>
+
+                <div class="warning">
+
+                    ⚠️ Please send the exact amount shown above.
+                    Do not send a different amount.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TRX FORM -->
+
+        <div class="card">
+
+            <h2>
+                Payment Confirmation
+            </h2>
+
+            <div
+                class="error"
+                id="errorBox"
+            ></div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Transaction ID (TRX ID)
+                </label>
+
+                <input
+                    type="text"
+                    id="trxId"
+                    placeholder="Enter your transaction ID"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    HSC Roll
+                </label>
+
+                <input
+                    type="text"
+                    id="hscRoll"
+                    placeholder="Enter HSC Roll"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    HSC Registration
+                </label>
+
+                <input
+                    type="text"
+                    id="hscRegistration"
+                    placeholder="Enter HSC Registration"
+                >
+
+            </div>
+
+
+            <button
+                class="submit-btn"
+                id="submitBtn"
+                onclick="submitPayment()"
+            >
+                Submit Payment
+            </button>
+
+            <a
+                href="buy-courses.html"
+                class="back"
+            >
+                ← Back to Buy Courses
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+
+    <div
+        class="card pending"
+        id="pendingArea"
+    >
+
+        <div class="pending-icon">
+            ⏳
+        </div>
+
+        <h2>
+            Payment Submitted
+        </h2>
+
+        <p>
+            Your payment information has been submitted
+            successfully.
+        </p>
+
+        <p>
+            Please wait while the Dream Hunt admin verifies
+            your payment.
+        </p>
+
+        <span class="pending-status">
+            ⏳ Pending — Waiting for Approval
+        </span>
+
+        <a
+            href="enrolled-courses.html"
+            class="submit-btn"
+            style="
+                display:block;
+                text-decoration:none;
+                margin-top:22px;
+            "
+        >
+            View Payment Status
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================================
+   CHECKOUT DATA
+========================================================= */
+
+let checkoutData = null;
+
+let selectedMethod = "";
+
+
+/* =========================================================
+   COURSE NAMES
+========================================================= */
+
+const courseNames = {
+
+    "public-university":
+        "Public University Admission",
+
+    "engineering":
+        "Engineering Admission",
+
+    "medical-dental":
+        "Medical & Dental Admission",
+
+    "agriculture-veterinary":
+        "Agriculture & Veterinary Admission",
+
+    "specialized-admission":
+        "Specialized Admission",
+
+    "abroad-prep":
+        "Abroad Preparation"
+};
+
+
+/* =========================================================
+   LOAD CHECKOUT
+========================================================= */
+
+function loadCheckout(){
+
+    const raw =
+        sessionStorage.getItem(
+            "dreamHuntCheckout"
+        );
+
+
+    if(!raw){
+
+        showError(
+            "No payment information found. Please go back and select a course."
+        );
+
+        document.getElementById(
+            "submitBtn"
+        ).disabled = true;
+
+        return;
+    }
+
+
+    try{
+
+        checkoutData =
+            JSON.parse(raw);
+
+    }catch(error){
+
+        showError(
+            "Invalid checkout information."
+        );
+
+        return;
+    }
+
+
+    document.getElementById(
+        "packageName"
+    ).textContent =
+        checkoutData.packageType ||
+        "Dream Hunt Course Package";
+
+
+    const categories =
+        Array.isArray(
+            checkoutData.categories
+        )
+        ? checkoutData.categories
+        : [];
+
+
+    document.getElementById(
+        "courseList"
+    ).innerHTML =
+        categories.length
+        ?
+        categories
+            .map(
+                category =>
+                    "• " +
+                    escapeHTML(
+                        courseNames[category] ||
+                        category
+                    )
+            )
+            .join("<br>")
+        :
+        "Selected course information unavailable";
+
+
+    document.getElementById(
+        "amount"
+    ).textContent =
+        "৳" +
+        Number(
+            checkoutData.amount || 0
+        ).toLocaleString("en-BD");
+
+
+    if(checkoutData.hscRoll){
+
+        document.getElementById(
+            "hscRoll"
+        ).value =
+            checkoutData.hscRoll;
+    }
+
+
+    if(checkoutData.hscRegistration){
+
+        document.getElementById(
+            "hscRegistration"
+        ).value =
+            checkoutData.hscRegistration;
+    }
+
+}
+
+
+/* =========================================================
+   SELECT METHOD
+========================================================= */
+
+function selectMethod(element){
+
+    document
+        .querySelectorAll(".method")
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    element.classList.add(
+        "selected"
+    );
+
+
+    selectedMethod =
+        element.dataset.method;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+function showError(message){
+
+    const box =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   SUBMIT PAYMENT
+========================================================= */
+
+async function submitPayment(){
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    errorBox.style.display =
+        "none";
+
+
+    if(!checkoutData){
+
+        showError(
+            "Checkout information is missing."
+        );
+
+        return;
+    }
+
+
+    if(!selectedMethod){
+
+        showError(
+            "Please select a payment method."
+        );
+
+        return;
+    }
+
+
+    const trxId =
+        document.getElementById(
+            "trxId"
+        )
+        .value
+        .trim();
+
+
+    const hscRoll =
+        document.getElementById(
+            "hscRoll"
+        )
+        .value
+        .trim();
+
+
+    const hscRegistration =
+        document.getElementById(
+            "hscRegistration"
+        )
+        .value
+        .trim();
+
+
+    if(!trxId){
+
+        showError(
+            "Please enter your Transaction ID."
+        );
+
+        return;
+    }
+
+
+    if(!hscRoll){
+
+        showError(
+            "Please enter your HSC Roll."
+        );
+
+        return;
+    }
+
+
+    if(!hscRegistration){
+
+        showError(
+            "Please enter your HSC Registration."
+        );
+
+        return;
+    }
+
+
+    const {
+        data:{
+            user
+        }
+    } =
+        await supabaseClient
+            .auth
+            .getUser();
+
+
+    if(!user){
+
+        window.location.href =
+            "index.html";
+
+        return;
+    }
+
+
+    const submitBtn =
+        document.getElementById(
+            "submitBtn"
+        );
+
+
+    submitBtn.disabled =
+        true;
+
+
+    submitBtn.textContent =
+        "Submitting...";
+
+
+    try{
+
+        /*
+         * IMPORTANT
+         *
+         * Your existing backend uses:
+         * create_student_order(
+         *     p_course_ids,
+         *     p_prices
+         * )
+         *
+         * Category slugs are stored in checkout.
+         * We first find the matching course IDs.
+         */
+
+
+        const categories =
+            Array.isArray(
+                checkoutData.categories
+            )
+            ? checkoutData.categories
+            : [];
+
+
+        if(!categories.length){
+
+            throw new Error(
+                "No courses selected."
+            );
+        }
+
+
+        /* =========================
+           FIND COURSES
+        ========================= */
+
+        const {
+            data:courses,
+            error:coursesError
+        } =
+            await supabaseClient
+                .from("courses")
+                .select(`
+                    id,
+                    slug
+                `)
+                .in(
+                    "slug",
+                    categories
+                );
+
+
+        if(coursesError){
+
+            throw coursesError;
+        }
+
+
+        if(
+            !courses ||
+            courses.length !== categories.length
+        ){
+
+            throw new Error(
+                "One or more selected courses could not be found."
+            );
+        }
+
+
+        const courseIds =
+            categories.map(
+                slug => {
+
+                    const course =
+                        courses.find(
+                            item =>
+                                item.slug ===
+                                slug
+                        );
+
+                    return course.id;
+                }
+            );
+
+
+        const totalAmount =
+            Number(
+                checkoutData.amount || 0
+            );
+
+
+        const perCoursePrice =
+            totalAmount /
+            courseIds.length;
+
+
+        const prices =
+            courseIds.map(
+                () =>
+                    perCoursePrice
+            );
+
+
+        /* =========================
+           CREATE ORDER
+        ========================= */
+
+        const {
+            data:orderResult,
+            error:orderError
+        } =
+            await supabaseClient
+                .rpc(
+                    "create_student_order",
+                    {
+                        p_course_ids:
+                            courseIds,
+
+                        p_prices:
+                            prices
+                    }
+                );
+
+
+        if(orderError){
+
+            throw orderError;
+        }
+
+
+        /*
+         * The order has now been created.
+         *
+         * Transaction ID + payment method +
+         * HSC information require backend
+         * support in the orders table/RPC.
+         */
+
+
+        console.log(
+            "Order created:",
+            orderResult
+        );
+
+
+        /*
+         * Save local confirmation so the
+         * user doesn't accidentally submit
+         * the same checkout twice from this page.
+         */
+
+        sessionStorage.setItem(
+            "dreamHuntPaymentSubmitted",
+            JSON.stringify({
+
+                checkout:
+                    checkoutData,
+
+                transactionId:
+                    trxId,
+
+                paymentMethod:
+                    selectedMethod,
+
+                hscRoll:
+                    hscRoll,
+
+                hscRegistration:
+                    hscRegistration,
+
+                submittedAt:
+                    new Date().toISOString()
+
+            })
+        );
+
+
+        document.getElementById(
+            "paymentArea"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "pendingArea"
+        ).classList.add(
+            "show"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Payment submission error:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Payment submission failed. Please try again."
+        );
+
+
+        submitBtn.disabled =
+            false;
+
+
+        submitBtn.textContent =
+            "Submit Payment";
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadCheckout();
+
+</script>
+
+</body>
+
+</html>
