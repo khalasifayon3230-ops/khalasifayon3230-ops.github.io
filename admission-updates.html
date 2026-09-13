@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>Admission Updates | Dream Hunt</title>
@@ -16,17 +15,41 @@ content="width=device-width, initial-scale=1.0">
 <style>
 
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --dark:#0b1220;
+    --dark2:#111b2e;
+    --text:#172033;
+    --muted:#667085;
+    --line:#e4e7ec;
+    --green:#16a34a;
+    --green-soft:#ecfdf3;
+    --blue:#2563eb;
+    --blue-soft:#eff6ff;
+    --orange:#ea580c;
+    --orange-soft:#fff7ed;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#f5f7fb;
-    color:#172033;
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+    background:var(--bg);
+    color:var(--text);
     overflow-x:hidden;
 }
+
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar{
     position:fixed;
@@ -34,16 +57,23 @@ body{
     top:0;
     width:250px;
     height:100vh;
-    background:#101828;
+    background:
+        linear-gradient(
+            180deg,
+            #0b1220 0%,
+            #101828 100%
+        );
     color:white;
-    padding:24px 16px;
-    z-index:20;
+    padding:24px 15px;
+    z-index:100;
+    overflow-y:auto;
 }
 
 .logo{
+    padding:0 12px 28px;
     font-size:23px;
     font-weight:800;
-    padding:0 12px 25px;
+    letter-spacing:-.5px;
 }
 
 .logo span{
@@ -51,20 +81,36 @@ body{
 }
 
 .nav a{
-    display:block;
-    color:#cbd5e1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#b9c4d5;
     text-decoration:none;
-    padding:12px 14px;
-    border-radius:10px;
+    padding:12px 13px;
+    border-radius:11px;
     margin-bottom:5px;
-    font-size:14px;
+    font-size:13px;
+    transition:.2s;
 }
 
-.nav a:hover,
-.nav a.active{
-    background:#1d2939;
+.nav a:hover{
+    background:#182337;
     color:white;
 }
+
+.nav a.active{
+    background:
+        linear-gradient(
+            135deg,
+            #1f3b35,
+            #17332e
+        );
+    color:#ffffff;
+}
+
+/* =========================
+   MAIN
+========================= */
 
 .main{
     margin-left:250px;
@@ -73,172 +119,477 @@ body{
 }
 
 .container{
-    max-width:1150px;
+    width:100%;
+    max-width:1250px;
     margin:auto;
 }
 
-.header{
-    background:white;
-    border-radius:20px;
-    padding:28px;
-    margin-bottom:20px;
-    box-shadow:0 8px 25px rgba(16,24,40,.06);
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(110,231,183,.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #0b1220,
+            #111b2e
+        );
+    color:white;
+    border-radius:24px;
+    padding:34px;
+    margin-bottom:22px;
+    box-shadow:
+        0 15px 40px rgba(15,23,42,.12);
 }
 
-.header h1{
-    font-size:30px;
-    margin-bottom:8px;
+.hero::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-70px;
+    bottom:-80px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
 }
 
-.header p{
-    color:#667085;
-    line-height:1.6;
+.hero-label{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(110,231,183,.12);
+    border:1px solid rgba(110,231,183,.2);
+    color:#86efac;
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:15px;
 }
 
-.controls{
+.hero h1{
+    font-size:32px;
+    letter-spacing:-1px;
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:#aeb9c9;
+    font-size:14px;
+    line-height:1.7;
+    max-width:760px;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
     display:flex;
     gap:12px;
     flex-wrap:wrap;
     margin-bottom:20px;
 }
 
-.search{
+.search-box{
     flex:1;
-    min-width:220px;
-    border:1px solid #d0d5dd;
+    min-width:230px;
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    height:48px;
+    border:1px solid var(--line);
     background:white;
-    border-radius:12px;
-    padding:13px 15px;
+    border-radius:13px;
+    padding:0 16px;
     outline:none;
     font-size:14px;
+    color:var(--text);
+    box-shadow:0 5px 18px rgba(16,24,40,.04);
+}
+
+.search-box input:focus{
+    border-color:#98a2b3;
 }
 
 .filters{
     display:flex;
-    gap:8px;
+    gap:7px;
     flex-wrap:wrap;
 }
 
 .filter{
-    border:none;
+    height:44px;
+    border:1px solid var(--line);
     background:white;
-    padding:11px 15px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
     color:#475467;
+    padding:0 14px;
+    border-radius:11px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.filter:hover{
+    border-color:#98a2b3;
 }
 
 .filter.active{
-    background:#101828;
+    background:var(--dark);
     color:white;
+    border-color:var(--dark);
 }
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap:14px;
+    margin-bottom:22px;
+}
+
+.summary-card{
+    background:white;
+    border:1px solid #edf0f4;
+    border-radius:16px;
+    padding:17px 18px;
+    box-shadow:
+        0 7px 22px rgba(16,24,40,.04);
+}
+
+.summary-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.summary-title{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+.summary-icon{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f2f4f7;
+    font-size:14px;
+}
+
+.summary-value{
+    font-size:24px;
+    font-weight:800;
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-.3px;
+}
+
+.section-subtitle{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+/* =========================
+   CARDS
+========================= */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
     gap:18px;
 }
 
 .card{
-    background:white;
-    border-radius:18px;
-    padding:22px;
-    box-shadow:0 7px 22px rgba(16,24,40,.06);
+    background:var(--card);
+    border:1px solid #edf0f4;
+    border-radius:19px;
+    padding:21px;
+    box-shadow:
+        0 8px 25px rgba(16,24,40,.045);
+    transition:
+        transform .2s,
+        box-shadow .2s;
 }
 
-.top{
+.card:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 13px 32px rgba(16,24,40,.08);
+}
+
+.card-top{
     display:flex;
     justify-content:space-between;
-    gap:12px;
-    margin-bottom:12px;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:15px;
 }
 
 .badge{
-    display:inline-block;
-    background:#ecfdf3;
+    display:inline-flex;
+    align-items:center;
+    background:var(--green-soft);
     color:#027a48;
-    font-size:11px;
-    font-weight:700;
-    padding:6px 9px;
     border-radius:7px;
+    padding:6px 9px;
+    font-size:10px;
+    font-weight:800;
 }
 
 .session{
-    font-size:12px;
     color:#667085;
+    font-size:11px;
+    text-align:right;
 }
 
-.card h2{
+.institution{
     font-size:20px;
+    font-weight:800;
+    letter-spacing:-.4px;
+    line-height:1.25;
     margin-bottom:4px;
 }
 
-.short{
+.short-name{
     color:#667085;
-    font-size:13px;
+    font-size:12px;
+    font-weight:600;
     margin-bottom:13px;
 }
 
 .description{
     color:#475467;
     font-size:13px;
-    line-height:1.6;
-    margin-bottom:16px;
-}
-
-.dates{
-    background:#f8fafc;
-    border-radius:12px;
-    padding:13px;
+    line-height:1.65;
+    min-height:42px;
     margin-bottom:15px;
-    font-size:13px;
-    line-height:1.8;
 }
 
-.links{
+/* =========================
+   DATES
+========================= */
+
+.date-box{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,1fr);
     gap:8px;
+    margin-bottom:15px;
 }
 
-.btn{
+.date-item{
+    background:#f8fafc;
+    border:1px solid #eef2f6;
+    border-radius:11px;
+    padding:11px;
+}
+
+.date-label{
     display:block;
-    text-align:center;
-    text-decoration:none;
-    background:#101828;
-    color:white;
-    padding:10px 8px;
-    border-radius:9px;
+    color:#98a2b3;
+    font-size:9px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:4px;
+}
+
+.date-value{
+    color:#344054;
     font-size:12px;
     font-weight:700;
 }
 
+/* =========================
+   LINKS
+========================= */
+
+.links{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap:7px;
+}
+
+.btn{
+    min-height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    text-decoration:none;
+    border-radius:9px;
+    font-size:10px;
+    font-weight:800;
+    padding:7px 5px;
+    transition:.2s;
+}
+
+.btn.primary{
+    background:var(--dark);
+    color:white;
+}
+
+.btn.primary:hover{
+    background:#1d2939;
+}
+
 .btn.secondary{
-    background:#eef2f6;
+    background:#f2f4f7;
     color:#344054;
 }
 
-.empty{
-    background:white;
-    border-radius:18px;
-    padding:50px 20px;
-    text-align:center;
-    color:#667085;
+.btn.secondary:hover{
+    background:#e4e7ec;
 }
 
-.loading{
-    background:white;
-    padding:40px;
-    text-align:center;
-    border-radius:18px;
-    color:#667085;
+.btn.disabled{
+    background:#f8fafc;
+    color:#98a2b3;
+    cursor:not-allowed;
+    border:1px solid #f0f2f5;
 }
 
-@media(max-width:850px){
+/* =========================
+   EMPTY / LOADING
+========================= */
 
-    .grid{
+.state{
+    background:white;
+    border:1px solid #edf0f4;
+    border-radius:20px;
+    padding:65px 20px;
+    text-align:center;
+    box-shadow:
+        0 8px 25px rgba(16,24,40,.04);
+}
+
+.state-icon{
+    width:54px;
+    height:54px;
+    border-radius:15px;
+    margin:0 auto 15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f2f4f7;
+    font-size:21px;
+}
+
+.state h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.state p{
+    color:#667085;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* =========================
+   SKELETON
+========================= */
+
+.skeleton{
+    background:white;
+    border-radius:19px;
+    padding:21px;
+    border:1px solid #edf0f4;
+}
+
+.skeleton-line{
+    height:12px;
+    border-radius:6px;
+    background:
+        linear-gradient(
+            90deg,
+            #f1f3f6,
+            #e6e9ee,
+            #f1f3f6
+        );
+    background-size:200% 100%;
+    animation:loading 1.4s infinite;
+    margin-bottom:12px;
+}
+
+.skeleton-line.big{
+    height:23px;
+    width:65%;
+}
+
+.skeleton-line.small{
+    width:40%;
+}
+
+@keyframes loading{
+    from{
+        background-position:200% 0;
+    }
+    to{
+        background-position:-200% 0;
+    }
+}
+
+.loading-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(2,1fr);
+    gap:18px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .grid,
+    .loading-grid{
         grid-template-columns:1fr;
+    }
+
+    .summary{
+        grid-template-columns:
+            repeat(3,1fr);
     }
 
 }
@@ -262,25 +613,59 @@ body{
 
     .nav a{
         font-size:0;
-        text-align:center;
+        justify-content:center;
         padding:12px 5px;
     }
 
     .main{
         margin-left:64px;
-        padding:16px 12px;
+        padding:15px 11px 30px;
     }
 
-    .header{
-        padding:20px;
+    .hero{
+        padding:23px 20px;
+        border-radius:19px;
     }
 
-    .header h1{
-        font-size:24px;
+    .hero h1{
+        font-size:25px;
+    }
+
+    .hero p{
+        font-size:12px;
+    }
+
+    .summary{
+        gap:8px;
+    }
+
+    .summary-card{
+        padding:13px 10px;
+    }
+
+    .summary-title{
+        font-size:8px;
+    }
+
+    .summary-value{
+        font-size:19px;
+    }
+
+    .summary-icon{
+        display:none;
+    }
+
+    .date-box{
+        grid-template-columns:1fr;
     }
 
     .links{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .institution{
+        font-size:18px;
     }
 
 }
@@ -315,8 +700,7 @@ body{
 
 <a href="my-target.html">🎯 My Target</a>
 
-<a
-href="admission-updates.html"
+<a href="admission-updates.html"
 class="active">
 🎓 Admission Updates
 </a>
@@ -336,66 +720,166 @@ class="active">
 
 <div class="container">
 
-<section class="header">
+<section class="hero">
 
-<h1>🎓 Admission Updates</h1>
+<div class="hero-label">
+● LIVE ADMISSION DESK
+</div>
+
+<h1>Admission Updates</h1>
 
 <p>
-Find official admission notices, application portals,
-admit cards, seat plans and results from universities
-and institutions.
+Stay updated with admission notices, application
+deadlines, admission tests, admit cards, seat plans
+and published results.
 </p>
 
 </section>
 
 
-<div class="controls">
+<section class="toolbar">
+
+<div class="search-box">
 
 <input
 id="search"
-class="search"
 type="search"
-placeholder="Search university or institution..."
-oninput="render()"
+placeholder="Search institution..."
+autocomplete="off"
 >
+
+</div>
+
 
 <div class="filters">
 
 <button
 class="filter active"
-onclick="setCategory('all',this)">
+data-category="all">
 All
 </button>
 
 <button
 class="filter"
-onclick="setCategory('public-university',this)">
+data-category="public-university">
 Public University
 </button>
 
 <button
 class="filter"
-onclick="setCategory('engineering',this)">
+data-category="engineering">
 Engineering
 </button>
 
 <button
 class="filter"
-onclick="setCategory('medical-dental',this)">
+data-category="medical-dental">
 Medical & Dental
 </button>
 
 <button
 class="filter"
-onclick="setCategory('agriculture-veterinary',this)">
+data-category="agriculture-veterinary">
 Agriculture
 </button>
 
 <button
 class="filter"
-onclick="setCategory('specialized-admission',this)">
+data-category="specialized-admission">
 Specialized
 </button>
+
+</div>
+
+</section>
+
+
+<section class="summary">
+
+<div class="summary-card">
+
+<div class="summary-top">
+
+<span class="summary-title">
+Updates
+</span>
+
+<span class="summary-icon">
+📢
+</span>
+
+</div>
+
+<div
+id="totalUpdates"
+class="summary-value">
+—
+</div>
+
+</div>
+
+
+<div class="summary-card">
+
+<div class="summary-top">
+
+<span class="summary-title">
+Upcoming
+</span>
+
+<span class="summary-icon">
+📅
+</span>
+
+</div>
+
+<div
+id="upcomingCount"
+class="summary-value">
+—
+</div>
+
+</div>
+
+
+<div class="summary-card">
+
+<div class="summary-top">
+
+<span class="summary-title">
+Categories
+</span>
+
+<span class="summary-icon">
+◈
+</span>
+
+</div>
+
+<div
+id="categoryCount"
+class="summary-value">
+—
+</div>
+
+</div>
+
+</section>
+
+
+<div class="section-header">
+
+<div>
+
+<div class="section-title">
+Latest Admission Information
+</div>
+
+<div
+id="resultInfo"
+class="section-subtitle">
+Loading admission information...
+</div>
 
 </div>
 
@@ -404,8 +888,26 @@ Specialized
 
 <div id="content">
 
-<div class="loading">
-Loading admission updates...
+<div class="loading-grid">
+
+<div class="skeleton">
+
+<div class="skeleton-line big"></div>
+<div class="skeleton-line small"></div>
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+
+</div>
+
+<div class="skeleton">
+
+<div class="skeleton-line big"></div>
+<div class="skeleton-line small"></div>
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+
+</div>
+
 </div>
 
 </div>
@@ -417,6 +919,10 @@ Loading admission updates...
 
 <script>
 
+/* =========================================================
+   SUPABASE
+========================================================= */
+
 const SUPABASE_URL =
 "https://rndtgjuwwsxxiiezennr.supabase.co";
 
@@ -425,88 +931,172 @@ const SUPABASE_PUBLISHABLE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
 );
 
+
+/* =========================================================
+   STATE
+========================================================= */
 
 let updates = [];
 
 let currentCategory = "all";
 
 
+/* =========================================================
+   INIT
+========================================================= */
+
 async function init(){
 
-    const {
-        data:{user}
-    } = await supabaseClient.auth.getUser();
+    try{
+
+        const {
+            data:{
+                user
+            },
+            error:authError
+        } =
+        await supabaseClient.auth.getUser();
 
 
-    if(!user){
+        if(
+            authError ||
+            !user
+        ){
 
-        window.location.href =
-        "index.html";
+            window.location.href =
+            "index.html";
 
-        return;
+            return;
+        }
+
+
+        await loadAdmissionUpdates();
+
+    }catch(error){
+
+        console.error(error);
+
+        showError();
+
     }
 
+}
 
-    const {data,error} =
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadAdmissionUpdates(){
+
+    const {
+        data,
+        error
+    } =
     await supabaseClient
+
     .from("admission_updates")
+
     .select("*")
-    .eq("is_active",true)
-    .order("exam_date",{ascending:true});
+
+    .eq(
+        "is_active",
+        true
+    )
+
+    .order(
+        "exam_date",
+        {
+            ascending:true,
+            nullsFirst:false
+        }
+    );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Admission updates error:",
+            error
+        );
 
-        document.getElementById("content").innerHTML = `
-
-            <div class="empty">
-
-                <h3>
-                    Unable to load admission updates
-                </h3>
-
-                <p>
-                    Please try again later.
-                </p>
-
-            </div>
-
-        `;
+        showError();
 
         return;
     }
 
 
-    updates = data || [];
+    updates =
+    Array.isArray(data)
+        ? data
+        : [];
+
+
+    updateSummary();
 
     render();
 
 }
 
 
-function setCategory(category,button){
+/* =========================================================
+   FILTER EVENTS
+========================================================= */
 
-    currentCategory = category;
+document
+.querySelectorAll(".filter")
+.forEach(button => {
 
-    document
-    .querySelectorAll(".filter")
-    .forEach(
-        item =>
-        item.classList.remove("active")
+    button.addEventListener(
+        "click",
+        function(){
+
+            currentCategory =
+            this.dataset.category;
+
+
+            document
+            .querySelectorAll(".filter")
+            .forEach(
+                item =>
+                item.classList.remove(
+                    "active"
+                )
+            );
+
+
+            this.classList.add(
+                "active"
+            );
+
+
+            render();
+
+        }
     );
 
-    button.classList.add("active");
+});
 
-    render();
 
-}
+/* =========================================================
+   SEARCH
+========================================================= */
 
+document
+.getElementById("search")
+.addEventListener(
+    "input",
+    render
+);
+
+
+/* =========================================================
+   RENDER
+========================================================= */
 
 function render(){
 
@@ -518,46 +1108,78 @@ function render(){
     .trim();
 
 
-    let list =
+    const list =
     updates.filter(item => {
 
         const categoryMatch =
-        currentCategory === "all" ||
-        item.category === currentCategory;
+            currentCategory === "all" ||
+            item.category === currentCategory;
+
+
+        const institution =
+            String(
+                item.institution_name || ""
+            ).toLowerCase();
+
+
+        const shortName =
+            String(
+                item.short_name || ""
+            ).toLowerCase();
+
+
+        const description =
+            String(
+                item.description || ""
+            ).toLowerCase();
 
 
         const searchMatch =
-        !search ||
-        item.institution_name
-        .toLowerCase()
-        .includes(search) ||
-
-        (item.short_name || "")
-        .toLowerCase()
-        .includes(search);
+            !search ||
+            institution.includes(search) ||
+            shortName.includes(search) ||
+            description.includes(search);
 
 
-        return categoryMatch && searchMatch;
+        return (
+            categoryMatch &&
+            searchMatch
+        );
 
     });
 
 
-    if(list.length === 0){
+    document
+    .getElementById("resultInfo")
+    .textContent =
+        list.length +
+        " admission update" +
+        (list.length === 1 ? "" : "s") +
+        " available";
 
-        document.getElementById("content").innerHTML = `
 
-            <div class="empty">
+    if(!list.length){
 
-                <h3>
-                    No Admission Updates
-                </h3>
+        document
+        .getElementById("content")
+        .innerHTML = `
 
-                <p>
-                    No admission information is currently
-                    available for your search.
-                </p>
+        <div class="state">
 
+            <div class="state-icon">
+                🔎
             </div>
+
+            <h3>
+                No matching updates
+            </h3>
+
+            <p>
+                Try another institution name
+                or admission category.
+            </p>
+
+        </div>
 
         `;
 
@@ -571,119 +1193,201 @@ function render(){
 
     list.forEach(item => {
 
-        html += `
+        html += createCard(item);
 
-        <article class="card">
+    });
 
-            <div class="top">
 
-                <span class="badge">
-                    ${categoryName(item.category)}
+    html +=
+    `</div>`;
+
+
+    document
+    .getElementById("content")
+    .innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   CREATE CARD
+========================================================= */
+
+function createCard(item){
+
+    const category =
+    categoryName(
+        item.category
+    );
+
+
+    const session =
+    escapeHTML(
+        item.admission_session ||
+        "Current Session"
+    );
+
+
+    const institution =
+    escapeHTML(
+        item.institution_name ||
+        "Institution"
+    );
+
+
+    const shortName =
+    escapeHTML(
+        item.short_name ||
+        ""
+    );
+
+
+    const description =
+    escapeHTML(
+        item.description ||
+        "Official admission information."
+    );
+
+
+    return `
+
+    <article class="card">
+
+        <div class="card-top">
+
+            <span class="badge">
+                ${category}
+            </span>
+
+            <span class="session">
+                ${session}
+            </span>
+
+        </div>
+
+
+        <h2 class="institution">
+            ${institution}
+        </h2>
+
+
+        ${
+            shortName
+            ?
+            `<div class="short-name">
+                ${shortName}
+            </div>`
+            :
+            ``
+        }
+
+
+        <div class="description">
+            ${description}
+        </div>
+
+
+        <div class="date-box">
+
+            <div class="date-item">
+
+                <span class="date-label">
+                    Application
                 </span>
 
-                <span class="session">
-                    ${escapeHTML(
-                        item.admission_session ||
-                        "Current Session"
+                <span class="date-value">
+                    ${dateRange(
+                        item.application_start,
+                        item.application_end
                     )}
                 </span>
 
             </div>
 
 
-            <h2>
-                ${escapeHTML(item.institution_name)}
-            </h2>
+            <div class="date-item">
 
+                <span class="date-label">
+                    Admission Test
+                </span>
 
-            <div class="short">
-                ${escapeHTML(item.short_name || "")}
-            </div>
-
-
-            <div class="description">
-                ${escapeHTML(
-                    item.description ||
-                    "Official admission information."
-                )}
-            </div>
-
-
-            <div class="dates">
-
-                📅 Application:
-                ${formatDate(item.application_start)}
-                —
-                ${formatDate(item.application_end)}
-
-                <br>
-
-                📝 Exam:
-                ${formatDate(item.exam_date)}
+                <span class="date-value">
+                    ${formatDate(
+                        item.exam_date
+                    )}
+                </span>
 
             </div>
 
-
-            <div class="links">
-
-                ${linkButton(
-                    item.admission_notice_url,
-                    "📢 Notice"
-                )}
-
-                ${linkButton(
-                    item.application_url,
-                    "📝 Apply"
-                )}
-
-                ${linkButton(
-                    item.admit_card_url,
-                    "🎫 Admit Card"
-                )}
-
-                ${linkButton(
-                    item.seat_plan_url,
-                    "📍 Seat Plan"
-                )}
-
-                ${linkButton(
-                    item.result_url,
-                    "🏆 Result"
-                )}
-
-                ${linkButton(
-                    item.official_website_url,
-                    "🌐 Official Site"
-                )}
-
-            </div>
-
-        </article>
-
-        `;
-
-    });
+        </div>
 
 
-    html += `</div>`;
+        <div class="links">
 
+            ${linkButton(
+                item.admission_notice_url,
+                "📢 Notice",
+                "primary"
+            )}
 
-    document.getElementById("content").innerHTML =
-    html;
+            ${linkButton(
+                item.application_url,
+                "📝 Apply",
+                "primary"
+            )}
+
+            ${linkButton(
+                item.admit_card_url,
+                "🎫 Admit Card",
+                "secondary"
+            )}
+
+            ${linkButton(
+                item.seat_plan_url,
+                "📍 Seat Plan",
+                "secondary"
+            )}
+
+            ${linkButton(
+                item.result_url,
+                "🏆 Result",
+                "secondary"
+            )}
+
+            ${linkButton(
+                item.official_website_url,
+                "🌐 Official Site",
+                "secondary"
+            )}
+
+        </div>
+
+    </article>
+
+    `;
 
 }
 
 
-function linkButton(url,text){
+/* =========================================================
+   LINK BUTTON
+========================================================= */
+
+function linkButton(
+    url,
+    text,
+    type
+){
 
     if(!url){
 
         return `
-        <span
-        class="btn secondary"
-        style="opacity:.5;cursor:not-allowed">
-        ${text}
+
+        <span class="btn disabled">
+            ${text}
         </span>
+
         `;
 
     }
@@ -692,12 +1396,12 @@ function linkButton(url,text){
     return `
 
     <a
-    class="btn"
-    href="${escapeHTML(url)}"
-    target="_blank"
-    rel="noopener noreferrer">
+        class="btn ${type}"
+        href="${escapeHTML(url)}"
+        target="_blank"
+        rel="noopener noreferrer">
 
-    ${text}
+        ${text}
 
     </a>
 
@@ -706,6 +1410,82 @@ function linkButton(url,text){
 }
 
 
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function updateSummary(){
+
+    const total =
+    updates.length;
+
+
+    const today =
+    new Date();
+
+
+    today.setHours(
+        0,0,0,0
+    );
+
+
+    const upcoming =
+    updates.filter(item => {
+
+        if(!item.exam_date)
+            return false;
+
+
+        const date =
+        new Date(
+            item.exam_date +
+            "T00:00:00"
+        );
+
+
+        return date >= today;
+
+    }).length;
+
+
+    const categories =
+    new Set(
+        updates
+        .map(item => item.category)
+        .filter(Boolean)
+    ).size;
+
+
+    document
+    .getElementById(
+        "totalUpdates"
+    )
+    .textContent =
+    total;
+
+
+    document
+    .getElementById(
+        "upcomingCount"
+    )
+    .textContent =
+    upcoming;
+
+
+    document
+    .getElementById(
+        "categoryCount"
+    )
+    .textContent =
+    categories;
+
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
 function formatDate(date){
 
     if(!date)
@@ -713,7 +1493,20 @@ function formatDate(date){
 
 
     const d =
-    new Date(date + "T00:00:00");
+    new Date(
+        date + "T00:00:00"
+    );
+
+
+    if(
+        Number.isNaN(
+            d.getTime()
+        )
+    ){
+
+        return "Not announced";
+
+    }
 
 
     return d.toLocaleDateString(
@@ -728,7 +1521,45 @@ function formatDate(date){
 }
 
 
-function categoryName(category){
+function dateRange(
+    start,
+    end
+){
+
+    if(!start && !end)
+        return "Not announced";
+
+
+    if(
+        start &&
+        end
+    ){
+
+        return (
+            formatDate(start) +
+            " — " +
+            formatDate(end)
+        );
+
+    }
+
+
+    if(start)
+        return formatDate(start);
+
+
+    return formatDate(end);
+
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+function categoryName(
+    category
+){
 
     const names = {
 
@@ -753,24 +1584,93 @@ function categoryName(category){
     };
 
 
-    return names[category] ||
-    "Admission";
+    return escapeHTML(
+        names[category] ||
+        "Admission"
+    );
 
 }
 
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+function showError(){
+
+    document
+    .getElementById("content")
+    .innerHTML = `
+
+    <div class="state">
+
+        <div class="state-icon">
+            ⚠
+        </div>
+
+        <h3>
+            Unable to load updates
+        </h3>
+
+        <p>
+            Admission information could not
+            be loaded right now. Please try again.
+        </p>
+
+    </div>
+
+    `;
+
+
+    document
+    .getElementById("resultInfo")
+    .textContent =
+    "Unable to load admission information";
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHTML(value){
 
-    return String(value || "")
+    return String(
+        value ?? ""
+    )
 
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
+
+/* =========================================================
+   START
+========================================================= */
 
 init();
 
