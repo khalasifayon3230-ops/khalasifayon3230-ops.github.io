@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -134,6 +137,7 @@ body{
     border-radius:15px;
     padding:22px;
     transition:.2s;
+    cursor:pointer;
 }
 
 .course-card.selected{
@@ -337,623 +341,684 @@ body{
     .topbar{
         padding:0 20px;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
 <aside class="sidebar">
 
     <div class="logo">
         Dream <span>Hunt</span>
     </div>
 
-    <div class="menu-title">Main</div>
+    <div class="menu-title">
+        Main
+    </div>
 
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="profile.html">👤 My Profile</a>
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
 
-    <div class="menu-title">Learning</div>
+    <a href="profile.html">
+        👤 My Profile
+    </a>
 
-    <a href="enrolled-courses.html">📚 Enrolled Courses</a>
-    <a href="buy-courses.html" class="active">🛒 Buy Courses</a>
-    <a href="progress.html">📊 Progress</a>
 
-    <div class="menu-title">Examination</div>
+    <div class="menu-title">
+        Learning
+    </div>
 
-    <a href="exams.html">📝 My Exams</a>
-    <a href="results.html">🏆 Results</a>
+    <a href="enrolled-courses.html">
+        📚 Enrolled Courses
+    </a>
 
-    <div class="menu-title">Admission</div>
+    <a href="buy-courses.html" class="active">
+        🛒 Buy Courses
+    </a>
 
-    <a href="#">🎯 My Target</a>
-    <a href="#">📢 Admission Updates</a>
+    <a href="progress.html">
+        📊 Progress
+    </a>
 
-    <div class="menu-title">Support</div>
 
-    <a href="notifications.html">🔔 Notifications</a>
-    <a href="contact.html">💬 Contact Us</a>
-    <a href="faq.html">❓ Help / FAQ</a>
+    <div class="menu-title">
+        Examination
+    </div>
+
+    <a href="exams.html">
+        📝 My Exams
+    </a>
+
+    <a href="results.html">
+        🏆 Results
+    </a>
+
+
+    <div class="menu-title">
+        Admission
+    </div>
+
+    <a href="target.html">
+        🎯 My Target
+    </a>
+
+    <a href="updates.html">
+        📢 Admission Updates
+    </a>
+
+
+    <div class="menu-title">
+        Support
+    </div>
+
+    <a href="notifications.html">
+        🔔 Notifications
+    </a>
+
+    <a href="contact.html">
+        💬 Contact Us
+    </a>
+
+    <a href="faq.html">
+        ❓ Help / FAQ
+    </a>
 
 </aside>
 
 
-<!-- MAIN -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main class="main">
 
-    <header class="topbar">
+<header class="topbar">
 
-        <h2>
-            Buy Courses
-        </h2>
+    <h2>
+        Buy Courses
+    </h2>
+
+    <div
+        class="user"
+        id="userEmail"
+    >
+        Loading...
+    </div>
+
+</header>
+
+
+<section class="content">
+
+
+    <div class="hero">
+
+        <h1>
+            Choose Your Admission Preparation
+        </h1>
+
+        <p>
+            Select the admission categories you want to prepare for.
+            Your package and price will automatically update according
+            to your selection.
+        </p>
+
+    </div>
+
+
+    <h2 class="section-title">
+        Select Your Categories
+    </h2>
+
+
+    <div class="categories">
+
+
+        <!-- PUBLIC -->
 
         <div
-            class="user"
-            id="userEmail"
+            class="course-card"
+            data-category="public-university"
         >
-            Loading...
-        </div>
 
-    </header>
+            <div class="course-top">
 
-
-    <section class="content">
-
-        <div class="hero">
-
-            <h1>
-                Choose Your Admission Preparation
-            </h1>
-
-            <p>
-                Select the admission categories you want to prepare for.
-                Your package and price will automatically update according
-                to your selection.
-            </p>
-
-        </div>
-
-
-        <h2 class="section-title">
-            Select Your Categories
-        </h2>
-
-
-        <div class="categories">
-
-
-            <!-- PUBLIC UNIVERSITY -->
-
-            <div
-                class="course-card"
-                data-category="public-university"
-            >
-
-                <div class="course-top">
-
-                    <input
-                        type="checkbox"
-                        class="checkbox category-checkbox"
-                        value="public-university"
-                    >
-
-                    <div>
-
-                        <div class="course-title">
-                            🏛️ Public University
-                        </div>
-
-                        <div class="course-description">
-                            Complete preparation for public university
-                            admission tests across Bangladesh.
-                        </div>
-
-                        <div class="facilities">
-
-                            <div class="facility">
-                                📚 Question Bank
-                            </div>
-
-                            <div class="facility">
-                                📝 Previous Questions
-                            </div>
-
-                            <div class="facility">
-                                🎯 Unit-wise Preparation
-                            </div>
-
-                            <div class="facility">
-                                📰 Current Affairs
-                            </div>
-
-                            <div class="facility">
-                                🧮 Formula & Shortcuts
-                            </div>
-
-                            <div class="facility">
-                                🏆 Competitive Ranking
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ENGINEERING -->
-
-            <div
-                class="course-card"
-                data-category="engineering"
-            >
-
-                <div class="course-top">
-
-                    <input
-                        type="checkbox"
-                        class="checkbox category-checkbox"
-                        value="engineering"
-                    >
-
-                    <div>
-
-                        <div class="course-title">
-                            ⚙️ Engineering
-                        </div>
-
-                        <div class="course-description">
-                            Admission preparation for BUET, CUET,
-                            KUET, RUET, MIST, BUTEX and related institutions.
-                        </div>
-
-                        <div class="facilities">
-
-                            <div class="facility">
-                                📚 Engineering QB
-                            </div>
-
-                            <div class="facility">
-                                📝 Previous Questions
-                            </div>
-
-                            <div class="facility">
-                                🧮 Formula Sheet
-                            </div>
-
-                            <div class="facility">
-                                ⏱️ Time Practice
-                            </div>
-
-                            <div class="facility">
-                                🧠 Problem Solving
-                            </div>
-
-                            <div class="facility">
-                                🏆 Ranking
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- MEDICAL -->
-
-            <div
-                class="course-card"
-                data-category="medical-dental"
-            >
-
-                <div class="course-top">
-
-                    <input
-                        type="checkbox"
-                        class="checkbox category-checkbox"
-                        value="medical-dental"
-                    >
-
-                    <div>
-
-                        <div class="course-title">
-                            🩺 Medical & Dental
-                        </div>
-
-                        <div class="course-description">
-                            MBBS and BDS admission-focused preparation
-                            with competitive MCQ practice.
-                        </div>
-
-                        <div class="facilities">
-
-                            <div class="facility">
-                                🧬 Biology MCQ
-                            </div>
-
-                            <div class="facility">
-                                ⚗️ Chemistry MCQ
-                            </div>
-
-                            <div class="facility">
-                                ⚡ Physics MCQ
-                            </div>
-
-                            <div class="facility">
-                                🌍 GK & Current Affairs
-                            </div>
-
-                            <div class="facility">
-                                📝 Model Tests
-                            </div>
-
-                            <div class="facility">
-                                🏆 Ranking
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- AGRICULTURE -->
-
-            <div
-                class="course-card"
-                data-category="agriculture-veterinary"
-            >
-
-                <div class="course-top">
-
-                    <input
-                        type="checkbox"
-                        class="checkbox category-checkbox"
-                        value="agriculture-veterinary"
-                    >
-
-                    <div>
-
-                        <div class="course-title">
-                            🌾 Agriculture & Veterinary
-                        </div>
-
-                        <div class="course-description">
-                            Agriculture university, cluster and veterinary
-                            admission preparation.
-                        </div>
-
-                        <div class="facilities">
-
-                            <div class="facility">
-                                📚 Question Bank
-                            </div>
-
-                            <div class="facility">
-                                🌱 Agriculture MCQ
-                            </div>
-
-                            <div class="facility">
-                                📝 Previous Questions
-                            </div>
-
-                            <div class="facility">
-                                🧠 Important Topics
-                            </div>
-
-                            <div class="facility">
-                                📰 Current Affairs
-                            </div>
-
-                            <div class="facility">
-                                🏆 Ranking
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- SPECIALIZED -->
-
-            <div
-                class="course-card"
-                data-category="specialized-admission"
-            >
-
-                <div class="course-top">
-
-                    <input
-                        type="checkbox"
-                        class="checkbox category-checkbox"
-                        value="specialized-admission"
-                    >
-
-                    <div>
-
-                        <div class="course-title">
-                            🎯 Specialized Admission
-                        </div>
-
-                        <div class="course-description">
-                            BUP, Maritime University, Textile, Aviation
-                            and other specialized admission preparation.
-                        </div>
-
-                        <div class="facilities">
-
-                            <div class="facility">
-                                📚 Question Bank
-                            </div>
-
-                            <div class="facility">
-                                📝 Model Tests
-                            </div>
-
-                            <div class="facility">
-                                📰 Current Affairs
-                            </div>
-
-                            <div class="facility">
-                                🎯 Pattern Analysis
-                            </div>
-
-                            <div class="facility">
-                                🏆 Ranking
-                            </div>
-
-                            <div class="facility">
-                                📊 Performance Analysis
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ABROAD -->
-
-            <div
-                class="course-card"
-                data-category="abroad-prep"
-            >
-
-                <div class="course-top">
-
-                    <input
-                        type="checkbox"
-                        class="checkbox category-checkbox"
-                        value="abroad-prep"
-                    >
-
-                    <div>
-
-                        <div class="course-title">
-                            🌍 Abroad Prep
-                        </div>
-
-                        <div class="course-description">
-                            Preparation support for students targeting
-                            international universities.
-                        </div>
-
-                        <div class="facilities">
-
-                            <div class="facility">
-                                🌐 University Guidance
-                            </div>
-
-                            <div class="facility">
-                                📝 Test Preparation
-                            </div>
-
-                            <div class="facility">
-                                📚 Study Resources
-                            </div>
-
-                            <div class="facility">
-                                🎯 Application Guidance
-                            </div>
-
-                            <div class="facility">
-                                📊 Progress Tracking
-                            </div>
-
-                            <div class="facility">
-                                🔔 Updates
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- VERIFICATION -->
-
-        <div class="verification">
-
-            <h2
-                class="section-title"
-                style="margin-top:0;"
-            >
-                Student Verification
-            </h2>
-
-            <p
-                style="
-                    color:#64748b;
-                    font-size:13px;
-                    margin-bottom:20px;
-                "
-            >
-                HSC/Equivalent academic information is required for
-                enrollment verification.
-            </p>
-
-
-            <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>
-                        HSC / Equivalent Roll Number *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="hscRoll"
-                        placeholder="Enter HSC roll number"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        HSC / Equivalent Registration Number *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="hscRegistration"
-                        placeholder="Enter registration number"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        HSC / Equivalent Year
-                    </label>
-
-                    <input
-                        type="text"
-                        id="hscYear"
-                        class="readonly"
-                        readonly
-                        placeholder="Loading..."
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Education Board
-                    </label>
-
-                    <input
-                        type="text"
-                        id="board"
-                        class="readonly"
-                        readonly
-                        placeholder="Loading..."
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="message"
-                class="message"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-    <!-- SUMMARY -->
-
-    <div class="summary">
-
-        <div class="summary-inner">
-
-
-            <div class="summary-info">
-
-                <h3 id="selectedText">
-                    No category selected
-                </h3>
-
-                <p id="packageText">
-                    Select at least one category to continue.
-                </p>
-
-                <span
-                    class="package"
-                    id="packageBadge"
-                    style="display:none;"
+                <input
+                    type="checkbox"
+                    class="checkbox category-checkbox"
+                    value="public-university"
                 >
-                    -
-                </span>
 
-            </div>
+                <div>
 
+                    <div class="course-title">
+                        🏛️ Public University
+                    </div>
 
-            <div>
+                    <div class="course-description">
+                        Complete preparation for public university
+                        admission tests across Bangladesh.
+                    </div>
 
-                <div
-                    class="price"
-                    id="totalPrice"
-                >
-                    ৳0
+                    <div class="facilities">
+
+                        <div class="facility">
+                            📚 Question Bank
+                        </div>
+
+                        <div class="facility">
+                            📝 Previous Questions
+                        </div>
+
+                        <div class="facility">
+                            🎯 Unit-wise Preparation
+                        </div>
+
+                        <div class="facility">
+                            📰 Current Affairs
+                        </div>
+
+                        <div class="facility">
+                            🧮 Formula & Shortcuts
+                        </div>
+
+                        <div class="facility">
+                            🏆 Competitive Ranking
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
+        </div>
 
-            <button
-                class="btn"
-                id="proceedBtn"
-                disabled
-            >
-                Proceed to Payment →
-            </button>
+
+        <!-- ENGINEERING -->
+
+        <div
+            class="course-card"
+            data-category="engineering"
+        >
+
+            <div class="course-top">
+
+                <input
+                    type="checkbox"
+                    class="checkbox category-checkbox"
+                    value="engineering"
+                >
+
+                <div>
+
+                    <div class="course-title">
+                        ⚙️ Engineering
+                    </div>
+
+                    <div class="course-description">
+                        Admission preparation for BUET, CUET,
+                        KUET, RUET, MIST, BUTEX and related institutions.
+                    </div>
+
+                    <div class="facilities">
+
+                        <div class="facility">
+                            📚 Engineering QB
+                        </div>
+
+                        <div class="facility">
+                            📝 Previous Questions
+                        </div>
+
+                        <div class="facility">
+                            🧮 Formula Sheet
+                        </div>
+
+                        <div class="facility">
+                            ⏱️ Time Practice
+                        </div>
+
+                        <div class="facility">
+                            🧠 Problem Solving
+                        </div>
+
+                        <div class="facility">
+                            🏆 Ranking
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEDICAL -->
+
+        <div
+            class="course-card"
+            data-category="medical-dental"
+        >
+
+            <div class="course-top">
+
+                <input
+                    type="checkbox"
+                    class="checkbox category-checkbox"
+                    value="medical-dental"
+                >
+
+                <div>
+
+                    <div class="course-title">
+                        🩺 Medical & Dental
+                    </div>
+
+                    <div class="course-description">
+                        MBBS and BDS admission-focused preparation
+                        with competitive MCQ practice.
+                    </div>
+
+                    <div class="facilities">
+
+                        <div class="facility">
+                            🧬 Biology MCQ
+                        </div>
+
+                        <div class="facility">
+                            ⚗️ Chemistry MCQ
+                        </div>
+
+                        <div class="facility">
+                            ⚡ Physics MCQ
+                        </div>
+
+                        <div class="facility">
+                            🌍 GK & Current Affairs
+                        </div>
+
+                        <div class="facility">
+                            📝 Model Tests
+                        </div>
+
+                        <div class="facility">
+                            🏆 Ranking
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- AGRICULTURE -->
+
+        <div
+            class="course-card"
+            data-category="agriculture-veterinary"
+        >
+
+            <div class="course-top">
+
+                <input
+                    type="checkbox"
+                    class="checkbox category-checkbox"
+                    value="agriculture-veterinary"
+                >
+
+                <div>
+
+                    <div class="course-title">
+                        🌾 Agriculture & Veterinary
+                    </div>
+
+                    <div class="course-description">
+                        Agriculture university, cluster and veterinary
+                        admission preparation.
+                    </div>
+
+                    <div class="facilities">
+
+                        <div class="facility">
+                            📚 Question Bank
+                        </div>
+
+                        <div class="facility">
+                            🌱 Agriculture MCQ
+                        </div>
+
+                        <div class="facility">
+                            📝 Previous Questions
+                        </div>
+
+                        <div class="facility">
+                            🧠 Important Topics
+                        </div>
+
+                        <div class="facility">
+                            📰 Current Affairs
+                        </div>
+
+                        <div class="facility">
+                            🏆 Ranking
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SPECIALIZED -->
+
+        <div
+            class="course-card"
+            data-category="specialized-admission"
+        >
+
+            <div class="course-top">
+
+                <input
+                    type="checkbox"
+                    class="checkbox category-checkbox"
+                    value="specialized-admission"
+                >
+
+                <div>
+
+                    <div class="course-title">
+                        🎯 Specialized Admission
+                    </div>
+
+                    <div class="course-description">
+                        BUP, Maritime University, Textile, Aviation
+                        and other specialized admission preparation.
+                    </div>
+
+                    <div class="facilities">
+
+                        <div class="facility">
+                            📚 Question Bank
+                        </div>
+
+                        <div class="facility">
+                            📝 Model Tests
+                        </div>
+
+                        <div class="facility">
+                            📰 Current Affairs
+                        </div>
+
+                        <div class="facility">
+                            🎯 Pattern Analysis
+                        </div>
+
+                        <div class="facility">
+                            🏆 Ranking
+                        </div>
+
+                        <div class="facility">
+                            📊 Performance Analysis
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ABROAD -->
+
+        <div
+            class="course-card"
+            data-category="abroad-prep"
+        >
+
+            <div class="course-top">
+
+                <input
+                    type="checkbox"
+                    class="checkbox category-checkbox"
+                    value="abroad-prep"
+                >
+
+                <div>
+
+                    <div class="course-title">
+                        🌍 Abroad Prep
+                    </div>
+
+                    <div class="course-description">
+                        Preparation support for students targeting
+                        international universities.
+                    </div>
+
+                    <div class="facilities">
+
+                        <div class="facility">
+                            🌐 University Guidance
+                        </div>
+
+                        <div class="facility">
+                            📝 Test Preparation
+                        </div>
+
+                        <div class="facility">
+                            📚 Study Resources
+                        </div>
+
+                        <div class="facility">
+                            🎯 Application Guidance
+                        </div>
+
+                        <div class="facility">
+                            📊 Progress Tracking
+                        </div>
+
+                        <div class="facility">
+                            🔔 Updates
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
+
+
+    <!-- =================================================
+         STUDENT VERIFICATION
+    ================================================== -->
+
+    <div class="verification">
+
+        <h2
+            class="section-title"
+            style="margin-top:0;"
+        >
+            Student Verification
+        </h2>
+
+        <p
+            style="
+                color:#64748b;
+                font-size:13px;
+                margin-bottom:20px;
+            "
+        >
+            HSC/Equivalent academic information is required
+            for enrollment verification.
+        </p>
+
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label>
+                    HSC / Equivalent Roll Number *
+                </label>
+
+                <input
+                    type="text"
+                    id="hscRoll"
+                    placeholder="Enter HSC roll number"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    HSC / Equivalent Registration Number *
+                </label>
+
+                <input
+                    type="text"
+                    id="hscRegistration"
+                    placeholder="Enter registration number"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    HSC / Equivalent Year
+                </label>
+
+                <input
+                    type="text"
+                    id="hscYear"
+                    class="readonly"
+                    readonly
+                    placeholder="Loading..."
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Education Board
+                </label>
+
+                <input
+                    type="text"
+                    id="board"
+                    class="readonly"
+                    readonly
+                    placeholder="Loading..."
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
+
+<div class="summary">
+
+<div class="summary-inner">
+
+
+    <div class="summary-info">
+
+        <h3 id="selectedText">
+            No category selected
+        </h3>
+
+        <p id="packageText">
+            Select at least one category to continue.
+        </p>
+
+        <span
+            class="package"
+            id="packageBadge"
+            style="display:none;"
+        >
+            -
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <div
+            class="price"
+            id="totalPrice"
+        >
+            ৳0
+        </div>
+
+    </div>
+
+
+    <button
+        class="btn"
+        id="proceedBtn"
+        disabled
+    >
+        Proceed to Payment →
+    </button>
+
+
+</div>
+
+</div>
 
 </main>
 
 
 <script>
 
-/* =========================================
+/* =====================================================
    SUPABASE
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
@@ -968,21 +1033,23 @@ const supabaseClient =
     );
 
 
-/* =========================================
-   PRICING
-========================================= */
+/* =====================================================
+   PRICES
+===================================================== */
 
 const prices = {
-    1: 300,
-    2: 500,
-    3: 800,
-    6: 1000
+    1:300,
+    2:500,
+    3:800,
+    4:1000,
+    5:1000,
+    6:1000
 };
 
 
-/* =========================================
+/* =====================================================
    ELEMENTS
-========================================= */
+===================================================== */
 
 const checkboxes =
     document.querySelectorAll(
@@ -992,6 +1059,11 @@ const checkboxes =
 const cards =
     document.querySelectorAll(
         ".course-card"
+    );
+
+const proceedBtn =
+    document.getElementById(
+        "proceedBtn"
     );
 
 const totalPrice =
@@ -1014,32 +1086,39 @@ const packageBadge =
         "packageBadge"
     );
 
-const proceedBtn =
-    document.getElementById(
-        "proceedBtn"
-    );
-
 const message =
     document.getElementById(
         "message"
     );
 
 
-/* =========================================
-   AUTH + PROFILE
-========================================= */
-
 let currentUser = null;
 
+
+/* =====================================================
+   AUTH
+===================================================== */
 
 async function loadStudent(){
 
     const {
-        data: {
+        data:{
             session
-        }
+        },
+        error
     } =
     await supabaseClient.auth.getSession();
+
+
+    if(error){
+
+        showError(
+            error.message
+        );
+
+        return;
+
+    }
 
 
     if(!session){
@@ -1048,6 +1127,7 @@ async function loadStudent(){
             "index.html";
 
         return;
+
     }
 
 
@@ -1058,20 +1138,19 @@ async function loadStudent(){
     document.getElementById(
         "userEmail"
     ).textContent =
-        currentUser.email;
+        currentUser.email || "Student";
 
 
-    const {
-        data: profile
-    } =
-    await supabaseClient
+    /* PROFILE */
+
+    const profileResult =
+        await supabaseClient
 
         .from("profiles")
 
-        .select(`
-            hsc_year,
-            board
-        `)
+        .select(
+            "hsc_year, board"
+        )
 
         .eq(
             "id",
@@ -1081,41 +1160,39 @@ async function loadStudent(){
         .maybeSingle();
 
 
-    if(profile){
+    if(profileResult.error){
 
-        document.getElementById(
-            "hscYear"
-        ).value =
-            profile.hsc_year ||
-            "Not available";
+        console.warn(
+            "Profile load:",
+            profileResult.error.message
+        );
 
-
-        document.getElementById(
-            "board"
-        ).value =
-            profile.board ||
-            "Not available";
-
-    }else{
-
-        document.getElementById(
-            "hscYear"
-        ).value =
-            "Not available";
-
-
-        document.getElementById(
-            "board"
-        ).value =
-            "Not available";
     }
+
+
+    const profile =
+        profileResult.data;
+
+
+    document.getElementById(
+        "hscYear"
+    ).value =
+        profile?.hsc_year ||
+        "Not available";
+
+
+    document.getElementById(
+        "board"
+    ).value =
+        profile?.board ||
+        "Not available";
 
 }
 
 
-/* =========================================
-   PACKAGE CALCULATION
-========================================= */
+/* =====================================================
+   UPDATE SELECTION
+===================================================== */
 
 function updateSelection(){
 
@@ -1124,10 +1201,12 @@ function updateSelection(){
             checkboxes
         )
         .filter(
-            cb => cb.checked
+            checkbox =>
+                checkbox.checked
         )
         .map(
-            cb => cb.value
+            checkbox =>
+                checkbox.value
         );
 
 
@@ -1135,36 +1214,37 @@ function updateSelection(){
         selected.length;
 
 
-    /* CARD STYLING */
+    /* CARD STYLE */
 
-    cards.forEach(
-        card => {
+    cards.forEach(card => {
 
-            const checkbox =
-                card.querySelector(
-                    ".category-checkbox"
-                );
+        const checkbox =
+            card.querySelector(
+                ".category-checkbox"
+            );
 
 
-            if(checkbox.checked){
+        if(
+            checkbox &&
+            checkbox.checked
+        ){
 
-                card.classList.add(
-                    "selected"
-                );
+            card.classList.add(
+                "selected"
+            );
 
-            }else{
+        }else{
 
-                card.classList.remove(
-                    "selected"
-                );
-
-            }
+            card.classList.remove(
+                "selected"
+            );
 
         }
-    );
+
+    });
 
 
-    /* NOTHING SELECTED */
+    /* NONE */
 
     if(count === 0){
 
@@ -1184,19 +1264,21 @@ function updateSelection(){
             true;
 
         return;
+
     }
 
 
-    /* DETERMINE PRICE */
+    /* PRICE */
 
-    let price = 0;
-    let packageName = "";
+    let price;
+
+    let packageName;
 
 
     if(count === 1){
 
         price =
-            prices[1];
+            300;
 
         packageName =
             "Single Category";
@@ -1206,7 +1288,7 @@ function updateSelection(){
     else if(count === 2){
 
         price =
-            prices[2];
+            500;
 
         packageName =
             "Dual Category";
@@ -1216,7 +1298,7 @@ function updateSelection(){
     else if(count === 3){
 
         price =
-            prices[3];
+            800;
 
         packageName =
             "Triple Category";
@@ -1226,7 +1308,7 @@ function updateSelection(){
     else{
 
         price =
-            prices[6];
+            1000;
 
         packageName =
             "All-In Package";
@@ -1240,8 +1322,8 @@ function updateSelection(){
 
     selectedText.textContent =
         count +
-        " Category" +
-        (count > 1 ? "ies" : "") +
+        " Categor" +
+        (count === 1 ? "y" : "ies") +
         " Selected";
 
 
@@ -1256,15 +1338,16 @@ function updateSelection(){
     packageBadge.style.display =
         "inline-block";
 
+
     proceedBtn.disabled =
         false;
 
 }
 
 
-/* =========================================
-   CHECKBOX EVENTS
-========================================= */
+/* =====================================================
+   CHECKBOX
+===================================================== */
 
 checkboxes.forEach(
     checkbox => {
@@ -1278,10 +1361,9 @@ checkboxes.forEach(
 );
 
 
-/* =========================================
-   PLAN CONNECTION
-   FROM PLANS & PACKAGES
-========================================= */
+/* =====================================================
+   PLAN FROM PLANS PAGE
+===================================================== */
 
 function loadSelectedPlan(){
 
@@ -1290,171 +1372,105 @@ function loadSelectedPlan(){
             window.location.search
         );
 
+
     const plan =
         params.get("plan");
 
 
     if(!plan){
-
         return;
-
     }
 
 
-    /* PUBLIC UNIVERSITY */
+    function check(value){
+
+        const element =
+            document.querySelector(
+                `.category-checkbox[value="${value}"]`
+            );
+
+        if(element){
+            element.checked = true;
+        }
+
+    }
+
 
     if(plan === "public"){
 
-        const checkbox =
-            document.querySelector(
-                '.category-checkbox[value="public-university"]'
-            );
-
-        if(checkbox){
-
-            checkbox.checked =
-                true;
-
-        }
+        check(
+            "public-university"
+        );
 
     }
-
-
-    /* MEDICAL */
 
     else if(plan === "medical"){
 
-        const checkbox =
-            document.querySelector(
-                '.category-checkbox[value="medical-dental"]'
-            );
-
-        if(checkbox){
-
-            checkbox.checked =
-                true;
-
-        }
+        check(
+            "medical-dental"
+        );
 
     }
-
-
-    /* ENGINEERING */
 
     else if(plan === "engineering"){
 
-        const checkbox =
-            document.querySelector(
-                '.category-checkbox[value="engineering"]'
-            );
-
-        if(checkbox){
-
-            checkbox.checked =
-                true;
-
-        }
+        check(
+            "engineering"
+        );
 
     }
-
-
-    /* TWO CATEGORY PACKAGE */
 
     else if(plan === "dual"){
 
-        const publicCheckbox =
-            document.querySelector(
-                '.category-checkbox[value="public-university"]'
-            );
+        check(
+            "public-university"
+        );
 
-        const medicalCheckbox =
-            document.querySelector(
-                '.category-checkbox[value="medical-dental"]'
-            );
-
-        if(publicCheckbox){
-
-            publicCheckbox.checked =
-                true;
-
-        }
-
-        if(medicalCheckbox){
-
-            medicalCheckbox.checked =
-                true;
-
-        }
+        check(
+            "medical-dental"
+        );
 
     }
-
-
-    /* ALL EXAM */
 
     else if(plan === "all"){
 
-        const publicCheckbox =
-            document.querySelector(
-                '.category-checkbox[value="public-university"]'
-            );
+        check(
+            "public-university"
+        );
 
-        const medicalCheckbox =
-            document.querySelector(
-                '.category-checkbox[value="medical-dental"]'
-            );
+        check(
+            "medical-dental"
+        );
 
-        const engineeringCheckbox =
-            document.querySelector(
-                '.category-checkbox[value="engineering"]'
-            );
-
-
-        if(publicCheckbox){
-
-            publicCheckbox.checked =
-                true;
-
-        }
-
-
-        if(medicalCheckbox){
-
-            medicalCheckbox.checked =
-                true;
-
-        }
-
-
-        if(engineeringCheckbox){
-
-            engineeringCheckbox.checked =
-                true;
-
-        }
+        check(
+            "engineering"
+        );
 
     }
 
-
-    /* UPDATE UI + PRICE */
 
     updateSelection();
 
 }
 
 
-/* =========================================
+/* =====================================================
    PROCEED TO PAYMENT
-========================================= */
+===================================================== */
 
 proceedBtn.addEventListener(
     "click",
     async function(){
 
-        message.className =
-            "message";
+        if(!currentUser){
 
-        message.textContent =
-            "";
+            showError(
+                "Please wait while your account is loading."
+            );
+
+            return;
+
+        }
 
 
         const selected =
@@ -1462,27 +1478,31 @@ proceedBtn.addEventListener(
                 checkboxes
             )
             .filter(
-                cb => cb.checked
+                checkbox =>
+                    checkbox.checked
             )
             .map(
-                cb => cb.value
+                checkbox =>
+                    checkbox.value
             );
 
 
         const hscRoll =
-            document.getElementById(
-                "hscRoll"
-            )
-            .value
-            .trim();
+            document
+                .getElementById(
+                    "hscRoll"
+                )
+                .value
+                .trim();
 
 
         const hscRegistration =
-            document.getElementById(
-                "hscRegistration"
-            )
-            .value
-            .trim();
+            document
+                .getElementById(
+                    "hscRegistration"
+                )
+                .value
+                .trim();
 
 
         /* VALIDATION */
@@ -1494,6 +1514,7 @@ proceedBtn.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1510,6 +1531,7 @@ proceedBtn.addEventListener(
                 .focus();
 
             return;
+
         }
 
 
@@ -1526,10 +1548,11 @@ proceedBtn.addEventListener(
                 .focus();
 
             return;
+
         }
 
 
-        /* CALCULATE PRICE */
+        /* PRICE */
 
         let price = 0;
         let packageName = "";
@@ -1537,9 +1560,7 @@ proceedBtn.addEventListener(
 
         if(selected.length === 1){
 
-            price =
-                300;
-
+            price = 300;
             packageName =
                 "Single Category";
 
@@ -1547,9 +1568,7 @@ proceedBtn.addEventListener(
 
         else if(selected.length === 2){
 
-            price =
-                500;
-
+            price = 500;
             packageName =
                 "Dual Category";
 
@@ -1557,9 +1576,7 @@ proceedBtn.addEventListener(
 
         else if(selected.length === 3){
 
-            price =
-                800;
-
+            price = 800;
             packageName =
                 "Triple Category";
 
@@ -1567,33 +1584,26 @@ proceedBtn.addEventListener(
 
         else{
 
-            price =
-                1000;
-
+            price = 1000;
             packageName =
                 "All-In Package";
 
         }
 
 
-        /* SAVE CHECKOUT */
+        /* CHECKOUT DATA */
 
         const checkoutData = {
 
-            categories:
-                selected,
+            categories:selected,
 
-            packageType:
-                packageName,
+            packageType:packageName,
 
-            amount:
-                price,
+            amount:price,
 
-            hscRoll:
-                hscRoll,
+            hscRoll:hscRoll,
 
-            hscRegistration:
-                hscRegistration,
+            hscRegistration:hscRegistration,
 
             hscYear:
                 document.getElementById(
@@ -1609,10 +1619,15 @@ proceedBtn.addEventListener(
                 currentUser.id,
 
             email:
-                currentUser.email
+                currentUser.email,
+
+            createdAt:
+                new Date().toISOString()
 
         };
 
+
+        /* SAVE */
 
         sessionStorage.setItem(
             "dreamHuntCheckout",
@@ -1622,18 +1637,24 @@ proceedBtn.addEventListener(
         );
 
 
-        /* GO PAYMENT PAGE */
+        /*
+         =================================================
+         IMPORTANT
+         ALWAYS GO TO PAYMENT.HTML
+         =================================================
+        */
 
-        window.location.href =
-            "payment.html";
+        window.location.assign(
+            "./payment.html"
+        );
 
     }
 );
 
 
-/* =========================================
-   ERROR MESSAGE
-========================================= */
+/* =====================================================
+   ERROR
+===================================================== */
 
 function showError(text){
 
@@ -1643,29 +1664,25 @@ function showError(text){
     message.className =
         "message error";
 
-
-    window.scrollTo({
-
-        top:
-            document.body.scrollHeight,
-
-        behavior:
-            "smooth"
-
-    });
+    message.style.display =
+        "block";
 
 }
 
 
-/* =========================================
-   START
-========================================= */
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
-loadStudent();
+(async function(){
 
-loadSelectedPlan();
+    await loadStudent();
+
+    loadSelectedPlan();
+
+})();
 
 </script>
 
 </body>
-</html>
+                        </html>
