@@ -4,13 +4,49 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Results | Dream Hunt</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Dream Hunt | Results</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   DREAM HUNT — RESULTS
+========================================================= */
+
+:root{
+
+    --ink:#07111f;
+    --ink2:#0d1a2c;
+
+    --paper:#f5f7fb;
+    --white:#ffffff;
+
+    --text:#101828;
+    --muted:#667085;
+    --soft:#98a2b3;
+
+    --line:#e6eaf0;
+
+    --green:#087443;
+    --green-bg:#ecfdf3;
+
+    --red:#c01048;
+    --red-bg:#fff1f4;
+
+    --amber:#a45b00;
+    --amber-bg:#fff8e8;
+
+    --purple:#6841c6;
+    --purple-bg:#f5f3ff;
+}
+
 
 /* =========================================================
    RESET
@@ -27,16 +63,24 @@ html{
 }
 
 body{
+
+    min-height:100vh;
+
+    background:var(--paper);
+
+    color:var(--text);
+
     font-family:
         Inter,
+        "Segoe UI",
         Arial,
-        Helvetica,
         sans-serif;
 
-    background:#f6f8fc;
-    color:#111827;
-    min-height:100vh;
     overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
 }
 
 button{
@@ -51,132 +95,158 @@ button{
 .sidebar{
 
     position:fixed;
+
     left:0;
     top:0;
 
-    width:255px;
+    width:258px;
     height:100vh;
 
-    background:
-        linear-gradient(
-            180deg,
-            #0b1220 0%,
-            #111827 100%
-        );
-
-    color:white;
-
-    padding:24px 15px;
+    padding:23px 14px;
 
     overflow-y:auto;
 
     z-index:1000;
 
-    border-right:1px solid
-        rgba(255,255,255,.05);
+    color:#fff;
+
+    background:
+        radial-gradient(
+            circle at 90% 5%,
+            rgba(255,255,255,.075),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #07111f 0%,
+            #0d1727 100%
+        );
+
+    border-right:
+        1px solid
+        rgba(255,255,255,.055);
 }
+
+
+/* =========================================================
+   LOGO
+========================================================= */
 
 .logo{
 
     display:flex;
+
     align-items:center;
+
     gap:11px;
 
     padding:
-        4px 12px
-        25px;
-
-    font-size:22px;
-    font-weight:850;
-    letter-spacing:-.5px;
+        5px
+        11px
+        28px;
 }
 
 .logo-mark{
 
-    width:37px;
-    height:37px;
+    width:40px;
+    height:40px;
 
-    border-radius:11px;
+    border-radius:13px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #cbd5e1
-        );
+    background:#fff;
 
-    color:#111827;
+    color:#07111f;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     font-size:17px;
-    font-weight:900;
+
+    font-weight:950;
 
     box-shadow:
-        0 8px 25px
+        0 10px 30px
         rgba(255,255,255,.08);
 }
 
-.nav-title{
+.logo-name{
 
-    color:#64748b;
+    color:#fff;
 
-    font-size:10px;
-    font-weight:800;
+    font-size:21px;
 
-    text-transform:uppercase;
+    font-weight:900;
 
-    letter-spacing:1.4px;
+    letter-spacing:-.7px;
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav-label{
 
     padding:
         12px
         13px
-        8px;
+        7px;
+
+    color:#536276;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
 }
 
 .nav a{
 
     display:flex;
+
     align-items:center;
+
     gap:12px;
 
-    text-decoration:none;
-
-    color:#aeb9ca;
+    margin-bottom:3px;
 
     padding:
         11px
         13px;
 
-    margin-bottom:4px;
-
     border-radius:11px;
 
+    color:#aab6c8;
+
     font-size:13px;
-    font-weight:600;
+
+    font-weight:650;
 
     transition:.2s ease;
 }
 
 .nav a:hover{
 
-    background:
-        rgba(255,255,255,.06);
+    color:#fff;
 
-    color:white;
+    background:
+        rgba(255,255,255,.055);
 }
 
 .nav a.active{
 
+    color:#fff;
+
     background:
         rgba(255,255,255,.10);
 
-    color:white;
-
     box-shadow:
-        inset 3px 0 0 #ffffff;
+        inset 3px 0 0 #fff;
 }
 
 .nav-icon{
@@ -195,46 +265,55 @@ button{
 
 .main{
 
-    margin-left:255px;
-
     min-height:100vh;
 
-    padding:30px;
+    margin-left:258px;
+
+    padding:
+        32px
+        34px
+        60px;
 }
 
 .container{
 
-    max-width:1180px;
+    width:100%;
+
+    max-width:1160px;
 
     margin:auto;
 }
 
 
 /* =========================================================
-   TOPBAR
+   BREADCRUMB
 ========================================================= */
 
-.topbar{
-
-    display:flex;
-
-    align-items:center;
-    justify-content:space-between;
+.page-top{
 
     margin-bottom:25px;
 }
 
 .breadcrumb{
 
-    color:#94a3b8;
+    color:#9aa5b5;
 
-    font-size:12px;
-    font-weight:600;
+    font-size:11px;
+
+    font-weight:650;
+}
+
+.breadcrumb span{
+
+    margin:
+        0 6px;
+
+    color:#c5ccd6;
 }
 
 .breadcrumb strong{
 
-    color:#334155;
+    color:#344054;
 }
 
 
@@ -246,26 +325,44 @@ button{
 
     position:relative;
 
+    min-height:230px;
+
     overflow:hidden;
 
+    padding:
+        34px
+        37px;
+
+    margin-bottom:25px;
+
+    border-radius:27px;
+
+    color:#fff;
+
     background:
+
+        radial-gradient(
+            circle at 87% 20%,
+            rgba(255,255,255,.09),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 72% 115%,
+            rgba(255,255,255,.055),
+            transparent 32%
+        ),
+
         linear-gradient(
-            135deg,
-            #111827 0%,
-            #1e293b 100%
+            125deg,
+            #07111f,
+            #111f35 55%,
+            #172840
         );
 
-    border-radius:24px;
-
-    padding:34px;
-
-    color:white;
-
-    margin-bottom:22px;
-
     box-shadow:
-        0 20px 50px
-        rgba(15,23,42,.13);
+        0 22px 55px
+        rgba(7,17,31,.15);
 }
 
 .hero::before{
@@ -277,31 +374,18 @@ button{
     width:250px;
     height:250px;
 
-    right:-80px;
-    top:-100px;
+    right:-90px;
+    top:-105px;
 
     border-radius:50%;
 
-    border:45px solid
-        rgba(255,255,255,.035);
-}
+    border:
+        1px solid
+        rgba(255,255,255,.10);
 
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:150px;
-    height:150px;
-
-    right:80px;
-    bottom:-90px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.035);
+    box-shadow:
+        0 0 0 28px rgba(255,255,255,.018),
+        0 0 0 58px rgba(255,255,255,.012);
 }
 
 .hero-content{
@@ -313,528 +397,62 @@ button{
     max-width:700px;
 }
 
-.hero-label{
+.hero-kicker{
 
     display:inline-flex;
 
     align-items:center;
-    gap:7px;
+
+    gap:8px;
 
     padding:
         7px
         11px;
 
-    border-radius:30px;
-
-    background:
-        rgba(255,255,255,.08);
+    margin-bottom:15px;
 
     border:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.09);
 
-    color:#cbd5e1;
+    border-radius:30px;
 
-    font-size:10px;
-    font-weight:800;
+    background:
+        rgba(255,255,255,.055);
+
+    color:#b8c4d5;
+
+    font-size:9px;
+
+    font-weight:850;
+
+    letter-spacing:1.5px;
 
     text-transform:uppercase;
-
-    letter-spacing:1px;
-
-    margin-bottom:15px;
 }
 
 .hero h1{
 
-    font-size:34px;
-
-    line-height:1.15;
-
-    letter-spacing:-1px;
-
     margin-bottom:10px;
+
+    color:#fff;
+
+    font-size:35px;
+
+    line-height:1.12;
+
+    letter-spacing:-1.3px;
 }
 
 .hero p{
 
-    color:#aeb9ca;
-
-    font-size:14px;
-
-    line-height:1.7;
-
     max-width:600px;
-}
 
-
-/* =========================================================
-   SUMMARY
-========================================================= */
-
-.summary-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:14px;
-
-    margin-bottom:24px;
-}
-
-.summary-card{
-
-    background:white;
-
-    border:
-        1px solid
-        #e7ebf2;
-
-    border-radius:17px;
-
-    padding:20px;
-
-    box-shadow:
-        0 7px 25px
-        rgba(15,23,42,.035);
-}
-
-.summary-top{
-
-    display:flex;
-
-    justify-content:space-between;
-    align-items:center;
-
-    margin-bottom:14px;
-}
-
-.summary-icon{
-
-    width:38px;
-    height:38px;
-
-    border-radius:11px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#f1f5f9;
-
-    font-size:17px;
-}
-
-.summary-label{
-
-    color:#94a3b8;
-
-    font-size:10px;
-    font-weight:800;
-
-    text-transform:uppercase;
-
-    letter-spacing:.7px;
-}
-
-.summary-value{
-
-    font-size:24px;
-
-    font-weight:850;
-
-    letter-spacing:-.7px;
-
-    color:#111827;
-}
-
-
-/* =========================================================
-   SECTION HEADER
-========================================================= */
-
-.section-header{
-
-    display:flex;
-
-    align-items:flex-end;
-    justify-content:space-between;
-
-    margin:
-        28px 0
-        13px;
-}
-
-.section-title{
-
-    font-size:19px;
-
-    font-weight:850;
-
-    letter-spacing:-.4px;
-}
-
-.section-subtitle{
-
-    color:#94a3b8;
-
-    font-size:12px;
-
-    margin-top:4px;
-}
-
-
-/* =========================================================
-   RESULT LIST
-========================================================= */
-
-.results{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-}
-
-.result-card{
-
-    background:white;
-
-    border:
-        1px solid
-        #e6eaf0;
-
-    border-radius:18px;
-
-    padding:19px;
-
-    box-shadow:
-        0 7px 25px
-        rgba(15,23,42,.035);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
-}
-
-.result-card:hover{
-
-    transform:translateY(-2px);
-
-    border-color:#d7dde7;
-
-    box-shadow:
-        0 14px 35px
-        rgba(15,23,42,.07);
-}
-
-.result-main{
-
-    display:grid;
-
-    grid-template-columns:
-        50px
-        minmax(200px,1fr)
-        auto
-        auto
-        auto
-        115px;
-
-    align-items:center;
-
-    gap:17px;
-}
-
-.result-number{
-
-    width:46px;
-    height:46px;
-
-    border-radius:13px;
-
-    background:#f1f5f9;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#334155;
+    color:#9caabd;
 
     font-size:13px;
-    font-weight:850;
-}
 
-.exam-name{
-
-    font-size:15px;
-
-    font-weight:800;
-
-    color:#111827;
-
-    margin-bottom:6px;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-}
-
-.exam-date{
-
-    color:#94a3b8;
-
-    font-size:11px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-}
-
-.metric{
-
-    min-width:78px;
-}
-
-.metric-label{
-
-    display:block;
-
-    color:#9ca3af;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    text-transform:uppercase;
-
-    letter-spacing:.6px;
-
-    margin-bottom:5px;
-}
-
-.metric-value{
-
-    color:#1f2937;
-
-    font-size:14px;
-
-    font-weight:800;
-}
-
-.metric-value.rank{
-
-    color:#7c3aed;
-}
-
-.metric-value.score{
-
-    color:#047857;
-}
-
-.view-btn{
-
-    width:115px;
-
-    border:none;
-
-    padding:10px 12px;
-
-    border-radius:10px;
-
-    background:#111827;
-
-    color:white;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.2s ease;
-}
-
-.view-btn:hover{
-
-    background:#020617;
-
-    transform:translateY(-1px);
-}
-
-
-/* =========================================================
-   SCORE BAR
-========================================================= */
-
-.score-progress{
-
-    margin-top:15px;
-
-    padding-top:15px;
-
-    border-top:
-        1px solid
-        #f1f5f9;
-}
-
-.score-progress-top{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    margin-bottom:7px;
-
-    color:#94a3b8;
-
-    font-size:10px;
-}
-
-.progress-track{
-
-    height:6px;
-
-    width:100%;
-
-    background:#eef2f7;
-
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-.progress-fill{
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:#111827;
-
-    width:0;
-
-    transition:
-        width .8s ease;
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty{
-
-    background:white;
-
-    border:
-        1px dashed
-        #d5dce6;
-
-    border-radius:20px;
-
-    padding:65px 25px;
-
-    text-align:center;
-}
-
-.empty-icon{
-
-    width:64px;
-    height:64px;
-
-    margin:
-        0 auto
-        17px;
-
-    border-radius:18px;
-
-    background:#f1f5f9;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:27px;
-}
-
-.empty h3{
-
-    font-size:18px;
-
-    margin-bottom:8px;
-}
-
-.empty p{
-
-    color:#94a3b8;
-
-    font-size:12px;
-
-    line-height:1.7;
-
-    max-width:470px;
-
-    margin:auto;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-
-    background:white;
-
-    border:
-        1px solid
-        #e6eaf0;
-
-    border-radius:20px;
-
-    padding:60px 20px;
-
-    text-align:center;
-
-    color:#94a3b8;
-
-    font-size:13px;
-}
-
-.loader{
-
-    width:30px;
-    height:30px;
-
-    border:
-        3px solid
-        #e5e7eb;
-
-    border-top-color:#111827;
-
-    border-radius:50%;
-
-    animation:
-        spin .8s linear infinite;
-
-    margin:
-        0 auto
-        14px;
-}
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
+    line-height:1.75;
 }
 
 
@@ -846,28 +464,599 @@ button{
 
     display:none;
 
-    background:#fff1f2;
+    padding:14px 16px;
+
+    margin-bottom:20px;
 
     border:
         1px solid
         #fecdd3;
 
-    color:#9f1239;
-
     border-radius:13px;
 
-    padding:14px 16px;
+    background:#fff1f2;
 
-    margin-bottom:18px;
+    color:#9f1239;
 
-    font-size:12px;
+    font-size:11px;
 
     line-height:1.6;
 }
 
 
 /* =========================================================
-   MOBILE BOTTOM NAV
+   SECTION
+========================================================= */
+
+.section{
+
+    margin-bottom:34px;
+}
+
+.section-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    margin-bottom:13px;
+}
+
+.section-title{
+
+    color:#101828;
+
+    font-size:19px;
+
+    font-weight:900;
+
+    letter-spacing:-.5px;
+}
+
+.section-description{
+
+    margin-top:4px;
+
+    color:#98a2b3;
+
+    font-size:11px;
+}
+
+.section-count{
+
+    color:#98a2b3;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   RESULTS LIST
+========================================================= */
+
+.results-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+
+/* =========================================================
+   RESULT CARD
+========================================================= */
+
+.result-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        18px
+        19px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:18px;
+
+    background:#fff;
+
+    box-shadow:
+        0 7px 25px
+        rgba(15,23,42,.032);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+.result-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:3px;
+    height:100%;
+
+    background:#dce2ea;
+}
+
+.result-card.published::before{
+
+    background:#101828;
+}
+
+.result-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#d9dfe8;
+
+    box-shadow:
+        0 14px 35px
+        rgba(15,23,42,.065);
+}
+
+
+/* =========================================================
+   RESULT ROW
+========================================================= */
+
+.result-row{
+
+    display:grid;
+
+    grid-template-columns:
+        45px
+        minmax(200px,1fr)
+        auto
+        auto
+        auto
+        120px;
+
+    align-items:center;
+
+    gap:17px;
+}
+
+.result-index{
+
+    width:43px;
+    height:43px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#f2f4f7;
+
+    color:#344054;
+
+    font-size:11px;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   EXAM INFO
+========================================================= */
+
+.exam-title{
+
+    margin-bottom:5px;
+
+    color:#111827;
+
+    font-size:14px;
+
+    font-weight:850;
+
+    line-height:1.45;
+}
+
+.exam-date{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:#98a2b3;
+
+    font-size:10px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   METRICS
+========================================================= */
+
+.metric{
+
+    min-width:72px;
+}
+
+.metric-label{
+
+    display:block;
+
+    margin-bottom:5px;
+
+    color:#a0a9b7;
+
+    font-size:8px;
+
+    font-weight:900;
+
+    letter-spacing:.75px;
+
+    text-transform:uppercase;
+}
+
+.metric-value{
+
+    color:#344054;
+
+    font-size:13px;
+
+    font-weight:850;
+}
+
+.metric-score{
+
+    color:#087443;
+}
+
+.metric-rank{
+
+    color:#6841c6;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    width:max-content;
+
+    padding:
+        6px
+        9px;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:900;
+
+    letter-spacing:.45px;
+
+    text-transform:uppercase;
+}
+
+.status::before{
+
+    content:"";
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:currentColor;
+}
+
+.status.published{
+
+    color:var(--green);
+
+    background:var(--green-bg);
+}
+
+.status.pending{
+
+    color:var(--amber);
+
+    background:var(--amber-bg);
+}
+
+
+/* =========================================================
+   VIEW ANALYSIS
+========================================================= */
+
+.view-btn{
+
+    width:120px;
+
+    padding:
+        10px
+        12px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#101828;
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:850;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.view-btn:hover{
+
+    background:#000;
+
+    transform:translateY(-1px);
+}
+
+.view-btn.disabled{
+
+    background:#f2f4f7;
+
+    color:#98a2b3;
+
+    cursor:default;
+}
+
+.view-btn.disabled:hover{
+
+    transform:none;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.result-details{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding-top:14px;
+
+    margin-top:15px;
+
+    border-top:
+        1px solid
+        #f0f2f5;
+}
+
+.detail{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:
+        6px
+        9px;
+
+    border-radius:8px;
+
+    font-size:9px;
+
+    font-weight:800;
+}
+
+.detail.correct{
+
+    color:#087443;
+
+    background:#ecfdf3;
+}
+
+.detail.wrong{
+
+    color:#be123c;
+
+    background:#fff1f2;
+}
+
+.detail.skipped{
+
+    color:#667085;
+
+    background:#f2f4f7;
+}
+
+.detail.negative{
+
+    color:#c2410c;
+
+    background:#fff7ed;
+}
+
+
+/* =========================================================
+   PENDING NOTE
+========================================================= */
+
+.pending-note{
+
+    padding-top:13px;
+
+    margin-top:14px;
+
+    border-top:
+        1px solid
+        #f0f2f5;
+
+    color:#98a2b3;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty{
+
+    padding:
+        62px
+        20px;
+
+    border:
+        1px dashed
+        #d5dbe5;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    text-align:center;
+}
+
+.empty-icon{
+
+    width:63px;
+    height:63px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    margin:
+        0 auto
+        17px;
+
+    border-radius:18px;
+
+    background:#f2f4f7;
+
+    color:#344054;
+
+    font-size:25px;
+}
+
+.empty h3{
+
+    margin-bottom:7px;
+
+    color:#1d2939;
+
+    font-size:17px;
+}
+
+.empty p{
+
+    max-width:460px;
+
+    margin:auto;
+
+    color:#98a2b3;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+
+    padding:
+        60px
+        20px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:19px;
+
+    background:#fff;
+
+    color:#98a2b3;
+
+    font-size:11px;
+
+    text-align:center;
+}
+
+.loader{
+
+    width:29px;
+    height:29px;
+
+    margin:
+        0 auto
+        13px;
+
+    border:
+        3px solid
+        #e7ebf0;
+
+    border-top-color:#111827;
+
+    border-radius:50%;
+
+    animation:
+        spin .75s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   MOBILE NAV
 ========================================================= */
 
 .mobile-nav{
@@ -882,28 +1071,33 @@ button{
 
 @media(max-width:1050px){
 
-    .result-main{
+    .result-row{
 
         grid-template-columns:
-            46px
+            43px
             minmax(180px,1fr)
             auto
-            auto;
+            auto
+            115px;
+    }
 
+    .result-row .metric:nth-of-type(2){
+
+        display:none;
     }
 
     .view-btn{
 
-        width:100%;
+        width:115px;
     }
 }
 
 
-@media(max-width:800px){
+@media(max-width:820px){
 
     .sidebar{
 
-        width:68px;
+        width:70px;
 
         padding:
             20px 7px;
@@ -915,15 +1109,15 @@ button{
 
         padding:
             4px 0
-            25px;
+            26px;
     }
 
-    .logo span{
+    .logo-name{
 
         display:none;
     }
 
-    .nav-title{
+    .nav-label{
 
         display:none;
     }
@@ -945,147 +1139,108 @@ button{
 
     .main{
 
-        margin-left:68px;
+        margin-left:70px;
 
         padding:
-            22px 17px
-            90px;
+            24px
+            17px
+            40px;
     }
 
-    .summary-grid{
+    .result-row{
 
         grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .result-main{
-
-        grid-template-columns:
-            46px
+            43px
             1fr
             auto;
-
     }
 
     .metric{
 
-        min-width:70px;
-    }
-
-    .result-main .metric:nth-of-type(3){
-
         display:none;
     }
 
+    .view-btn{
+
+        grid-column:3;
+
+        width:110px;
+    }
 }
 
 
 @media(max-width:600px){
-
-    .main{
-
-        margin-left:0;
-
-        padding:
-            15px
-            15px
-            90px;
-    }
 
     .sidebar{
 
         display:none;
     }
 
-    .topbar{
+    .main{
 
-        margin-bottom:17px;
+        margin-left:0;
+
+        padding:
+            16px
+            14px
+            90px;
     }
 
     .hero{
 
-        padding:25px 21px;
+        min-height:210px;
 
-        border-radius:20px;
+        padding:
+            27px
+            22px;
+
+        margin-bottom:21px;
+
+        border-radius:21px;
     }
 
     .hero h1{
 
-        font-size:27px;
+        font-size:28px;
+
+        letter-spacing:-1px;
     }
 
     .hero p{
 
-        font-size:12px;
+        font-size:11px;
+
+        line-height:1.75;
     }
 
-    .summary-grid{
+    .section-title{
 
-        gap:9px;
-    }
-
-    .summary-card{
-
-        padding:15px;
-    }
-
-    .summary-value{
-
-        font-size:20px;
-    }
-
-    .section-header{
-
-        margin-top:24px;
+        font-size:18px;
     }
 
     .result-card{
 
-        padding:15px;
+        padding:16px;
     }
 
-    .result-main{
+    .result-row{
 
         grid-template-columns:
-            42px
+            40px
             1fr;
 
-        gap:12px;
+        gap:11px;
     }
 
-    .result-number{
+    .result-index{
 
-        width:40px;
-        height:40px;
+        width:39px;
+        height:39px;
     }
 
-    .exam-name{
+    .exam-title{
 
-        white-space:normal;
-
-        line-height:1.4;
-    }
-
-    .metric{
-
-        min-width:0;
-    }
-
-    .result-main .metric{
-
-        margin-top:4px;
-    }
-
-    .result-main .metric:nth-of-type(2){
-
-        grid-column:2;
-    }
-
-    .result-main .metric:nth-of-type(3){
-
-        display:block;
-
-        grid-column:2;
+        font-size:13px;
     }
 
     .view-btn{
@@ -1095,12 +1250,21 @@ button{
 
         width:100%;
 
+        margin-top:4px;
+    }
+
+    .status{
+
         margin-top:3px;
     }
 
-    .score-progress{
+    .detail{
 
-        margin-top:14px;
+        font-size:8px;
+
+        padding:
+            6px
+            8px;
     }
 
     .mobile-nav{
@@ -1118,11 +1282,7 @@ button{
         align-items:center;
         justify-content:space-around;
 
-        background:
-            rgba(15,23,42,.96);
-
-        backdrop-filter:
-            blur(15px);
+        z-index:2000;
 
         border:
             1px solid
@@ -1130,18 +1290,18 @@ button{
 
         border-radius:18px;
 
-        z-index:2000;
+        background:
+            rgba(8,17,31,.96);
+
+        backdrop-filter:
+            blur(16px);
 
         box-shadow:
-            0 15px 40px
-            rgba(0,0,0,.18);
+            0 15px 45px
+            rgba(0,0,0,.2);
     }
 
     .mobile-nav a{
-
-        text-decoration:none;
-
-        color:#94a3b8;
 
         display:flex;
 
@@ -1151,19 +1311,21 @@ button{
 
         gap:4px;
 
-        font-size:9px;
+        color:#8491a5;
 
-        font-weight:700;
+        font-size:8px;
+
+        font-weight:800;
     }
 
     .mobile-nav a.active{
 
-        color:white;
+        color:#fff;
     }
 
     .mobile-nav span{
 
-        font-size:18px;
+        font-size:17px;
     }
 }
 
@@ -1187,91 +1349,107 @@ button{
             D
         </div>
 
-        <span>
+        <div class="logo-name">
             Dream Hunt
-        </span>
+        </div>
 
     </div>
 
 
     <nav class="nav">
 
-        <div class="nav-title">
+        <div class="nav-label">
             Main
         </div>
 
+
         <a href="dashboard.html">
-            <span class="nav-icon">🏠</span>
+            <span class="nav-icon">⌂</span>
             Dashboard
         </a>
 
+
         <a href="profile.html">
-            <span class="nav-icon">👤</span>
+            <span class="nav-icon">◉</span>
             My Profile
         </a>
 
+
         <a href="enrolled-courses.html">
-            <span class="nav-icon">📚</span>
+            <span class="nav-icon">▣</span>
             Enrolled Courses
         </a>
 
+
         <a href="buy-courses.html">
-            <span class="nav-icon">🛒</span>
+            <span class="nav-icon">＋</span>
             Buy Courses
         </a>
 
 
-        <div class="nav-title">
+        <div class="nav-label">
             Academic
         </div>
 
+
         <a href="progress.html">
-            <span class="nav-icon">📈</span>
+            <span class="nav-icon">↗</span>
             Progress
         </a>
 
+
         <a href="exams.html">
-            <span class="nav-icon">📝</span>
+            <span class="nav-icon">□</span>
             My Exams
         </a>
 
-        <a href="results.html" class="active">
-            <span class="nav-icon">🏆</span>
+
+        <a
+            href="results.html"
+            class="active"
+        >
+            <span class="nav-icon">◆</span>
             Results
         </a>
 
+
         <a href="my-target.html">
-            <span class="nav-icon">🎯</span>
+            <span class="nav-icon">◎</span>
             My Target
         </a>
 
 
-        <div class="nav-title">
+        <div class="nav-label">
             More
         </div>
 
+
         <a href="admission-updates.html">
-            <span class="nav-icon">🎓</span>
+            <span class="nav-icon">◇</span>
             Admission Updates
         </a>
 
+
         <a href="notifications.html">
-            <span class="nav-icon">🔔</span>
+            <span class="nav-icon">◌</span>
             Notifications
         </a>
 
+
         <a href="contact.html">
-            <span class="nav-icon">💬</span>
+            <span class="nav-icon">✉</span>
             Contact Us
         </a>
 
+
         <a href="faq.html">
-            <span class="nav-icon">❓</span>
+            <span class="nav-icon">?</span>
             FAQ
         </a>
 
+
         <a href="settings.html">
-            <span class="nav-icon">⚙️</span>
+            <span class="nav-icon">⚙</span>
             Settings
         </a>
 
@@ -1290,36 +1468,47 @@ button{
 <div class="container">
 
 
-    <div class="topbar">
+    <div class="page-top">
 
         <div class="breadcrumb">
+
             Dream Hunt
-            <span> / </span>
+
+            <span>/</span>
+
             <strong>Results</strong>
+
         </div>
 
     </div>
 
 
 
-    <!-- HERO -->
+    <!-- ===================================================
+         HERO
+    =================================================== -->
 
     <section class="hero">
 
         <div class="hero-content">
 
-            <div class="hero-label">
-                🏆 Performance Center
+            <div class="hero-kicker">
+                ◆ Dream Hunt · Exam Results
             </div>
 
+
             <h1>
-                Your Results
+                Your Exam Results
             </h1>
 
+
             <p>
-                Track your published admission exam
-                results, marks and merit position
-                from one place.
+
+                Every examination you have submitted,
+                every published result, and every
+                important result detail — organized
+                in one place.
+
             </p>
 
         </div>
@@ -1337,97 +1526,51 @@ button{
 
 
 
-    <!-- SUMMARY -->
+    <!-- ===================================================
+         RECENT RESULTS
+    =================================================== -->
 
-    <section class="summary-grid">
+    <section
+        class="section"
+        id="recentSection"
+    >
 
-        <div class="summary-card">
+        <div class="section-header">
 
-            <div class="summary-top">
+            <div>
 
-                <span class="summary-label">
-                    Published Results
-                </span>
+                <div class="section-title">
+                    Recent Results
+                </div>
 
-                <div class="summary-icon">
-                    🏆
+                <div class="section-description">
+                    Your latest submitted examinations
                 </div>
 
             </div>
 
+
             <div
-                class="summary-value"
-                id="resultCount">
-                —
+                class="section-count"
+                id="recentCount">
+
+                0 exams
+
             </div>
 
         </div>
 
 
-        <div class="summary-card">
+        <div
+            id="recentResults"
+            class="results-list">
 
-            <div class="summary-top">
+            <div class="loading">
 
-                <span class="summary-label">
-                    Average Score
-                </span>
+                <div class="loader"></div>
 
-                <div class="summary-icon">
-                    📊
-                </div>
+                Loading your results...
 
-            </div>
-
-            <div
-                class="summary-value"
-                id="averageScore">
-                —
-            </div>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <div class="summary-top">
-
-                <span class="summary-label">
-                    Best Score
-                </span>
-
-                <div class="summary-icon">
-                    ⭐
-                </div>
-
-            </div>
-
-            <div
-                class="summary-value"
-                id="bestScore">
-                —
-            </div>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <div class="summary-top">
-
-                <span class="summary-label">
-                    Best Rank
-                </span>
-
-                <div class="summary-icon">
-                    🥇
-                </div>
-
-            </div>
-
-            <div
-                class="summary-value"
-                id="bestRank">
-                —
             </div>
 
         </div>
@@ -1436,39 +1579,47 @@ button{
 
 
 
-    <!-- RESULTS -->
+    <!-- ===================================================
+         PREVIOUS RESULTS
+    =================================================== -->
 
-    <div class="section-header">
+    <section
+        class="section"
+        id="previousSection"
+    >
 
-        <div>
+        <div class="section-header">
 
-            <div class="section-title">
-                Published Results
+            <div>
+
+                <div class="section-title">
+                    Previous Results
+                </div>
+
+                <div class="section-description">
+                    Your earlier submitted examinations
+                </div>
+
             </div>
 
-            <div class="section-subtitle">
-                Your officially published exam performances
+
+            <div
+                class="section-count"
+                id="previousCount">
+
+                0 exams
+
             </div>
 
         </div>
 
-    </div>
 
-
-
-    <div
-        id="resultList"
-        class="results">
-
-        <div class="loading">
-
-            <div class="loader"></div>
-
-            Loading your results...
-
+        <div
+            id="previousResults"
+            class="results-list">
         </div>
 
-    </div>
+    </section>
 
 
 </div>
@@ -1483,9 +1634,10 @@ button{
 
 <nav class="mobile-nav">
 
+
     <a href="dashboard.html">
 
-        <span>🏠</span>
+        <span>⌂</span>
 
         Home
 
@@ -1494,16 +1646,19 @@ button{
 
     <a href="exams.html">
 
-        <span>📝</span>
+        <span>□</span>
 
         Exams
 
     </a>
 
 
-    <a href="results.html" class="active">
+    <a
+        href="results.html"
+        class="active"
+    >
 
-        <span>🏆</span>
+        <span>◆</span>
 
         Results
 
@@ -1512,7 +1667,7 @@ button{
 
     <a href="notifications.html">
 
-        <span>🔔</span>
+        <span>◌</span>
 
         Alerts
 
@@ -1521,7 +1676,7 @@ button{
 
     <a href="settings.html">
 
-        <span>⚙️</span>
+        <span>⚙</span>
 
         Settings
 
@@ -1540,8 +1695,10 @@ button{
 const SUPABASE_URL =
     "https://rndtgjuwwsxxiiezennr.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1551,7 +1708,7 @@ const supabaseClient =
 
 
 /* =========================================================
-   AUTH
+   INIT
 ========================================================= */
 
 async function init(){
@@ -1559,9 +1716,7 @@ async function init(){
     try{
 
         const {
-            data:{
-                session
-            },
+            data,
             error
         } =
         await supabaseClient.auth.getSession();
@@ -1571,6 +1726,10 @@ async function init(){
 
             throw error;
         }
+
+
+        const session =
+            data.session;
 
 
         if(!session){
@@ -1584,15 +1743,17 @@ async function init(){
 
         await loadResults();
 
-    }catch(error){
+    }
+    catch(error){
 
         console.error(
-            "Initialization error:",
+            "Results initialization error:",
             error
         );
 
+
         showError(
-            "Unable to initialize the Results page. Please login again."
+            "Unable to load your results. Please login again."
         );
 
     }
@@ -1612,10 +1773,9 @@ async function loadResults(){
             data,
             error
         } =
-        await supabaseClient
-            .rpc(
-                "get_my_published_results"
-            );
+        await supabaseClient.rpc(
+            "get_my_exam_results"
+        );
 
 
         if(error){
@@ -1625,24 +1785,80 @@ async function loadResults(){
 
 
         const results =
-            data || [];
+            Array.isArray(data)
+                ? data
+                : [];
 
 
-        updateSummary(results);
+        if(results.length === 0){
 
-
-        if(!results.length){
-
-            showEmpty();
+            showNoResults();
 
             return;
         }
 
 
-        renderResults(results);
+        /*
+         * RPC already returns the latest
+         * submitted attempt for each exam.
+         *
+         * Latest 3:
+         * Recent Results
+         *
+         * Remaining:
+         * Previous Results
+         */
+
+        const recent =
+            results.slice(
+                0,
+                3
+            );
 
 
-    }catch(error){
+        const previous =
+            results.slice(
+                3
+            );
+
+
+        renderResults(
+            recent,
+            "recentResults",
+            0
+        );
+
+
+        renderResults(
+            previous,
+            "previousResults",
+            3
+        );
+
+
+        updateCount(
+            "recentCount",
+            recent.length
+        );
+
+
+        updateCount(
+            "previousCount",
+            previous.length
+        );
+
+
+        if(previous.length === 0){
+
+            document.getElementById(
+                "previousSection"
+            ).style.display =
+                "none";
+
+        }
+
+    }
+    catch(error){
 
         console.error(
             "Results loading error:",
@@ -1651,12 +1867,20 @@ async function loadResults(){
 
 
         showError(
-            "Unable to load your results right now. Please try again."
+            "Unable to load your exam results right now."
         );
 
+
         document.getElementById(
-            "resultList"
-        ).innerHTML = "";
+            "recentResults"
+        ).innerHTML =
+            "";
+
+
+        document.getElementById(
+            "previousSection"
+        ).style.display =
+            "none";
 
     }
 
@@ -1664,174 +1888,26 @@ async function loadResults(){
 
 
 /* =========================================================
-   SUMMARY
+   COUNT
 ========================================================= */
 
-function updateSummary(results){
+function updateCount(
+    elementId,
+    count
+){
 
-    const count =
-        results.length;
-
-
-    document.getElementById(
-        "resultCount"
-    ).textContent =
-        count;
-
-
-    if(!count){
-
+    const element =
         document.getElementById(
-            "averageScore"
-        ).textContent =
-            "—";
-
-        document.getElementById(
-            "bestScore"
-        ).textContent =
-            "—";
-
-        document.getElementById(
-            "bestRank"
-        ).textContent =
-            "—";
-
-        return;
-    }
+            elementId
+        );
 
 
-    let scoreTotal = 0;
-    let scoreCount = 0;
-
-    let bestScore = null;
-    let bestScoreMax = null;
-
-    let bestRank = null;
-
-
-    results.forEach(
-        result => {
-
-            const score =
-                Number(
-                    result.total_mark
-                );
-
-            const max =
-                Number(
-                    result.total_marks
-                );
-
-
-            if(
-                Number.isFinite(score)
-            ){
-
-                scoreTotal += score;
-
-                scoreCount++;
-
-            }
-
-
-            /*
-             * Best score is calculated
-             * by percentage, not raw marks.
-             */
-
-            if(
-                Number.isFinite(score) &&
-                Number.isFinite(max) &&
-                max > 0
-            ){
-
-                const percentage =
-                    (score / max) * 100;
-
-
-                if(
-                    bestScore === null ||
-                    percentage >
-                    bestScore
-                ){
-
-                    bestScore =
-                        percentage;
-
-                    bestScoreMax =
-                        {
-                            score,
-                            max
-                        };
-
-                }
-
-            }
-
-
-            const rank =
-                Number(
-                    result.merit_position
-                );
-
-
-            if(
-                Number.isFinite(rank) &&
-                rank > 0
-            ){
-
-                if(
-                    bestRank === null ||
-                    rank < bestRank
-                ){
-
-                    bestRank =
-                        rank;
-
-                }
-
-            }
-
-        }
-    );
-
-
-    if(scoreCount){
-
-        const average =
-            scoreTotal /
-            scoreCount;
-
-        document.getElementById(
-            "averageScore"
-        ).textContent =
-            average.toFixed(1);
-
-    }
-
-
-    if(
-        bestScoreMax
-    ){
-
-        document.getElementById(
-            "bestScore"
-        ).textContent =
-            `${formatNumber(
-                bestScoreMax.score
-            )}/${formatNumber(
-                bestScoreMax.max
-            )}`;
-
-    }
-
-
-    document.getElementById(
-        "bestRank"
-    ).textContent =
-        bestRank !== null
-            ? `#${bestRank}`
-            : "—";
+    element.textContent =
+        `${count} ${
+            count === 1
+                ? "exam"
+                : "exams"
+        }`;
 
 }
 
@@ -1840,235 +1916,359 @@ function updateSummary(results){
    RENDER RESULTS
 ========================================================= */
 
-function renderResults(results){
+function renderResults(
+    results,
+    containerId,
+    startIndex
+){
 
     const container =
         document.getElementById(
-            "resultList"
+            containerId
         );
 
 
+    if(!results.length){
+
+        container.innerHTML =
+            "";
+
+        return;
+    }
+
+
     container.innerHTML =
-        results.map(
-            (result,index) => {
-
-                const score =
-                    Number(
-                        result.total_mark
-                    );
-
-
-                const totalMarks =
-                    Number(
-                        result.total_marks
-                    );
-
-
-                let percentage = 0;
-
-
-                if(
-                    Number.isFinite(score) &&
-                    Number.isFinite(totalMarks) &&
-                    totalMarks > 0
-                ){
-
-                    percentage =
-                        Math.max(
-                            0,
-                            Math.min(
-                                100,
-                                (score /
-                                    totalMarks) *
-                                    100
-                            )
-                        );
-
-                }
-
-
-                const rank =
-                    Number(
-                        result.merit_position
-                    );
-
-
-                const rankText =
-                    Number.isFinite(rank) &&
-                    rank > 0
-                        ? `#${escapeHTML(rank)}`
-                        : "—";
-
-
-                return `
-
-                    <article
-                        class="result-card">
-
-                        <div
-                            class="result-main">
-
-
-                            <div
-                                class="result-number">
-
-                                ${String(
-                                    index + 1
-                                ).padStart(2,"0")}
-
-                            </div>
-
-
-                            <div>
-
-                                <div
-                                    class="exam-name">
-
-                                    ${escapeHTML(
-                                        result.exam_name ||
-                                        "Admission Exam"
-                                    )}
-
-                                </div>
-
-
-                                <div
-                                    class="exam-date">
-
-                                    🗓️
-
-                                    ${formatDate(
-                                        result.exam_date
-                                    )}
-
-                                </div>
-
-                            </div>
-
-
-                            <div
-                                class="metric">
-
-                                <span
-                                    class="metric-label">
-
-                                    Score
-
-                                </span>
-
-                                <span
-                                    class="metric-value score">
-
-                                    ${
-                                        Number.isFinite(score)
-                                            ? `${formatNumber(score)}/${formatNumber(totalMarks)}`
-                                            : "—"
-                                    }
-
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="metric">
-
-                                <span
-                                    class="metric-label">
-
-                                    Rank
-
-                                </span>
-
-                                <span
-                                    class="metric-value rank">
-
-                                    ${rankText}
-
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="metric">
-
-                                <span
-                                    class="metric-label">
-
-                                    Accuracy
-
-                                </span>
-
-                                <span
-                                    class="metric-value">
-
-                                    ${percentage.toFixed(1)}%
-
-                                </span>
-
-                            </div>
-
-
-                            <button
-                                class="view-btn"
-                                onclick="viewResult('${escapeHTML(
-                                    result.exam_id
-                                )}')">
-
-                                View Result →
-
-                            </button>
-
-
-                        </div>
-
-
-                        <div
-                            class="score-progress">
-
-                            <div
-                                class="score-progress-top">
-
-                                <span>
-                                    Overall score
-                                </span>
-
-                                <span>
-                                    ${percentage.toFixed(1)}%
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="progress-track">
-
-                                <div
-                                    class="progress-fill"
-                                    style="width:${percentage}%">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-                `;
-
-            }
-        ).join("");
+        results
+            .map(
+                (result,index) =>
+
+                    createResultCard(
+                        result,
+                        startIndex + index
+                    )
+            )
+            .join("");
 
 }
 
 
 /* =========================================================
-   VIEW RESULT
+   CREATE RESULT CARD
 ========================================================= */
 
-function viewResult(examId){
+function createResultCard(
+    result,
+    index
+){
+
+    const published =
+        result.result_published === true;
+
+
+    const score =
+        toNumber(
+            result.total_mark
+        );
+
+
+    const totalMarks =
+        toNumber(
+            result.total_marks
+        );
+
+
+    const correct =
+        toNumber(
+            result.correct_answers
+        );
+
+
+    const wrong =
+        toNumber(
+            result.wrong_answers
+        );
+
+
+    const skipped =
+        toNumber(
+            result.skipped_answers
+        );
+
+
+    const negative =
+        toNumber(
+            result.negative_mark
+        );
+
+
+    const rank =
+        toNumber(
+            result.merit_position
+        );
+
+
+    let percentage = null;
+
+
+    if(
+        score !== null &&
+        totalMarks !== null &&
+        totalMarks > 0
+    ){
+
+        percentage =
+            (
+                score /
+                totalMarks
+            ) * 100;
+
+    }
+
+
+    const statusHTML =
+        published
+
+            ? `
+                <span class="status published">
+                    Result Published
+                </span>
+              `
+
+            : `
+                <span class="status pending">
+                    Result Pending
+                </span>
+              `;
+
+
+    const scoreHTML =
+        published && score !== null
+
+            ? `
+                <div class="metric">
+
+                    <span class="metric-label">
+                        Score
+                    </span>
+
+                    <span class="metric-value metric-score">
+                        ${formatNumber(score)}
+                        /
+                        ${formatNumber(totalMarks)}
+                    </span>
+
+                </div>
+              `
+
+            : "";
+
+
+    const rankHTML =
+        published && rank !== null
+
+            ? `
+                <div class="metric">
+
+                    <span class="metric-label">
+                        Rank
+                    </span>
+
+                    <span class="metric-value metric-rank">
+                        #${formatNumber(rank)}
+                    </span>
+
+                </div>
+              `
+
+            : "";
+
+
+    const percentageHTML =
+        published && percentage !== null
+
+            ? `
+                <div class="metric">
+
+                    <span class="metric-label">
+                        Score %
+                    </span>
+
+                    <span class="metric-value">
+                        ${percentage.toFixed(1)}%
+                    </span>
+
+                </div>
+              `
+
+            : "";
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Analysis now goes to:
+     *
+     * performances.html?exam_id=...
+     *
+     */
+
+    const buttonHTML =
+        published
+
+            ? `
+                <button
+                    class="view-btn"
+                    onclick="viewAnalysis('${escapeHTML(
+                        result.exam_id
+                    )}')"
+                >
+                    View Analysis →
+                </button>
+              `
+
+            : `
+                <button
+                    class="view-btn disabled"
+                    disabled
+                >
+                    Awaiting Result
+                </button>
+              `;
+
+
+    const detailsHTML =
+        published
+
+            ? `
+
+                <div class="result-details">
+
+                    <span class="detail correct">
+                        ✓ Correct:
+                        ${formatNumber(correct)}
+                    </span>
+
+
+                    <span class="detail wrong">
+                        × Wrong:
+                        ${formatNumber(wrong)}
+                    </span>
+
+
+                    <span class="detail skipped">
+                        ○ Skipped:
+                        ${formatNumber(skipped)}
+                    </span>
+
+
+                    <span class="detail negative">
+                        − Negative:
+                        ${formatNumber(negative)}
+                    </span>
+
+                </div>
+
+              `
+
+            : `
+
+                <div class="pending-note">
+
+                    You have submitted this examination.
+                    Dream Hunt has not published the result yet.
+                    Your result will appear automatically after publication.
+
+                </div>
+
+              `;
+
+
+    return `
+
+        <article
+            class="
+                result-card
+                ${published ? "published" : ""}
+            "
+        >
+
+
+            <div class="result-row">
+
+
+                <div class="result-index">
+
+                    ${String(
+                        index + 1
+                    ).padStart(2,"0")}
+
+                </div>
+
+
+                <div>
+
+                    <div class="exam-title">
+
+                        ${escapeHTML(
+                            result.exam_title ||
+                            "Dream Hunt Exam"
+                        )}
+
+                    </div>
+
+
+                    <div class="exam-date">
+
+                        ◷
+
+                        ${formatDate(
+                            result.exam_date
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                ${scoreHTML}
+
+
+                ${rankHTML}
+
+
+                ${percentageHTML}
+
+
+                <div>
+
+                    ${statusHTML}
+
+                </div>
+
+
+                ${buttonHTML}
+
+
+            </div>
+
+
+            ${detailsHTML}
+
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   VIEW ANALYSIS
+========================================================= */
+
+function viewAnalysis(
+    examId
+){
 
     if(!examId){
 
@@ -2077,7 +2277,7 @@ function viewResult(examId){
 
 
     window.location.href =
-        "result-details.html?id=" +
+        "performances.html?exam_id=" +
         encodeURIComponent(
             examId
         );
@@ -2086,32 +2286,56 @@ function viewResult(examId){
 
 
 /* =========================================================
-   EMPTY
+   NO RESULTS
 ========================================================= */
 
-function showEmpty(){
+function showNoResults(){
 
     document.getElementById(
-        "resultList"
+        "recentSection"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "previousSection"
     ).innerHTML = `
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-title">
+                    Exam Results
+                </div>
+
+                <div class="section-description">
+                    Your submitted examination results will appear here
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="empty">
 
             <div class="empty-icon">
-                🏆
+                ◆
             </div>
 
+
             <h3>
-                No Results Published Yet
+                No Exam Results Yet
             </h3>
+
 
             <p>
 
-                Your published Dream Hunt exam
-                results will appear here once the
-                result is officially released.
-
-                Keep practicing and stay consistent.
+                Once you submit an examination through
+                Dream Hunt, it will automatically appear
+                here. Published results will include your
+                marks, answers, mistakes and merit position.
 
             </p>
 
@@ -2126,7 +2350,9 @@ function showEmpty(){
    ERROR
 ========================================================= */
 
-function showError(message){
+function showError(
+    message
+){
 
     const box =
         document.getElementById(
@@ -2148,7 +2374,9 @@ function showError(message){
    DATE FORMAT
 ========================================================= */
 
-function formatDate(value){
+function formatDate(
+    value
+){
 
     if(!value){
 
@@ -2183,18 +2411,43 @@ function formatDate(value){
 
 
 /* =========================================================
-   NUMBER FORMAT
+   NUMBER
 ========================================================= */
 
-function formatNumber(value){
+function toNumber(
+    value
+){
+
+    if(
+        value === null ||
+        value === undefined ||
+        value === ""
+    ){
+
+        return null;
+    }
+
 
     const number =
         Number(value);
 
 
-    if(
-        !Number.isFinite(number)
-    ){
+    return Number.isFinite(number)
+        ? number
+        : null;
+
+}
+
+
+function formatNumber(
+    value
+){
+
+    const number =
+        toNumber(value);
+
+
+    if(number === null){
 
         return "—";
     }
@@ -2208,7 +2461,8 @@ function formatNumber(value){
     }
 
 
-    return number.toFixed(2)
+    return number
+        .toFixed(2)
         .replace(
             /0+$/,
             ""
@@ -2222,10 +2476,12 @@ function formatNumber(value){
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ========================================================= */
 
-function escapeHTML(value){
+function escapeHTML(
+    value
+){
 
     if(
         value === null ||
