@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dream Hunt | Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+:root{
+    --bg:#07111f;
+    --panel:#0d1a2b;
+    --panel2:#111f33;
+    --border:rgba(255,255,255,.08);
+    --text:#f4f7fb;
+    --muted:#8fa1b8;
+    --accent:#6c63ff;
+    --accent2:#8b84ff;
+    --green:#22c55e;
+    --yellow:#f59e0b;
+    --red:#ef4444;
 }
 
 body{
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-    background:#f5f7fb;
-    color:#111827;
-
-    overflow-x:hidden;
+    font-family:Inter,Arial,sans-serif;
+    background:
+        radial-gradient(circle at top right,rgba(108,99,255,.13),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
 }
 
 a{
@@ -48,1335 +43,638 @@ a{
     color:inherit;
 }
 
-button{
-    font-family:inherit;
-    cursor:pointer;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-#loadingScreen{
-    position:fixed;
-    inset:0;
-
-    z-index:99999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-
-    gap:16px;
-
-    background:#f5f7fb;
-
-    transition:.35s;
-}
-
-.loadingBrand{
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:-1px;
-}
-
-.loadingBrand span{
-    color:#2563eb;
-}
-
-.loader{
-    width:150px;
-    height:4px;
-
-    overflow:hidden;
-
-    background:#e5e7eb;
-
-    border-radius:20px;
-}
-
-.loader::after{
-    content:"";
-
-    display:block;
-
-    width:40%;
-    height:100%;
-
-    background:#2563eb;
-
-    border-radius:20px;
-
-    animation:load 1.1s infinite;
-}
-
-@keyframes load{
-
-    0%{
-        transform:translateX(-150%);
-    }
-
-    100%{
-        transform:translateX(400%);
-    }
-
-}
-
-
-/* =========================================================
+/* =========================
    SIDEBAR
-========================================================= */
+========================= */
 
 .sidebar{
-
     position:fixed;
-
     left:0;
     top:0;
-
+    bottom:0;
     width:250px;
-    height:100vh;
-
-    padding:20px 13px;
-
-    background:#0a1020;
-
-    color:white;
-
-    overflow-y:auto;
-
+    background:rgba(7,17,31,.96);
+    border-right:1px solid var(--border);
+    padding:24px 16px;
     z-index:1000;
+    overflow-y:auto;
 }
-
-.sidebar::-webkit-scrollbar{
-    width:4px;
-}
-
-.sidebar::-webkit-scrollbar-thumb{
-    background:#263247;
-    border-radius:20px;
-}
-
-
-/* =========================================================
-   BRAND
-========================================================= */
 
 .brand{
-
-    height:58px;
-
     display:flex;
     align-items:center;
-
-    padding:0 10px;
-
-    margin-bottom:20px;
-
-    font-size:20px;
-    font-weight:900;
-
-    letter-spacing:-.8px;
+    gap:12px;
+    padding:5px 10px 28px;
 }
 
-.brandMark{
-
-    width:38px;
-    height:38px;
-
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--accent),#4f46e5);
     display:flex;
     align-items:center;
     justify-content:center;
-
-    margin-right:10px;
-
-    border-radius:11px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #60a5fa
-        );
-
-    font-size:11px;
-    font-weight:900;
-}
-
-.brand span{
-    color:#60a5fa;
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.navTitle{
-
-    padding:0 10px;
-
-    margin:20px 0 8px;
-
-    color:#64748b;
-
-    font-size:8px;
+    font-size:20px;
     font-weight:800;
+    box-shadow:0 8px 25px rgba(108,99,255,.25);
+}
 
-    letter-spacing:1.4px;
+.brand-name{
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:.2px;
+}
 
+.menu-title{
+    font-size:10px;
     text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:#60728b;
+    padding:13px 12px 8px;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
 }
 
 .nav a{
-
     display:flex;
     align-items:center;
-
-    gap:11px;
-
-    padding:10px 11px;
-
-    margin-bottom:3px;
-
-    border-radius:9px;
-
-    color:#9ca8bb;
-
-    font-size:11px;
-    font-weight:550;
-
+    gap:12px;
+    padding:11px 12px;
+    border-radius:11px;
+    color:#9dafc5;
+    font-size:13px;
     transition:.2s;
 }
 
 .nav a:hover{
-    color:white;
-    background:rgba(255,255,255,.055);
+    background:rgba(108,99,255,.10);
+    color:#fff;
 }
 
 .nav a.active{
-
-    color:white;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(37,99,235,.34),
-            rgba(37,99,235,.07)
-        );
-
-    box-shadow:
-        inset 3px 0 0 #3b82f6;
+    background:linear-gradient(
+        90deg,
+        rgba(108,99,255,.20),
+        rgba(108,99,255,.07)
+    );
+    color:#fff;
+    border:1px solid rgba(108,99,255,.20);
 }
 
-.navIcon{
-
-    width:21px;
-    min-width:21px;
-
+.nav-icon{
+    width:19px;
     text-align:center;
-
-    font-size:14px;
-}
-
-.nav a.active .navIcon{
-    color:#60a5fa;
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-.logout{
-
-    margin-top:18px;
-
-    padding-top:15px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.07);
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main{
-
-    margin-left:250px;
-
-    min-height:100vh;
-}
-
-
-/* =========================================================
-   TOPBAR
-========================================================= */
-
-.topbar{
-
-    height:70px;
-
-    position:sticky;
-    top:0;
-
-    z-index:500;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 30px;
-
-    background:
-        rgba(255,255,255,.92);
-
-    backdrop-filter:blur(16px);
-
-    border-bottom:
-        1px solid #e8ebf1;
-}
-
-.pageTitle{
-
-    font-size:17px;
-    font-weight:800;
-
-    letter-spacing:-.4px;
-}
-
-.pageSubtitle{
-
-    margin-top:3px;
-
-    color:#9ca3af;
-
-    font-size:9px;
-}
-
-.userArea{
-
-    display:flex;
-    align-items:center;
-
-    gap:10px;
-}
-
-.avatar{
-
-    width:38px;
-    height:38px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1d4ed8,
-            #60a5fa
-        );
-
-    font-size:12px;
-    font-weight:800;
-}
-
-.userText strong{
-
-    display:block;
-
-    font-size:11px;
-}
-
-.userText span{
-
-    display:block;
-
-    margin-top:2px;
-
-    color:#9ca3af;
-
-    font-size:8px;
-}
-
-
-/* =========================================================
-   CONTENT
-========================================================= */
-
-.content{
-
-    max-width:1450px;
-
-    padding:27px 30px 50px;
-}
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-#errorBox{
-
-    display:none;
-
-    padding:12px 14px;
-
-    margin-bottom:15px;
-
-    border-radius:10px;
-
-    color:#b91c1c;
-
-    background:#fef2f2;
-
-    border:1px solid #fecaca;
-
-    font-size:10px;
-}
-
-
-/* =========================================================
-   WELCOME
-========================================================= */
-
-.welcome{
-
-    position:relative;
-
-    overflow:hidden;
-
-    min-height:205px;
-
-    padding:30px;
-
-    border-radius:21px;
-
-    color:white;
-
-    background:
-        radial-gradient(
-            circle at 90% 15%,
-            rgba(96,165,250,.35),
-            transparent 28%
-        ),
-
-        radial-gradient(
-            circle at 70% 110%,
-            rgba(37,99,235,.28),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #0b1220,
-            #172554 52%,
-            #1d4ed8
-        );
-
-    box-shadow:
-        0 18px 45px
-        rgba(15,23,42,.13);
-}
-
-.welcomeCircle{
-
-    position:absolute;
-
-    width:260px;
-    height:260px;
-
-    right:-90px;
-    top:-100px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius:50%;
-}
-
-.welcomeCircle2{
-
-    position:absolute;
-
-    width:180px;
-    height:180px;
-
-    right:25px;
-    top:-60px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-radius:50%;
-}
-
-.welcomeContent{
-
-    position:relative;
-
-    z-index:2;
-
-    max-width:700px;
-}
-
-.eyebrow{
-
-    margin-bottom:8px;
-
-    color:#93c5fd;
-
-    font-size:8px;
-    font-weight:800;
-
-    letter-spacing:1.5px;
-}
-
-.welcome h1{
-
-    font-size:28px;
-
-    letter-spacing:-1px;
-
-    margin-bottom:8px;
-}
-
-.welcome h1 span{
-    color:#93c5fd;
-}
-
-.welcome p{
-
-    max-width:610px;
-
-    color:#dbeafe;
-
-    font-size:11px;
-
-    line-height:1.7;
-}
-
-.goalRow{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:8px;
-
-    margin-top:19px;
-}
-
-.goal{
-
-    padding:8px 11px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    border-radius:9px;
-
-    color:#dbeafe;
-
-    background:
-        rgba(255,255,255,.07);
-
-    font-size:8px;
-}
-
-.goal strong{
-    margin-left:3px;
-    color:white;
-}
-
-
-/* =========================================================
-   SECTION TITLE
-========================================================= */
-
-.section{
-
-    margin-top:27px;
-}
-
-.sectionTitle{
-
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-
-    margin-bottom:12px;
-}
-
-.sectionTitle h2{
-
-    font-size:16px;
-
-    letter-spacing:-.3px;
-}
-
-.sectionTitle p{
-
-    margin-top:4px;
-
-    color:#9ca3af;
-
-    font-size:9px;
-}
-
-.sectionTitle a{
-
-    color:#2563eb;
-
-    font-size:9px;
-    font-weight:750;
-}
-
-
-/* =========================================================
-   STAT CARDS
-========================================================= */
-
-.stats{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:12px;
-}
-
-.stat{
-
-    position:relative;
-
-    overflow:hidden;
-
-    min-height:120px;
-
-    padding:16px;
-
-    background:white;
-
-    border:
-        1px solid #e5e7eb;
-
-    border-radius:15px;
-
-    transition:.2s;
-}
-
-.stat:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 12px 30px
-        rgba(15,23,42,.07);
-}
-
-.statIcon{
-
-    width:35px;
-    height:35px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:10px;
-
-    color:#2563eb;
-
-    background:#eff6ff;
-
-    font-size:14px;
-}
-
-.statLabel{
-
-    position:absolute;
-
-    top:18px;
-    right:15px;
-
-    color:#9ca3af;
-
-    font-size:7px;
-    font-weight:800;
-
-    letter-spacing:.8px;
-}
-
-.stat h3{
-
-    margin-top:13px;
-
-    font-size:22px;
-
-    letter-spacing:-.6px;
-}
-
-.stat p{
-
-    margin-top:3px;
-
-    color:#9ca3af;
-
-    font-size:8px;
-}
-
-
-/* =========================================================
-   QUICK ACTION
-========================================================= */
-
-.quick{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:11px;
-}
-
-.quickCard{
-
-    position:relative;
-
-    padding:16px;
-
-    background:white;
-
-    border:
-        1px solid #e5e7eb;
-
-    border-radius:14px;
-
-    transition:.2s;
-}
-
-.quickCard:hover{
-
-    transform:translateY(-2px);
-
-    border-color:#bfdbfe;
-
-    box-shadow:
-        0 10px 25px
-        rgba(15,23,42,.06);
-}
-
-.quickIcon{
-
-    width:38px;
-    height:38px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    margin-bottom:10px;
-
-    border-radius:10px;
-
-    color:#2563eb;
-
-    background:#eff6ff;
-
     font-size:15px;
 }
 
-.quickCard strong{
+/* =========================
+   MAIN
+========================= */
 
-    display:block;
-
-    font-size:10px;
-
-    margin-bottom:4px;
+.main{
+    margin-left:250px;
+    min-height:100vh;
 }
 
-.quickCard span{
-
-    display:block;
-
-    color:#9ca3af;
-
-    font-size:8px;
-
-    line-height:1.5;
+.topbar{
+    height:72px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 34px;
+    background:rgba(7,17,31,.75);
+    backdrop-filter:blur(16px);
+    position:sticky;
+    top:0;
+    z-index:500;
 }
 
-.arrow{
+.page-title{
+    font-size:14px;
+    font-weight:700;
+}
 
-    position:absolute;
+.page-sub{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
 
-    right:13px;
-    top:13px;
+.user-box{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
 
-    color:#cbd5e1;
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7770ff,#4338ca);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:14px;
+}
 
+.user-info{
+    text-align:right;
+}
+
+.user-name{
     font-size:13px;
+    font-weight:700;
 }
 
+.user-email{
+    font-size:10px;
+    color:var(--muted);
+}
 
-/* =========================================================
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:30px 34px 45px;
+    max-width:1450px;
+    margin:auto;
+}
+
+.hero{
+    background:
+        radial-gradient(circle at 90% 10%,rgba(139,132,255,.22),transparent 30%),
+        linear-gradient(135deg,#101d31,#0b1728);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+    margin-bottom:22px;
+    overflow:hidden;
+}
+
+.hero h1{
+    font-size:29px;
+    line-height:1.2;
+    margin-bottom:10px;
+}
+
+.hero h1 span{
+    color:#8b84ff;
+}
+
+.hero p{
+    color:var(--muted);
+    max-width:620px;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(34,197,94,.10);
+    border:1px solid rgba(34,197,94,.20);
+    color:#5ee58a;
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:10px;
+    margin-bottom:15px;
+}
+
+.hero-action{
+    min-width:150px;
+}
+
+.primary-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:12px 17px;
+    border-radius:11px;
+    background:linear-gradient(135deg,var(--accent),#5148db);
+    color:white;
+    font-size:12px;
+    font-weight:700;
+    box-shadow:0 10px 25px rgba(108,99,255,.20);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.stat{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:20px;
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.stat-icon{
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    background:rgba(108,99,255,.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:800;
+}
+
+.stat-note{
+    color:#6f8198;
+    font-size:10px;
+    margin-top:4px;
+}
+
+/* =========================
    GRID
-========================================================= */
+========================= */
 
 .grid{
-
     display:grid;
-
-    grid-template-columns:
-        1.35fr 1fr;
-
-    gap:15px;
+    grid-template-columns:1.45fr 1fr;
+    gap:18px;
+    margin-bottom:18px;
 }
 
 .card{
-
-    padding:18px;
-
-    background:white;
-
-    border:
-        1px solid #e5e7eb;
-
-    border-radius:15px;
-}
-
-.cardHead{
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:12px;
-}
-
-.cardHead h3{
-
-    font-size:14px;
-}
-
-.cardHead p{
-
-    margin-top:3px;
-
-    color:#9ca3af;
-
-    font-size:8px;
-}
-
-.cardHead a{
-
-    color:#2563eb;
-
-    font-size:8px;
-    font-weight:750;
-}
-
-
-/* =========================================================
-   RESULT
-========================================================= */
-
-.result{
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:15px;
-
-    padding:11px 0;
-
-    border-bottom:
-        1px solid #edf0f4;
-}
-
-.result:last-child{
-    border-bottom:none;
-}
-
-.resultName{
-
-    min-width:0;
-}
-
-.resultName strong{
-
-    display:block;
-
-    margin-bottom:3px;
-
-    font-size:10px;
-
-    white-space:nowrap;
-
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:18px;
     overflow:hidden;
-
-    text-overflow:ellipsis;
 }
 
-.resultName span{
-
-    color:#9ca3af;
-
-    font-size:8px;
+.card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:19px 20px;
+    border-bottom:1px solid var(--border);
 }
 
-.resultScore{
-
-    text-align:right;
-
-    flex-shrink:0;
+.card-title{
+    font-size:14px;
+    font-weight:800;
 }
 
-.resultScore strong{
-
-    display:block;
-
-    font-size:12px;
+.view-all{
+    font-size:10px;
+    color:#8b84ff;
 }
 
-.resultScore span{
-
-    color:#9ca3af;
-
-    font-size:7px;
+.card-body{
+    padding:18px 20px;
 }
 
-.rank{
-
-    display:inline-block;
-
-    margin-top:3px;
-
-    padding:3px 6px;
-
-    border-radius:20px;
-
-    color:#15803d;
-
-    background:#f0fdf4;
-
-    font-size:7px;
-    font-weight:750;
-}
-
-
-/* =========================================================
-   EXAM
-========================================================= */
+/* =========================
+   EXAMS
+========================= */
 
 .exam{
-
-    padding:11px 0;
-
-    border-bottom:
-        1px solid #edf0f4;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .exam:last-child{
-    border-bottom:none;
+    border-bottom:0;
 }
 
-.examTop{
-
+.exam-left{
     display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-
-    gap:10px;
+    gap:12px;
+    align-items:center;
 }
 
-.examTitle{
+.exam-icon{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:rgba(108,99,255,.10);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
+.exam-name{
+    font-size:12px;
+    font-weight:700;
+}
+
+.exam-meta{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.exam-time{
+    text-align:right;
+}
+
+.exam-date{
+    color:#8b84ff;
     font-size:10px;
     font-weight:700;
-
-    line-height:1.45;
 }
 
-.marks{
-
-    flex-shrink:0;
-
-    padding:5px 7px;
-
-    border-radius:6px;
-
-    color:#2563eb;
-
-    background:#eff6ff;
-
-    font-size:7px;
-    font-weight:750;
+.exam-duration{
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
 }
 
-.examTime{
+/* =========================
+   RESULTS
+========================= */
 
-    margin-top:4px;
-
-    color:#9ca3af;
-
-    font-size:8px;
+.result{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.examBadge{
+.result:last-child{
+    border-bottom:0;
+}
 
-    display:inline-block;
-
-    margin-top:6px;
-
-    padding:3px 6px;
-
-    border-radius:20px;
-
-    color:#64748b;
-
-    background:#f8fafc;
-
-    font-size:7px;
+.result-name{
+    font-size:12px;
     font-weight:700;
 }
 
+.result-date{
+    font-size:9px;
+    color:var(--muted);
+    margin-top:4px;
+}
 
-/* =========================================================
-   LOWER GRID
-========================================================= */
+.score{
+    text-align:right;
+}
 
-.lower{
+.score-number{
+    font-size:15px;
+    font-weight:800;
+}
 
+.score-label{
+    font-size:9px;
+    color:var(--muted);
+}
+
+/* =========================
+   PERFORMANCE
+========================= */
+
+.performance-box{
     display:grid;
-
-    grid-template-columns:
-        1.2fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:15px;
 }
 
+.performance-item{
+    background:var(--panel2);
+    padding:17px;
+    border-radius:13px;
+}
 
-/* =========================================================
-   PERFORMANCE
-========================================================= */
-
-.progressTop{
-
-    display:flex;
-
-    justify-content:space-between;
-
+.performance-label{
+    color:var(--muted);
+    font-size:10px;
     margin-bottom:7px;
-
-    font-size:8px;
 }
 
-.progressTop span:first-child{
-    color:#6b7280;
-}
-
-.progressTop span:last-child{
+.performance-value{
+    font-size:21px;
     font-weight:800;
 }
 
-.progressTrack{
-
-    height:8px;
-
+.progress{
+    height:7px;
+    background:#18263a;
+    border-radius:99px;
     overflow:hidden;
-
-    background:#edf0f5;
-
-    border-radius:20px;
-}
-
-.progressBar{
-
-    width:0;
-
-    height:100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #2563eb,
-            #60a5fa
-        );
-
-    border-radius:20px;
-
-    transition:
-        width 1s ease;
-}
-
-.performanceBoxes{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:8px;
-
     margin-top:15px;
 }
 
-.performanceBox{
-
-    padding:10px;
-
-    border:
-        1px solid #edf0f4;
-
-    border-radius:9px;
-
-    background:#fafbfc;
+.progress-bar{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,var(--accent),#9b96ff);
+    border-radius:99px;
+    transition:1s;
 }
 
-.performanceBox strong{
-
-    display:block;
-
-    font-size:13px;
-}
-
-.performanceBox span{
-
-    color:#9ca3af;
-
-    font-size:7px;
-}
-
-
-/* =========================================================
-   NOTIFICATION
-========================================================= */
+/* =========================
+   NOTIFICATIONS
+========================= */
 
 .notification{
-
-    padding:10px 0;
-
-    border-bottom:
-        1px solid #edf0f4;
+    display:flex;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .notification:last-child{
-    border-bottom:none;
+    border-bottom:0;
 }
 
-.notification strong{
-
-    display:block;
-
-    margin-bottom:3px;
-
-    font-size:9px;
+.notice-icon{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    background:rgba(245,158,11,.10);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
 }
 
-.notification p{
+.notice-title{
+    font-size:11px;
+    font-weight:700;
+}
 
-    color:#6b7280;
-
-    font-size:8px;
-
+.notice-text{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:4px;
     line-height:1.5;
 }
 
-.notification time{
-
-    display:block;
-
-    margin-top:3px;
-
-    color:#9ca3af;
-
-    font-size:7px;
+.notice-date{
+    font-size:8px;
+    color:#62748b;
+    margin-top:5px;
 }
 
+/* =========================
+   TARGET
+========================= */
 
-/* =========================================================
-   TARGET CARD
-========================================================= */
+.target-card{
+    background:
+        linear-gradient(135deg,rgba(108,99,255,.13),rgba(108,99,255,.03)),
+        var(--panel);
+}
 
-.targetCard{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr auto;
-
-    align-items:center;
-
+.target{
+    display:flex;
+    justify-content:space-between;
     gap:20px;
+    align-items:center;
 }
 
-.targetLabel{
-
-    margin-bottom:4px;
-
-    color:#9ca3af;
-
-    font-size:7px;
-    font-weight:700;
-
-    letter-spacing:.6px;
+.target-label{
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:6px;
 }
 
-.targetValue{
-
-    font-size:14px;
+.target-value{
+    font-size:16px;
     font-weight:800;
 }
 
-.targetButton{
-
-    padding:9px 13px;
-
-    border-radius:8px;
-
-    color:#2563eb;
-
-    background:#eff6ff;
-
-    font-size:8px;
-    font-weight:750;
+.target-box{
+    text-align:right;
 }
 
+.target-status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:8px;
+    background:rgba(34,197,94,.10);
+    color:#5ee58a;
+    font-size:9px;
+}
 
-/* =========================================================
-   EMPTY
-========================================================= */
+/* =========================
+   QUICK LINKS
+========================= */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.quick{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:17px;
+    transition:.2s;
+}
+
+.quick:hover{
+    transform:translateY(-2px);
+    border-color:rgba(108,99,255,.35);
+}
+
+.quick-icon{
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    background:rgba(108,99,255,.10);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:11px;
+}
+
+.quick-title{
+    font-size:11px;
+    font-weight:800;
+}
+
+.quick-desc{
+    font-size:9px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
 
 .empty{
-
-    padding:16px 0;
-
-    color:#9ca3af;
-
-    font-size:9px;
-
-    line-height:1.6;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-
-    margin-top:38px;
-
-    padding-top:17px;
-
-    border-top:
-        1px solid #e5e7eb;
-
+    padding:25px 5px;
     text-align:center;
-
-    color:#9ca3af;
-
-    font-size:7px;
+    color:var(--muted);
+    font-size:11px;
 }
 
+.loading{
+    opacity:.55;
+}
 
-/* =========================================================
-   MOBILE NAV
-========================================================= */
+/* =========================
+   MOBILE
+========================= */
 
-.mobileNav{
-
+.mobile-bar{
     display:none;
 }
 
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:1100px){
+@media(max-width:1000px){
 
     .stats{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .quick{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:850px){
-
-    .sidebar{
-        width:68px;
-        padding:18px 7px;
-    }
-
-    .brand{
-        justify-content:center;
-        padding:0;
-    }
-
-    .brandText{
-        display:none;
-    }
-
-    .brandMark{
-        margin:0;
-    }
-
-    .navTitle{
-        display:none;
-    }
-
-    .nav a{
-        justify-content:center;
-        padding:11px 5px;
-    }
-
-    .nav a span{
-        display:none;
-    }
-
-    .main{
-        margin-left:68px;
-    }
-
-    .grid,
-    .lower{
+    .grid{
         grid-template-columns:1fr;
     }
 
+    .quick-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
-@media(max-width:600px){
-
-    body{
-        padding-bottom:64px;
-    }
+@media(max-width:700px){
 
     .sidebar{
         display:none;
@@ -1384,768 +682,335 @@ button{
 
     .main{
         margin-left:0;
+        padding-bottom:70px;
     }
 
     .topbar{
-        height:62px;
-        padding:0 14px;
+        padding:0 17px;
+        height:65px;
     }
 
-    .pageTitle{
-        font-size:14px;
-    }
-
-    .pageSubtitle{
+    .user-email{
         display:none;
-    }
-
-    .userText span{
-        display:none;
-    }
-
-    .userText strong{
-        font-size:9px;
-    }
-
-    .avatar{
-        width:34px;
-        height:34px;
     }
 
     .content{
-        padding:15px 12px 25px;
+        padding:18px 14px 30px;
     }
 
-    .welcome{
+    .hero{
         padding:22px;
-
-        border-radius:17px;
+        display:block;
     }
 
-    .welcome h1{
-        font-size:21px;
+    .hero h1{
+        font-size:23px;
     }
 
-    .welcome p{
-        font-size:9px;
-    }
-
-    .goalRow{
-        flex-direction:column;
-        align-items:flex-start;
+    .hero-action{
+        margin-top:18px;
     }
 
     .stats{
-        gap:8px;
+        gap:10px;
     }
 
     .stat{
-        min-height:110px;
-        padding:13px;
-    }
-
-    .stat h3{
-        font-size:19px;
-    }
-
-    .quick{
-        gap:8px;
-    }
-
-    .quickCard{
-        padding:13px;
-    }
-
-    .card{
         padding:15px;
     }
 
-    .targetCard{
-        grid-template-columns:1fr;
-        gap:14px;
+    .stat-value{
+        font-size:21px;
     }
 
-    .targetButton{
-        display:inline-block;
-        width:max-content;
+    .performance-box{
+        grid-template-columns:1fr 1fr;
     }
 
-    .mobileNav{
-
+    .mobile-bar{
         position:fixed;
-
+        display:flex;
+        bottom:0;
         left:0;
         right:0;
-        bottom:0;
-
-        height:64px;
-
-        z-index:5000;
-
-        display:grid;
-
-        grid-template-columns:
-            repeat(5,1fr);
-
-        background:
-            rgba(255,255,255,.97);
-
+        height:65px;
+        background:rgba(7,17,31,.96);
+        border-top:1px solid var(--border);
         backdrop-filter:blur(15px);
-
-        border-top:
-            1px solid #e5e7eb;
-    }
-
-    .mobileNav a{
-
-        display:flex;
-
-        flex-direction:column;
-
+        z-index:2000;
+        justify-content:space-around;
         align-items:center;
-        justify-content:center;
-
-        gap:4px;
-
-        color:#9ca3af;
-
-        font-size:7px;
-        font-weight:650;
     }
 
-    .mobileNav a.active{
-        color:#2563eb;
+    .mobile-bar a{
+        text-align:center;
+        color:#778aa2;
+        font-size:9px;
     }
 
-    .mobileIcon{
-        font-size:15px;
+    .mobile-bar a.active{
+        color:#8b84ff;
     }
 
+    .mobile-icon{
+        display:block;
+        font-size:17px;
+        margin-bottom:4px;
+    }
 }
 
+@media(max-width:450px){
+
+    .quick-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .hero p{
+        font-size:11px;
+    }
+}
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     LOADING
-===================================================== -->
-
-<div id="loadingScreen">
-
-    <div class="loadingBrand">
-        DREAM <span>HUNT</span>
-    </div>
-
-    <div class="loader"></div>
-
-</div>
-
-
-<!-- =====================================================
+<!-- =========================
      SIDEBAR
-===================================================== -->
+========================= -->
 
 <aside class="sidebar">
 
     <div class="brand">
-
-        <div class="brandMark">
-            DH
-        </div>
-
-        <div class="brandText">
-            DREAM <span>HUNT</span>
-        </div>
-
+        <div class="logo">D</div>
+        <div class="brand-name">Dream Hunt</div>
     </div>
 
+    <div class="menu-title">Main</div>
 
     <nav class="nav">
 
-        <div class="navTitle">
-            Main
-        </div>
-
-        <a
-            href="https://khalasifayon3230-ops.github.io/dashboard.html"
-            class="active"
-        >
-            <div class="navIcon">⌂</div>
-            <span>Dashboard</span>
+        <a class="active"
+           href="https://khalasifayon3230-ops.github.io/dashboard.html">
+            <span class="nav-icon">⌂</span>
+            Dashboard
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/profile.html">
-            <div class="navIcon">◉</div>
-            <span>My Profile</span>
+            <span class="nav-icon">◉</span>
+            My Profile
         </a>
 
-
-        <div class="navTitle">
-            Learning
-        </div>
+        <a href="https://khalasifayon3230-ops.github.io/my-target.html">
+            <span class="nav-icon">◎</span>
+            My Target
+        </a>
 
         <a href="https://khalasifayon3230-ops.github.io/enrolled-courses.html">
-            <div class="navIcon">▤</div>
-            <span>My Courses</span>
+            <span class="nav-icon">▣</span>
+            My Courses
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/buy-courses.html">
-            <div class="navIcon">＋</div>
-            <span>Buy Courses</span>
+            <span class="nav-icon">＋</span>
+            Buy Courses
         </a>
+
+    </nav>
+
+    <div class="menu-title">Learning</div>
+
+    <nav class="nav">
 
         <a href="https://khalasifayon3230-ops.github.io/library.html">
-            <div class="navIcon">▥</div>
-            <span>Library</span>
+            <span class="nav-icon">▤</span>
+            Library
         </a>
 
-
-        <div class="navTitle">
-            Examination
-        </div>
-
         <a href="https://khalasifayon3230-ops.github.io/exams.html">
-            <div class="navIcon">▣</div>
-            <span>My Exams</span>
+            <span class="nav-icon">✎</span>
+            My Exams
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/results.html">
-            <div class="navIcon">◆</div>
-            <span>Results</span>
+            <span class="nav-icon">★</span>
+            Results
         </a>
 
+    </nav>
 
-        <div class="navTitle">
-            Admission
-        </div>
+    <div class="menu-title">Account</div>
 
-        <a href="https://khalasifayon3230-ops.github.io/my-target.html">
-            <div class="navIcon">◎</div>
-            <span>My Target</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/admission-updates.html">
-            <div class="navIcon">△</div>
-            <span>Admission Updates</span>
-        </a>
-
-
-        <div class="navTitle">
-            Pathways
-        </div>
-
-        <a href="https://khalasifayon3230-ops.github.io/public-university.html">
-            <div class="navIcon">PU</div>
-            <span>Public University</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/engineering.html">
-            <div class="navIcon">EN</div>
-            <span>Engineering</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/agricultural.html">
-            <div class="navIcon">AG</div>
-            <span>Agricultural</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/medical.html">
-            <div class="navIcon">MD</div>
-            <span>Medical</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/dental.html">
-            <div class="navIcon">DE</div>
-            <span>Dental</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/textile.html">
-            <div class="navIcon">TX</div>
-            <span>Textile</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/specialized.html">
-            <div class="navIcon">SP</div>
-            <span>Specialized</span>
-        </a>
-
-        <a href="https://khalasifayon3230-ops.github.io/abroad.html">
-            <div class="navIcon">AB</div>
-            <span>Abroad Study</span>
-        </a>
-
-
-        <div class="navTitle">
-            Support
-        </div>
+    <nav class="nav">
 
         <a href="https://khalasifayon3230-ops.github.io/notifications.html">
-            <div class="navIcon">◇</div>
-            <span>Notifications</span>
+            <span class="nav-icon">♢</span>
+            Notifications
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/plans.html">
-            <div class="navIcon">◆</div>
-            <span>Plans & Pricing</span>
+            <span class="nav-icon">◆</span>
+            Plans
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/settings.html">
-            <div class="navIcon">⚙</div>
-            <span>Settings</span>
+            <span class="nav-icon">⚙</span>
+            Settings
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/contact.html">
-            <div class="navIcon">◌</div>
-            <span>Contact Us</span>
+            <span class="nav-icon">✉</span>
+            Contact
         </a>
 
         <a href="https://khalasifayon3230-ops.github.io/faq.html">
-            <div class="navIcon">?</div>
-            <span>Help & FAQ</span>
+            <span class="nav-icon">?</span>
+            FAQ
         </a>
 
-
-        <div class="logout">
-
-            <a
-                href="#"
-                onclick="logout(event)"
-            >
-
-                <div class="navIcon">
-                    ↪
-                </div>
-
-                <span>
-                    Logout
-                </span>
-
-            </a>
-
-        </div>
+        <a href="#" id="logoutBtn">
+            <span class="nav-icon">↪</span>
+            Logout
+        </a>
 
     </nav>
 
 </aside>
 
 
-<!-- =====================================================
+<!-- =========================
      MAIN
-===================================================== -->
+========================= -->
 
 <main class="main">
 
-
-<header class="topbar">
-
-    <div>
-
-        <div class="pageTitle">
-            Dashboard
-        </div>
-
-        <div class="pageSubtitle">
-            Dream Hunt Student Portal
-        </div>
-
-    </div>
-
-
-    <div class="userArea">
-
-        <div
-            class="avatar"
-            id="studentAvatar"
-        >
-            S
-        </div>
-
-        <div class="userText">
-
-            <strong id="studentName">
-                Student
-            </strong>
-
-            <span>
-                Dream Hunt Student
-            </span>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<section class="content">
-
-
-<div id="errorBox"></div>
-
-
-<!-- =====================================================
-     WELCOME
-===================================================== -->
-
-<section class="welcome">
-
-    <div class="welcomeCircle"></div>
-    <div class="welcomeCircle2"></div>
-
-
-    <div class="welcomeContent">
-
-        <div class="eyebrow">
-            DREAM HUNT • STUDENT PORTAL
-        </div>
-
-        <h1>
-            Welcome back,
-            <span id="welcomeName">
-                Student
-            </span>
-        </h1>
-
-        <p>
-            Your preparation journey starts here.
-            Track your courses, examinations,
-            performance and admission goals from one place.
-        </p>
-
-
-        <div class="goalRow">
-
-            <div class="goal">
-                Target:
-                <strong id="targetAdmission">
-                    Not Set
-                </strong>
-            </div>
-
-            <div class="goal">
-                University:
-                <strong id="targetUniversity">
-                    Not Set
-                </strong>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     OVERVIEW
-===================================================== -->
-
-<section class="section">
-
-    <div class="sectionTitle">
+    <header class="topbar">
 
         <div>
-
-            <h2>
-                Overview
-            </h2>
-
-            <p>
-                Your preparation at a glance.
-            </p>
-
+            <div class="page-title">Student Dashboard</div>
+            <div class="page-sub">Your Dream Hunt learning overview</div>
         </div>
 
-    </div>
-
-
-    <div class="stats">
-
-
-        <div class="stat">
-
-            <div class="statIcon">
-                ▤
-            </div>
-
-            <div class="statLabel">
-                COURSES
-            </div>
-
-            <h3 id="courseCount">
-                0
-            </h3>
-
-            <p>
-                Active Courses
-            </p>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="statIcon">
-                ▣
-            </div>
-
-            <div class="statLabel">
-                EXAMS
-            </div>
-
-            <h3 id="examCount">
-                0
-            </h3>
-
-            <p>
-                Exams Attempted
-            </p>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="statIcon">
-                %
-            </div>
-
-            <div class="statLabel">
-                PERFORMANCE
-            </div>
-
-            <h3 id="averageScore">
-                0%
-            </h3>
-
-            <p>
-                Average Score
-            </p>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="statIcon">
-                ◇
-            </div>
-
-            <div class="statLabel">
-                UPDATES
-            </div>
-
-            <h3 id="notificationCount">
-                0
-            </h3>
-
-            <p>
-                Active Notifications
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     QUICK ACCESS
-===================================================== -->
-
-<section class="section">
-
-    <div class="sectionTitle">
-
-        <div>
-
-            <h2>
-                Quick Access
-            </h2>
-
-            <p>
-                Jump directly to your important sections.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="quick">
-
-
-        <a
-            class="quickCard"
-            href="https://khalasifayon3230-ops.github.io/enrolled-courses.html"
-        >
-
-            <div class="quickIcon">
-                ▤
-            </div>
-
-            <strong>
-                My Courses
-            </strong>
-
-            <span>
-                View your active courses and access.
-            </span>
-
-            <div class="arrow">
-                →
-            </div>
-
-        </a>
-
-
-        <a
-            class="quickCard"
-            href="https://khalasifayon3230-ops.github.io/exams.html"
-        >
-
-            <div class="quickIcon">
-                ▣
-            </div>
-
-            <strong>
-                My Exams
-            </strong>
-
-            <span>
-                See exams available for your courses.
-            </span>
-
-            <div class="arrow">
-                →
-            </div>
-
-        </a>
-
-
-        <a
-            class="quickCard"
-            href="https://khalasifayon3230-ops.github.io/results.html"
-        >
-
-            <div class="quickIcon">
-                ◆
-            </div>
-
-            <strong>
-                Results
-            </strong>
-
-            <span>
-                Review scores, ranks and performance.
-            </span>
-
-            <div class="arrow">
-                →
-            </div>
-
-        </a>
-
-
-        <a
-            class="quickCard"
-            href="https://khalasifayon3230-ops.github.io/library.html"
-        >
-
-            <div class="quickIcon">
-                ▥
-            </div>
-
-            <strong>
-                Library
-            </strong>
-
-            <span>
-                Access your available study resources.
-            </span>
-
-            <div class="arrow">
-                →
-            </div>
-
-        </a>
-
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     EXAMINATION
-===================================================== -->
-
-<section class="section">
-
-    <div class="sectionTitle">
-
-        <div>
-
-            <h2>
-                Examination
-            </h2>
-
-            <p>
-                Your recent performance and upcoming exams.
-            </p>
-
-        </div>
-
-        <a
-            href="https://khalasifayon3230-ops.github.io/exams.html"
-        >
-            Open Exams →
-        </a>
-
-    </div>
-
-
-    <div class="grid">
-
-
-        <!-- RESULTS -->
-
-        <div class="card">
-
-            <div class="cardHead">
-
-                <div>
-
-                    <h3>
-                        Recent Results
-                    </h3>
-
-                    <p>
-                        Latest completed examinations.
-                    </p>
-
+        <div class="user-box">
+
+            <div class="user-info">
+                <div class="user-name" id="topName">
+                    Student
                 </div>
 
-                <a
-                    href="https://khalasifayon3230-ops.github.io/results.html"
-                >
-                    View All
+                <div class="user-email" id="topEmail">
+                    Loading...
+                </div>
+            </div>
+
+            <div class="avatar" id="avatar">
+                D
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section class="content">
+
+        <!-- HERO -->
+
+        <div class="hero">
+
+            <div>
+
+                <div class="hero-badge">
+                    ● Student Portal Active
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span id="heroName">Student</span>
+                </h1>
+
+                <p>
+                    Keep your preparation organized, track your exams,
+                    review your performance and stay connected with
+                    everything you need for your admission journey.
+                </p>
+
+            </div>
+
+            <div class="hero-action">
+
+                <a class="primary-btn"
+                   href="https://khalasifayon3230-ops.github.io/exams.html">
+                    Go to My Exams
                 </a>
 
             </div>
 
+        </div>
 
-            <div id="recentResults">
 
-                <div class="empty">
-                    Loading results...
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <span class="stat-label">Active Courses</span>
+                    <div class="stat-icon">▣</div>
+                </div>
+
+                <div class="stat-value" id="courseCount">0</div>
+
+                <div class="stat-note">
+                    Currently accessible
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <span class="stat-label">Exam Attempts</span>
+                    <div class="stat-icon">✎</div>
+                </div>
+
+                <div class="stat-value" id="attemptCount">0</div>
+
+                <div class="stat-note">
+                    Completed attempts
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <span class="stat-label">Average Score</span>
+                    <div class="stat-icon">★</div>
+                </div>
+
+                <div class="stat-value" id="averageScore">0%</div>
+
+                <div class="stat-note">
+                    Based on your attempts
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <span class="stat-label">Notifications</span>
+                    <div class="stat-icon">♢</div>
+                </div>
+
+                <div class="stat-value" id="notificationCount">0</div>
+
+                <div class="stat-note">
+                    Active notifications
                 </div>
 
             </div>
@@ -2153,37 +1018,220 @@ button{
         </div>
 
 
-        <!-- EXAMS -->
+        <!-- EXAMS + RESULTS -->
 
-        <div class="card">
+        <div class="grid">
 
-            <div class="cardHead">
+            <div class="card">
 
-                <div>
+                <div class="card-head">
 
-                    <h3>
+                    <div class="card-title">
                         Upcoming Exams
-                    </h3>
+                    </div>
 
-                    <p>
-                        Based on your active courses.
-                    </p>
+                    <a class="view-all"
+                       href="https://khalasifayon3230-ops.github.io/exams.html">
+                        View all
+                    </a>
 
                 </div>
 
-                <a
-                    href="https://khalasifayon3230-ops.github.io/exams.html"
-                >
-                    View All
+                <div class="card-body" id="upcomingExams">
+
+                    <div class="empty loading">
+                        Loading exams...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-head">
+
+                    <div class="card-title">
+                        Recent Results
+                    </div>
+
+                    <a class="view-all"
+                       href="https://khalasifayon3230-ops.github.io/results.html">
+                        View all
+                    </a>
+
+                </div>
+
+                <div class="card-body" id="recentResults">
+
+                    <div class="empty loading">
+                        Loading results...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PERFORMANCE + NOTIFICATION -->
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-head">
+                    <div class="card-title">
+                        Performance Snapshot
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="performance-box">
+
+                        <div class="performance-item">
+
+                            <div class="performance-label">
+                                Average Score
+                            </div>
+
+                            <div class="performance-value"
+                                 id="performanceAverage">
+                                0%
+                            </div>
+
+                            <div class="progress">
+                                <div class="progress-bar"
+                                     id="performanceBar">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="performance-item">
+
+                            <div class="performance-label">
+                                Best Score
+                            </div>
+
+                            <div class="performance-value"
+                                 id="bestScore">
+                                0%
+                            </div>
+
+                        </div>
+
+
+                        <div class="performance-item">
+
+                            <div class="performance-label">
+                                Total Attempts
+                            </div>
+
+                            <div class="performance-value"
+                                 id="totalAttempts">
+                                0
+                            </div>
+
+                        </div>
+
+
+                        <div class="performance-item">
+
+                            <div class="performance-label">
+                                Best Rank
+                            </div>
+
+                            <div class="performance-value"
+                                 id="bestRank">
+                                —
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-head">
+
+                    <div class="card-title">
+                        Latest Notifications
+                    </div>
+
+                    <a class="view-all"
+                       href="https://khalasifayon3230-ops.github.io/notifications.html">
+                        View all
+                    </a>
+
+                </div>
+
+                <div class="card-body" id="notifications">
+
+                    <div class="empty loading">
+                        Loading notifications...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TARGET -->
+
+        <div class="card target-card"
+             style="margin-bottom:18px;">
+
+            <div class="card-head">
+
+                <div class="card-title">
+                    Admission Goal
+                </div>
+
+                <a class="view-all"
+                   href="https://khalasifayon3230-ops.github.io/my-target.html">
+                    Manage target
                 </a>
 
             </div>
 
+            <div class="card-body">
 
-            <div id="upcomingExams">
+                <div class="target">
 
-                <div class="empty">
-                    Loading exams...
+                    <div>
+
+                        <div class="target-label">
+                            Target admission category
+                        </div>
+
+                        <div class="target-value"
+                             id="targetAdmission">
+                            Not set
+                        </div>
+
+                    </div>
+
+                    <div class="target-box">
+
+                        <div class="target-status"
+                             id="targetUniversity">
+                            Target not set
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -2191,317 +1239,190 @@ button{
         </div>
 
 
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PROGRESS
-===================================================== -->
-
-<section class="section">
-
-    <div class="sectionTitle">
-
-        <div>
-
-            <h2>
-                Progress
-            </h2>
-
-            <p>
-                Understand how your preparation is progressing.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="lower">
-
-
-        <!-- PERFORMANCE -->
+        <!-- QUICK ACCESS -->
 
         <div class="card">
 
-            <div class="cardHead">
+            <div class="card-head">
 
-                <div>
-
-                    <h3>
-                        Overall Performance
-                    </h3>
-
-                    <p>
-                        Calculated from your submitted exams.
-                    </p>
-
+                <div class="card-title">
+                    Quick Access
                 </div>
-
-                <a
-                    href="https://khalasifayon3230-ops.github.io/results.html"
-                >
-                    Details
-                </a>
 
             </div>
 
+            <div class="card-body">
 
-            <div class="progressTop">
+                <div class="quick-grid">
 
-                <span>
-                    Average Performance
-                </span>
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/enrolled-courses.html">
 
-                <span id="performancePercent">
-                    0%
-                </span>
+                        <div class="quick-icon">▣</div>
 
-            </div>
+                        <div class="quick-title">
+                            My Courses
+                        </div>
 
+                        <div class="quick-desc">
+                            View your active courses
+                        </div>
 
-            <div class="progressTrack">
-
-                <div
-                    id="performanceBar"
-                    class="progressBar"
-                ></div>
-
-            </div>
+                    </a>
 
 
-            <div class="performanceBoxes">
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/library.html">
+
+                        <div class="quick-icon">▤</div>
+
+                        <div class="quick-title">
+                            Library
+                        </div>
+
+                        <div class="quick-desc">
+                            Study materials & resources
+                        </div>
+
+                    </a>
 
 
-                <div class="performanceBox">
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/exams.html">
 
-                    <strong id="bestScore">
-                        0
-                    </strong>
+                        <div class="quick-icon">✎</div>
 
-                    <span>
-                        Best Score
-                    </span>
+                        <div class="quick-title">
+                            My Exams
+                        </div>
+
+                        <div class="quick-desc">
+                            Take your available exams
+                        </div>
+
+                    </a>
+
+
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/results.html">
+
+                        <div class="quick-icon">★</div>
+
+                        <div class="quick-title">
+                            Results
+                        </div>
+
+                        <div class="quick-desc">
+                            Check scores & rankings
+                        </div>
+
+                    </a>
+
+
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/notifications.html">
+
+                        <div class="quick-icon">♢</div>
+
+                        <div class="quick-title">
+                            Notifications
+                        </div>
+
+                        <div class="quick-desc">
+                            Important updates
+                        </div>
+
+                    </a>
+
+
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/my-target.html">
+
+                        <div class="quick-icon">◎</div>
+
+                        <div class="quick-title">
+                            My Target
+                        </div>
+
+                        <div class="quick-desc">
+                            Manage admission goal
+                        </div>
+
+                    </a>
+
+
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/plans.html">
+
+                        <div class="quick-icon">◆</div>
+
+                        <div class="quick-title">
+                            Plans
+                        </div>
+
+                        <div class="quick-desc">
+                            Explore available plans
+                        </div>
+
+                    </a>
+
+
+                    <a class="quick"
+                       href="https://khalasifayon3230-ops.github.io/settings.html">
+
+                        <div class="quick-icon">⚙</div>
+
+                        <div class="quick-title">
+                            Settings
+                        </div>
+
+                        <div class="quick-desc">
+                            Manage your account
+                        </div>
+
+                    </a>
 
                 </div>
-
-
-                <div class="performanceBox">
-
-                    <strong id="totalAttempted">
-                        0
-                    </strong>
-
-                    <span>
-                        Attempts
-                    </span>
-
-                </div>
-
-
-                <div class="performanceBox">
-
-                    <strong id="bestRank">
-                        —
-                    </strong>
-
-                    <span>
-                        Best Rank
-                    </span>
-
-                </div>
-
 
             </div>
 
         </div>
 
-
-        <!-- NOTIFICATIONS -->
-
-        <div class="card">
-
-            <div class="cardHead">
-
-                <div>
-
-                    <h3>
-                        Latest Updates
-                    </h3>
-
-                    <p>
-                        Recent Dream Hunt announcements.
-                    </p>
-
-                </div>
-
-                <a
-                    href="https://khalasifayon3230-ops.github.io/notifications.html"
-                >
-                    View All
-                </a>
-
-            </div>
-
-
-            <div id="notificationPreview">
-
-                <div class="empty">
-                    Loading notifications...
-                </div>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ADMISSION TARGET
-===================================================== -->
-
-<section class="section">
-
-    <div class="sectionTitle">
-
-        <div>
-
-            <h2>
-                Admission Goal
-            </h2>
-
-            <p>
-                Your current admission target.
-            </p>
-
-        </div>
-
-        <a
-            href="https://khalasifayon3230-ops.github.io/my-target.html"
-        >
-            Manage →
-        </a>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="targetCard">
-
-
-            <div>
-
-                <div class="targetLabel">
-                    ADMISSION PATHWAY
-                </div>
-
-                <div
-                    class="targetValue"
-                    id="goalAdmission"
-                >
-                    Not Set
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div class="targetLabel">
-                    TARGET INSTITUTION
-                </div>
-
-                <div
-                    class="targetValue"
-                    id="goalUniversity"
-                >
-                    Not Set
-                </div>
-
-            </div>
-
-
-            <a
-                class="targetButton"
-                href="https://khalasifayon3230-ops.github.io/my-target.html"
-            >
-                Update Target →
-            </a>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<div class="footer">
-
-    ©
-    <span id="currentYear"></span>
-    Dream Hunt.
-    Complete Admission Preparation Platform.
-
-</div>
-
-
-</section>
+    </section>
 
 </main>
 
 
-<!-- =====================================================
+<!-- =========================
      MOBILE NAV
-===================================================== -->
+========================= -->
 
-<nav class="mobileNav">
+<nav class="mobile-bar">
 
-    <a
-        class="active"
-        href="https://khalasifayon3230-ops.github.io/dashboard.html"
-    >
-        <div class="mobileIcon">⌂</div>
+    <a class="active"
+       href="https://khalasifayon3230-ops.github.io/dashboard.html">
+        <span class="mobile-icon">⌂</span>
         Home
     </a>
 
-
-    <a
-        href="https://khalasifayon3230-ops.github.io/enrolled-courses.html"
-    >
-        <div class="mobileIcon">▤</div>
-        Courses
-    </a>
-
-
-    <a
-        href="https://khalasifayon3230-ops.github.io/exams.html"
-    >
-        <div class="mobileIcon">▣</div>
+    <a href="https://khalasifayon3230-ops.github.io/exams.html">
+        <span class="mobile-icon">✎</span>
         Exams
     </a>
 
-
-    <a
-        href="https://khalasifayon3230-ops.github.io/library.html"
-    >
-        <div class="mobileIcon">▥</div>
-        Library
+    <a href="https://khalasifayon3230-ops.github.io/results.html">
+        <span class="mobile-icon">★</span>
+        Results
     </a>
 
+    <a href="https://khalasifayon3230-ops.github.io/notifications.html">
+        <span class="mobile-icon">♢</span>
+        Alerts
+    </a>
 
-    <a
-        href="https://khalasifayon3230-ops.github.io/profile.html"
-    >
-        <div class="mobileIcon">◉</div>
-        Profile
+    <a href="https://khalasifayon3230-ops.github.io/settings.html">
+        <span class="mobile-icon">⚙</span>
+        Settings
     </a>
 
 </nav>
@@ -2514,16 +1435,19 @@ button{
 ========================================================= */
 
 const SUPABASE_URL =
-"https://rndtgjuwwsxxiiezennr.supabase.co";
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+const SUPABASE_KEY =
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+const { createClient } =
+    supabase;
+
+const db =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 /* =========================================================
@@ -2532,497 +1456,321 @@ window.supabase.createClient(
 
 function escapeHTML(value){
 
-    if(
-        value === null ||
-        value === undefined
-    ){
+    if(value === null || value === undefined){
         return "";
     }
 
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
 
 
-function setText(id,value){
+function formatDate(date){
 
-    const el =
-        document.getElementById(id);
-
-    if(el){
-        el.textContent =
-            value ?? "";
+    if(!date){
+        return "—";
     }
 
-}
+    const d = new Date(date);
 
-
-function firstName(name){
-
-    if(!name){
-        return "Student";
+    if(Number.isNaN(d.getTime())){
+        return "—";
     }
 
-    return String(name)
-        .trim()
-        .split(/\s+/)[0];
-
-}
-
-
-function formatDate(value){
-
-    if(!value){
-        return "Date unavailable";
-    }
-
-    const date =
-        new Date(value);
-
-    if(
-        Number.isNaN(
-            date.getTime()
-        )
-    ){
-        return "Date unavailable";
-    }
-
-    return date.toLocaleDateString(
-        "en-GB",
+    return d.toLocaleDateString(
+        "en-US",
         {
-            day:"2-digit",
             month:"short",
+            day:"numeric",
             year:"numeric"
         }
     );
-
 }
 
 
-function formatDateTime(value){
+function getInitial(name){
 
-    if(!value){
-        return "Date unavailable";
+    if(!name){
+        return "D";
     }
 
-    const date =
-        new Date(value);
-
-    if(
-        Number.isNaN(
-            date.getTime()
-        )
-    ){
-        return "Date unavailable";
-    }
-
-    return date.toLocaleString(
-        "en-GB",
-        {
-            day:"2-digit",
-            month:"short",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
-
-}
-
-
-function hideLoading(){
-
-    const screen =
-        document.getElementById(
-            "loadingScreen"
-        );
-
-    if(!screen){
-        return;
-    }
-
-    screen.style.opacity =
-        "0";
-
-    setTimeout(
-        ()=>{
-            screen.style.display =
-                "none";
-        },
-        350
-    );
-
-}
-
-
-function showError(message){
-
-    const box =
-        document.getElementById(
-            "errorBox"
-        );
-
-    if(!box){
-        return;
-    }
-
-    box.textContent =
-        message;
-
-    box.style.display =
-        "block";
-
+    return name
+        .trim()
+        .charAt(0)
+        .toUpperCase();
 }
 
 
 /* =========================================================
-   PROFILE
+   LOAD DASHBOARD
 ========================================================= */
 
-async function loadStudent(user){
-
-    let name =
-        user.user_metadata?.full_name ||
-        user.email?.split("@")[0] ||
-        "Student";
-
-    let admission =
-        "Not Set";
-
-    let university =
-        "Not Set";
-
+async function loadDashboard(){
 
     try{
 
-        const response =
-            await supabaseClient
-                .from("student_profiles")
-                .select(`
-                    full_name,
-                    target_admission,
-                    target_university
-                `)
-                .eq(
-                    "id",
-                    user.id
-                )
-                .maybeSingle();
+        const {
+            data:{
+                session
+            }
+        } = await db.auth.getSession();
 
 
-        if(
-            !response.error &&
-            response.data
-        ){
+        /* =========================
+           AUTH GUARD
+        ========================= */
 
-            name =
-                response.data.full_name ||
-                name;
+        if(!session){
 
-            admission =
-                response.data.target_admission ||
-                "Not Set";
-
-            university =
-                response.data.target_university ||
-                "Not Set";
-
-        }
-
-    }
-    catch(error){
-
-        console.warn(
-            "Profile:",
-            error
-        );
-
-    }
-
-
-    setText(
-        "studentName",
-        name
-    );
-
-    setText(
-        "welcomeName",
-        firstName(name)
-    );
-
-    setText(
-        "studentAvatar",
-        firstName(name)
-            .charAt(0)
-            .toUpperCase()
-    );
-
-    setText(
-        "targetAdmission",
-        admission
-    );
-
-    setText(
-        "targetUniversity",
-        university
-    );
-
-    setText(
-        "goalAdmission",
-        admission
-    );
-
-    setText(
-        "goalUniversity",
-        university
-    );
-
-}
-
-
-/* =========================================================
-   COURSES
-========================================================= */
-
-async function loadCourses(userId){
-
-    try{
-
-        const response =
-            await supabaseClient
-                .from("course_access")
-                .select("course_id")
-                .eq(
-                    "user_id",
-                    userId
-                )
-                .eq(
-                    "access_status",
-                    "active"
-                );
-
-
-        if(response.error){
-
-            console.warn(
-                "Course access:",
-                response.error.message
+            window.location.replace(
+                "https://khalasifayon3230-ops.github.io/"
             );
-
-            return [];
-
-        }
-
-
-        const rows =
-            response.data || [];
-
-
-        setText(
-            "courseCount",
-            rows.length
-        );
-
-
-        return rows
-            .map(
-                row=>row.course_id
-            )
-            .filter(Boolean);
-
-    }
-    catch(error){
-
-        console.warn(error);
-
-        return [];
-
-    }
-
-}
-
-
-/* =========================================================
-   RESULTS
-========================================================= */
-
-async function loadResults(userId){
-
-    try{
-
-        const response =
-            await supabaseClient
-                .from("exam_attempts")
-                .select(`
-                    id,
-                    exam_id,
-                    status,
-                    total_mark,
-                    merit_position,
-                    submitted_at
-                `)
-                .eq(
-                    "user_id",
-                    userId
-                )
-                .eq(
-                    "status",
-                    "submitted"
-                )
-                .order(
-                    "submitted_at",
-                    {
-                        ascending:false
-                    }
-                );
-
-
-        if(response.error){
-
-            console.warn(
-                "Results:",
-                response.error.message
-            );
-
-            renderNoResults();
 
             return;
+        }
+
+
+        const user =
+            session.user;
+
+
+        /* =========================
+           BASIC USER
+        ========================= */
+
+        document.getElementById(
+            "topEmail"
+        ).textContent =
+            user.email || "";
+
+
+        /* =========================
+           STUDENT PROFILE
+        ========================= */
+
+        const {
+            data:profile,
+            error:profileError
+        } = await db
+            .from("student_profiles")
+            .select(`
+                full_name,
+                target_admission,
+                target_university
+            `)
+            .eq("id",user.id)
+            .maybeSingle();
+
+
+        if(profileError){
+
+            console.error(
+                "Profile error:",
+                profileError
+            );
 
         }
 
 
-        const results =
-            response.data || [];
+        const studentName =
+            profile?.full_name ||
+            user.user_metadata?.full_name ||
+            user.email?.split("@")[0] ||
+            "Student";
 
 
-        setText(
-            "examCount",
-            results.length
-        );
-
-        setText(
-            "totalAttempted",
-            results.length
-        );
+        document.getElementById(
+            "topName"
+        ).textContent =
+            studentName;
 
 
-        if(!results.length){
+        document.getElementById(
+            "heroName"
+        ).textContent =
+            studentName;
 
-            setText(
-                "averageScore",
-                "0%"
+
+        document.getElementById(
+            "avatar"
+        ).textContent =
+            getInitial(studentName);
+
+
+        document.getElementById(
+            "targetAdmission"
+        ).textContent =
+            profile?.target_admission ||
+            "Not set";
+
+
+        document.getElementById(
+            "targetUniversity"
+        ).textContent =
+            profile?.target_university ||
+            "Target not set";
+
+
+        /* =========================
+           ACTIVE COURSES
+        ========================= */
+
+        const {
+            data:courses,
+            error:coursesError
+        } = await db
+            .from("course_access")
+            .select("course_id")
+            .eq("user_id",user.id)
+            .eq("access_status","active");
+
+
+        if(coursesError){
+
+            console.error(
+                "Course error:",
+                coursesError
             );
-
-            setText(
-                "performancePercent",
-                "0%"
-            );
-
-            setText(
-                "bestScore",
-                "0"
-            );
-
-            setText(
-                "bestRank",
-                "—"
-            );
-
-            renderNoResults();
-
-            return;
 
         }
 
 
-        const examIds =
-            results
-                .map(
-                    r=>r.exam_id
-                )
-                .filter(Boolean);
+        const activeCourses =
+            courses || [];
 
 
-        let exams = [];
+        document.getElementById(
+            "courseCount"
+        ).textContent =
+            activeCourses.length;
 
 
-        if(examIds.length){
-
-            const examResponse =
-                await supabaseClient
-                    .from("exams")
-                    .select(`
-                        id,
-                        title,
-                        total_marks
-                    `)
-                    .in(
-                        "id",
-                        examIds
-                    );
+        const courseIds =
+            activeCourses.map(
+                x => x.course_id
+            );
 
 
-            if(!examResponse.error){
+        /* =========================
+           ATTEMPTS
+        ========================= */
 
-                exams =
-                    examResponse.data || [];
+        const {
+            data:attempts,
+            error:attemptError
+        } = await db
+            .from("exam_attempts")
+            .select(`
+                id,
+                exam_id,
+                submitted_at,
+                status,
+                total_questions,
+                correct_answers,
+                wrong_answers,
+                skipped_answers,
+                total_mark,
+                merit_position
+            `)
+            .eq("user_id",user.id)
+            .order("submitted_at",{
+                ascending:false
+            });
 
-            }
+
+        if(attemptError){
+
+            console.error(
+                "Attempt error:",
+                attemptError
+            );
 
         }
 
 
-        const examMap = {};
+        const allAttempts =
+            attempts || [];
 
 
-        exams.forEach(
-            exam=>{
-
-                examMap[
-                    exam.id
-                ] = exam;
-
-            }
-        );
+        const completedAttempts =
+            allAttempts.filter(
+                a =>
+                    a.status === "submitted" ||
+                    a.submitted_at
+            );
 
 
-        const percentages = [];
+        document.getElementById(
+            "attemptCount"
+        ).textContent =
+            completedAttempts.length;
 
 
-        results.forEach(
-            result=>{
+        document.getElementById(
+            "totalAttempts"
+        ).textContent =
+            completedAttempts.length;
 
-                const exam =
-                    examMap[
-                        result.exam_id
-                    ];
+
+        /* =========================
+           PERFORMANCE
+        ========================= */
+
+        let percentages = [];
+
+
+        completedAttempts.forEach(
+            attempt => {
+
+                let percentage = null;
 
 
                 if(
-                    exam &&
-                    Number(
-                        exam.total_marks
-                    ) > 0
+                    attempt.total_questions &&
+                    attempt.correct_answers !== null
+                ){
+
+                    percentage =
+                        (
+                            Number(
+                                attempt.correct_answers
+                            ) /
+                            Number(
+                                attempt.total_questions
+                            )
+                        ) * 100;
+
+                }
+                else if(
+                    attempt.total_mark !== null &&
+                    attempt.total_mark !== undefined
+                ){
+
+                    percentage =
+                        Number(
+                            attempt.total_mark
+                        );
+
+                }
+
+
+                if(
+                    percentage !== null &&
+                    Number.isFinite(percentage)
                 ){
 
                     percentages.push(
-
-                        (
-                            Number(
-                                result.total_mark || 0
-                            )
-                            /
-                            Number(
-                                exam.total_marks
+                        Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                percentage
                             )
                         )
-                        * 100
-
                     );
 
                 }
@@ -3031,104 +1779,55 @@ async function loadResults(userId){
         );
 
 
-        let average = 0;
-
-
-        if(percentages.length){
-
-            average =
-                percentages.reduce(
-                    (a,b)=>a+b,
+        const average =
+            percentages.length
+                ? percentages.reduce(
+                    (a,b) => a+b,
                     0
-                )
-                /
-                percentages.length;
-
-        }
+                ) / percentages.length
+                : 0;
 
 
-        average =
-            Math.max(
-                0,
-                Math.min(
-                    100,
-                    average
-                )
-            );
+        const best =
+            percentages.length
+                ? Math.max(...percentages)
+                : 0;
 
 
-        const averageText =
-            average.toFixed(1) + "%";
+        document.getElementById(
+            "averageScore"
+        ).textContent =
+            Math.round(average) + "%";
 
 
-        setText(
-            "averageScore",
-            averageText
-        );
-
-        setText(
-            "performancePercent",
-            averageText
-        );
+        document.getElementById(
+            "performanceAverage"
+        ).textContent =
+            Math.round(average) + "%";
 
 
-        setTimeout(
-            ()=>{
-
-                const bar =
-                    document.getElementById(
-                        "performanceBar"
-                    );
-
-                if(bar){
-
-                    bar.style.width =
-                        average + "%";
-
-                }
-
-            },
-            100
-        );
+        document.getElementById(
+            "bestScore"
+        ).textContent =
+            Math.round(best) + "%";
 
 
-        const scores =
-            results.map(
-                r=>
-                    Number(
-                        r.total_mark || 0
-                    )
-            );
-
-
-        const bestScore =
-            Math.max(
-                ...scores
-            );
-
-
-        setText(
-            "bestScore",
-            Number.isInteger(
-                bestScore
-            )
-            ?
-            bestScore
-            :
-            bestScore.toFixed(1)
-        );
+        document.getElementById(
+            "performanceBar"
+        ).style.width =
+            Math.round(average) + "%";
 
 
         const ranks =
-            results
+            completedAttempts
                 .map(
-                    r=>
+                    a =>
                         Number(
-                            r.merit_position
+                            a.merit_position
                         )
                 )
                 .filter(
-                    r=>
+                    r =>
                         Number.isFinite(r) &&
                         r > 0
                 );
@@ -3136,670 +1835,427 @@ async function loadResults(userId){
 
         if(ranks.length){
 
-            setText(
-                "bestRank",
+            document.getElementById(
+                "bestRank"
+            ).textContent =
                 "#" +
-                Math.min(
-                    ...ranks
-                )
-            );
+                Math.min(...ranks);
 
         }
 
 
-        const recent =
-            results.slice(
+        /* =========================
+           RECENT RESULTS
+        ========================= */
+
+        const recentResults =
+            completedAttempts.slice(
                 0,
-                3
+                5
             );
 
 
-        const container =
+        const recentBox =
             document.getElementById(
                 "recentResults"
             );
 
 
-        container.innerHTML =
-            recent
+        if(!recentResults.length){
+
+            recentBox.innerHTML =
+                `<div class="empty">
+                    No exam results yet.
+                </div>`;
+
+        }
+        else{
+
+            recentBox.innerHTML =
+                recentResults
                 .map(
-                    result=>{
+                    attempt => {
 
-                        const exam =
-                            examMap[
-                                result.exam_id
-                            ];
+                        let score = 0;
 
+                        if(
+                            attempt.total_questions &&
+                            attempt.correct_answers !== null
+                        ){
+
+                            score =
+                                (
+                                    Number(
+                                        attempt.correct_answers
+                                    ) /
+                                    Number(
+                                        attempt.total_questions
+                                    )
+                                ) * 100;
+
+                        }
+                        else{
+
+                            score =
+                                Number(
+                                    attempt.total_mark || 0
+                                );
+
+                        }
 
                         return `
+                        <div class="result">
 
-                            <div class="result">
-
-                                <div class="resultName">
-
-                                    <strong>
-                                        ${escapeHTML(
-                                            exam?.title ||
-                                            "Admission Examination"
-                                        )}
-                                    </strong>
-
-                                    <span>
-                                        ${
-                                            result.submitted_at
-                                            ?
-                                            formatDate(
-                                                result.submitted_at
-                                            )
-                                            :
-                                            "Completed"
-                                        }
-                                    </span>
-
+                            <div>
+                                <div class="result-name">
+                                    Exam Attempt
                                 </div>
 
+                                <div class="result-date">
+                                    ${formatDate(
+                                        attempt.submitted_at
+                                    )}
+                                </div>
+                            </div>
 
-                                <div class="resultScore">
+                            <div class="score">
 
-                                    <strong>
-                                        ${escapeHTML(
-                                            result.total_mark ?? 0
-                                        )}
+                                <div class="score-number">
+                                    ${Math.round(
+                                        score
+                                    )}%
+                                </div>
 
-                                        ${
-                                            exam?.total_marks
-                                            ?
-                                            " / " +
-                                            escapeHTML(
-                                                exam.total_marks
-                                            )
-                                            :
-                                            ""
-                                        }
-                                    </strong>
-
-                                    <span>
-                                        Score
-                                    </span>
-
-                                    ${
-                                        result.merit_position
-                                        ?
-                                        `
-                                            <div class="rank">
-                                                Rank #${escapeHTML(
-                                                    result.merit_position
-                                                )}
-                                            </div>
-                                        `
-                                        :
-                                        ""
-                                    }
-
+                                <div class="score-label">
+                                    Score
                                 </div>
 
                             </div>
 
+                        </div>
                         `;
 
                     }
                 )
                 .join("");
 
-
-    }
-    catch(error){
-
-        console.error(
-            "Results failed:",
-            error
-        );
-
-        renderNoResults();
-
-    }
-
-}
-
-
-/* =========================================================
-   EMPTY RESULTS
-========================================================= */
-
-function renderNoResults(){
-
-    const container =
-        document.getElementById(
-            "recentResults"
-        );
-
-    if(!container){
-        return;
-    }
-
-    container.innerHTML = `
-
-        <div class="empty">
-
-            No completed examinations yet.
-
-            <br>
-
-            Your latest results will appear here.
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   UPCOMING EXAMS
-========================================================= */
-
-async function loadUpcomingExams(
-    activeCourseIds
-){
-
-    try{
-
-        if(
-            !activeCourseIds ||
-            !activeCourseIds.length
-        ){
-
-            renderNoExams(
-                "No active course access found."
-            );
-
-            return;
-
         }
 
 
-        const now =
-            new Date().toISOString();
+        /* =========================
+           UPCOMING EXAMS
+        ========================= */
 
-
-        const examResponse =
-            await supabaseClient
-                .from("exams")
-                .select(`
-                    id,
-                    title,
-                    total_marks,
-                    duration_minutes,
-                    start_time,
-                    end_time,
-                    status,
-                    is_published
-                `)
-                .eq(
-                    "is_published",
-                    true
-                )
-                .gte(
-                    "end_time",
-                    now
-                )
-                .order(
-                    "start_time",
-                    {
-                        ascending:true
-                    }
-                )
-                .limit(30);
-
-
-        if(examResponse.error){
-
-            console.warn(
-                "Exams:",
-                examResponse.error.message
+        const examBox =
+            document.getElementById(
+                "upcomingExams"
             );
 
-            renderNoExams(
-                "Exam schedule could not be loaded."
-            );
 
-            return;
+        if(!courseIds.length){
+
+            examBox.innerHTML =
+                `<div class="empty">
+                    No active course found.
+                    Purchase a course to access exams.
+                </div>`;
 
         }
+        else{
 
-
-        const exams =
-            examResponse.data || [];
-
-
-        if(!exams.length){
-
-            renderNoExams(
-                "No upcoming exams right now."
-            );
-
-            return;
-
-        }
-
-
-        const examIds =
-            exams.map(
-                exam=>exam.id
-            );
-
-
-        const mappingResponse =
-            await supabaseClient
+            const {
+                data:examLinks,
+                error:linkError
+            } = await db
                 .from("exam_courses")
                 .select(`
                     exam_id,
                     course_id
                 `)
                 .in(
-                    "exam_id",
-                    examIds
+                    "course_id",
+                    courseIds
                 );
 
 
-        if(mappingResponse.error){
+            if(linkError){
 
-            renderNoExams(
-                "Exam schedule could not be loaded."
-            );
+                console.error(
+                    "Exam course error:",
+                    linkError
+                );
 
-            return;
-
-        }
-
-
-        const mapping = {};
+            }
 
 
-        (
-            mappingResponse.data || []
-        )
-        .forEach(
-            row=>{
+            const examIds =
+                [
+                    ...new Set(
+                        (examLinks || [])
+                            .map(
+                                x =>
+                                    x.exam_id
+                            )
+                    )
+                ];
 
-                if(
-                    !mapping[
-                        row.exam_id
-                    ]
-                ){
 
-                    mapping[
-                        row.exam_id
-                    ] = [];
+            if(!examIds.length){
+
+                examBox.innerHTML =
+                    `<div class="empty">
+                        No upcoming exams available.
+                    </div>`;
+
+            }
+            else{
+
+                const {
+                    data:exams,
+                    error:examError
+                } = await db
+                    .from("exams")
+                    .select(`
+                        id,
+                        title,
+                        description,
+                        total_marks,
+                        duration_minutes,
+                        start_time,
+                        end_time,
+                        status,
+                        is_published
+                    `)
+                    .in(
+                        "id",
+                        examIds
+                    )
+                    .eq(
+                        "is_published",
+                        true
+                    )
+                    .order(
+                        "start_time",
+                        {
+                            ascending:true
+                        }
+                    )
+                    .limit(5);
+
+
+                if(examError){
+
+                    console.error(
+                        "Exam error:",
+                        examError
+                    );
 
                 }
 
 
-                mapping[
-                    row.exam_id
-                ].push(
-                    row.course_id
-                );
+                const upcoming =
+                    (exams || [])
+                    .filter(
+                        exam => {
 
-            }
-        );
+                            if(
+                                !exam.start_time
+                            ){
 
+                                return true;
+                            }
 
-        const activeSet =
-            new Set(
-                activeCourseIds
-            );
-
-
-        const accessible =
-            exams
-                .filter(
-                    exam=>{
-
-                        const attached =
-                            mapping[
-                                exam.id
-                            ] || [];
-
-
-                        if(
-                            !attached.length
-                        ){
-                            return false;
-                        }
-
-
-                        return attached.every(
-                            id =>
-                                activeSet.has(id)
-                        );
-
-                    }
-                )
-                .slice(
-                    0,
-                    3
-                );
-
-
-        if(!accessible.length){
-
-            renderNoExams(
-                "No upcoming exams are available for your courses."
-            );
-
-            return;
-
-        }
-
-
-        const container =
-            document.getElementById(
-                "upcomingExams"
-            );
-
-
-        container.innerHTML =
-            accessible
-                .map(
-                    exam=>{
-
-                        const title =
-                            String(
-                                exam.title || ""
-                            )
-                            .toLowerCase();
-
-
-                        let type =
-                            "Admission Test";
-
-
-                        if(
-                            title.includes("daily")
-                        ){
-
-                            type =
-                                "Daily Examination";
+                            return new Date(
+                                exam.start_time
+                            ) >= new Date();
 
                         }
-                        else if(
-                            title.includes("weekly")
-                        ){
-
-                            type =
-                                "Weekly Examination";
-
-                        }
-                        else if(
-                            title.includes("15") ||
-                            title.includes("fifteen")
-                        ){
-
-                            type =
-                                "15-Day Examination";
-
-                        }
+                    )
+                    .slice(
+                        0,
+                        5
+                    );
 
 
-                        return `
+                if(!upcoming.length){
 
-                            <a
-                                href="https://khalasifayon3230-ops.github.io/exams.html"
-                            >
+                    examBox.innerHTML =
+                        `<div class="empty">
+                            No upcoming exams right now.
+                        </div>`;
 
-                                <div class="exam">
+                }
+                else{
 
-                                    <div class="examTop">
+                    examBox.innerHTML =
+                        upcoming
+                        .map(
+                            exam => `
 
-                                        <div>
+                            <div class="exam">
 
-                                            <div class="examTitle">
+                                <div class="exam-left">
 
-                                                ${escapeHTML(
-                                                    exam.title ||
-                                                    "Admission Examination"
-                                                )}
-
-                                            </div>
-
-                                            <div class="examTime">
-
-                                                ${formatDateTime(
-                                                    exam.start_time
-                                                )}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="marks">
-
-                                            ${escapeHTML(
-                                                exam.total_marks ||
-                                                "—"
-                                            )}
-
-                                            Marks
-
-                                        </div>
-
+                                    <div class="exam-icon">
+                                        ✎
                                     </div>
 
+                                    <div>
 
-                                    <div class="examBadge">
+                                        <div class="exam-name">
+                                            ${escapeHTML(
+                                                exam.title
+                                            )}
+                                        </div>
 
-                                        ${escapeHTML(type)}
+                                        <div class="exam-meta">
+                                            ${Number(
+                                                exam.total_marks || 0
+                                            )} marks
+                                        </div>
 
                                     </div>
 
                                 </div>
 
-                            </a>
+                                <div class="exam-time">
 
-                        `;
+                                    <div class="exam-date">
+                                        ${formatDate(
+                                            exam.start_time
+                                        )}
+                                    </div>
 
-                    }
-                )
-                .join("");
+                                    <div class="exam-duration">
+                                        ${Number(
+                                            exam.duration_minutes || 0
+                                        )} min
+                                    </div>
 
+                                </div>
+
+                            </div>
+
+                            `
+                        )
+                        .join("");
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================
+           NOTIFICATIONS
+        ========================= */
+
+        const notificationBox =
+            document.getElementById(
+                "notifications"
+            );
+
+
+        const {
+            data:notifications,
+            error:notificationError
+        } = await db.rpc(
+            "get_student_notifications"
+        );
+
+
+        if(notificationError){
+
+            console.error(
+                "Notification error:",
+                notificationError
+            );
+
+            notificationBox.innerHTML =
+                `<div class="empty">
+                    Notifications unavailable.
+                </div>`;
+
+        }
+        else{
+
+            const notices =
+                notifications || [];
+
+
+            document.getElementById(
+                "notificationCount"
+            ).textContent =
+                notices.length;
+
+
+            if(!notices.length){
+
+                notificationBox.innerHTML =
+                    `<div class="empty">
+                        No notifications yet.
+                    </div>`;
+
+            }
+            else{
+
+                notificationBox.innerHTML =
+                    notices
+                    .slice(
+                        0,
+                        4
+                    )
+                    .map(
+                        n => `
+
+                        <div class="notification">
+
+                            <div class="notice-icon">
+                                ♢
+                            </div>
+
+                            <div>
+
+                                <div class="notice-title">
+                                    ${escapeHTML(
+                                        n.title
+                                    )}
+                                </div>
+
+                                <div class="notice-text">
+                                    ${escapeHTML(
+                                        n.message
+                                    )}
+                                </div>
+
+                                <div class="notice-date">
+                                    ${formatDate(
+                                        n.created_at
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        `
+                    )
+                    .join("");
+
+            }
+
+        }
 
     }
     catch(error){
 
         console.error(
-            "Upcoming exams:",
+            "Dashboard error:",
             error
         );
 
-        renderNoExams(
-            "Upcoming exams could not be loaded."
-        );
-
     }
-
-}
-
-
-/* =========================================================
-   EMPTY EXAMS
-========================================================= */
-
-function renderNoExams(message){
-
-    const container =
-        document.getElementById(
-            "upcomingExams"
-        );
-
-    if(!container){
-        return;
-    }
-
-    container.innerHTML = `
-
-        <div class="empty">
-
-            ${escapeHTML(
-                message
-            )}
-
-            <br>
-
-            Check My Exams regularly.
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-async function loadNotifications(){
-
-    try{
-
-        const response =
-            await supabaseClient.rpc(
-                "get_student_notifications"
-            );
-
-
-        if(response.error){
-
-            console.warn(
-                "Notifications:",
-                response.error.message
-            );
-
-            renderNoNotifications();
-
-            return;
-
-        }
-
-
-        const notifications =
-            response.data || [];
-
-
-        setText(
-            "notificationCount",
-            notifications.length
-        );
-
-
-        const preview =
-            notifications.slice(
-                0,
-                3
-            );
-
-
-        if(!preview.length){
-
-            renderNoNotifications();
-
-            return;
-
-        }
-
-
-        const container =
-            document.getElementById(
-                "notificationPreview"
-            );
-
-
-        container.innerHTML =
-            preview
-                .map(
-                    item=>`
-
-                        <div class="notification">
-
-                            <strong>
-                                ${escapeHTML(
-                                    item.title ||
-                                    "Dream Hunt Update"
-                                )}
-                            </strong>
-
-                            <p>
-                                ${escapeHTML(
-                                    item.message ||
-                                    ""
-                                )}
-                            </p>
-
-                            <time>
-                                ${
-                                    item.created_at
-                                    ?
-                                    formatDate(
-                                        item.created_at
-                                    )
-                                    :
-                                    ""
-                                }
-                            </time>
-
-                        </div>
-
-                    `
-                )
-                .join("");
-
-
-    }
-    catch(error){
-
-        console.warn(
-            error
-        );
-
-        renderNoNotifications();
-
-    }
-
-}
-
-
-/* =========================================================
-   EMPTY NOTIFICATIONS
-========================================================= */
-
-function renderNoNotifications(){
-
-    setText(
-        "notificationCount",
-        "0"
-    );
-
-
-    const container =
-        document.getElementById(
-            "notificationPreview"
-        );
-
-    if(!container){
-        return;
-    }
-
-    container.innerHTML = `
-
-        <div class="empty">
-
-            No new notifications right now.
-
-        </div>
-
-    `;
 
 }
 
@@ -3808,169 +2264,31 @@ function renderNoNotifications(){
    LOGOUT
 ========================================================= */
 
-async function logout(event){
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        async function(event){
 
-    if(event){
-        event.preventDefault();
-    }
+            event.preventDefault();
 
+            await db.auth.signOut();
 
-    try{
-
-        const response =
-            await supabaseClient
-                .auth
-                .signOut();
-
-
-        if(response.error){
-
-            alert(
-                "Logout failed: " +
-                response.error.message
+            window.location.replace(
+                "https://khalasifayon3230-ops.github.io/"
             );
-
-            return;
-
-        }
-
-
-        window.location.href =
-            "https://khalasifayon3230-ops.github.io/";
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        alert(
-            "Unable to logout right now."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-supabaseClient
-    .auth
-    .onAuthStateChange(
-        event=>{
-
-            if(
-                event ===
-                "SIGNED_OUT"
-            ){
-
-                window.location.href =
-                    "https://khalasifayon3230-ops.github.io/";
-
-            }
 
         }
     );
 
 
 /* =========================================================
-   INITIALIZE
-========================================================= */
-
-async function initializeDashboard(){
-
-    try{
-
-        setText(
-            "currentYear",
-            new Date().getFullYear()
-        );
-
-
-        const sessionResponse =
-            await supabaseClient
-                .auth
-                .getSession();
-
-
-        if(
-            sessionResponse.error ||
-            !sessionResponse.data ||
-            !sessionResponse.data.session
-        ){
-
-            window.location.href =
-                "https://khalasifayon3230-ops.github.io/";
-
-            return;
-
-        }
-
-
-        const user =
-            sessionResponse
-                .data
-                .session
-                .user;
-
-
-        await loadStudent(
-            user
-        );
-
-
-        const activeCourses =
-            await loadCourses(
-                user.id
-            );
-
-
-        await Promise.allSettled([
-
-            loadResults(
-                user.id
-            ),
-
-            loadUpcomingExams(
-                activeCourses
-            ),
-
-            loadNotifications()
-
-        ]);
-
-
-        hideLoading();
-
-    }
-    catch(error){
-
-        console.error(
-            "Dashboard:",
-            error
-        );
-
-        showError(
-            "Unable to load some dashboard information."
-        );
-
-        hideLoading();
-
-    }
-
-}
-
-
-/* =========================================================
    START
 ========================================================= */
 
-initializeDashboard();
+loadDashboard();
 
 </script>
 
 </body>
-
 </html>
