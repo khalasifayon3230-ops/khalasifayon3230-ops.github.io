@@ -1,313 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>Help & FAQ | Dream Hunt</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
 }
+
+
+/* =========================================================
+   BODY
+========================================================= */
 
 body{
-    background:#f5f7fb;
-    color:#172033;
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37,99,235,.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(124,58,237,.09),
+            transparent 35%
+        ),
+        #f6f8fc;
+
+    color:#111827;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
 }
 
-/* HEADER */
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
 .header{
-    background:#ffffff;
-    border-bottom:1px solid #e6e9ef;
-    padding:18px 20px;
     position:sticky;
+
     top:0;
+
     z-index:100;
+
+    background:
+        rgba(255,255,255,.88);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid
+        rgba(15,23,42,.08);
+
+    padding:
+        14px 18px;
 }
+
 
 .header-inner{
-    max-width:1100px;
+    width:min(1200px,100%);
+
     margin:auto;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
+    gap:15px;
 }
+
 
 .logo{
+    text-decoration:none;
+
     font-size:24px;
-    font-weight:800;
-    color:#111827;
-    text-decoration:none;
+
+    font-weight:950;
+
+    letter-spacing:-1px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+
+    white-space:nowrap;
 }
 
-.back-btn{
+
+.nav{
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+}
+
+
+.nav::-webkit-scrollbar{
+    display:none;
+}
+
+
+.nav a{
     text-decoration:none;
-    background:#111827;
-    color:white;
-    padding:10px 16px;
+
+    color:#64748b;
+
+    padding:
+        9px 11px;
+
     border-radius:10px;
-    font-size:14px;
-}
 
-/* MAIN */
-.container{
-    max-width:1100px;
-    margin:0 auto;
-    padding:35px 20px 60px;
-}
+    font-size:12px;
 
-.hero{
-    text-align:center;
-    margin-bottom:30px;
-}
+    font-weight:750;
 
-.hero h1{
-    font-size:34px;
-    margin-bottom:10px;
-}
+    white-space:nowrap;
 
-.hero p{
-    color:#667085;
-    font-size:16px;
-}
-
-/* SEARCH */
-.search-box{
-    max-width:650px;
-    margin:25px auto 35px;
-}
-
-.search-box input{
-    width:100%;
-    padding:15px 18px;
-    border:1px solid #d9dee8;
-    border-radius:12px;
-    outline:none;
-    font-size:15px;
-    background:white;
-}
-
-.search-box input:focus{
-    border-color:#111827;
-}
-
-/* CATEGORY GRID */
-.category-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-bottom:35px;
-}
-
-.category{
-    background:white;
-    padding:22px;
-    border-radius:16px;
-    border:1px solid #e5e7eb;
-    cursor:pointer;
     transition:.2s;
 }
 
-.category:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+.nav a:hover,
+.nav a.active{
+    color:#2563eb;
+
+    background:
+        rgba(37,99,235,.08);
 }
 
-.category-icon{
-    font-size:28px;
+
+.dashboard-btn{
+    text-decoration:none;
+
+    flex-shrink:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e293b
+        );
+
+    color:white;
+
+    padding:
+        10px 14px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container{
+    width:min(1150px,100%);
+
+    margin:auto;
+
+    padding:
+        40px 18px
+        65px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    text-align:center;
+
+    padding:
+        42px 25px;
+
+    margin-bottom:25px;
+
+    border-radius:26px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e293b
+        );
+
+    color:white;
+
+    box-shadow:
+        0 18px 45px
+        rgba(15,23,42,.14);
+}
+
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:230px;
+    height:230px;
+
+    right:-90px;
+    top:-110px;
+
+    border-radius:50%;
+
+    background:
+        rgba(59,130,246,.18);
+}
+
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    left:-90px;
+    bottom:-100px;
+
+    border-radius:50%;
+
+    background:
+        rgba(124,58,237,.17);
+}
+
+
+.hero-content{
+    position:relative;
+
+    z-index:2;
+}
+
+
+.hero-badge{
+    display:inline-flex;
+
+    padding:
+        7px 13px;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    color:#bfdbfe;
+
+    font-size:11px;
+
+    font-weight:850;
+
+    margin-bottom:14px;
+}
+
+
+.hero h1{
+    font-size:
+        clamp(31px,6vw,48px);
+
+    line-height:1.05;
+
+    letter-spacing:-1.6px;
+
+    font-weight:950;
+
     margin-bottom:12px;
 }
 
-.category h3{
-    font-size:17px;
-    margin-bottom:6px;
+
+.hero h1 span{
+    color:#60a5fa;
 }
+
+
+.hero p{
+    color:#cbd5e1;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    max-width:650px;
+
+    margin:auto;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box{
+    position:relative;
+
+    max-width:720px;
+
+    margin:
+        0 auto 30px;
+}
+
+
+.search-icon{
+    position:absolute;
+
+    left:17px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    font-size:17px;
+
+    color:#94a3b8;
+}
+
+
+.search-box input{
+    width:100%;
+
+    padding:
+        15px 18px 15px 47px;
+
+    border:
+        1px solid #dfe5ee;
+
+    border-radius:14px;
+
+    outline:none;
+
+    background:white;
+
+    color:#111827;
+
+    font-size:14px;
+
+    box-shadow:
+        0 7px 22px
+        rgba(15,23,42,.055);
+
+    transition:.2s;
+}
+
+
+.search-box input:focus{
+    border-color:#93c5fd;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(37,99,235,.08);
+}
+
+
+/* =========================================================
+   CATEGORY GRID
+========================================================= */
+
+.category-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+
+    margin-bottom:38px;
+}
+
+
+.category{
+    position:relative;
+
+    background:white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        border-color .2s;
+}
+
+
+.category::after{
+    content:"";
+
+    position:absolute;
+
+    width:70px;
+    height:70px;
+
+    right:-35px;
+    top:-35px;
+
+    border-radius:50%;
+
+    background:
+        rgba(37,99,235,.06);
+}
+
+
+.category:hover{
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(37,99,235,.25);
+
+    box-shadow:
+        0 12px 30px
+        rgba(15,23,42,.08);
+}
+
+
+.category-icon{
+    width:45px;
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    background:
+        #eff6ff;
+
+    font-size:22px;
+
+    margin-bottom:13px;
+}
+
+
+.category h3{
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:5px;
+}
+
 
 .category p{
-    font-size:13px;
-    color:#667085;
+    font-size:12px;
+
+    line-height:1.5;
+
+    color:#64748b;
 }
 
-/* SECTION */
+
+/* =========================================================
+   SECTION
+========================================================= */
+
 .section{
-    margin-bottom:35px;
+    margin-bottom:38px;
 }
 
-.section-title{
-    font-size:24px;
+
+.section-head{
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:15px;
+
     margin-bottom:15px;
 }
 
-/* FAQ */
-.faq{
-    background:white;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    margin-bottom:10px;
-    overflow:hidden;
+
+.section-title{
+    font-size:23px;
+
+    font-weight:950;
+
+    letter-spacing:-.5px;
 }
 
-.faq-question{
-    padding:17px 18px;
-    cursor:pointer;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-weight:600;
+
+.section-count{
+    color:#94a3b8;
+
+    font-size:11px;
+
+    font-weight:700;
 }
+
+
+/* =========================================================
+   RESOURCE GRID
+========================================================= */
+
+.resources{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+
+.resource{
+    background:white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:17px;
+
+    padding:20px;
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        border-color .2s;
+}
+
+
+.resource:hover{
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(37,99,235,.22);
+
+    box-shadow:
+        0 11px 28px
+        rgba(15,23,42,.07);
+}
+
+
+.resource-icon{
+    font-size:22px;
+
+    margin-bottom:11px;
+}
+
+
+.resource h3{
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:7px;
+}
+
+
+.resource p{
+    color:#64748b;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    margin-bottom:15px;
+}
+
+
+.resource a{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-decoration:none;
+
+    background:
+        #111827;
+
+    color:white;
+
+    padding:
+        9px 13px;
+
+    border-radius:9px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+
+.resource a:hover{
+    background:#2563eb;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq-list{
+    display:grid;
+
+    gap:10px;
+}
+
+
+.faq{
+    background:white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    transition:.2s;
+}
+
+
+.faq.open{
+    border-color:
+        rgba(37,99,235,.25);
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
+}
+
+
+.faq-question{
+    width:100%;
+
+    border:none;
+
+    background:transparent;
+
+    padding:
+        17px 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    text-align:left;
+
+    color:#111827;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+.faq-icon{
+    width:28px;
+    height:28px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    font-size:18px;
+
+    transition:.25s;
+}
+
+
+.faq.open .faq-icon{
+    transform:
+        rotate(45deg);
+
+    background:#eff6ff;
+
+    color:#2563eb;
+}
+
 
 .faq-answer{
     display:none;
-    padding:0 18px 18px;
-    color:#667085;
-    line-height:1.6;
-    font-size:14px;
+
+    padding:
+        0 18px 18px;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.75;
 }
+
 
 .faq.open .faq-answer{
     display:block;
 }
 
-.faq-icon{
-    font-size:20px;
-    transition:.2s;
-}
 
-.faq.open .faq-icon{
-    transform:rotate(45deg);
-}
+/* =========================================================
+   EMERGENCY
+========================================================= */
 
-/* RESOURCE CARDS */
-.resources{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.resource{
-    background:white;
-    padding:20px;
-    border:1px solid #e5e7eb;
-    border-radius:14px;
-}
-
-.resource h3{
-    margin-bottom:8px;
-    font-size:16px;
-}
-
-.resource p{
-    color:#667085;
-    font-size:13px;
-    line-height:1.5;
-    margin-bottom:14px;
-}
-
-.resource a{
-    display:inline-block;
-    text-decoration:none;
-    background:#111827;
-    color:white;
-    padding:9px 13px;
-    border-radius:8px;
-    font-size:13px;
-}
-
-/* EMERGENCY */
 .emergency{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:16px;
-    padding:25px;
     margin-top:35px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #f8fafc
+        );
+
+    border:
+        1px solid #e5e7eb;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
 }
+
 
 .emergency h2{
-    margin-bottom:12px;
+    font-size:20px;
+
+    font-weight:950;
+
+    margin-bottom:7px;
 }
 
+
 .emergency p{
-    color:#667085;
-    margin-bottom:18px;
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    margin-bottom:16px;
 }
+
 
 .emergency-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
 }
+
 
 .emergency a{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:50px;
+
     text-decoration:none;
-    background:#f3f4f6;
-    padding:14px;
-    border-radius:10px;
-    color:#111827;
-    font-weight:600;
+
+    background:#f1f5f9;
+
+    color:#334155;
+
+    border-radius:11px;
+
+    padding:10px;
+
     text-align:center;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    transition:.2s;
 }
 
-/* NO RESULT */
+
+.emergency a:hover{
+    background:#e2e8f0;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   NO RESULT
+========================================================= */
+
 .no-result{
     display:none;
-    text-align:center;
+
     background:white;
-    border:1px solid #e5e7eb;
-    border-radius:14px;
-    padding:30px;
-    color:#667085;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:17px;
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    color:#64748b;
 }
 
-/* FOOTER */
+
+.no-result-icon{
+    font-size:35px;
+
+    margin-bottom:10px;
+}
+
+
+.no-result h3{
+    color:#111827;
+
+    font-size:17px;
+
+    margin-bottom:5px;
+}
+
+
+.no-result p{
+    font-size:12px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
 .footer{
     text-align:center;
-    color:#98a2b3;
-    font-size:13px;
-    padding:25px;
+
+    color:#94a3b8;
+
+    font-size:11px;
+
+    padding:
+        20px;
 }
 
-/* MOBILE */
-@media(max-width:800px){
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
 
     .category-grid,
     .resources{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .emergency-grid{
-        grid-template-columns:1fr 1fr;
-    }
 }
 
-@media(max-width:550px){
+
+@media(max-width:650px){
 
     .header{
-        padding:14px;
+        padding:
+            12px;
+    }
+
+    .header-inner{
+        gap:9px;
     }
 
     .logo{
         font-size:21px;
     }
 
-    .back-btn{
-        padding:8px 12px;
-        font-size:13px;
+    .nav{
+        display:none;
+    }
+
+    .dashboard-btn{
+        padding:
+            9px 12px;
     }
 
     .container{
-        padding:25px 14px 45px;
+        padding:
+            25px 13px
+            50px;
+    }
+
+    .hero{
+        padding:
+            29px 18px;
+
+        border-radius:21px;
     }
 
     .hero h1{
-        font-size:28px;
-    }
-
-    .hero p{
-        font-size:14px;
+        font-size:31px;
     }
 
     .category-grid,
@@ -316,549 +994,1580 @@ body{
         grid-template-columns:1fr;
     }
 
-    .category{
-        padding:18px;
+    .section-title{
+        font-size:21px;
     }
+
+    .emergency{
+        padding:20px;
+    }
+
 }
+
+
+@media(max-width:380px){
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .faq-question{
+        font-size:12px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
 <header class="header">
+
     <div class="header-inner">
-        <a href="index.html" class="logo">Dream Hunt</a>
-        <a href="dashboard.html" class="back-btn">← Dashboard</a>
+
+
+        <a
+            href="dashboard.html"
+            class="logo">
+
+            Dream Hunt
+
+        </a>
+
+
+        <nav class="nav">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+            <a href="enrolled-courses.html">
+                Courses
+            </a>
+
+            <a href="exams.html">
+                Exams
+            </a>
+
+            <a href="my-target.html">
+                My Target
+            </a>
+
+            <a
+                href="faq.html"
+                class="active">
+
+                Help
+
+            </a>
+
+        </nav>
+
+
+        <a
+            href="dashboard.html"
+            class="dashboard-btn">
+
+            ← Dashboard
+
+        </a>
+
+
     </div>
+
 </header>
+
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
 
 <main class="container">
 
+
+    <!-- HERO -->
+
     <section class="hero">
-        <h1>Help & FAQ</h1>
-        <p>
-            Student Help & Resources Center
-        </p>
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                🛟 DREAM HUNT SUPPORT CENTER
+            </div>
+
+            <h1>
+                How Can We
+                <span>Help?</span>
+            </h1>
+
+            <p>
+                Find answers, student resources, admission information,
+                official services and important emergency contacts
+                from one place.
+            </p>
+
+        </div>
+
     </section>
+
+
 
     <!-- SEARCH -->
+
     <div class="search-box">
+
+        <span class="search-icon">
+            🔎
+        </span>
+
         <input
-            type="text"
+            type="search"
             id="searchInput"
-            placeholder="Search university, board, result, police, hospital..."
-        >
+            placeholder="Search help, admission, result, university..."
+            autocomplete="off">
+
     </div>
 
-    <!-- CATEGORIES -->
+
+
+    <!-- CATEGORY GRID -->
+
     <div class="category-grid">
 
-        <div class="category" onclick="scrollToSection('education')">
-            <div class="category-icon">🎓</div>
-            <h3>Education</h3>
-            <p>Boards, NCTB, results and education services</p>
+
+        <div
+            class="category"
+            onclick="scrollToSection('education')">
+
+            <div class="category-icon">
+                🎓
+            </div>
+
+            <h3>
+                Education
+            </h3>
+
+            <p>
+                Boards, NCTB, results and education services.
+            </p>
+
         </div>
 
-        <div class="category" onclick="scrollToSection('universities')">
-            <div class="category-icon">🏛️</div>
-            <h3>Universities</h3>
-            <p>University and admission resources</p>
+
+
+        <div
+            class="category"
+            onclick="scrollToSection('universities')">
+
+            <div class="category-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Universities
+            </h3>
+
+            <p>
+                University and admission resources.
+            </p>
+
         </div>
 
-        <div class="category" onclick="scrollToSection('healthcare')">
-            <div class="category-icon">🏥</div>
-            <h3>Healthcare</h3>
-            <p>Hospitals and healthcare resources</p>
+
+
+        <div
+            class="category"
+            onclick="scrollToSection('healthcare')">
+
+            <div class="category-icon">
+                🏥
+            </div>
+
+            <h3>
+                Healthcare
+            </h3>
+
+            <p>
+                Healthcare and medical education resources.
+            </p>
+
         </div>
 
-        <div class="category" onclick="scrollToSection('police')">
-            <div class="category-icon">👮</div>
-            <h3>Police & Emergency</h3>
-            <p>Emergency and police services</p>
+
+
+        <div
+            class="category"
+            onclick="scrollToSection('police')">
+
+            <div class="category-icon">
+                👮
+            </div>
+
+            <h3>
+                Police & Emergency
+            </h3>
+
+            <p>
+                Emergency and police services.
+            </p>
+
         </div>
 
-        <div class="category" onclick="scrollToSection('students')">
-            <div class="category-icon">📚</div>
-            <h3>Student Resources</h3>
-            <p>Results, scholarships and admission tools</p>
+
+
+        <div
+            class="category"
+            onclick="scrollToSection('students')">
+
+            <div class="category-icon">
+                📚
+            </div>
+
+            <h3>
+                Student Resources
+            </h3>
+
+            <p>
+                Exams, results, progress and admission tools.
+            </p>
+
         </div>
 
-        <div class="category" onclick="scrollToSection('faq')">
-            <div class="category-icon">❓</div>
-            <h3>Frequently Asked</h3>
-            <p>Common questions about Dream Hunt</p>
+
+
+        <div
+            class="category"
+            onclick="scrollToSection('faq')">
+
+            <div class="category-icon">
+                ❓
+            </div>
+
+            <h3>
+                Frequently Asked
+            </h3>
+
+            <p>
+                Common questions about Dream Hunt.
+            </p>
+
         </div>
+
 
     </div>
 
 
-    <!-- EDUCATION -->
-    <section class="section searchable-section" id="education">
 
-        <h2 class="section-title">🎓 Education Resources</h2>
+    <!-- ===================================================
+         EDUCATION
+    ==================================================== -->
+
+    <section
+        class="section searchable-section"
+        id="education">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                🎓 Education Resources
+            </h2>
+
+            <span class="section-count">
+                Official resources
+            </span>
+
+        </div>
+
 
         <div class="resources">
 
-            <div class="resource">
-                <h3>Education Boards</h3>
-                <p>Bangladesh education board information and official services.</p>
-                <a href="https://www.educationboard.gov.bd/" target="_blank">
-                    Visit
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Education Boards
+                </h3>
+
+                <p>
+                    Bangladesh education board information
+                    and official services.
+                </p>
+
+                <a
+                    href="https://www.educationboard.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Education Board Results</h3>
-                <p>SSC, HSC and equivalent examination results.</p>
-                <a href="https://www.educationboardresults.gov.bd/" target="_blank">
-                    Results
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Education Board Results
+                </h3>
+
+                <p>
+                    SSC, HSC and equivalent examination results.
+                </p>
+
+                <a
+                    href="https://www.educationboardresults.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Results →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>NCTB</h3>
-                <p>National Curriculum and Textbook Board resources.</p>
-                <a href="https://nctb.gov.bd/" target="_blank">
-                    Visit
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    📚
+                </div>
+
+                <h3>
+                    NCTB
+                </h3>
+
+                <p>
+                    National Curriculum and Textbook Board
+                    resources.
+                </p>
+
+                <a
+                    href="https://nctb.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Ministry of Education</h3>
-                <p>Official education-related information and notices.</p>
-                <a href="https://moedu.gov.bd/" target="_blank">
-                    Visit
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🏫
+                </div>
+
+                <h3>
+                    Ministry of Education
+                </h3>
+
+                <p>
+                    Official education information and notices.
+                </p>
+
+                <a
+                    href="https://moedu.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>UGC Bangladesh</h3>
-                <p>University Grants Commission information.</p>
-                <a href="https://ugc.gov.bd/" target="_blank">
-                    Visit
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    UGC Bangladesh
+                </h3>
+
+                <p>
+                    University Grants Commission information.
+                </p>
+
+                <a
+                    href="https://ugc.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Education Ministry Services</h3>
-                <p>Useful government education services and information.</p>
-                <a href="https://bangladesh.gov.bd/" target="_blank">
-                    Visit
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    National Portal
+                </h3>
+
+                <p>
+                    Government education and public services.
+                </p>
+
+                <a
+                    href="https://bangladesh.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
+
 
         </div>
+
     </section>
 
 
-    <!-- UNIVERSITIES -->
-    <section class="section searchable-section" id="universities">
 
-        <h2 class="section-title">🏛️ University Resources</h2>
+    <!-- ===================================================
+         UNIVERSITIES
+    ==================================================== -->
+
+    <section
+        class="section searchable-section"
+        id="universities">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                🏛️ University Resources
+            </h2>
+
+            <span class="section-count">
+                Admission resources
+            </span>
+
+        </div>
+
 
         <div class="resources">
 
-            <div class="resource">
-                <h3>Public Universities</h3>
-                <p>Information about Bangladesh public universities.</p>
-                <a href="https://ugc.gov.bd/" target="_blank">
-                    UGC
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    Public Universities
+                </h3>
+
+                <p>
+                    Information about Bangladesh public universities.
+                </p>
+
+                <a
+                    href="https://ugc.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    UGC →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Engineering Admission</h3>
-                <p>Useful resources for engineering admission preparation.</p>
-                <a href="https://www.baetebangladesh.org/" target="_blank">
-                    BAETE
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Engineering Admission
+                </h3>
+
+                <p>
+                    Useful engineering admission information
+                    and accreditation resources.
+                </p>
+
+                <a
+                    href="https://www.baetebangladesh.org/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    BAETE →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Medical Admission</h3>
-                <p>Official health and medical education information.</p>
-                <a href="https://dghs.gov.bd/" target="_blank">
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🩺
+                </div>
+
+                <h3>
+                    Medical Admission
+                </h3>
+
+                <p>
+                    Official health and medical education information.
+                </p>
+
+                <a
+                    href="https://dghs.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    DGHS →
+
+                </a>
+
+            </div>
+
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🧑‍⚕️
+                </div>
+
+                <h3>
+                    Medical Education
+                </h3>
+
+                <p>
+                    Directorate General of Medical Education resources.
+                </p>
+
+                <a
+                    href="https://dgme.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    DGME →
+
+                </a>
+
+            </div>
+
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Admission Updates
+                </h3>
+
+                <p>
+                    Check important admission notices and dates
+                    inside Dream Hunt.
+                </p>
+
+                <a href="admission-updates.html">
+                    Open →
+                </a>
+
+            </div>
+
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    My Target
+                </h3>
+
+                <p>
+                    Explore universities and admission institutions.
+                </p>
+
+                <a href="my-target.html">
+                    Explore →
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         HEALTHCARE
+    ==================================================== -->
+
+    <section
+        class="section searchable-section"
+        id="healthcare">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                🏥 Healthcare Resources
+            </h2>
+
+            <span class="section-count">
+                Health services
+            </span>
+
+        </div>
+
+
+        <div class="resources">
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🏥
+                </div>
+
+                <h3>
                     DGHS
+                </h3>
+
+                <p>
+                    Directorate General of Health Services.
+                </p>
+
+                <a
+                    href="https://dghs.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Medical Education</h3>
-                <p>Directorate General of Medical Education resources.</p>
-                <a href="https://dgme.gov.bd/" target="_blank">
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🩺
+                </div>
+
+                <h3>
                     DGME
+                </h3>
+
+                <p>
+                    Medical education and medical college information.
+                </p>
+
+                <a
+                    href="https://dgme.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Admission Information</h3>
-                <p>Check official university admission notices before applying.</p>
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    Government Services
+                </h3>
+
+                <p>
+                    Government healthcare-related services and information.
+                </p>
+
+                <a
+                    href="https://bangladesh.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         POLICE
+    ==================================================== -->
+
+    <section
+        class="section searchable-section"
+        id="police">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                👮 Police & Emergency
+            </h2>
+
+            <span class="section-count">
+                Emergency services
+            </span>
+
+        </div>
+
+
+        <div class="resources">
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    👮
+                </div>
+
+                <h3>
+                    Bangladesh Police
+                </h3>
+
+                <p>
+                    Official Bangladesh Police website and services.
+                </p>
+
+                <a
+                    href="https://www.police.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
+                </a>
+
+            </div>
+
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🚔
+                </div>
+
+                <h3>
+                    Dhaka Metropolitan Police
+                </h3>
+
+                <p>
+                    Police services and information for Dhaka.
+                </p>
+
+                <a
+                    href="https://dmp.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
+                </a>
+
+            </div>
+
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    National Portal
+                </h3>
+
+                <p>
+                    Government services and important public information.
+                </p>
+
+                <a
+                    href="https://bangladesh.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit →
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         STUDENTS
+    ==================================================== -->
+
+    <section
+        class="section searchable-section"
+        id="students">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                📚 Student Resources
+            </h2>
+
+            <span class="section-count">
+                Dream Hunt tools
+            </span>
+
+        </div>
+
+
+        <div class="resources">
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Admission Updates
+                </h3>
+
+                <p>
+                    Important university admission notices and dates.
+                </p>
+
                 <a href="admission-updates.html">
-                    Dream Hunt
+                    Open →
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>My Target</h3>
-                <p>Explore Bangladesh's major universities and institutions.</p>
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    My Target
+                </h3>
+
+                <p>
+                    Explore universities and admission institutions.
+                </p>
+
                 <a href="my-target.html">
-                    Explore
+                    Open →
                 </a>
+
             </div>
 
-        </div>
-    </section>
 
 
-    <!-- HEALTHCARE -->
-    <section class="section searchable-section" id="healthcare">
+            <div class="resource searchable-item">
 
-        <h2 class="section-title">🏥 Healthcare Resources</h2>
+                <div class="resource-icon">
+                    📝
+                </div>
 
-        <div class="resources">
+                <h3>
+                    My Exams
+                </h3>
 
-            <div class="resource">
-                <h3>DGHS</h3>
-                <p>Directorate General of Health Services.</p>
-                <a href="https://dghs.gov.bd/" target="_blank">
-                    Visit
-                </a>
-            </div>
+                <p>
+                    Check your available Dream Hunt examinations.
+                </p>
 
-            <div class="resource">
-                <h3>DGME</h3>
-                <p>Medical education and medical college information.</p>
-                <a href="https://dgme.gov.bd/" target="_blank">
-                    Visit
-                </a>
-            </div>
-
-            <div class="resource">
-                <h3>Government Services</h3>
-                <p>Find government healthcare-related services.</p>
-                <a href="https://bangladesh.gov.bd/" target="_blank">
-                    Visit
-                </a>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- POLICE -->
-    <section class="section searchable-section" id="police">
-
-        <h2 class="section-title">👮 Police & Emergency</h2>
-
-        <div class="resources">
-
-            <div class="resource">
-                <h3>Bangladesh Police</h3>
-                <p>Official Bangladesh Police website and services.</p>
-                <a href="https://www.police.gov.bd/" target="_blank">
-                    Visit
-                </a>
-            </div>
-
-            <div class="resource">
-                <h3>Dhaka Metropolitan Police</h3>
-                <p>Police services and information for Dhaka.</p>
-                <a href="https://dmp.gov.bd/" target="_blank">
-                    Visit
-                </a>
-            </div>
-
-            <div class="resource">
-                <h3>National Portal</h3>
-                <p>Government services and important public information.</p>
-                <a href="https://bangladesh.gov.bd/" target="_blank">
-                    Visit
-                </a>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- STUDENT RESOURCES -->
-    <section class="section searchable-section" id="students">
-
-        <h2 class="section-title">📚 Student Resources</h2>
-
-        <div class="resources">
-
-            <div class="resource">
-                <h3>Admission Updates</h3>
-                <p>Check important university admission notices and dates.</p>
-                <a href="admission-updates.html">
-                    Open
-                </a>
-            </div>
-
-            <div class="resource">
-                <h3>My Target</h3>
-                <p>Explore universities, institutions and admission information.</p>
-                <a href="my-target.html">
-                    Open
-                </a>
-            </div>
-
-            <div class="resource">
-                <h3>My Exams</h3>
-                <p>Check your available Dream Hunt examinations.</p>
                 <a href="exams.html">
-                    Open
+                    Open →
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Results</h3>
-                <p>Check your published examination results.</p>
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Results
+                </h3>
+
+                <p>
+                    Check your published examination results.
+                </p>
+
                 <a href="results.html">
-                    Open
+                    Open →
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Progress</h3>
-                <p>Track your performance and examination progress.</p>
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Progress
+                </h3>
+
+                <p>
+                    Track your examination performance.
+                </p>
+
                 <a href="progress.html">
-                    Open
+                    Open →
                 </a>
+
             </div>
 
-            <div class="resource">
-                <h3>Notifications</h3>
-                <p>Stay updated with important Dream Hunt announcements.</p>
+
+
+            <div class="resource searchable-item">
+
+                <div class="resource-icon">
+                    🔔
+                </div>
+
+                <h3>
+                    Notifications
+                </h3>
+
+                <p>
+                    Stay updated with important Dream Hunt announcements.
+                </p>
+
                 <a href="notifications.html">
-                    Open
+                    Open →
                 </a>
+
             </div>
 
-        </div>
-    </section>
 
-
-    <!-- FAQ -->
-    <section class="section searchable-section" id="faq">
-
-        <h2 class="section-title">❓ Frequently Asked Questions</h2>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>How do I create a Dream Hunt account?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Go to the registration page, provide your required information
-                and complete email verification. After verification you can
-                log in to your Student Portal.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>Where can I see my enrolled courses?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                After logging in, open Student Portal → Learning →
-                Enrolled Courses.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>How does course payment work?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Select your desired course package from Buy Courses,
-                complete the payment using the available payment method,
-                then submit your transaction ID. Your payment remains
-                pending until it is verified.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>When will my course become available?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Your course becomes available after your payment has been
-                verified by Dream Hunt.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>Can I edit my examination result?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                No. Students cannot edit examination results. Results are
-                controlled and published by Dream Hunt administration.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>Where can I find admission updates?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Go to Student Portal → Admission → Admission Updates.
-                There you can find available application dates, notices,
-                admit cards, seat plans and result links.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>Can I contact Dream Hunt directly?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Yes. Use the Contact Us section from your Student Portal.
-                You can contact Dream Hunt through WhatsApp, Telegram,
-                phone or email.
-            </div>
-        </div>
-
-        <div class="faq">
-            <div class="faq-question">
-                <span>Are the university links official?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Always verify important admission information from the
-                institution's official website before submitting an
-                application or payment.
-            </div>
         </div>
 
     </section>
 
 
-    <!-- EMERGENCY -->
+
+    <!-- ===================================================
+         FAQ
+    ==================================================== -->
+
+    <section
+        class="section searchable-section"
+        id="faq">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                ❓ Frequently Asked Questions
+            </h2>
+
+            <span class="section-count">
+                Common questions
+            </span>
+
+        </div>
+
+
+        <div class="faq-list">
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        How do I create a Dream Hunt account?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Go to the registration page, provide the required
+                    information and complete email verification.
+                    After verification, you can log in to your
+                    Student Portal.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        Where can I see my enrolled courses?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    After logging in, open the Student Portal and
+                    go to Enrolled Courses to view your active
+                    courses.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        How does course payment work?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Select your desired package from Buy Courses,
+                    complete the payment using an available payment
+                    method and submit your transaction ID.
+                    Payment remains pending until it is verified.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        When will my course become available?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Your course becomes available after the submitted
+                    payment has been verified by Dream Hunt
+                    administration.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        Can I edit my examination result?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    No. Students cannot edit examination results.
+                    Results are controlled and published by Dream Hunt
+                    administration.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        Where can I find admission updates?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Open Admission Updates from your Student Portal.
+                    Available notices may include application dates,
+                    notices, admit cards, seat plans and result links.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        Can I contact Dream Hunt directly?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Yes. Use the Contact Us section of the Student
+                    Portal to access the available Dream Hunt
+                    contact channels.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq searchable-item">
+
+                <button class="faq-question">
+
+                    <span>
+                        Are university links official?
+                    </span>
+
+                    <span class="faq-icon">
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Important admission information should always be
+                    verified from the institution's official website
+                    before submitting an application or payment.
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         EMERGENCY
+    ==================================================== -->
+
     <section class="emergency">
 
-        <h2>🚨 Emergency Help</h2>
+        <h2>
+            🚨 Emergency Help
+        </h2>
 
         <p>
-            In an emergency, contact the appropriate official emergency
-            service immediately.
+            In an emergency, contact the appropriate official
+            emergency service immediately.
         </p>
+
 
         <div class="emergency-grid">
 
+
             <a href="tel:999">
-                🚨 National Emergency<br>
-                999
+                🚨 National Emergency — 999
             </a>
 
-            <a href="https://www.police.gov.bd/" target="_blank">
+
+            <a
+                href="https://www.police.gov.bd/"
+                target="_blank"
+                rel="noopener noreferrer">
+
                 👮 Police
+
             </a>
 
-            <a href="https://dghs.gov.bd/" target="_blank">
+
+            <a
+                href="https://dghs.gov.bd/"
+                target="_blank"
+                rel="noopener noreferrer">
+
                 🏥 Health Services
+
             </a>
+
 
         </div>
 
     </section>
 
 
-    <div class="no-result" id="noResult">
-        No matching resource found.
+
+    <!-- NO RESULT -->
+
+    <div
+        class="no-result"
+        id="noResult">
+
+        <div class="no-result-icon">
+            🔍
+        </div>
+
+        <h3>
+            No Matching Result
+        </h3>
+
+        <p>
+            Try another keyword such as admission, result,
+            university or payment.
+        </p>
+
     </div>
+
 
 </main>
 
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
 <footer class="footer">
+
     © 2026 Dream Hunt — Learn. Prepare. Achieve.
+
 </footer>
+
 
 
 <script>
 
-/* FAQ */
-document.querySelectorAll(".faq-question").forEach(question => {
+/* =========================================================
+   FAQ ACCORDION
+========================================================= */
 
-    question.addEventListener("click", () => {
+document
+    .querySelectorAll(".faq-question")
+    .forEach(button => {
 
-        const faq = question.parentElement;
+        button.addEventListener(
+            "click",
+            () => {
 
-        faq.classList.toggle("open");
+                const faq =
+                    button.closest(".faq");
+
+
+                document
+                    .querySelectorAll(".faq.open")
+                    .forEach(openFaq => {
+
+                        if(openFaq !== faq){
+
+                            openFaq.classList.remove(
+                                "open"
+                            );
+
+                        }
+
+                    });
+
+
+                faq.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
 
     });
 
-});
 
 
-/* CATEGORY SCROLL */
+/* =========================================================
+   CATEGORY SCROLL
+========================================================= */
+
 function scrollToSection(id){
 
-    const section = document.getElementById(id);
+    const section =
+        document.getElementById(id);
 
-    if(section){
 
-        section.scrollIntoView({
-            behavior:"smooth",
-            block:"start"
-        });
+    if(!section) return;
 
-    }
+
+    section.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"start"
+
+    });
 
 }
 
 
-/* SEARCH */
-const searchInput = document.getElementById("searchInput");
-const sections = document.querySelectorAll(".searchable-section");
-const noResult = document.getElementById("noResult");
 
-searchInput.addEventListener("input", function(){
+/* =========================================================
+   SEARCH
+========================================================= */
 
-    const query = this.value.toLowerCase().trim();
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
 
-    let found = false;
 
-    sections.forEach(section => {
+const searchableItems =
+    document.querySelectorAll(
+        ".searchable-item"
+    );
 
-        const text = section.innerText.toLowerCase();
 
-        if(query === "" || text.includes(query)){
+const searchableSections =
+    document.querySelectorAll(
+        ".searchable-section"
+    );
 
-            section.style.display = "block";
 
-            if(query !== ""){
-                found = true;
+const noResult =
+    document.getElementById(
+        "noResult"
+    );
+
+
+searchInput.addEventListener(
+    "input",
+    function(){
+
+        const query =
+            this.value
+                .toLowerCase()
+                .trim();
+
+
+        let found = false;
+
+
+        searchableItems.forEach(
+            item => {
+
+                const text =
+                    item.innerText
+                        .toLowerCase();
+
+
+                if(
+                    query === "" ||
+                    text.includes(query)
+                ){
+
+                    item.style.display =
+                        "";
+
+                    if(
+                        query !== ""
+                    ){
+
+                        found = true;
+
+                    }
+
+                }else{
+
+                    item.style.display =
+                        "none";
+
+                }
+
             }
+        );
+
+
+        /* Hide sections that contain no visible items */
+
+        searchableSections.forEach(
+            section => {
+
+                const items =
+                    section.querySelectorAll(
+                        ".searchable-item"
+                    );
+
+
+                let visible = false;
+
+
+                items.forEach(item => {
+
+                    if(
+                        item.style.display !==
+                        "none"
+                    ){
+
+                        visible = true;
+
+                    }
+
+                });
+
+
+                section.style.display =
+                    visible
+                    ? ""
+                    : "none";
+
+            }
+        );
+
+
+        if(
+            query === ""
+        ){
+
+            noResult.style.display =
+                "none";
+
+
+            searchableSections.forEach(
+                section => {
+
+                    section.style.display =
+                        "";
+
+                }
+            );
 
         }else{
 
-            section.style.display = "none";
+            noResult.style.display =
+                found
+                ? "none"
+                : "block";
 
         }
 
-    });
-
-    if(query === ""){
-
-        noResult.style.display = "none";
-
-    }else{
-
-        noResult.style.display = found ? "none" : "block";
-
     }
-
-});
+);
 
 </script>
 
 </body>
-</html>
+
+    </html>
