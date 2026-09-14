@@ -3941,6 +3941,7 @@ function closeMobileSidebar(){
 ========================================================= */
 
 async function checkAdmin(user){
+async function checkAdmin(user){
 
     if(!user){
         return false;
@@ -3953,14 +3954,10 @@ async function checkAdmin(user){
             error
         } =
             await supabaseClient
-                .rpc(
-                    "is_admin",
-                    {
-                        p_user_id:user.id
-                    }
-                );
+                .rpc("is_admin");
 
         if(error){
+
             console.error(
                 "is_admin error:",
                 error
@@ -3973,7 +3970,10 @@ async function checkAdmin(user){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "is_admin exception:",
+            error
+        );
 
         return false;
 
