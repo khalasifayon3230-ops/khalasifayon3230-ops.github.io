@@ -435,8 +435,6 @@ input:focus{
 
     <div id="paymentArea" class="grid">
 
-        <!-- LEFT -->
-
         <div class="card">
 
             <div class="section">
@@ -457,8 +455,6 @@ input:focus{
 
         </div>
 
-
-        <!-- RIGHT -->
 
         <div class="card">
 
@@ -619,7 +615,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
-
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
@@ -642,50 +637,25 @@ let selectedMethod = "bKash";
 
 function loadCheckout(){
 
-    /*
-       IMPORTANT:
-       Buy Courses currently saves checkout in:
-
-       sessionStorage:
-       dreamHuntCheckout
-       dream_hunt_course_order
-
-       localStorage:
-       dreamHuntCheckoutBackup
-
-       So Payment checks all three.
-    */
-
     const sessionPrimary =
         sessionStorage.getItem(
             "dreamHuntCheckout"
         );
-
 
     const sessionSecondary =
         sessionStorage.getItem(
             "dream_hunt_course_order"
         );
 
-
     const localBackup =
         localStorage.getItem(
             "dreamHuntCheckoutBackup"
         );
 
-
-    /*
-       Priority:
-       1. sessionStorage primary
-       2. sessionStorage secondary
-       3. localStorage backup
-    */
-
     const raw =
         sessionPrimary ||
         sessionSecondary ||
         localBackup;
-
 
     if(!raw){
 
@@ -693,14 +663,11 @@ function loadCheckout(){
             "No checkout information was found. Please return to Buy Courses and select your package again."
         );
 
-
         document.getElementById(
             "paymentArea"
         ).style.display = "none";
 
-
         return false;
-
     }
 
 
@@ -709,7 +676,6 @@ function loadCheckout(){
         checkout =
             JSON.parse(raw);
 
-
     }catch(error){
 
         console.error(
@@ -717,19 +683,15 @@ function loadCheckout(){
             error
         );
 
-
         showError(
             "Your checkout information is invalid. Please select your package again."
         );
-
 
         document.getElementById(
             "paymentArea"
         ).style.display = "none";
 
-
         return false;
-
     }
 
 
@@ -738,12 +700,9 @@ function loadCheckout(){
         checkout
     );
 
-
     renderCheckout();
 
-
     return true;
-
 }
 
 
@@ -758,7 +717,6 @@ function renderCheckout(){
             "selectedPackage"
         );
 
-
     const selected =
         Array.isArray(checkout.selectedItems)
             ? checkout.selectedItems
@@ -767,7 +725,6 @@ function renderCheckout(){
                     ? checkout.selected
                     : []
             );
-
 
     let html = "";
 
@@ -782,7 +739,6 @@ function renderCheckout(){
                 item.label ||
                 item.category ||
                 "Selected Course";
-
 
             let subtitle =
                 item.subtitle ||
@@ -819,14 +775,12 @@ function renderCheckout(){
 
         });
 
-
     }else{
 
         const categories =
             Array.isArray(checkout.categories)
                 ? checkout.categories
                 : [];
-
 
         categories.forEach(category => {
 
@@ -852,12 +806,10 @@ function renderCheckout(){
             checkout.subtotal || 0
         );
 
-
     const discount =
         Number(
             checkout.discount || 0
         );
-
 
     const total =
         Number(
@@ -924,7 +876,6 @@ function renderCheckout(){
 
 
     box.innerHTML = html;
-
 }
 
 
@@ -952,7 +903,6 @@ function selectMethod(element){
 
     selectedMethod =
         element.dataset.method;
-
 }
 
 
@@ -1045,7 +995,6 @@ function normalize(value){
         " "
     )
     .trim();
-
 }
 
 
@@ -1147,7 +1096,6 @@ async function findCourseIds(){
             "Course query error:",
             error
         );
-
 
         throw new Error(
             "Could not read available courses from Supabase."
@@ -1271,10 +1219,6 @@ async function findCourseIds(){
     uniqueRequired.forEach(
         required => {
 
-            /*
-               Exact NAME
-            */
-
             let row =
                 data.find(
                     course =>
@@ -1283,10 +1227,6 @@ async function findCourseIds(){
                         ) === required
                 );
 
-
-            /*
-               Exact SLUG
-            */
 
             if(!row){
 
@@ -1300,10 +1240,6 @@ async function findCourseIds(){
 
             }
 
-
-            /*
-               Partial NAME
-            */
 
             if(!row){
 
@@ -1436,18 +1372,15 @@ async function findCourseIds(){
             categories
         );
 
-
         console.error(
             "Required names:",
             uniqueRequired
         );
 
-
         console.error(
             "Available courses:",
             data
         );
-
 
         throw new Error(
             "Invalid or unavailable course. Please return to Buy Courses and select your package again."
@@ -1457,7 +1390,6 @@ async function findCourseIds(){
 
 
     return matched;
-
 }
 
 
@@ -1465,9 +1397,7 @@ async function findCourseIds(){
    BUILD RPC PRICES
 ========================================================= */
 
-function buildRPCPrices(
-    courseRows
-){
+function buildRPCPrices(courseRows){
 
     const total =
         Number(
@@ -1481,12 +1411,10 @@ function buildRPCPrices(
 
 
     /*
-       Existing RPC accepts:
+       Existing order pricing logic preserved.
 
-       p_course_ids
-       p_prices
-
-       We keep this exactly as-is.
+       The total amount is attached to the first
+       broad course row, while other rows remain 0.
     */
 
     return courseRows.map(
@@ -1495,7 +1423,105 @@ function buildRPCPrices(
                 ? total
                 : 0
     );
+}
 
+
+/* =========================================================
+   BUILD SELECTED DATA
+========================================================= */
+
+function buildSelectedData(
+    transactionId,
+    hscRoll,
+    hscRegistration,
+    amount
+){
+
+    return {
+
+        source:
+            "dream-hunt-buy-courses",
+
+        selected:
+            checkout.selected || [],
+
+        selectedItems:
+            checkout.selectedItems || [],
+
+        categories:
+            checkout.categories || [],
+
+        orderCategories:
+            checkout.orderCategories || [],
+
+        courseSlugs:
+            checkout.courseSlugs || [],
+
+        courseIds:
+            checkout.courseIds || [],
+
+        courseNames:
+            checkout.courseNames || [],
+
+        selectedMainCategories:
+            checkout.selectedMainCategories || [],
+
+        selectedAbroad:
+            checkout.selectedAbroad || [],
+
+        subtotal:
+            Number(
+                checkout.subtotal || 0
+            ),
+
+        discount:
+            Number(
+                checkout.discount || 0
+            ),
+
+        coupon:
+            checkout.coupon ||
+            checkout.couponCode ||
+            "",
+
+        total:
+            Number(
+                checkout.total || 0
+            ),
+
+        amount:
+            amount,
+
+        payableAmount:
+            Number(
+                checkout.payableAmount || 0
+            ),
+
+        finalAmount:
+            Number(
+                checkout.finalAmount || 0
+            ),
+
+        payment: {
+
+            method:
+                selectedMethod,
+
+            transaction_id:
+                transactionId,
+
+            hsc_roll:
+                hscRoll,
+
+            hsc_registration:
+                hscRegistration,
+
+            submitted_at:
+                new Date().toISOString()
+
+        }
+
+    };
 }
 
 
@@ -1545,7 +1571,6 @@ async function submitPayment(){
         );
 
         return;
-
     }
 
 
@@ -1556,7 +1581,6 @@ async function submitPayment(){
         );
 
         return;
-
     }
 
 
@@ -1567,7 +1591,6 @@ async function submitPayment(){
         );
 
         return;
-
     }
 
 
@@ -1578,12 +1601,10 @@ async function submitPayment(){
         );
 
         return;
-
     }
 
 
     submitBtn.disabled = true;
-
 
     submitBtn.innerText =
         "Checking account...";
@@ -1614,7 +1635,6 @@ async function submitPayment(){
                 "login.html?redirect=payment.html";
 
             return;
-
         }
 
 
@@ -1654,21 +1674,48 @@ async function submitPayment(){
             );
 
 
+        const amount =
+            Number(
+                checkout.finalAmount ??
+                checkout.payableAmount ??
+                checkout.totalAmount ??
+                checkout.amount ??
+                checkout.total ??
+                0
+            );
+
+
+        /*
+           EXACT DATA TO SAVE
+        */
+
+        const selectedData =
+            buildSelectedData(
+                transactionId,
+                hscRoll,
+                hscRegistration,
+                amount
+            );
+
+
         console.log(
             "Matched courses:",
             courseRows
         );
-
 
         console.log(
             "RPC course IDs:",
             courseIds
         );
 
-
         console.log(
             "RPC prices:",
             prices
+        );
+
+        console.log(
+            "Selected data:",
+            selectedData
         );
 
 
@@ -1677,7 +1724,16 @@ async function submitPayment(){
 
 
         /*
-           EXISTING RPC
+           NEW RPC
+
+           create_student_order(
+               UUID[],
+               NUMERIC[],
+               TEXT,
+               TEXT,
+               TEXT,
+               JSONB
+           )
         */
 
         const {
@@ -1688,11 +1744,27 @@ async function submitPayment(){
                 .rpc(
                     "create_student_order",
                     {
+
                         p_course_ids:
                             courseIds,
 
                         p_prices:
-                            prices
+                            prices,
+
+                        p_transaction_id:
+                            transactionId,
+
+                        p_payment_method:
+                            selectedMethod,
+
+                        p_coupon_code:
+                            checkout.coupon ||
+                            checkout.couponCode ||
+                            "",
+
+                        p_selected_data:
+                            selectedData
+
                     }
                 );
 
@@ -1703,7 +1775,6 @@ async function submitPayment(){
                 "RPC error:",
                 orderError
             );
-
 
             throw new Error(
                 orderError.message ||
@@ -1733,7 +1804,10 @@ async function submitPayment(){
 
 
         /*
-           PAYMENT RECORD
+           LOCAL BACKUP
+
+           Database is now the primary source.
+           LocalStorage is only a backup.
         */
 
         const paymentRecord = {
@@ -1757,14 +1831,24 @@ async function submitPayment(){
                 hscRegistration,
 
             amount:
-                Number(
-                    checkout.finalAmount ??
-                    checkout.payableAmount ??
-                    checkout.totalAmount ??
-                    checkout.amount ??
-                    checkout.total ??
-                    0
-                ),
+                amount,
+
+            coupon:
+                checkout.coupon ||
+                checkout.couponCode ||
+                "",
+
+            selected_courses:
+                checkout.selectedItems ||
+                checkout.selected ||
+                [],
+
+            selected_categories:
+                checkout.categories ||
+                [],
+
+            selected_data:
+                selectedData,
 
             status:
                 "PENDING",
@@ -1777,10 +1861,6 @@ async function submitPayment(){
 
         };
 
-
-        /*
-           Local backup
-        */
 
         localStorage.setItem(
             "dreamHuntPayment_" +
@@ -1802,7 +1882,7 @@ async function submitPayment(){
 
 
         /*
-           SHOW PENDING SUCCESS
+           SHOW SUCCESS
         */
 
         showSuccess(
@@ -1827,7 +1907,6 @@ async function submitPayment(){
 
         submitBtn.disabled = false;
 
-
         submitBtn.innerText =
             "Submit Payment";
 
@@ -1845,7 +1924,14 @@ function extractOrderId(data){
     if(!data){
 
         return null;
+    }
 
+
+    if(
+        typeof data === "number"
+    ){
+
+        return data;
     }
 
 
@@ -1854,7 +1940,6 @@ function extractOrderId(data){
     ){
 
         return data;
-
     }
 
 
@@ -1884,7 +1969,6 @@ function extractOrderId(data){
 
 
     return null;
-
 }
 
 
@@ -1900,6 +1984,87 @@ function showSuccess(
     document.getElementById(
         "message"
     ).innerHTML = "";
+
+
+    const selected =
+        Array.isArray(
+            paymentRecord.selected_courses
+        )
+        ? paymentRecord.selected_courses
+        : [];
+
+
+    let selectedHTML = "";
+
+
+    if(selected.length){
+
+        selectedHTML =
+            selected
+                .map(item => {
+
+                    const title =
+                        item.name ||
+                        item.title ||
+                        item.label ||
+                        item.category ||
+                        "Selected Course";
+
+
+                    const subtitle =
+                        item.subtitle ||
+                        item.unit ||
+                        item.description ||
+                        "";
+
+
+                    return `
+
+                        <div
+                            style="
+                                padding:8px 0;
+                                border-bottom:1px solid rgba(255,255,255,.06);
+                            "
+                        >
+
+                            <strong>
+                                ${escapeHTML(title)}
+                            </strong>
+
+                            ${
+                                subtitle
+                                ? `
+                                    <div style="
+                                        color:#94a3b8;
+                                        margin-top:3px;
+                                        font-size:12px;
+                                    ">
+                                        ${escapeHTML(subtitle)}
+                                    </div>
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+                    `;
+
+                })
+                .join("");
+
+    }else{
+
+        selectedHTML =
+            courseRows
+                .map(
+                    row =>
+                        `<div style="padding:6px 0">
+                            ${escapeHTML(row.name)}
+                        </div>`
+                )
+                .join("");
+
+    }
 
 
     document.getElementById(
@@ -2009,7 +2174,37 @@ function showSuccess(
                 <div class="detail">
 
                     <span>
-                        Courses
+                        HSC Roll
+                    </span>
+
+                    <span>
+                        ${escapeHTML(
+                            paymentRecord.hsc_roll
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        HSC Registration
+                    </span>
+
+                    <span>
+                        ${escapeHTML(
+                            paymentRecord.hsc_registration
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        Selected Courses
                     </span>
 
                     <span>
@@ -2047,6 +2242,24 @@ function showSuccess(
                     </span>
 
                 </div>
+
+            </div>
+
+
+            <div
+                class="details"
+                style="text-align:left"
+            >
+
+                <div style="
+                    color:#94a3b8;
+                    font-size:12px;
+                    margin-bottom:10px;
+                ">
+                    Selected Package
+                </div>
+
+                ${selectedHTML}
 
             </div>
 
@@ -2104,7 +2317,6 @@ function showError(text){
         </div>
 
     `;
-
 }
 
 
@@ -2116,7 +2328,6 @@ function goBack(){
 
     window.location.href =
         "buy-courses.html";
-
 }
 
 
