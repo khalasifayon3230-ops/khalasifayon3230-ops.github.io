@@ -280,12 +280,12 @@ input:focus{
 
 .success{
     text-align:center;
-    padding:30px 15px;
+    padding:35px 20px;
 }
 
 .success-icon{
-    width:70px;
-    height:70px;
+    width:74px;
+    height:74px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -294,20 +294,22 @@ input:focus{
     background:rgba(34,197,94,.12);
     border:1px solid rgba(34,197,94,.35);
     color:#4ade80;
-    font-size:34px;
+    font-size:36px;
 }
 
 .success h2{
     color:#4ade80;
-    margin-bottom:8px;
+    margin-bottom:10px;
+    font-size:25px;
 }
 
 .status{
     display:inline-block;
-    margin:15px 0;
-    padding:7px 12px;
+    margin:18px 0;
+    padding:9px 15px;
     border-radius:999px;
     background:rgba(245,158,11,.12);
+    border:1px solid rgba(245,158,11,.25);
     color:#fbbf24;
     font-size:11px;
     font-weight:900;
@@ -326,7 +328,7 @@ input:focus{
     display:flex;
     justify-content:space-between;
     gap:15px;
-    padding:9px 0;
+    padding:10px 0;
     font-size:13px;
 }
 
@@ -340,10 +342,26 @@ input:focus{
     word-break:break-word;
 }
 
+.pending-box{
+    margin-top:20px;
+    padding:17px;
+    border-radius:15px;
+    background:rgba(245,158,11,.08);
+    border:1px solid rgba(245,158,11,.22);
+    color:#fcd34d;
+    font-size:13px;
+    line-height:1.8;
+    text-align:left;
+}
+
+.pending-box strong{
+    font-size:15px;
+}
+
 .back{
-    margin-top:15px;
+    margin-top:18px;
     width:100%;
-    padding:13px;
+    padding:14px;
     border-radius:13px;
     border:1px solid rgba(255,255,255,.1);
     background:rgba(255,255,255,.04);
@@ -400,10 +418,15 @@ input:focus{
 <main class="container">
 
     <div class="hero">
-        <h1>Complete Your <span>Payment</span></h1>
+
+        <h1>
+            Complete Your <span>Payment</span>
+        </h1>
+
         <p>
             Review your selected package and submit your payment information.
         </p>
+
     </div>
 
 
@@ -413,16 +436,21 @@ input:focus{
     <div id="paymentArea" class="grid">
 
         <!-- LEFT -->
+
         <div class="card">
 
             <div class="section">
 
-                <h2>Selected Package</h2>
+                <h2>
+                    Selected Package
+                </h2>
 
                 <div id="selectedPackage">
+
                     <div class="empty">
                         Loading your selected package...
                     </div>
+
                 </div>
 
             </div>
@@ -431,9 +459,12 @@ input:focus{
 
 
         <!-- RIGHT -->
+
         <div class="card">
 
-            <h2>Payment</h2>
+            <h2>
+                Payment
+            </h2>
 
 
             <div class="section">
@@ -445,8 +476,15 @@ input:focus{
                         data-method="bKash"
                         onclick="selectMethod(this)"
                     >
-                        <strong>bKash</strong>
-                        <small>Personal payment</small>
+
+                        <strong>
+                            bKash
+                        </strong>
+
+                        <small>
+                            Personal payment
+                        </small>
+
                     </div>
 
 
@@ -455,8 +493,15 @@ input:focus{
                         data-method="Nagad"
                         onclick="selectMethod(this)"
                     >
-                        <strong>Nagad</strong>
-                        <small>Personal payment</small>
+
+                        <strong>
+                            Nagad
+                        </strong>
+
+                        <small>
+                            Personal payment
+                        </small>
+
                     </div>
 
 
@@ -465,8 +510,15 @@ input:focus{
                         data-method="Rocket"
                         onclick="selectMethod(this)"
                     >
-                        <strong>Rocket</strong>
-                        <small>Personal payment</small>
+
+                        <strong>
+                            Rocket
+                        </strong>
+
+                        <small>
+                            Personal payment
+                        </small>
+
                     </div>
 
 
@@ -475,8 +527,15 @@ input:focus{
                         data-method="Upay"
                         onclick="selectMethod(this)"
                     >
-                        <strong>Upay</strong>
-                        <small>Personal payment</small>
+
+                        <strong>
+                            Upay
+                        </strong>
+
+                        <small>
+                            Personal payment
+                        </small>
+
                     </div>
 
                 </div>
@@ -484,9 +543,13 @@ input:focus{
 
                 <div class="pay-number">
 
-                    <small>Send payment to</small>
+                    <small>
+                        Send payment to
+                    </small>
 
-                    <strong>01342-210515</strong>
+                    <strong>
+                        01342-210515
+                    </strong>
 
                 </div>
 
@@ -556,6 +619,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
 
+
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
@@ -578,17 +642,50 @@ let selectedMethod = "bKash";
 
 function loadCheckout(){
 
-    const primary =
-        localStorage.getItem(
+    /*
+       IMPORTANT:
+       Buy Courses currently saves checkout in:
+
+       sessionStorage:
+       dreamHuntCheckout
+       dream_hunt_course_order
+
+       localStorage:
+       dreamHuntCheckoutBackup
+
+       So Payment checks all three.
+    */
+
+    const sessionPrimary =
+        sessionStorage.getItem(
             "dreamHuntCheckout"
         );
 
-    const secondary =
-        localStorage.getItem(
+
+    const sessionSecondary =
+        sessionStorage.getItem(
             "dream_hunt_course_order"
         );
 
-    let raw = primary || secondary;
+
+    const localBackup =
+        localStorage.getItem(
+            "dreamHuntCheckoutBackup"
+        );
+
+
+    /*
+       Priority:
+       1. sessionStorage primary
+       2. sessionStorage secondary
+       3. localStorage backup
+    */
+
+    const raw =
+        sessionPrimary ||
+        sessionSecondary ||
+        localBackup;
+
 
     if(!raw){
 
@@ -596,35 +693,57 @@ function loadCheckout(){
             "No checkout information was found. Please return to Buy Courses and select your package again."
         );
 
+
         document.getElementById(
             "paymentArea"
         ).style.display = "none";
 
+
         return false;
+
     }
+
 
     try{
 
-        checkout = JSON.parse(raw);
+        checkout =
+            JSON.parse(raw);
+
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Checkout JSON error:",
+            error
+        );
+
 
         showError(
             "Your checkout information is invalid. Please select your package again."
         );
 
+
         document.getElementById(
             "paymentArea"
         ).style.display = "none";
 
+
         return false;
+
     }
+
+
+    console.log(
+        "Checkout loaded:",
+        checkout
+    );
+
 
     renderCheckout();
 
+
     return true;
+
 }
 
 
@@ -639,6 +758,7 @@ function renderCheckout(){
             "selectedPackage"
         );
 
+
     const selected =
         Array.isArray(checkout.selectedItems)
             ? checkout.selectedItems
@@ -648,7 +768,9 @@ function renderCheckout(){
                     : []
             );
 
+
     let html = "";
+
 
     if(selected.length){
 
@@ -661,13 +783,16 @@ function renderCheckout(){
                 item.category ||
                 "Selected Course";
 
+
             let subtitle =
                 item.subtitle ||
                 item.unit ||
                 item.description ||
                 "";
 
+
             html += `
+
                 <div class="package">
 
                     <div>
@@ -678,20 +803,22 @@ function renderCheckout(){
 
                         ${
                             subtitle
-                                ? `
+                            ? `
                                 <div class="package-sub">
                                     ${escapeHTML(subtitle)}
                                 </div>
-                                `
-                                : ""
+                            `
+                            : ""
                         }
 
                     </div>
 
                 </div>
+
             `;
 
         });
+
 
     }else{
 
@@ -700,9 +827,11 @@ function renderCheckout(){
                 ? checkout.categories
                 : [];
 
+
         categories.forEach(category => {
 
             html += `
+
                 <div class="package">
 
                     <div class="package-title">
@@ -710,6 +839,7 @@ function renderCheckout(){
                     </div>
 
                 </div>
+
             `;
 
         });
@@ -718,10 +848,16 @@ function renderCheckout(){
 
 
     const subtotal =
-        Number(checkout.subtotal || 0);
+        Number(
+            checkout.subtotal || 0
+        );
+
 
     const discount =
-        Number(checkout.discount || 0);
+        Number(
+            checkout.discount || 0
+        );
+
 
     const total =
         Number(
@@ -739,33 +875,56 @@ function renderCheckout(){
         <div style="margin-top:20px">
 
             <div class="summary-row">
-                <span>Subtotal</span>
-                <strong>৳${formatMoney(subtotal)}</strong>
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ৳${formatMoney(subtotal)}
+                </strong>
+
             </div>
+
 
             ${
                 discount > 0
                 ? `
                     <div class="summary-row">
-                        <span>Coupon Discount</span>
+
+                        <span>
+                            Coupon Discount
+                        </span>
+
                         <strong class="discount">
                             -৳${formatMoney(discount)}
                         </strong>
+
                     </div>
                 `
                 : ""
             }
 
+
             <div class="summary-row total">
-                <span>Total</span>
-                <strong>৳${formatMoney(total)}</strong>
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ৳${formatMoney(total)}
+                </strong>
+
             </div>
 
         </div>
+
     `;
 
 
     box.innerHTML = html;
+
 }
 
 
@@ -779,15 +938,21 @@ function selectMethod(element){
         .querySelectorAll(".method")
         .forEach(el => {
 
-            el.classList.remove("active");
+            el.classList.remove(
+                "active"
+            );
 
         });
 
 
-    element.classList.add("active");
+    element.classList.add(
+        "active"
+    );
+
 
     selectedMethod =
         element.dataset.method;
+
 }
 
 
@@ -824,6 +989,9 @@ const COURSE_NAME_MAP = {
     specialized:
         "Specialized Admission",
 
+    "specialized-admission":
+        "Specialized Admission",
+
     "public-university":
         "Public University Admission",
 
@@ -833,6 +1001,9 @@ const COURSE_NAME_MAP = {
     "public university":
         "Public University Admission",
 
+    "public-university-admission":
+        "Public University Admission",
+
     ab:
         "Abroad Preparation",
 
@@ -840,6 +1011,15 @@ const COURSE_NAME_MAP = {
         "Abroad Preparation",
 
     "abroad-preparation":
+        "Abroad Preparation",
+
+    "abroad prep":
+        "Abroad Preparation",
+
+    sat:
+        "Abroad Preparation",
+
+    ielts:
         "Abroad Preparation"
 
 };
@@ -851,12 +1031,21 @@ const COURSE_NAME_MAP = {
 
 function normalize(value){
 
-    return String(value || "")
-        .trim()
-        .toLowerCase()
-        .replace(/&/g,"and")
-        .replace(/[^a-z0-9]+/g," ")
-        .trim();
+    return String(
+        value || ""
+    )
+    .trim()
+    .toLowerCase()
+    .replace(
+        /&/g,
+        "and"
+    )
+    .replace(
+        /[^a-z0-9]+/g,
+        " "
+    )
+    .trim();
+
 }
 
 
@@ -868,9 +1057,12 @@ function getCheckoutCategories(){
 
     let categories = [];
 
+
     if(
         checkout &&
-        Array.isArray(checkout.categories)
+        Array.isArray(
+            checkout.categories
+        )
     ){
 
         categories =
@@ -878,10 +1070,13 @@ function getCheckoutCategories(){
 
     }
 
+
     if(
         !categories.length &&
         checkout &&
-        Array.isArray(checkout.orderCategories)
+        Array.isArray(
+            checkout.orderCategories
+        )
     ){
 
         categories =
@@ -893,7 +1088,9 @@ function getCheckoutCategories(){
     if(
         !categories.length &&
         checkout &&
-        Array.isArray(checkout.courseSlugs)
+        Array.isArray(
+            checkout.courseSlugs
+        )
     ){
 
         categories =
@@ -903,20 +1100,24 @@ function getCheckoutCategories(){
 
 
     return [
+
         ...new Set(
+
             categories
-                .map(x => normalize(x))
+                .map(
+                    x => normalize(x)
+                )
                 .filter(Boolean)
+
         )
+
     ];
+
 }
 
 
 /* =========================================================
    FIND EXISTING COURSE IDS
-   IMPORTANT:
-   We fetch existing courses and match by NAME.
-   No schema change.
 ========================================================= */
 
 async function findCourseIds(){
@@ -924,11 +1125,20 @@ async function findCourseIds(){
     const {
         data,
         error
-    } = await supabaseClient
-        .from("courses")
-        .select(
-            "id,name,slug,category,is_active,is_published"
-        );
+    } =
+        await supabaseClient
+            .from("courses")
+            .select(
+                "id,name,slug,category,is_active,is_published"
+            )
+            .eq(
+                "is_active",
+                true
+            )
+            .eq(
+                "is_published",
+                true
+            );
 
 
     if(error){
@@ -938,22 +1148,28 @@ async function findCourseIds(){
             error
         );
 
+
         throw new Error(
             "Could not read available courses from Supabase."
         );
+
     }
 
 
-    if(!Array.isArray(data) || !data.length){
+    if(
+        !Array.isArray(data) ||
+        !data.length
+    ){
 
         throw new Error(
-            "No courses were found in the Dream Hunt courses table."
+            "No active and published courses were found."
         );
+
     }
 
 
     console.log(
-        "Courses returned by Supabase:",
+        "Courses returned:",
         data
     );
 
@@ -965,146 +1181,250 @@ async function findCourseIds(){
     const requiredNames = [];
 
 
-    categories.forEach(category => {
+    categories.forEach(
+        category => {
 
-        const mapped =
-            COURSE_NAME_MAP[category];
+            const mapped =
+                COURSE_NAME_MAP[
+                    category
+                ];
 
-        if(mapped){
 
-            requiredNames.push(
-                normalize(mapped)
-            );
+            if(mapped){
+
+                requiredNames.push(
+                    normalize(mapped)
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     /*
-       If checkout contains selectedItems instead
-       of categories, inspect their names too.
+       Fallback:
+       Inspect selectedItems.
     */
 
     if(
         !requiredNames.length &&
         checkout &&
-        Array.isArray(checkout.selectedItems)
+        Array.isArray(
+            checkout.selectedItems
+        )
     ){
 
-        checkout.selectedItems.forEach(item => {
+        checkout.selectedItems.forEach(
+            item => {
 
-            const text =
-                normalize(
-                    item.name ||
-                    item.title ||
-                    item.category ||
-                    ""
-                );
+                const text =
+                    normalize(
+                        item.name ||
+                        item.title ||
+                        item.category ||
+                        ""
+                    );
 
-            if(text){
 
-                requiredNames.push(text);
+                if(text){
+
+                    const mapped =
+                        COURSE_NAME_MAP[
+                            text
+                        ];
+
+
+                    if(mapped){
+
+                        requiredNames.push(
+                            normalize(mapped)
+                        );
+
+                    }else{
+
+                        requiredNames.push(
+                            text
+                        );
+
+                    }
+
+                }
 
             }
-
-        });
+        );
 
     }
 
 
     const uniqueRequired =
-        [...new Set(requiredNames)];
+        [
+            ...new Set(
+                requiredNames
+            )
+        ];
 
 
     const matched = [];
 
 
-    uniqueRequired.forEach(required => {
+    uniqueRequired.forEach(
+        required => {
 
-        let row =
-            data.find(course =>
-                normalize(course.name) === required
-            );
+            /*
+               Exact NAME
+            */
 
-
-        /*
-           Fallback:
-           partial name matching.
-        */
-
-        if(!row){
-
-            row =
-                data.find(course => {
-
-                    const name =
-                        normalize(course.name);
-
-                    return (
-                        name.includes(required) ||
-                        required.includes(name)
-                    );
-
-                });
-
-        }
-
-
-        if(row){
-
-            if(
-                !matched.some(
-                    x => x.id === row.id
-                )
-            ){
-
-                matched.push(row);
-
-            }
-
-        }
-
-    });
-
-
-    /*
-       If exact checkout categories could not be mapped,
-       try direct matching against all existing names.
-    */
-
-    if(!matched.length){
-
-        categories.forEach(category => {
-
-            const mapped =
-                COURSE_NAME_MAP[category];
-
-            if(!mapped) return;
-
-            const mappedNormalized =
-                normalize(mapped);
-
-
-            const row =
-                data.find(course =>
-                    normalize(course.name)
-                    .includes(mappedNormalized)
+            let row =
+                data.find(
+                    course =>
+                        normalize(
+                            course.name
+                        ) === required
                 );
 
 
-            if(
-                row &&
-                !matched.some(
-                    x => x.id === row.id
-                )
-            ){
+            /*
+               Exact SLUG
+            */
 
-                matched.push(row);
+            if(!row){
+
+                row =
+                    data.find(
+                        course =>
+                            normalize(
+                                course.slug
+                            ) === required
+                    );
 
             }
 
-        });
+
+            /*
+               Partial NAME
+            */
+
+            if(!row){
+
+                row =
+                    data.find(
+                        course => {
+
+                            const name =
+                                normalize(
+                                    course.name
+                                );
+
+
+                            return (
+                                name.includes(
+                                    required
+                                ) ||
+                                required.includes(
+                                    name
+                                )
+                            );
+
+                        }
+                    );
+
+            }
+
+
+            if(row){
+
+                if(
+                    !matched.some(
+                        x =>
+                            x.id === row.id
+                    )
+                ){
+
+                    matched.push(
+                        row
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /*
+       Extra fallback:
+       directly match selectedItems.
+    */
+
+    if(
+        !matched.length &&
+        checkout &&
+        Array.isArray(
+            checkout.selectedItems
+        )
+    ){
+
+        checkout.selectedItems.forEach(
+            item => {
+
+                const text =
+                    normalize(
+                        item.name ||
+                        item.title ||
+                        item.category ||
+                        ""
+                    );
+
+
+                if(!text){
+                    return;
+                }
+
+
+                const row =
+                    data.find(
+                        course => {
+
+                            const name =
+                                normalize(
+                                    course.name
+                                );
+
+                            const slug =
+                                normalize(
+                                    course.slug
+                                );
+
+
+                            return (
+                                name.includes(text) ||
+                                text.includes(name) ||
+                                slug.includes(text) ||
+                                text.includes(slug)
+                            );
+
+                        }
+                    );
+
+
+                if(
+                    row &&
+                    !matched.some(
+                        x =>
+                            x.id === row.id
+                    )
+                ){
+
+                    matched.push(
+                        row
+                    );
+
+                }
+
+            }
+        );
 
     }
 
@@ -1116,19 +1436,23 @@ async function findCourseIds(){
             categories
         );
 
+
         console.error(
             "Required names:",
             uniqueRequired
         );
+
 
         console.error(
             "Available courses:",
             data
         );
 
+
         throw new Error(
             "Invalid or unavailable course. Please return to Buy Courses and select your package again."
         );
+
     }
 
 
@@ -1141,7 +1465,9 @@ async function findCourseIds(){
    BUILD RPC PRICES
 ========================================================= */
 
-function buildRPCPrices(courseRows){
+function buildRPCPrices(
+    courseRows
+){
 
     const total =
         Number(
@@ -1155,15 +1481,12 @@ function buildRPCPrices(courseRows){
 
 
     /*
-       Existing RPC only accepts:
+       Existing RPC accepts:
 
        p_course_ids
        p_prices
 
-       So the complete checkout total is attached
-       to the first course and remaining prices are 0.
-
-       No Supabase schema change.
+       We keep this exactly as-is.
     */
 
     return courseRows.map(
@@ -1172,6 +1495,7 @@ function buildRPCPrices(courseRows){
                 ? total
                 : 0
     );
+
 }
 
 
@@ -1221,6 +1545,7 @@ async function submitPayment(){
         );
 
         return;
+
     }
 
 
@@ -1231,6 +1556,7 @@ async function submitPayment(){
         );
 
         return;
+
     }
 
 
@@ -1241,10 +1567,23 @@ async function submitPayment(){
         );
 
         return;
+
+    }
+
+
+    if(!checkout){
+
+        showError(
+            "No checkout information was found. Please return to Buy Courses."
+        );
+
+        return;
+
     }
 
 
     submitBtn.disabled = true;
+
 
     submitBtn.innerText =
         "Checking account...";
@@ -1253,7 +1592,7 @@ async function submitPayment(){
     try{
 
         /*
-           Check login
+           CHECK LOGIN
         */
 
         const {
@@ -1275,6 +1614,7 @@ async function submitPayment(){
                 "login.html?redirect=payment.html";
 
             return;
+
         }
 
 
@@ -1283,8 +1623,7 @@ async function submitPayment(){
 
 
         /*
-           Find existing DB course IDs
-           by course name.
+           FIND COURSE IDs
         */
 
         const courseRows =
@@ -1299,6 +1638,7 @@ async function submitPayment(){
             throw new Error(
                 "Invalid or unavailable course."
             );
+
         }
 
 
@@ -1337,7 +1677,7 @@ async function submitPayment(){
 
 
         /*
-           Existing RPC
+           EXISTING RPC
         */
 
         const {
@@ -1364,16 +1704,17 @@ async function submitPayment(){
                 orderError
             );
 
+
             throw new Error(
                 orderError.message ||
                 "Could not create your order."
             );
+
         }
 
 
         /*
-           RPC may return UUID directly
-           OR an object containing order id.
+           EXTRACT ORDER ID
         */
 
         let orderId =
@@ -1384,11 +1725,6 @@ async function submitPayment(){
 
         if(!orderId){
 
-            /*
-               Generate a local reference if
-               RPC response doesn't expose one.
-            */
-
             orderId =
                 "DH-" +
                 Date.now();
@@ -1397,11 +1733,7 @@ async function submitPayment(){
 
 
         /*
-           Existing RPC does not accept payment
-           method / TRX / HSC information.
-
-           Therefore these details are stored
-           locally for now.
+           PAYMENT RECORD
         */
 
         const paymentRecord = {
@@ -1437,14 +1769,23 @@ async function submitPayment(){
             status:
                 "PENDING",
 
+            approval_status:
+                "WAITING_FOR_APPROVAL",
+
             created_at:
                 new Date().toISOString()
 
         };
 
 
+        /*
+           Local backup
+        */
+
         localStorage.setItem(
-            "dreamHuntPayment_" + orderId,
+            "dreamHuntPayment_" +
+            orderId,
+
             JSON.stringify(
                 paymentRecord
             )
@@ -1453,11 +1794,16 @@ async function submitPayment(){
 
         localStorage.setItem(
             "dreamHuntLatestPayment",
+
             JSON.stringify(
                 paymentRecord
             )
         );
 
+
+        /*
+           SHOW PENDING SUCCESS
+        */
 
         showSuccess(
             paymentRecord,
@@ -1468,8 +1814,10 @@ async function submitPayment(){
     }catch(error){
 
         console.error(
+            "Payment submit error:",
             error
         );
+
 
         showError(
             error.message ||
@@ -1478,6 +1826,7 @@ async function submitPayment(){
 
 
         submitBtn.disabled = false;
+
 
         submitBtn.innerText =
             "Submit Payment";
@@ -1496,12 +1845,16 @@ function extractOrderId(data){
     if(!data){
 
         return null;
+
     }
 
 
-    if(typeof data === "string"){
+    if(
+        typeof data === "string"
+    ){
 
         return data;
+
     }
 
 
@@ -1510,19 +1863,28 @@ function extractOrderId(data){
     ){
 
         return (
+
             data.id ||
+
             data.order_id ||
+
             data.orderId ||
+
             data[0]?.id ||
+
             data[0]?.order_id ||
+
             data[0]?.orderId ||
+
             null
+
         );
 
     }
 
 
     return null;
+
 }
 
 
@@ -1536,101 +1898,184 @@ function showSuccess(
 ){
 
     document.getElementById(
+        "message"
+    ).innerHTML = "";
+
+
+    document.getElementById(
         "paymentArea"
     ).innerHTML = `
 
-        <div class="card success"
-             style="grid-column:1/-1">
+        <div
+            class="card success"
+            style="grid-column:1/-1"
+        >
 
             <div class="success-icon">
                 ✓
             </div>
 
+
             <h2>
-                Payment Submitted
+                Payment Submitted Successfully
             </h2>
+
 
             <p style="
                 color:#94a3b8;
-                line-height:1.7;
+                line-height:1.8;
                 max-width:650px;
                 margin:auto;
             ">
-                Your order has been submitted successfully.
-                Your payment is now waiting for confirmation.
+
+                Your payment information has been
+                submitted successfully.
+
+                <br>
+
+                Your payment is now waiting for
+                Dream Hunt admin approval.
+
             </p>
 
+
             <div class="status">
-                PENDING CONFIRMATION
+                ⏳ PENDING • WAITING FOR APPROVAL
             </div>
 
 
             <div class="details">
 
                 <div class="detail">
-                    <span>Order ID</span>
+
+                    <span>
+                        Order ID
+                    </span>
+
                     <span>
                         ${escapeHTML(
                             paymentRecord.order_id
                         )}
                     </span>
+
                 </div>
 
 
                 <div class="detail">
-                    <span>Amount</span>
+
+                    <span>
+                        Amount
+                    </span>
+
                     <span>
                         ৳${formatMoney(
                             paymentRecord.amount
                         )}
                     </span>
+
                 </div>
 
 
                 <div class="detail">
-                    <span>Method</span>
+
+                    <span>
+                        Payment Method
+                    </span>
+
                     <span>
                         ${escapeHTML(
                             paymentRecord.payment_method
                         )}
                     </span>
+
                 </div>
 
 
                 <div class="detail">
-                    <span>Transaction</span>
+
+                    <span>
+                        Transaction ID
+                    </span>
+
                     <span>
                         ${escapeHTML(
                             paymentRecord.transaction_id
                         )}
                     </span>
+
                 </div>
 
 
                 <div class="detail">
-                    <span>Courses</span>
+
+                    <span>
+                        Courses
+                    </span>
+
                     <span>
                         ${courseRows.length}
                     </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <span style="
+                        color:#fbbf24;
+                    ">
+                        PENDING
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        Approval
+                    </span>
+
+                    <span style="
+                        color:#fbbf24;
+                    ">
+                        WAITING FOR APPROVAL
+                    </span>
+
                 </div>
 
             </div>
 
 
-            <p style="
-                color:#94a3b8;
-                font-size:13px;
-                line-height:1.7;
-                margin-top:18px;
-            ">
-                Course access will be activated after
-                your payment is verified by Dream Hunt.
-            </p>
+            <div class="pending-box">
+
+                <strong>
+                    ⏳ Waiting for approval
+                </strong>
+
+                <br>
+
+                Your payment is currently under review
+                by the Dream Hunt admin.
+
+                <br>
+
+                Once your payment is approved,
+                your selected course access will be
+                activated.
+
+            </div>
 
 
             <button
                 class="back"
-                onclick="window.location.href='dashboard.html'"
+                onclick="
+                    window.location.href='dashboard.html'
+                "
             >
                 Go to Dashboard
             </button>
@@ -1638,6 +2083,7 @@ function showSuccess(
         </div>
 
     `;
+
 }
 
 
@@ -1652,7 +2098,9 @@ function showError(text){
     ).innerHTML = `
 
         <div class="error">
+
             ${escapeHTML(text)}
+
         </div>
 
     `;
@@ -1696,11 +2144,26 @@ function escapeHTML(value){
     return String(
         value ?? ""
     )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
