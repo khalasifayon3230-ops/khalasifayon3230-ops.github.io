@@ -1,537 +1,2356 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>My Target | Dream Hunt</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
 }
 
+
+/* =========================================================
+   BODY
+========================================================= */
+
 body{
-    font-family:Arial, sans-serif;
-    background:#f5f7fb;
-    color:#172033;
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37,99,235,.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(124,58,237,.09),
+            transparent 35%
+        ),
+        #f6f8fc;
+
+    color:#111827;
+
+    min-height:100vh;
+
     overflow-x:hidden;
 }
 
-.sidebar{
-    position:fixed;
-    left:0;
+
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+.navbar{
+    position:sticky;
+
     top:0;
-    width:250px;
-    height:100vh;
-    background:#101828;
-    color:white;
-    padding:24px 16px;
-    z-index:10;
+
+    z-index:100;
+
+    width:100%;
+
+    background:
+        rgba(255,255,255,.88);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid
+        rgba(15,23,42,.08);
+
+    padding:
+        14px 20px;
 }
+
+
+.nav-inner{
+    width:min(1200px,100%);
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
 
 .logo{
-    font-size:23px;
-    font-weight:800;
-    padding:0 12px 25px;
-}
-
-.logo span{
-    color:#6ee7b7;
-}
-
-.nav a{
-    display:block;
-    color:#cbd5e1;
     text-decoration:none;
-    padding:12px 14px;
-    border-radius:10px;
-    margin-bottom:5px;
-    font-size:14px;
+
+    font-size:24px;
+
+    font-weight:950;
+
+    letter-spacing:-1px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
 }
 
-.nav a:hover,
-.nav a.active{
-    background:#1d2939;
-    color:white;
-}
 
-.main{
-    margin-left:250px;
-    min-height:100vh;
-    padding:30px;
-}
-
-.container{
-    max-width:1100px;
-    margin:auto;
-}
-
-.header{
-    background:white;
-    border-radius:18px;
-    padding:28px;
-    margin-bottom:25px;
-    box-shadow:0 8px 25px rgba(16,24,40,.06);
-}
-
-.header h1{
-    font-size:30px;
-    margin-bottom:8px;
-}
-
-.header p{
-    color:#667085;
-    line-height:1.6;
-}
-
-.filters{
+.nav-links{
     display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:22px;
+
+    align-items:center;
+
+    gap:5px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
 }
 
-.filter{
-    border:none;
-    background:white;
-    color:#475467;
-    padding:10px 17px;
-    border-radius:999px;
-    cursor:pointer;
-    font-weight:600;
-    box-shadow:0 4px 15px rgba(16,24,40,.06);
+
+.nav-links::-webkit-scrollbar{
+    display:none;
 }
 
-.filter.active{
-    background:#101828;
-    color:white;
-}
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
+.nav-links a{
+    text-decoration:none;
 
-.card{
-    background:white;
-    border-radius:17px;
-    padding:22px;
-    box-shadow:0 7px 22px rgba(16,24,40,.06);
+    color:#64748b;
+
+    font-size:12px;
+
+    font-weight:750;
+
+    white-space:nowrap;
+
+    padding:
+        9px 12px;
+
+    border-radius:10px;
+
     transition:.2s;
 }
 
-.card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 12px 30px rgba(16,24,40,.10);
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:#2563eb;
+
+    background:
+        rgba(37,99,235,.08);
 }
 
-.badge{
-    display:inline-block;
-    background:#ecfdf3;
-    color:#027a48;
-    font-size:11px;
-    font-weight:700;
-    padding:6px 9px;
-    border-radius:7px;
-    margin-bottom:12px;
-}
 
-.card h2{
-    font-size:20px;
-    margin-bottom:5px;
-}
+.nav-profile{
+    text-decoration:none;
 
-.short{
-    color:#667085;
-    font-size:13px;
-    margin-bottom:14px;
-}
+    width:38px;
+    height:38px;
 
-.info{
-    font-size:13px;
-    color:#475467;
-    line-height:1.7;
-    margin-bottom:17px;
-}
-
-.buttons{
     display:flex;
-    gap:8px;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    flex-shrink:0;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    width:min(1200px,100%);
+
+    margin:auto;
+
+    padding:
+        38px 18px
+        70px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e293b
+        );
+
+    color:white;
+
+    border-radius:25px;
+
+    padding:
+        34px;
+
+    margin-bottom:24px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 18px 45px
+        rgba(15,23,42,.14);
+}
+
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    right:-90px;
+    top:-100px;
+
+    border-radius:50%;
+
+    background:
+        rgba(59,130,246,.18);
+}
+
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:160px;
+    height:160px;
+
+    left:-80px;
+    bottom:-90px;
+
+    border-radius:50%;
+
+    background:
+        rgba(124,58,237,.15);
+}
+
+
+.hero-content{
+    position:relative;
+
+    z-index:2;
+
+    max-width:760px;
+}
+
+
+.hero-badge{
+    display:inline-flex;
+
+    padding:
+        7px 12px;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    color:#bfdbfe;
+
+    font-size:11px;
+
+    font-weight:850;
+
+    margin-bottom:13px;
+}
+
+
+.hero h1{
+    font-size:
+        clamp(30px,6vw,46px);
+
+    line-height:1.05;
+
+    letter-spacing:-1.5px;
+
+    margin-bottom:12px;
+
+    font-weight:950;
+}
+
+
+.hero h1 span{
+    color:#60a5fa;
+}
+
+
+.hero p{
+    color:#cbd5e1;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   SEARCH + STATS
+========================================================= */
+
+.tools{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
     flex-wrap:wrap;
 }
 
-.btn{
-    text-decoration:none;
-    padding:9px 12px;
-    border-radius:9px;
-    background:#101828;
-    color:white;
-    font-size:12px;
+
+.search-box{
+    position:relative;
+
+    flex:1;
+
+    min-width:240px;
+}
+
+
+.search-box input{
+    width:100%;
+
+    border:
+        1px solid #e2e8f0;
+
+    background:white;
+
+    border-radius:13px;
+
+    padding:
+        13px 15px
+        13px 42px;
+
+    outline:none;
+
+    color:#111827;
+
+    font-size:13px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(15,23,42,.05);
+}
+
+
+.search-box input:focus{
+    border-color:#93c5fd;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(37,99,235,.08);
+}
+
+
+.search-icon{
+    position:absolute;
+
+    left:15px;
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    color:#94a3b8;
+
+    font-size:16px;
+}
+
+
+.stats{
+    display:flex;
+
+    gap:10px;
+}
+
+
+.stat{
+    background:white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:13px;
+
+    padding:
+        11px 15px;
+
+    min-width:105px;
+}
+
+
+.stat strong{
+    display:block;
+
+    color:#111827;
+
+    font-size:18px;
+
+    font-weight:900;
+}
+
+
+.stat span{
+    color:#64748b;
+
+    font-size:10px;
+
     font-weight:700;
 }
 
-.btn.secondary{
-    background:#eef2f6;
-    color:#344054;
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters{
+    display:flex;
+
+    gap:8px;
+
+    overflow-x:auto;
+
+    padding:
+        3px 1px 8px;
+
+    margin-bottom:20px;
+
+    scrollbar-width:none;
 }
 
-.loading,
-.empty{
+
+.filters::-webkit-scrollbar{
+    display:none;
+}
+
+
+.filter{
+    flex-shrink:0;
+
+    border:
+        1px solid #e2e8f0;
+
     background:white;
-    border-radius:16px;
-    padding:40px;
+
+    color:#64748b;
+
+    padding:
+        9px 14px;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    font-weight:750;
+
+    transition:.2s;
+}
+
+
+.filter:hover{
+    border-color:#93c5fd;
+
+    color:#2563eb;
+}
+
+
+.filter.active{
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    border-color:
+        transparent;
+
+    color:white;
+
+    box-shadow:
+        0 6px 15px
+        rgba(37,99,235,.18);
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
+
+    gap:18px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card{
+    position:relative;
+
+    background:
+        rgba(255,255,255,.94);
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    padding:22px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.055);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+
+    overflow:hidden;
+}
+
+
+.card::after{
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    right:-45px;
+    top:-45px;
+
+    border-radius:50%;
+
+    background:
+        rgba(37,99,235,.055);
+
+    pointer-events:none;
+}
+
+
+.card:hover{
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(37,99,235,.22);
+
+    box-shadow:
+        0 15px 35px
+        rgba(15,23,42,.10);
+}
+
+
+.category{
+    display:inline-flex;
+
+    padding:
+        6px 9px;
+
+    border-radius:7px;
+
+    background:
+        #eff6ff;
+
+    color:#2563eb;
+
+    font-size:10px;
+
+    font-weight:850;
+
+    margin-bottom:13px;
+}
+
+
+.card h2{
+    font-size:19px;
+
+    line-height:1.3;
+
+    font-weight:900;
+
+    margin-bottom:4px;
+}
+
+
+.short{
+    color:#64748b;
+
+    font-size:12px;
+
+    min-height:18px;
+
+    margin-bottom:15px;
+}
+
+
+.details{
+    display:grid;
+
+    gap:8px;
+
+    margin-bottom:18px;
+}
+
+
+.detail{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:8px;
+
+    color:#475569;
+
+    font-size:12px;
+
+    line-height:1.45;
+}
+
+
+.detail-icon{
+    flex-shrink:0;
+
+    width:20px;
+}
+
+
+.card-buttons{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:8px;
+}
+
+
+.btn{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+
+    border:none;
+
+    padding:
+        10px 9px;
+
+    border-radius:10px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+
+.btn.primary{
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color:white;
+}
+
+
+.btn.secondary{
+    background:#f1f5f9;
+
+    color:#334155;
+}
+
+
+.btn:hover{
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   EMPTY / LOADING
+========================================================= */
+
+.state{
+    grid-column:
+        1 / -1;
+
+    background:white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    padding:55px 20px;
+
     text-align:center;
-    color:#667085;
+
+    color:#64748b;
 }
 
-@media(max-width:900px){
-    .grid{
-        grid-template-columns:repeat(2,1fr);
+
+.state-icon{
+    font-size:35px;
+
+    margin-bottom:12px;
+}
+
+
+.state h3{
+    color:#111827;
+
+    font-size:18px;
+
+    margin-bottom:6px;
+}
+
+
+.state p{
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:500;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:18px;
+
+    background:
+        rgba(15,23,42,.58);
+
+    backdrop-filter:
+        blur(7px);
+}
+
+
+.modal.show{
+    display:flex;
+}
+
+
+.modal-box{
+    width:min(650px,100%);
+
+    max-height:
+        88vh;
+
+    overflow-y:auto;
+
+    background:white;
+
+    border-radius:23px;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.25);
+
+    animation:
+        modalIn .2s ease;
+}
+
+
+@keyframes modalIn{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
     }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
 }
 
-@media(max-width:650px){
-    .sidebar{
-        width:64px;
-        padding:18px 7px;
+
+.modal-head{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:24px;
+
+    border-bottom:
+        1px solid #eef2f7;
+}
+
+
+.modal-title{
+    font-size:22px;
+
+    font-weight:950;
+
+    line-height:1.25;
+}
+
+
+.modal-subtitle{
+    color:#64748b;
+
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+
+.close{
+    width:35px;
+    height:35px;
+
+    flex-shrink:0;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    cursor:pointer;
+
+    font-size:17px;
+}
+
+
+.modal-body{
+    padding:24px;
+}
+
+
+.modal-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
+}
+
+
+.modal-item{
+    padding:14px;
+
+    background:#f8fafc;
+
+    border-radius:13px;
+}
+
+
+.modal-item.full{
+    grid-column:
+        1 / -1;
+}
+
+
+.modal-item label{
+    display:block;
+
+    color:#94a3b8;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    margin-bottom:5px;
+}
+
+
+.modal-item div{
+    color:#334155;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    word-break:break-word;
+}
+
+
+.modal-footer{
+    padding:
+        18px 24px 24px;
+
+    display:flex;
+
+    gap:9px;
+}
+
+
+.modal-footer .btn{
+    flex:1;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .grid{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:
+            12px 13px;
+    }
+
+    .nav-inner{
+        gap:8px;
     }
 
     .logo{
-        font-size:0;
-        text-align:center;
-        padding:0 0 20px;
+        font-size:21px;
     }
 
-    .logo span{
-        font-size:20px;
-    }
-
-    .nav a{
-        font-size:0;
-        text-align:center;
-        padding:12px 5px;
-    }
-
-    .nav a::first-letter{
-        font-size:17px;
+    .nav-links{
+        display:none;
     }
 
     .main{
-        margin-left:64px;
-        padding:16px 12px;
+        padding:
+            22px 13px
+            50px;
     }
 
-    .header{
-        padding:20px;
+    .hero{
+        padding:25px 21px;
+
+        border-radius:21px;
     }
 
-    .header h1{
-        font-size:24px;
+    .hero h1{
+        font-size:31px;
+    }
+
+    .tools{
+        display:block;
+    }
+
+    .stats{
+        margin-top:10px;
+    }
+
+    .stat{
+        flex:1;
     }
 
     .grid{
         grid-template-columns:1fr;
     }
+
+    .modal-grid{
+        grid-template-columns:1fr;
+    }
+
+    .modal-item.full{
+        grid-column:auto;
+    }
+
 }
+
+
+@media(max-width:400px){
+
+    .card-buttons{
+        grid-template-columns:1fr;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<aside class="sidebar">
 
-    <div class="logo">
-        <span>DH</span> Dream Hunt
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
+
+<header class="navbar">
+
+    <div class="nav-inner">
+
+        <a
+            href="dashboard.html"
+            class="logo">
+
+            Dream Hunt
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+            <a href="enrolled-courses.html">
+                Courses
+            </a>
+
+            <a href="exams.html">
+                Exams
+            </a>
+
+            <a href="results.html">
+                Results
+            </a>
+
+            <a
+                href="my-target.html"
+                class="active">
+
+                My Target
+
+            </a>
+
+            <a href="admission-updates.html">
+                Updates
+            </a>
+
+        </nav>
+
+
+        <a
+            href="profile.html"
+            class="nav-profile">
+
+            👤
+
+        </a>
+
     </div>
 
-    <nav class="nav">
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="profile.html">👤 My Profile</a>
-        <a href="enrolled-courses.html">📚 Enrolled Courses</a>
-        <a href="buy-courses.html">🛒 Buy Courses</a>
-        <a href="progress.html">📈 Progress</a>
-        <a href="exams.html">📝 My Exams</a>
-        <a href="results.html">🏆 Results</a>
-        <a href="my-target.html" class="active">🎯 My Target</a>
-        <a href="admission-updates.html">🎓 Admission Updates</a>
-        <a href="notifications.html">🔔 Notifications</a>
-        <a href="contact.html">📞 Contact Us</a>
-        <a href="faq.html">❓ Help / FAQ</a>
-    </nav>
+</header>
 
-</aside>
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
 
 <main class="main">
 
-<div class="container">
 
-    <section class="header">
-        <h1>🎯 My Target</h1>
-        <p>
-            Explore Bangladesh's top universities and institutions,
-            their admission information, departments, facilities,
-            official websites and more.
-        </p>
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                🎯 YOUR ADMISSION TARGET
+            </div>
+
+            <h1>
+                Find Your
+                <span>Dream Institution</span>
+            </h1>
+
+            <p>
+                Explore universities and admission institutions
+                available through Dream Hunt. Check categories,
+                admission information, official websites and
+                important institutional details.
+            </p>
+
+        </div>
+
     </section>
 
-    <div class="filters">
-        <button class="filter active" onclick="filterInstitutions('all',this)">
-            All
-        </button>
 
-        <button class="filter" onclick="filterInstitutions('public-university',this)">
-            Public University
-        </button>
 
-        <button class="filter" onclick="filterInstitutions('engineering',this)">
-            Engineering
-        </button>
+    <!-- SEARCH + STATS -->
 
-        <button class="filter" onclick="filterInstitutions('medical-dental',this)">
-            Medical & Dental
-        </button>
+    <div class="tools">
 
-        <button class="filter" onclick="filterInstitutions('agriculture-veterinary',this)">
-            Agriculture
-        </button>
 
-        <button class="filter" onclick="filterInstitutions('specialized-admission',this)">
-            Specialized
-        </button>
+        <div class="search-box">
 
-        <button class="filter" onclick="filterInstitutions('abroad-prep',this)">
-            Abroad
-        </button>
+            <span class="search-icon">
+                🔎
+            </span>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search university or institution..."
+                oninput="handleSearch()">
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <strong id="totalCount">
+                    0
+                </strong>
+
+                <span>
+                    Institutions
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong id="visibleCount">
+                    0
+                </strong>
+
+                <span>
+                    Showing
+                </span>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div id="content">
-        <div class="loading">
-            Loading institutions...
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+
+        <button
+            class="filter active"
+            onclick="filterInstitutions('all',this)">
+
+            All
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterInstitutions('public-university',this)">
+
+            Public University
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterInstitutions('engineering',this)">
+
+            Engineering
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterInstitutions('medical-dental',this)">
+
+            Medical & Dental
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterInstitutions('agriculture-veterinary',this)">
+
+            Agriculture
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterInstitutions('specialized-admission',this)">
+
+            Specialized
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterInstitutions('abroad-prep',this)">
+
+            Abroad
+
+        </button>
+
+    </div>
+
+
+
+    <!-- CONTENT -->
+
+    <section
+        id="content">
+
+        <div class="state">
+
+            <div class="state-icon">
+                ⏳
+            </div>
+
+            <h3>
+                Loading Institutions
+            </h3>
+
+            <p>
+                Please wait while we load the available institutions.
+            </p>
+
         </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     DETAILS MODAL
+======================================================= -->
+
+<div
+    id="detailsModal"
+    class="modal"
+    onclick="closeModalOutside(event)">
+
+    <div class="modal-box">
+
+
+        <div class="modal-head">
+
+            <div>
+
+                <div
+                    id="modalTitle"
+                    class="modal-title">
+
+                    Institution
+
+                </div>
+
+                <div
+                    id="modalSubtitle"
+                    class="modal-subtitle">
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="close"
+                onclick="closeModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <div
+            id="modalBody"
+            class="modal-body">
+
+        </div>
+
+
+        <div
+            id="modalFooter"
+            class="modal-footer">
+
+        </div>
+
     </div>
 
 </div>
 
-</main>
+
 
 <script>
 
+/* =========================================================
+   SUPABASE
+========================================================= */
+
 const SUPABASE_URL =
-"https://rndtgjuwwsxxiiezennr.supabase.co";
+    "https://rndtgjuwwsxxiiezennr.supabase.co";
+
 
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+    "sb_publishable_mIQfKUUsEOlDtqEdroMpgQ_I8ElRcsN";
+
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
 
 let institutions = [];
+
 let currentFilter = "all";
+
+let currentSearch = "";
+
+
+/* =========================================================
+   CHECK USER
+========================================================= */
 
 async function checkUser(){
 
     const {
         data: { user }
-    } = await supabaseClient.auth.getUser();
+    } =
+        await supabaseClient.auth.getUser();
+
 
     if(!user){
 
-        window.location.href = "index.html";
+        window.location.href =
+            "index.html";
+
         return false;
     }
+
 
     return true;
 }
 
+
+/* =========================================================
+   LOAD INSTITUTIONS
+========================================================= */
+
 async function loadInstitutions(){
 
-    const allowed = await checkUser();
+    const allowed =
+        await checkUser();
+
 
     if(!allowed) return;
 
-    const { data, error } =
+
+    const {
+        data,
+        error
+    } =
         await supabaseClient
+
         .from("institutions")
+
         .select("*")
-        .eq("is_active", true)
-        .order("name", { ascending:true });
+
+        .eq(
+            "is_active",
+            true
+        )
+
+        .order(
+            "name",
+            {
+                ascending:true
+            }
+        );
+
 
     if(error){
 
-        document.getElementById("content").innerHTML = `
-            <div class="empty">
-                <h3>Unable to load institutions</h3>
-                <p>Please try again later.</p>
+        console.error(
+            "Institution load error:",
+            error
+        );
+
+
+        document.getElementById(
+            "content"
+        ).innerHTML = `
+
+            <div class="state">
+
+                <div class="state-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    Unable to Load Institutions
+                </h3>
+
+                <p>
+                    Please refresh the page and try again.
+                </p>
+
             </div>
+
         `;
 
-        console.error(error);
         return;
     }
 
-    institutions = data || [];
+
+    institutions =
+        data || [];
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        institutions.length;
+
 
     renderInstitutions();
 }
+
+
+/* =========================================================
+   RENDER
+========================================================= */
 
 function renderInstitutions(){
 
-    let list = institutions;
+    let list =
+        institutions;
 
-    if(currentFilter !== "all"){
 
-        list = institutions.filter(
-            item => item.category === currentFilter
-        );
+    /* CATEGORY */
+
+    if(
+        currentFilter !==
+        "all"
+    ){
+
+        list =
+            list.filter(
+                item =>
+                    item.category ===
+                    currentFilter
+            );
+
     }
 
-    if(list.length === 0){
 
-        document.getElementById("content").innerHTML = `
-            <div class="empty">
-                <h3>No Institutions Found</h3>
-                <p>No institution is currently available in this category.</p>
+    /* SEARCH */
+
+    if(
+        currentSearch
+            .trim()
+            .length > 0
+    ){
+
+        const search =
+            currentSearch
+                .trim()
+                .toLowerCase();
+
+
+        list =
+            list.filter(
+                item => {
+
+                    const name =
+                        String(
+                            item.name || ""
+                        )
+                        .toLowerCase();
+
+
+                    const shortName =
+                        String(
+                            item.short_name || ""
+                        )
+                        .toLowerCase();
+
+
+                    const location =
+                        String(
+                            item.location || ""
+                        )
+                        .toLowerCase();
+
+
+                    return (
+                        name.includes(search) ||
+                        shortName.includes(search) ||
+                        location.includes(search)
+                    );
+
+                }
+            );
+
+    }
+
+
+    document.getElementById(
+        "visibleCount"
+    ).textContent =
+        list.length;
+
+
+    if(
+        list.length === 0
+    ){
+
+        document.getElementById(
+            "content"
+        ).innerHTML = `
+
+            <div class="state">
+
+                <div class="state-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    No Institutions Found
+                </h3>
+
+                <p>
+                    Try another search or select a different category.
+                </p>
+
             </div>
+
         `;
 
         return;
     }
 
-    let html = `<div class="grid">`;
 
-    list.forEach(item => {
+    let html =
+        `<div class="grid">`;
 
-        html += `
 
-        <article class="card">
+    list.forEach(
+        (item,index) => {
 
-            <span class="badge">
-                ${formatCategory(item.category)}
-            </span>
+            html += `
 
-            <h2>
-                ${escapeHTML(item.name)}
-            </h2>
+                <article class="card">
 
-            <div class="short">
-                ${escapeHTML(item.short_name || "")}
-            </div>
 
-            <div class="info">
+                    <span class="category">
 
-                📍 ${escapeHTML(item.location || "Bangladesh")}<br>
+                        ${formatCategory(
+                            item.category
+                        )}
 
-                🏛️ ${escapeHTML(item.institution_type || "Institution")}<br>
+                    </span>
 
-                📅 Founded:
-                ${item.founded_year || "N/A"}<br>
 
-                🎓 Units:
-                ${escapeHTML(item.units || "See official website")}
+                    <h2>
 
-            </div>
+                        ${escapeHTML(
+                            item.name
+                        )}
 
-            <div class="buttons">
+                    </h2>
 
-                ${
-                    item.official_website
-                    ?
-                    `<a class="btn"
-                       href="${item.official_website}"
-                       target="_blank"
-                       rel="noopener">
-                       Official Website
-                    </a>`
-                    :
-                    ""
-                }
 
-                ${
-                    item.admission_website
-                    ?
-                    `<a class="btn secondary"
-                       href="${item.admission_website}"
-                       target="_blank"
-                       rel="noopener">
-                       Admission
-                    </a>`
-                    :
-                    ""
-                }
+                    <div class="short">
 
-            </div>
+                        ${escapeHTML(
+                            item.short_name ||
+                            ""
+                        )}
 
-        </article>
+                    </div>
 
-        `;
-    });
 
-    html += `</div>`;
+                    <div class="details">
 
-    document.getElementById("content").innerHTML = html;
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                📍
+                            </span>
+
+                            <span>
+
+                                ${escapeHTML(
+                                    item.location ||
+                                    "Bangladesh"
+                                )}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                🏛️
+                            </span>
+
+                            <span>
+
+                                ${escapeHTML(
+                                    item.institution_type ||
+                                    "Institution"
+                                )}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                📅
+                            </span>
+
+                            <span>
+
+                                Founded:
+                                ${escapeHTML(
+                                    item.founded_year ||
+                                    "N/A"
+                                )}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                🎓
+                            </span>
+
+                            <span>
+
+                                ${escapeHTML(
+                                    item.units ||
+                                    "See official website"
+                                )}
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+
+                        <button
+                            class="btn primary"
+                            onclick="openDetails(${index}, '${escapeJS(item.name || "")}')">
+
+                            View Details
+
+                        </button>
+
+
+                        ${
+                            item.official_website
+                            ?
+
+                            `
+
+                            <a
+                                class="btn secondary"
+                                href="${safeURL(
+                                    item.official_website
+                                )}"
+                                target="_blank"
+                                rel="noopener noreferrer">
+
+                                Official Website
+
+                            </a>
+
+                            `
+
+                            :
+
+                            `
+
+                            <button
+                                class="btn secondary"
+                                onclick="openDetails(${index}, '${escapeJS(item.name || "")}')">
+
+                                More Info
+
+                            </button>
+
+                            `
+                        }
+
+
+                    </div>
+
+
+                </article>
+
+            `;
+
+        }
+    );
+
+
+    html +=
+        `</div>`;
+
+
+    document.getElementById(
+        "content"
+    ).innerHTML =
+        html;
 }
 
-function filterInstitutions(category, button){
 
-    currentFilter = category;
+/* =========================================================
+   SEARCH
+========================================================= */
 
-    document
-        .querySelectorAll(".filter")
-        .forEach(btn => btn.classList.remove("active"));
+function handleSearch(){
 
-    button.classList.add("active");
+    currentSearch =
+        document.getElementById(
+            "searchInput"
+        ).value;
+
 
     renderInstitutions();
 }
 
-function formatCategory(category){
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function filterInstitutions(
+    category,
+    button
+){
+
+    currentFilter =
+        category;
+
+
+    document
+        .querySelectorAll(
+            ".filter"
+        )
+        .forEach(
+            btn =>
+                btn.classList.remove(
+                    "active"
+                )
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    renderInstitutions();
+}
+
+
+/* =========================================================
+   CATEGORY FORMAT
+========================================================= */
+
+function formatCategory(
+    category
+){
 
     const names = {
 
         "public-university":
-        "Public University",
+            "Public University",
 
         "engineering":
-        "Engineering",
+            "Engineering",
 
         "medical-dental":
-        "Medical & Dental",
+            "Medical & Dental",
 
         "agriculture-veterinary":
-        "Agriculture & Veterinary",
+            "Agriculture & Veterinary",
 
         "specialized-admission":
-        "Specialized Admission",
+            "Specialized Admission",
 
         "abroad-prep":
-        "Abroad Prep"
+            "Abroad Prep"
+
     };
 
-    return names[category] || "Institution";
+
+    return (
+        names[category] ||
+        "Institution"
+    );
 }
 
-function escapeHTML(value){
 
-    return String(value || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+/* =========================================================
+   DETAILS MODAL
+========================================================= */
+
+function openDetails(
+    index,
+    name
+){
+
+    /*
+       Find institution by name.
+       This avoids depending on filtered array index.
+    */
+
+    const item =
+        institutions.find(
+            institution =>
+                institution.name ===
+                name
+        );
+
+
+    if(!item) return;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        item.name ||
+        "Institution";
+
+
+    document.getElementById(
+        "modalSubtitle"
+    ).textContent =
+        item.short_name ||
+        formatCategory(
+            item.category
+        );
+
+
+    document.getElementById(
+        "modalBody"
+    ).innerHTML = `
+
+        <div class="modal-grid">
+
+
+            <div class="modal-item">
+
+                <label>
+                    Category
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        formatCategory(
+                            item.category
+                        )
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="modal-item">
+
+                <label>
+                    Institution Type
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        item.institution_type ||
+                        "N/A"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="modal-item">
+
+                <label>
+                    Location
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        item.location ||
+                        "Bangladesh"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="modal-item">
+
+                <label>
+                    Founded
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        item.founded_year ||
+                        "N/A"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="modal-item full">
+
+                <label>
+                    Admission Units
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        item.units ||
+                        "See official website"
+                    )}
+                </div>
+
+            </div>
+
+
+            ${
+                item.description
+                ?
+
+                `
+
+                <div class="modal-item full">
+
+                    <label>
+                        About
+                    </label>
+
+                    <div>
+                        ${escapeHTML(
+                            item.description
+                        )}
+                    </div>
+
+                </div>
+
+                `
+
+                :
+
+                ""
+            }
+
+
+        </div>
+
+    `;
+
+
+    let footer = "";
+
+
+    if(
+        item.official_website
+    ){
+
+        footer += `
+
+            <a
+                class="btn primary"
+                href="${safeURL(
+                    item.official_website
+                )}"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                🌐 Official Website
+
+            </a>
+
+        `;
+
+    }
+
+
+    if(
+        item.admission_website
+    ){
+
+        footer += `
+
+            <a
+                class="btn secondary"
+                href="${safeURL(
+                    item.admission_website
+                )}"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                🎓 Admission Portal
+
+            </a>
+
+        `;
+
+    }
+
+
+    document.getElementById(
+        "modalFooter"
+    ).innerHTML =
+        footer;
+
+
+    document.getElementById(
+        "detailsModal"
+    ).classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
 }
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal(){
+
+    document.getElementById(
+        "detailsModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+}
+
+
+function closeModalOutside(
+    event
+){
+
+    if(
+        event.target.id ===
+        "detailsModal"
+    ){
+
+        closeModal();
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SECURITY / HTML ESCAPE
+========================================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value || ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   JS STRING ESCAPE
+========================================================= */
+
+function escapeJS(
+    value
+){
+
+    return String(
+        value || ""
+    )
+
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+
+    .replace(
+        /'/g,
+        "\\'"
+    )
+
+    .replace(
+        /"/g,
+        '\\"'
+    )
+
+    .replace(
+        /\n/g,
+        "\\n"
+    )
+
+    .replace(
+        /\r/g,
+        "\\r"
+    );
+
+}
+
+
+/* =========================================================
+   SAFE URL
+========================================================= */
+
+function safeURL(
+    value
+){
+
+    try{
+
+        const url =
+            new URL(
+                String(value)
+            );
+
+
+        if(
+            url.protocol ===
+                "http:" ||
+            url.protocol ===
+                "https:"
+        ){
+
+            return escapeHTML(
+                url.href
+            );
+
+        }
+
+    }catch(error){
+
+        return "#";
+
+    }
+
+
+    return "#";
+}
+
+
+/* =========================================================
+   START
+========================================================= */
 
 loadInstitutions();
 
 </script>
 
 </body>
+
 </html>
