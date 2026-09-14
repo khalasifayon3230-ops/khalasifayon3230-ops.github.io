@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Dream Hunt | Admin Panel</title>
+<title>Dream Hunt | Admin Control Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -18,13 +18,47 @@
     box-sizing:border-box;
 }
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4f6f9;
-    color:#111;
+:root{
+    --bg:#08090c;
+    --panel:#111318;
+    --panel2:#161920;
+    --border:#252934;
+    --text:#f5f7fa;
+    --muted:#8d94a3;
+    --white:#fff;
+    --green:#20c77a;
+    --red:#ff5263;
+    --yellow:#f5b83d;
+    --blue:#4d8dff;
+    --purple:#9b6cff;
 }
 
-button,input,select,textarea{
+body{
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(77,141,255,.08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(155,108,255,.06),
+            transparent 30%
+        ),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+select,
+textarea{
     font-family:inherit;
 }
 
@@ -37,6 +71,11 @@ button{
     display:none!important;
 }
 
+
+/* =====================================================
+LOGIN
+===================================================== */
+
 #loginBox{
     min-height:100vh;
     display:flex;
@@ -47,41 +86,65 @@ button{
 
 .login-card{
     width:100%;
-    max-width:410px;
-    background:#fff;
-    padding:35px 26px;
-    border-radius:22px;
-    box-shadow:0 12px 40px rgba(0,0,0,.12);
+    max-width:430px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:38px 28px;
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.45);
+    backdrop-filter:blur(20px);
 }
 
 .logo{
     text-align:center;
-    font-size:31px;
-    font-weight:900;
+    font-size:34px;
+    font-weight:950;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:var(--blue);
 }
 
 .subtitle{
     text-align:center;
-    color:#777;
-    margin:6px 0 28px;
+    color:var(--muted);
+    margin-top:8px;
+    margin-bottom:30px;
 }
 
 label{
     display:block;
-    font-weight:700;
-    font-size:13px;
-    margin-bottom:7px;
+    font-size:12px;
+    font-weight:800;
+    color:#c8cdd7;
+    margin-bottom:8px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
     width:100%;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:10px;
+    padding:13px 14px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#0d0f14;
+    color:var(--text);
     outline:none;
-    background:#fff;
-    font-size:14px;
     margin-bottom:15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(77,141,255,.10);
 }
 
 textarea{
@@ -89,106 +152,218 @@ textarea{
     resize:vertical;
 }
 
-input:focus,select:focus,textarea:focus{
-    border-color:#111;
-}
-
-button{
-    background:#111;
-    color:#fff;
+.btn{
     padding:11px 15px;
-    border-radius:10px;
-    font-weight:700;
+    border-radius:11px;
+    background:#fff;
+    color:#08090c;
+    font-weight:900;
 }
 
-button:hover{
-    opacity:.9;
+.btn:hover{
+    transform:translateY(-1px);
 }
 
-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
+.btn-dark{
+    background:#20242d;
+    color:#fff;
 }
 
-.full-btn{
+.btn-blue{
+    background:var(--blue);
+    color:#fff;
+}
+
+.btn-green{
+    background:var(--green);
+    color:#07150f;
+}
+
+.btn-red{
+    background:var(--red);
+    color:#fff;
+}
+
+.btn-yellow{
+    background:var(--yellow);
+    color:#111;
+}
+
+.btn-purple{
+    background:var(--purple);
+    color:#fff;
+}
+
+.btn-full{
     width:100%;
 }
 
 .login-message{
     min-height:20px;
     text-align:center;
-    color:#c62828;
+    color:var(--red);
     margin-top:14px;
     font-size:13px;
 }
+
+
+/* =====================================================
+ADMIN
+===================================================== */
 
 #adminPanel{
     display:none;
     min-height:100vh;
 }
 
-.header{
-    height:65px;
-    background:#111;
-    color:#fff;
+.topbar{
+    height:70px;
+    position:sticky;
+    top:0;
+    z-index:200;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
-    position:sticky;
-    top:0;
-    z-index:100;
+    padding:0 24px;
+    background:
+        rgba(8,9,12,.88);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(18px);
 }
 
-.header-title{
-    font-size:21px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.brand-mark{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+    );
+    font-weight:950;
+}
+
+.brand-name{
+    font-weight:950;
+    font-size:19px;
+}
+
+.brand-name small{
+    display:block;
+    font-size:9px;
+    color:var(--muted);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.admin-email{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.logout-btn{
+    padding:9px 13px;
+    border-radius:10px;
+    background:#fff;
+    color:#111;
     font-weight:900;
 }
 
-.logout{
-    background:#fff;
-    color:#111;
+.mobile-menu{
+    display:none;
+    padding:10px 14px;
+    background:#0d0f14;
+    border-bottom:1px solid var(--border);
 }
+
+.mobile-menu button{
+    background:#20242d;
+    color:#fff;
+    padding:9px 12px;
+    border-radius:10px;
+}
+
+
+/* =====================================================
+LAYOUT
+===================================================== */
 
 .layout{
     display:flex;
-    min-height:calc(100vh - 65px);
+    min-height:calc(100vh - 70px);
 }
 
 .sidebar{
-    width:245px;
-    background:#181818;
-    color:#fff;
-    padding:18px 12px;
+    width:255px;
     flex-shrink:0;
+    background:#0c0e12;
+    border-right:1px solid var(--border);
+    padding:18px 12px;
+    position:sticky;
+    top:70px;
+    height:calc(100vh - 70px);
+    overflow-y:auto;
 }
 
-.sidebar-title{
-    color:#999;
-    font-size:11px;
+.sidebar-label{
+    color:#626978;
+    font-size:10px;
+    font-weight:900;
     text-transform:uppercase;
-    letter-spacing:1px;
-    padding:9px 10px;
+    letter-spacing:1.5px;
+    padding:12px 12px 8px;
 }
 
 .nav-btn{
     width:100%;
-    text-align:left;
+    display:flex;
+    align-items:center;
+    gap:11px;
     background:transparent;
-    color:#ddd;
-    margin-bottom:3px;
+    color:#9ca3b1;
     padding:12px;
+    margin-bottom:3px;
+    border-radius:11px;
+    text-align:left;
+    font-weight:800;
+    font-size:13px;
 }
 
-.nav-btn:hover,.nav-btn.active{
-    background:#333;
+.nav-btn:hover{
+    background:#171a21;
     color:#fff;
+}
+
+.nav-btn.active{
+    background:
+        linear-gradient(
+            90deg,
+            rgba(77,141,255,.17),
+            rgba(155,108,255,.08)
+        );
+    color:#fff;
+    border:1px solid rgba(77,141,255,.20);
 }
 
 .content{
     flex:1;
-    padding:25px;
-    overflow-x:hidden;
+    min-width:0;
+    padding:28px;
 }
 
 .section{
@@ -199,103 +374,162 @@ button:disabled{
     display:block;
 }
 
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:15px;
+    margin-bottom:24px;
+}
+
 .section-title{
-    font-size:26px;
-    font-weight:900;
-    margin-bottom:5px;
+    font-size:28px;
+    font-weight:950;
+    letter-spacing:-.8px;
 }
 
 .section-subtitle{
-    color:#777;
+    color:var(--muted);
+    margin-top:6px;
+    font-size:13px;
+}
+
+.live-dot{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:#8d94a3;
+    font-size:11px;
+}
+
+.live-dot i{
+    width:7px;
+    height:7px;
+    background:var(--green);
+    border-radius:50%;
+    box-shadow:0 0 12px var(--green);
+}
+
+
+/* =====================================================
+CARDS
+===================================================== */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px,1fr)
+        );
+    gap:15px;
     margin-bottom:22px;
 }
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
-    gap:15px;
-    margin-bottom:20px;
+.stat{
+    background:
+        linear-gradient(
+            145deg,
+            #13161d,
+            #0e1015
+        );
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:19px;
+    position:relative;
+    overflow:hidden;
 }
 
-.card{
-    background:#fff;
-    border-radius:17px;
-    padding:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
+.stat::after{
+    content:"";
+    position:absolute;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:rgba(77,141,255,.07);
+    right:-30px;
+    top:-30px;
 }
 
-.card h3{
-    color:#777;
-    font-size:13px;
-    margin-bottom:9px;
+.stat-label{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.7px;
 }
 
-.card .number{
-    font-size:29px;
-    font-weight:900;
+.stat-number{
+    font-size:30px;
+    font-weight:950;
+    margin-top:8px;
 }
 
-.card small{
-    color:#888;
+.stat-sub{
+    color:#656c79;
+    font-size:11px;
+    margin-top:5px;
 }
+
+
+/* =====================================================
+PANELS
+===================================================== */
 
 .panel{
-    background:#fff;
-    border-radius:17px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+        );
+    border:1px solid var(--border);
+    border-radius:19px;
     padding:20px;
     margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    box-shadow:0 15px 45px rgba(0,0,0,.16);
 }
 
-.panel-title{
-    font-size:18px;
-    font-weight:900;
+.panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
     margin-bottom:17px;
 }
 
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-    gap:14px;
+.panel-title{
+    font-size:16px;
+    font-weight:950;
 }
 
 .toolbar{
     display:flex;
-    gap:10px;
     flex-wrap:wrap;
+    gap:9px;
     margin-bottom:17px;
 }
 
-.toolbar input,.toolbar select{
-    max-width:280px;
+.toolbar input,
+.toolbar select{
+    max-width:300px;
     margin:0;
 }
 
-.action-btn{
-    padding:7px 10px;
-    font-size:12px;
-    margin:2px;
+.form-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(200px,1fr)
+        );
+    gap:14px;
 }
 
-.secondary{
-    background:#555;
-}
 
-.success{
-    background:#16803c;
-}
-
-.warning{
-    background:#a97800;
-}
-
-.danger{
-    background:#c62828;
-}
-
-.info{
-    background:#2463a6;
-}
+/* =====================================================
+TABLE
+===================================================== */
 
 .table-wrap{
     width:100%;
@@ -304,56 +538,209 @@ button:disabled{
 
 table{
     width:100%;
+    min-width:800px;
     border-collapse:collapse;
-    min-width:700px;
-}
-
-th,td{
-    padding:12px;
-    border-bottom:1px solid #eee;
-    text-align:left;
-    font-size:13px;
-    vertical-align:top;
 }
 
 th{
-    background:#f7f7f7;
+    background:#171a21;
+    color:#89909e;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.8px;
     font-weight:900;
 }
 
-.badge{
-    display:inline-block;
-    padding:5px 9px;
-    border-radius:20px;
-    background:#eee;
+th,
+td{
+    padding:13px;
+    border-bottom:1px solid #20232b;
+    text-align:left;
+    vertical-align:top;
+    font-size:12px;
+}
+
+td{
+    color:#d7dbe3;
+}
+
+tr:hover td{
+    background:rgba(255,255,255,.015);
+}
+
+.muted{
+    color:var(--muted);
+}
+
+.action-row{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+.action{
+    padding:7px 9px;
+    border-radius:8px;
     font-size:11px;
-    font-weight:800;
+    font-weight:900;
+    background:#242933;
+    color:#fff;
+}
+
+.action.blue{
+    background:#245fb7;
+}
+
+.action.green{
+    background:#16834e;
+}
+
+.action.red{
+    background:#b83242;
+}
+
+.action.yellow{
+    background:#9b720d;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:900;
+    text-transform:uppercase;
 }
 
 .badge.green{
-    background:#dff5e7;
-    color:#16723a;
+    color:#53e6a1;
+    background:rgba(32,199,122,.11);
 }
 
 .badge.red{
-    background:#ffe1e1;
-    color:#a00;
+    color:#ff7180;
+    background:rgba(255,82,99,.11);
 }
 
 .badge.yellow{
-    background:#fff0bd;
-    color:#795d00;
+    color:#f5c45c;
+    background:rgba(245,184,61,.11);
 }
 
+.badge.blue{
+    color:#74a7ff;
+    background:rgba(77,141,255,.11);
+}
+
+
+/* =====================================================
+ORDER UI
+===================================================== */
+
+.order-summary{
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(150px,1fr)
+        );
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.order-stat{
+    background:#101319;
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:13px;
+}
+
+.order-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:5px;
+}
+
+.order-stat strong{
+    font-size:15px;
+}
+
+.order-alert{
+    padding:13px;
+    border-radius:12px;
+    margin-bottom:15px;
+    border:1px solid rgba(245,184,61,.25);
+    background:rgba(245,184,61,.07);
+    color:#f3c45f;
+    font-size:12px;
+}
+
+.order-alert.danger{
+    border-color:rgba(255,82,99,.25);
+    background:rgba(255,82,99,.07);
+    color:#ff8793;
+}
+
+.selected-box{
+    border:1px solid var(--border);
+    background:#0d1015;
+    border-radius:14px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.selected-title{
+    font-size:12px;
+    font-weight:950;
+    margin-bottom:9px;
+}
+
+.selected-item{
+    padding:10px;
+    background:#151820;
+    border-radius:10px;
+    margin-top:7px;
+    font-size:12px;
+}
+
+.kv{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:8px;
+    padding:7px 0;
+    border-bottom:1px solid #1e222b;
+}
+
+.kv:last-child{
+    border-bottom:0;
+}
+
+.kv .key{
+    color:#737b8b;
+}
+
+.kv .value{
+    color:#f0f2f5;
+    word-break:break-word;
+}
+
+
+/* =====================================================
+MODAL
+===================================================== */
+
 .modal{
-    display:none;
     position:fixed;
     inset:0;
-    z-index:500;
-    background:rgba(0,0,0,.58);
+    z-index:1000;
+    display:none;
     align-items:center;
     justify-content:center;
     padding:18px;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(6px);
 }
 
 .modal.show{
@@ -361,144 +748,183 @@ th{
 }
 
 .modal-box{
-    background:#fff;
     width:100%;
-    max-width:650px;
+    max-width:760px;
     max-height:92vh;
     overflow-y:auto;
-    border-radius:19px;
-    padding:24px;
+    background:#101218;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:23px;
+    box-shadow:0 30px 100px rgba(0,0,0,.55);
 }
 
-.modal-header{
+.modal-head{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     margin-bottom:20px;
 }
 
-.modal-header h2{
+.modal-head h2{
     font-size:20px;
+    font-weight:950;
 }
 
 .close{
-    background:#eee;
-    color:#111;
-    padding:7px 11px;
+    background:#20242d;
+    color:#fff;
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    font-size:20px;
 }
 
-.question-card{
-    background:#fafafa;
-    border:1px solid #eee;
-    border-radius:13px;
-    padding:15px;
-    margin-bottom:12px;
+
+/* =====================================================
+MISC
+===================================================== */
+
+.empty,
+.loading{
+    padding:25px;
+    text-align:center;
+    color:#6f7684;
 }
 
-.question-number{
-    font-weight:900;
-    margin-bottom:7px;
-}
-
-.payment-item{
-    background:#f7f7f7;
-    border:1px solid #eee;
+.alert{
+    padding:13px;
     border-radius:12px;
-    padding:14px;
-    margin-bottom:10px;
+    margin-bottom:15px;
+    font-size:12px;
 }
 
-.payment-item strong{
+.alert-info{
+    color:#82adff;
+    background:rgba(77,141,255,.08);
+    border:1px solid rgba(77,141,255,.18);
+}
+
+.alert-success{
+    color:#5ee5a7;
+    background:rgba(32,199,122,.08);
+    border:1px solid rgba(32,199,122,.18);
+}
+
+.alert-danger{
+    color:#ff7c89;
+    background:rgba(255,82,99,.08);
+    border:1px solid rgba(255,82,99,.18);
+}
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(190px,1fr)
+        );
+    gap:12px;
+}
+
+.quick{
+    padding:17px;
+    background:#101319;
+    border:1px solid var(--border);
+    border-radius:15px;
+}
+
+.quick strong{
     display:block;
     margin-bottom:5px;
 }
 
-.payment-actions{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
+.quick span{
+    color:var(--muted);
+    font-size:11px;
 }
 
-.payment-success{
-    background:#e8f7ee;
-    border:1px solid #bde5cb;
-    color:#126b35;
-    border-radius:12px;
-    padding:12px;
-    margin-bottom:15px;
-}
 
-.payment-warning{
-    background:#fff7db;
-    border:1px solid #f0dc91;
-    color:#765d00;
-    border-radius:12px;
-    padding:12px;
-    margin-bottom:15px;
-}
+/* =====================================================
+RESPONSIVE
+===================================================== */
 
-.mobile-menu{
-    display:none;
-    background:#111;
-    color:#fff;
-    padding:10px 15px;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.loading{
-    padding:20px;
-    text-align:center;
-    color:#777;
-}
-
-.empty{
-    padding:20px;
-    text-align:center;
-    color:#888;
-}
-
-@media(max-width:800px){
-
-    .layout{
-        display:block;
-    }
+@media(max-width:900px){
 
     .sidebar{
-        width:100%;
-        display:none;
+        position:fixed;
+        left:-270px;
+        top:70px;
+        bottom:0;
+        height:auto;
+        z-index:300;
+        transition:.25s;
     }
 
     .sidebar.open{
-        display:block;
+        left:0;
     }
 
     .mobile-menu{
         display:flex;
+        justify-content:space-between;
+        align-items:center;
     }
 
     .content{
+        padding:18px 14px;
+    }
+
+    .admin-email{
+        display:none;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        padding:0 13px;
+    }
+
+    .brand-name{
+        font-size:16px;
+    }
+
+    .section-title{
+        font-size:23px;
+    }
+
+    .section-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stat-number{
+        font-size:24px;
+    }
+
+    .panel{
         padding:15px;
     }
 
-    .header{
-        padding:0 12px;
+    .kv{
+        grid-template-columns:1fr;
+        gap:2px;
     }
 
-    .header-title{
-        font-size:18px;
-    }
-
-    .cards{
-        grid-template-columns:repeat(2,1fr);
-    }
 }
 
-@media(max-width:450px){
+@media(max-width:400px){
 
-    .cards{
+    .stats{
         grid-template-columns:1fr;
     }
+
 }
 
 </style>
@@ -508,18 +934,20 @@ th{
 <body>
 
 
-<!-- LOGIN -->
+<!-- =====================================================
+LOGIN
+===================================================== -->
 
 <div id="loginBox">
 
 <div class="login-card">
 
 <div class="logo">
-Dream Hunt
+Dream <span>Hunt</span>
 </div>
 
 <div class="subtitle">
-Administrator Login
+Admin Control Center
 </div>
 
 <form id="adminLoginForm">
@@ -543,11 +971,11 @@ required
 >
 
 <button
-class="full-btn"
+class="btn btn-full"
 id="loginButton"
 type="submit"
 >
-Login
+Login to Control Center
 </button>
 
 </form>
@@ -562,32 +990,54 @@ id="loginMessage"
 </div>
 
 
-<!-- ADMIN -->
+<!-- =====================================================
+ADMIN PANEL
+===================================================== -->
 
 <div id="adminPanel">
 
-<header class="header">
+<header class="topbar">
 
-<div class="header-title">
-Dream Hunt Admin
+<div class="brand">
+
+<div class="brand-mark">
+DH
+</div>
+
+<div class="brand-name">
+Dream Hunt
+<small>Admin Control Center</small>
+</div>
+
+</div>
+
+<div class="top-actions">
+
+<div
+class="admin-email"
+id="adminEmail"
+>
+Admin
 </div>
 
 <button
-class="logout"
+class="logout-btn"
 id="logoutButton"
 >
 Logout
 </button>
+
+</div>
 
 </header>
 
 
 <div class="mobile-menu">
 
-<span>Admin Menu</span>
+<strong>Admin Menu</strong>
 
 <button onclick="toggleSidebar()">
-Menu
+☰ Menu
 </button>
 
 </div>
@@ -596,123 +1046,252 @@ Menu
 <div class="layout">
 
 
-<!-- SIDEBAR -->
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
 
 <aside
 class="sidebar"
 id="sidebar"
 >
 
-<div class="sidebar-title">
-Management
+<div class="sidebar-label">
+Control Center
 </div>
 
-<button class="nav-btn active"
-onclick="showSection('dashboard',this)">
-🏠 Dashboard
+<button
+class="nav-btn active"
+onclick="showSection('dashboard',this)"
+>
+📊
+<span>Dashboard</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('students',this)">
-👨‍🎓 Students
+<button
+class="nav-btn"
+onclick="showSection('students',this)"
+>
+👨‍🎓
+<span>Students</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('courses',this)">
-📚 Courses
+<button
+class="nav-btn"
+onclick="showSection('courses',this)"
+>
+📚
+<span>Course Access</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('exams',this)">
-📝 Exams
+<button
+class="nav-btn"
+onclick="showSection('exams',this)"
+>
+📝
+<span>Exam Management</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('library',this)">
-📖 Library
+<button
+class="nav-btn"
+onclick="showSection('library',this)"
+>
+📖
+<span>Library</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('payments',this)">
-💳 Payments
+<button
+class="nav-btn"
+onclick="showSection('payments',this)"
+>
+💳
+<span>Orders & Payments</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('results',this)">
-🏆 Results
+<button
+class="nav-btn"
+onclick="showSection('results',this)"
+>
+🏆
+<span>Results</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('messages',this)">
-💬 Messages
+<button
+class="nav-btn"
+onclick="showSection('messages',this)"
+>
+💬
+<span>Messages</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('notifications',this)">
-🔔 Notifications
+<button
+class="nav-btn"
+onclick="showSection('notifications',this)"
+>
+🔔
+<span>Notifications</span>
 </button>
 
-<button class="nav-btn"
-onclick="showSection('plans',this)">
-💰 Plans / Pricing
+<button
+class="nav-btn"
+onclick="showSection('plans',this)"
+>
+💰
+<span>Plans & Pricing</span>
 </button>
 
 </aside>
 
 
+<!-- =====================================================
+CONTENT
+===================================================== -->
+
 <main class="content">
 
 
-<!-- DASHBOARD -->
+<!-- =====================================================
+DASHBOARD
+===================================================== -->
 
 <section
 id="dashboard"
 class="section active"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
 Dashboard
 </div>
 
 <div class="section-subtitle">
-Dream Hunt administration overview
+Complete Dream Hunt administration overview
 </div>
+
+</div>
+
+<div class="live-dot">
+<i></i>
+Live system
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-label">Students</div>
+<div
+class="stat-number"
+id="dashStudents"
+>
+0
+</div>
+<div class="stat-sub">
+Registered students
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Courses</div>
+<div
+class="stat-number"
+id="dashCourses"
+>
+0
+</div>
+<div class="stat-sub">
+Active course categories
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Exams</div>
+<div
+class="stat-number"
+id="dashExams"
+>
+0
+</div>
+<div class="stat-sub">
+All exams
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Pending Orders</div>
+<div
+class="stat-number"
+id="dashPayments"
+>
+0
+</div>
+<div class="stat-sub">
+Need admin review
+</div>
+</div>
+
+</div>
+
 
 <div class="panel">
 
+<div class="panel-head">
+
 <div class="panel-title">
-Welcome, Admin 👋
+Quick Actions
+</div>
+
+<button
+class="btn btn-dark"
+onclick="refreshEverything()"
+>
+Refresh All
+</button>
+
+</div>
+
+<div class="quick-grid">
+
+<div
+class="quick"
+onclick="openSectionFromQuick('students')"
+style="cursor:pointer"
+>
+<strong>👨‍🎓 Students</strong>
+<span>Manage registered students</span>
 </div>
 
 <div
-id="adminEmail"
-style="color:#777"
+class="quick"
+onclick="openSectionFromQuick('payments')"
+style="cursor:pointer"
 >
-Admin
+<strong>💳 Orders</strong>
+<span>Review pending payments</span>
 </div>
 
+<div
+class="quick"
+onclick="openSectionFromQuick('exams')"
+style="cursor:pointer"
+>
+<strong>📝 Exams</strong>
+<span>Manage admission exams</span>
 </div>
 
-<div class="cards">
-
-<div class="card">
-<h3>Students</h3>
-<div class="number" id="dashStudents">0</div>
+<div
+class="quick"
+onclick="openSectionFromQuick('library')"
+style="cursor:pointer"
+>
+<strong>📖 Library</strong>
+<span>Manage study materials</span>
 </div>
 
-<div class="card">
-<h3>Courses</h3>
-<div class="number" id="dashCourses">0</div>
-</div>
-
-<div class="card">
-<h3>Exams</h3>
-<div class="number" id="dashExams">0</div>
-</div>
-
-<div class="card">
-<h3>Pending Payments</h3>
-<div class="number" id="dashPayments">0</div>
 </div>
 
 </div>
@@ -720,19 +1299,29 @@ Admin
 </section>
 
 
-<!-- STUDENTS -->
+<!-- =====================================================
+STUDENTS
+===================================================== -->
 
 <section
 id="students"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
 Student Management
 </div>
 
 <div class="section-subtitle">
-Manage student profiles, status, courses and performance
+Search, inspect and manage Dream Hunt students
+</div>
+
+</div>
+
 </div>
 
 <div class="panel">
@@ -744,18 +1333,25 @@ id="studentSearch"
 placeholder="Search name, email, phone or ID"
 >
 
-<button onclick="loadStudents()">
+<button
+class="btn btn-blue"
+onclick="loadStudents()"
+>
 Search
 </button>
 
 <button
-class="secondary"
-onclick="document.getElementById('studentSearch').value='';loadStudents()"
+class="btn btn-dark"
+onclick="
+document.getElementById('studentSearch').value='';
+loadStudents();
+"
 >
 Reset
 </button>
 
 </div>
+
 
 <div class="table-wrap">
 
@@ -777,7 +1373,10 @@ Reset
 <tbody id="studentsTable">
 
 <tr>
-<td colspan="6" class="loading">
+<td
+colspan="6"
+class="loading"
+>
 Loading...
 </td>
 </tr>
@@ -793,74 +1392,71 @@ Loading...
 </section>
 
 
-<!-- COURSES -->
+<!-- =====================================================
+COURSES
+===================================================== -->
 
 <section
 id="courses"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
-Course Management
+Course Access
 </div>
 
 <div class="section-subtitle">
-Dream Hunt admission categories and course access
-</div>
-
-<div class="cards">
-
-<div class="card">
-<h3>Engineering</h3>
-<div class="number">Engineering</div>
-</div>
-
-<div class="card">
-<h3>Medical</h3>
-<div class="number">Medical</div>
-</div>
-
-<div class="card">
-<h3>Dental</h3>
-<div class="number">Dental</div>
-</div>
-
-<div class="card">
-<h3>Public University</h3>
-<div class="number">Public</div>
-</div>
-
-<div class="card">
-<h3>AB</h3>
-<div class="number">AB</div>
-</div>
-
-<div class="card">
-<h3>Textile</h3>
-<div class="number">Textile</div>
-</div>
-
-<div class="card">
-<h3>Agricultural</h3>
-<div class="number">Agriculture</div>
+Monitor which students have access to which courses
 </div>
 
 </div>
+
+<button
+class="btn btn-blue"
+onclick="loadCourseAccess()"
+>
+Refresh
+</button>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-label">Engineering</div>
+<div class="stat-number">300</div>
+<div class="stat-sub">Admission package</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Medical</div>
+<div class="stat-number">300</div>
+<div class="stat-sub">Medical package</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Public</div>
+<div class="stat-number">300+</div>
+<div class="stat-sub">Unit based</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Agriculture</div>
+<div class="stat-number">300</div>
+<div class="stat-sub">Admission package</div>
+</div>
+
+</div>
+
 
 <div class="panel">
 
-<div class="panel-title">
-Course Access Overview
-</div>
-
-<button onclick="loadCourseAccess()">
-Refresh Access
-</button>
-
-<div
-class="table-wrap"
-style="margin-top:15px"
->
+<div class="table-wrap">
 
 <table>
 
@@ -878,8 +1474,11 @@ style="margin-top:15px"
 <tbody id="courseAccessTable">
 
 <tr>
-<td colspan="4" class="empty">
-Click Refresh Access
+<td
+colspan="4"
+class="loading"
+>
+Loading...
 </td>
 </tr>
 
@@ -894,28 +1493,38 @@ Click Refresh Access
 </section>
 
 
-<!-- EXAMS -->
+<!-- =====================================================
+EXAMS
+===================================================== -->
 
 <section
 id="exams"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
 Exam Management
 </div>
 
 <div class="section-subtitle">
-Create exams, publish them and manage questions
+Create, publish and manage admission exams
 </div>
 
-<div class="panel">
+</div>
 
-<button onclick="openExamModal()">
+<button
+class="btn btn-blue"
+onclick="openExamModal()"
+>
 + Create Exam
 </button>
 
 </div>
+
 
 <div class="panel">
 
@@ -928,13 +1537,14 @@ oninput="renderExams()"
 >
 
 <button
-class="secondary"
+class="btn btn-dark"
 onclick="loadExams()"
 >
 Refresh
 </button>
 
 </div>
+
 
 <div class="table-wrap">
 
@@ -957,7 +1567,10 @@ Refresh
 <tbody id="examsTable">
 
 <tr>
-<td colspan="7" class="loading">
+<td
+colspan="7"
+class="loading"
+>
 Loading...
 </td>
 </tr>
@@ -973,12 +1586,18 @@ Loading...
 </section>
 
 
-<!-- LIBRARY -->
+<!-- =====================================================
+LIBRARY
+===================================================== -->
 
 <section
 id="library"
 class="section"
 >
+
+<div class="section-head">
+
+<div>
 
 <div class="section-title">
 Library Management
@@ -988,13 +1607,17 @@ Library Management
 Books, PDFs, question banks and study materials
 </div>
 
-<div class="panel">
+</div>
 
-<button onclick="openLibraryModal()">
-+ Add Library Item
+<button
+class="btn btn-blue"
+onclick="openLibraryModal()"
+>
++ Add Material
 </button>
 
 </div>
+
 
 <div class="panel">
 
@@ -1007,13 +1630,14 @@ oninput="renderLibrary()"
 >
 
 <button
-class="secondary"
+class="btn btn-dark"
 onclick="loadLibrary()"
 >
 Refresh
 </button>
 
 </div>
+
 
 <div class="table-wrap">
 
@@ -1034,7 +1658,10 @@ Refresh
 <tbody id="libraryTable">
 
 <tr>
-<td colspan="5" class="loading">
+<td
+colspan="5"
+class="loading"
+>
 Loading...
 </td>
 </tr>
@@ -1050,25 +1677,31 @@ Loading...
 </section>
 
 
-<!-- PAYMENTS -->
+<!-- =====================================================
+PAYMENTS
+===================================================== -->
 
 <section
 id="payments"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
-Payment Management
+Orders & Payments
 </div>
 
 <div class="section-subtitle">
-Verify payments and automatically grant purchased course access
+Verify student payments before granting course access
 </div>
 
-<div class="panel">
+</div>
 
 <button
-class="secondary"
+class="btn btn-blue"
 onclick="loadPayments()"
 >
 Refresh Orders
@@ -1076,16 +1709,18 @@ Refresh Orders
 
 </div>
 
+
 <div class="panel">
 
-<div
-class="payment-warning"
->
-<strong>Important:</strong>
-When you click <b>Accept</b>, the payment item becomes
-<b>paid</b> and the existing payment-access trigger processes
-the student's course access.
+<div class="alert alert-info">
+
+<strong>Admin verification:</strong>
+Open an order before accepting it. The order details show
+the student's TRX ID, payment method, amount, coupon,
+HSC information and every selected course/category.
+
 </div>
+
 
 <div class="table-wrap">
 
@@ -1094,12 +1729,12 @@ the student's course access.
 <thead>
 
 <tr>
-<th>Order ID</th>
+<th>Order</th>
 <th>Student</th>
-<th>Trx ID</th>
+<th>TRX ID</th>
 <th>Amount</th>
 <th>Status</th>
-<th>Created</th>
+<th>Date</th>
 <th>Actions</th>
 </tr>
 
@@ -1108,8 +1743,11 @@ the student's course access.
 <tbody id="paymentsTable">
 
 <tr>
-<td colspan="7" class="loading">
-Loading...
+<td
+colspan="7"
+class="loading"
+>
+Loading orders...
 </td>
 </tr>
 
@@ -1124,25 +1762,36 @@ Loading...
 </section>
 
 
-<!-- RESULTS -->
+<!-- =====================================================
+RESULTS
+===================================================== -->
 
 <section
 id="results"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
 Result Management
 </div>
 
 <div class="section-subtitle">
-Create, edit, publish and delete student results
+Manage student examination results
 </div>
+
+</div>
+
+</div>
+
 
 <div class="panel">
 
 <div class="panel-title">
-Find Student Result
+Find Student
 </div>
 
 <div class="toolbar">
@@ -1152,13 +1801,17 @@ id="resultStudentId"
 placeholder="Student UUID"
 >
 
-<button onclick="loadStudentResults()">
+<button
+class="btn btn-blue"
+onclick="loadStudentResults()"
+>
 Load Results
 </button>
 
 </div>
 
 </div>
+
 
 <div class="panel">
 
@@ -1184,8 +1837,11 @@ Load Results
 <tbody id="resultsTable">
 
 <tr>
-<td colspan="8" class="empty">
-Enter a student UUID and load results
+<td
+colspan="8"
+class="empty"
+>
+Enter student UUID.
 </td>
 </tr>
 
@@ -1200,28 +1856,38 @@ Enter a student UUID and load results
 </section>
 
 
-<!-- MESSAGES -->
+<!-- =====================================================
+MESSAGES
+===================================================== -->
 
 <section
 id="messages"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
-Message Management
+Messages
 </div>
 
 <div class="section-subtitle">
-Student messages, replies and status
+Student communication center
 </div>
 
-<div class="panel">
+</div>
 
-<button onclick="loadMessages()">
+<button
+class="btn btn-blue"
+onclick="loadMessages()"
+>
 Refresh
 </button>
 
 </div>
+
 
 <div class="panel">
 
@@ -1235,8 +1901,8 @@ Refresh
 <th>Student</th>
 <th>Subject</th>
 <th>Status</th>
-<th>Created</th>
-<th>Actions</th>
+<th>Date</th>
+<th>Action</th>
 </tr>
 
 </thead>
@@ -1244,7 +1910,10 @@ Refresh
 <tbody id="messagesTable">
 
 <tr>
-<td colspan="5" class="loading">
+<td
+colspan="5"
+class="loading"
+>
 Loading...
 </td>
 </tr>
@@ -1260,28 +1929,38 @@ Loading...
 </section>
 
 
-<!-- NOTIFICATIONS -->
+<!-- =====================================================
+NOTIFICATIONS
+===================================================== -->
 
 <section
 id="notifications"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
-Notification Management
+Notifications
 </div>
 
 <div class="section-subtitle">
-Manage notifications shown to students
+Control announcements shown to students
 </div>
 
-<div class="panel">
+</div>
 
-<button onclick="openNotificationModal()">
-+ Create Notification
+<button
+class="btn btn-blue"
+onclick="openNotificationModal()"
+>
++ Notification
 </button>
 
 </div>
+
 
 <div class="panel">
 
@@ -1295,7 +1974,7 @@ Manage notifications shown to students
 <th>Title</th>
 <th>Message</th>
 <th>Active</th>
-<th>Created</th>
+<th>Date</th>
 <th>Actions</th>
 </tr>
 
@@ -1304,7 +1983,10 @@ Manage notifications shown to students
 <tbody id="notificationsTable">
 
 <tr>
-<td colspan="5" class="loading">
+<td
+colspan="5"
+class="loading"
+>
 Loading...
 </td>
 </tr>
@@ -1320,45 +2002,116 @@ Loading...
 </section>
 
 
-<!-- PLANS -->
+<!-- =====================================================
+PLANS
+===================================================== -->
 
 <section
 id="plans"
 class="section"
 >
 
+<div class="section-head">
+
+<div>
+
 <div class="section-title">
-Plans / Pricing
+Plans & Pricing
 </div>
 
 <div class="section-subtitle">
-Dream Hunt admission packages
+Dream Hunt package structure
 </div>
 
-<div class="cards">
-
-<div class="card">
-<h3>1 Category</h3>
-<div class="number">৳300</div>
-<small>Public / Engineering / Medical etc.</small>
 </div>
 
-<div class="card">
-<h3>2 Categories</h3>
-<div class="number">৳500</div>
-<small>Any two categories</small>
 </div>
 
-<div class="card">
-<h3>3 Categories</h3>
-<div class="number">৳800</div>
-<small>Any three categories</small>
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-label">1 Main Category</div>
+<div class="stat-number">৳300</div>
+<div class="stat-sub">Engineering / Medical / Dental etc.</div>
 </div>
 
-<div class="card">
-<h3>All Categories</h3>
-<div class="number">৳1000</div>
-<small>Complete Dream Hunt package</small>
+<div class="stat">
+<div class="stat-label">2 Main Categories</div>
+<div class="stat-number">৳500</div>
+<div class="stat-sub">Any two</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">3 Main Categories</div>
+<div class="stat-number">৳800</div>
+<div class="stat-sub">Any three</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">4 Main Categories</div>
+<div class="stat-number">৳1000</div>
+<div class="stat-sub">Maximum package</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">PU All</div>
+<div class="stat-number">৳1000</div>
+<div class="stat-sub">All units option</div>
+</div>
+
+<div class="stat">
+<div class="stat-label">Coupon</div>
+<div class="stat-number">৳50</div>
+<div class="stat-sub">DH151044</div>
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+Public University Pricing
+</div>
+
+<div class="quick-grid">
+
+<div class="quick">
+<strong>1 Unit — ৳300</strong>
+<span>Fixed unit</span>
+</div>
+
+<div class="quick">
+<strong>2 Units — ৳500</strong>
+<span>Fixed units</span>
+</div>
+
+<div class="quick">
+<strong>3 Units — ৳600</strong>
+<span>Fixed units</span>
+</div>
+
+<div class="quick">
+<strong>4 Units — ৳700</strong>
+<span>Fixed units</span>
+</div>
+
+<div class="quick">
+<strong>5 Units — ৳800</strong>
+<span>Fixed units</span>
+</div>
+
+<div class="quick">
+<strong>6 Units — ৳900</strong>
+<span>Fixed units</span>
+</div>
+
+<div class="quick">
+<strong>PU All — ৳1000</strong>
+<span>All universities / all units</span>
+</div>
+
 </div>
 
 </div>
@@ -1367,17 +2120,24 @@ Dream Hunt admission packages
 
 
 </main>
+
 </div>
+
 </div>
 
 
-<!-- EXAM MODAL -->
+<!-- =====================================================
+EXAM MODAL
+===================================================== -->
 
-<div class="modal" id="examModal">
+<div
+class="modal"
+id="examModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
 <h2>Create Exam</h2>
 
@@ -1432,7 +2192,7 @@ value="20"
 
 <div>
 
-<label>Duration Minutes</label>
+<label>Duration</label>
 
 <input
 type="number"
@@ -1445,25 +2205,31 @@ value="60"
 </div>
 
 <button
-class="full-btn"
+class="btn btn-blue btn-full"
 onclick="createExam()"
 >
 Create Exam
 </button>
 
 </div>
+
 </div>
 
 
-<!-- LIBRARY MODAL -->
+<!-- =====================================================
+LIBRARY MODAL
+===================================================== -->
 
-<div class="modal" id="libraryModal">
+<div
+class="modal"
+id="libraryModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
-<h2>Add Library Item</h2>
+<h2>Add Library Material</h2>
 
 <button
 class="close"
@@ -1483,17 +2249,33 @@ placeholder="Physics Question Bank"
 
 <label>Description</label>
 
-<textarea id="libraryDescription"></textarea>
+<textarea
+id="libraryDescription"
+></textarea>
 
-<label>Item Type</label>
+<label>Type</label>
 
 <select id="libraryType">
 
-<option value="book">Book</option>
-<option value="pdf">PDF</option>
-<option value="question_bank">Question Bank</option>
-<option value="study_material">Study Material</option>
-<option value="other">Other</option>
+<option value="book">
+Book
+</option>
+
+<option value="pdf">
+PDF
+</option>
+
+<option value="question_bank">
+Question Bank
+</option>
+
+<option value="study_material">
+Study Material
+</option>
+
+<option value="other">
+Other
+</option>
 
 </select>
 
@@ -1512,23 +2294,29 @@ placeholder="engineering/books/physics.pdf"
 >
 
 <button
-class="full-btn"
+class="btn btn-blue btn-full"
 onclick="createLibraryItem()"
 >
-Add Library Item
+Add Material
 </button>
 
 </div>
+
 </div>
 
 
-<!-- NOTIFICATION MODAL -->
+<!-- =====================================================
+NOTIFICATION MODAL
+===================================================== -->
 
-<div class="modal" id="notificationModal">
+<div
+class="modal"
+id="notificationModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
 <h2>Create Notification</h2>
 
@@ -1552,27 +2340,33 @@ placeholder="New announcement"
 
 <textarea
 id="notificationMessage"
-placeholder="Write notification..."
+placeholder="Write announcement..."
 ></textarea>
 
 <button
-class="full-btn"
+class="btn btn-blue btn-full"
 onclick="createNotification()"
 >
-Create Notification
+Publish Notification
 </button>
 
 </div>
+
 </div>
 
 
-<!-- STUDENT MODAL -->
+<!-- =====================================================
+STUDENT MODAL
+===================================================== -->
 
-<div class="modal" id="studentModal">
+<div
+class="modal"
+id="studentModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
 <h2>Student Details</h2>
 
@@ -1590,16 +2384,22 @@ Loading...
 </div>
 
 </div>
+
 </div>
 
 
-<!-- MESSAGE MODAL -->
+<!-- =====================================================
+MESSAGE MODAL
+===================================================== -->
 
-<div class="modal" id="messageModal">
+<div
+class="modal"
+id="messageModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
 <h2>Student Message</h2>
 
@@ -1616,7 +2416,13 @@ onclick="closeModal('messageModal')"
 Loading...
 </div>
 
-<hr style="margin:20px 0;border:0;border-top:1px solid #eee">
+<hr
+style="
+margin:20px 0;
+border:0;
+border-top:1px solid #252934;
+"
+>
 
 <label>Reply</label>
 
@@ -1626,23 +2432,29 @@ placeholder="Write your reply..."
 ></textarea>
 
 <button
-class="full-btn"
+class="btn btn-blue btn-full"
 onclick="replyCurrentMessage()"
 >
 Send Reply
 </button>
 
 </div>
+
 </div>
 
 
-<!-- RESULT MODAL -->
+<!-- =====================================================
+RESULT MODAL
+===================================================== -->
 
-<div class="modal" id="resultModal">
+<div
+class="modal"
+id="resultModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
 <h2>Edit Result</h2>
 
@@ -1661,28 +2473,15 @@ id="editResultId"
 >
 
 <label>Correct Answers</label>
-
-<input
-type="number"
-id="editCorrect"
->
+<input type="number" id="editCorrect">
 
 <label>Wrong Answers</label>
-
-<input
-type="number"
-id="editWrong"
->
+<input type="number" id="editWrong">
 
 <label>Skipped Answers</label>
-
-<input
-type="number"
-id="editSkipped"
->
+<input type="number" id="editSkipped">
 
 <label>Negative Mark</label>
-
 <input
 type="number"
 step="0.01"
@@ -1690,7 +2489,6 @@ id="editNegative"
 >
 
 <label>Total Mark</label>
-
 <input
 type="number"
 step="0.01"
@@ -1698,32 +2496,37 @@ id="editTotal"
 >
 
 <label>Merit Position</label>
-
 <input
 type="number"
 id="editMerit"
 >
 
 <button
-class="full-btn"
+class="btn btn-blue btn-full"
 onclick="updateResult()"
 >
 Save Result
 </button>
 
 </div>
+
 </div>
 
 
-<!-- ORDER MODAL -->
+<!-- =====================================================
+ORDER MODAL
+===================================================== -->
 
-<div class="modal" id="orderModal">
+<div
+class="modal"
+id="orderModal"
+>
 
 <div class="modal-box">
 
-<div class="modal-header">
+<div class="modal-head">
 
-<h2>Order Details</h2>
+<h2>Complete Order Details</h2>
 
 <button
 class="close"
@@ -1739,6 +2542,7 @@ Loading...
 </div>
 
 </div>
+
 </div>
 
 
@@ -1756,8 +2560,8 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
@@ -1770,6 +2574,10 @@ let libraryCache = [];
 
 let currentMessageId = null;
 let currentStudentId = null;
+
+let ordersCache = [];
+
+let refreshTimer = null;
 
 
 /* =====================================================
@@ -1793,10 +2601,32 @@ function formatDate(value){
 if(!value) return "-";
 
 try{
-return new Date(value).toLocaleString();
-}catch{
-return "-";
+
+return new Date(value)
+.toLocaleString(
+"en-BD",
+{
+dateStyle:"medium",
+timeStyle:"short"
 }
+);
+
+}catch{
+
+return "-";
+
+}
+
+}
+
+
+function money(value){
+
+const n =
+Number(value || 0);
+
+return "৳" +
+n.toLocaleString("en-BD");
 
 }
 
@@ -1804,35 +2634,48 @@ return "-";
 function badge(value){
 
 const v =
-String(value || "").toLowerCase();
+String(value || "")
+.toLowerCase();
 
-let cls = "";
+let cls="blue";
 
 if(
-v === "active" ||
-v === "paid" ||
-v === "published" ||
-v === "replied"
+[
+"active",
+"paid",
+"published",
+"replied"
+].includes(v)
 ){
-cls = "green";
+
+cls="green";
+
 }
 
-if(
-v === "rejected" ||
-v === "blocked" ||
-v === "cancelled" ||
-v === "revoked" ||
-v === "inactive"
+else if(
+[
+"rejected",
+"blocked",
+"cancelled",
+"revoked",
+"inactive"
+].includes(v)
 ){
-cls = "red";
+
+cls="red";
+
 }
 
-if(
-v === "pending" ||
-v === "draft" ||
-v === "read"
+else if(
+[
+"pending",
+"draft",
+"read"
+].includes(v)
 ){
-cls = "yellow";
+
+cls="yellow";
+
 }
 
 return `
@@ -1844,13 +2687,30 @@ ${escapeHtml(value || "-")}
 }
 
 
+function safeJson(value){
+
+if(value === null || value === undefined){
+return null;
+}
+
+if(typeof value === "object"){
+return value;
+}
+
+try{
+return JSON.parse(value);
+}catch{
+return null;
+}
+
+}
+
+
 /* =====================================================
 AUTH
 ===================================================== */
 
-async function checkAdmin(user){
-
-if(!user) return false;
+async function checkAdmin(){
 
 const {
 data,
@@ -1861,8 +2721,7 @@ await supabaseClient
 
 if(error){
 
-console.error("Admin check:",error);
-
+console.error(error);
 return false;
 
 }
@@ -1874,13 +2733,16 @@ return data === true;
 
 function showAdminPanel(email){
 
-document.getElementById("loginBox")
-.style.display = "none";
+document
+.getElementById("loginBox")
+.style.display="none";
 
-document.getElementById("adminPanel")
-.style.display = "block";
+document
+.getElementById("adminPanel")
+.style.display="block";
 
-document.getElementById("adminEmail")
+document
+.getElementById("adminEmail")
 .innerText =
 email || "Admin";
 
@@ -1891,11 +2753,13 @@ loadDashboard();
 
 function showLogin(){
 
-document.getElementById("loginBox")
-.style.display = "flex";
+document
+.getElementById("loginBox")
+.style.display="flex";
 
-document.getElementById("adminPanel")
-.style.display = "none";
+document
+.getElementById("adminPanel")
+.style.display="none";
 
 }
 
@@ -1918,17 +2782,20 @@ document.getElementById("loginMessage");
 const button =
 document.getElementById("loginButton");
 
-message.innerText = "";
+message.innerText="";
 
-button.disabled = true;
-button.innerText = "Logging in...";
+button.disabled=true;
+button.innerText="Authenticating...";
 
 const email =
-document.getElementById("email")
-.value.trim();
+document
+.getElementById("email")
+.value
+.trim();
 
 const password =
-document.getElementById("password")
+document
+.getElementById("password")
 .value;
 
 const {
@@ -1947,34 +2814,38 @@ if(error){
 message.innerText =
 "Invalid email or password.";
 
-button.disabled = false;
-button.innerText = "Login";
+button.disabled=false;
+button.innerText="Login to Control Center";
 
 return;
 
 }
 
 const admin =
-await checkAdmin(data.user);
+await checkAdmin();
 
 if(!admin){
 
-await supabaseClient.auth.signOut();
+await supabaseClient
+.auth
+.signOut();
 
 message.innerText =
 "Access denied. Admin account required.";
 
-button.disabled = false;
-button.innerText = "Login";
+button.disabled=false;
+button.innerText="Login to Control Center";
 
 return;
 
 }
 
-showAdminPanel(data.user.email);
+showAdminPanel(
+data.user.email
+);
 
-button.disabled = false;
-button.innerText = "Login";
+button.disabled=false;
+button.innerText="Login to Control Center";
 
 }
 );
@@ -2004,7 +2875,10 @@ showLogin();
 NAVIGATION
 ===================================================== */
 
-function showSection(sectionId,button){
+function showSection(
+sectionId,
+button
+){
 
 document
 .querySelectorAll(".section")
@@ -2017,7 +2891,9 @@ const section =
 document.getElementById(sectionId);
 
 if(section){
+
 section.classList.add("active");
+
 }
 
 document
@@ -2028,36 +2904,65 @@ btn.classList.remove("active")
 );
 
 if(button){
+
 button.classList.add("active");
+
 }
 
 document
 .getElementById("sidebar")
 .classList.remove("open");
 
-if(sectionId === "dashboard")
+
+if(sectionId==="dashboard")
 loadDashboard();
 
-if(sectionId === "students")
+if(sectionId==="students")
 loadStudents();
 
-if(sectionId === "courses")
+if(sectionId==="courses")
 loadCourseAccess();
 
-if(sectionId === "exams")
+if(sectionId==="exams")
 loadExams();
 
-if(sectionId === "library")
+if(sectionId==="library")
 loadLibrary();
 
-if(sectionId === "payments")
+if(sectionId==="payments")
 loadPayments();
 
-if(sectionId === "messages")
+if(sectionId==="messages")
 loadMessages();
 
-if(sectionId === "notifications")
+if(sectionId==="notifications")
 loadNotifications();
+
+}
+
+
+function openSectionFromQuick(id){
+
+const button =
+Array.from(
+document.querySelectorAll(".nav-btn")
+)
+.find(
+b =>
+b
+.textContent
+.toLowerCase()
+.includes(
+id === "payments"
+? "orders"
+: id
+)
+);
+
+showSection(
+id,
+button
+);
 
 }
 
@@ -2081,7 +2986,9 @@ const modal =
 document.getElementById(id);
 
 if(modal){
+
 modal.classList.add("show");
+
 }
 
 }
@@ -2093,7 +3000,9 @@ const modal =
 document.getElementById(id);
 
 if(modal){
+
 modal.classList.remove("show");
+
 }
 
 }
@@ -2113,13 +3022,15 @@ await supabaseClient
 
 if(!students.error){
 
-document.getElementById("dashStudents")
+document
+.getElementById("dashStudents")
 .innerText =
 Array.isArray(students.data)
 ? students.data.length
-: 0;
+:0;
 
 }
+
 
 const exams =
 await supabaseClient
@@ -2127,13 +3038,15 @@ await supabaseClient
 
 if(!exams.error){
 
-document.getElementById("dashExams")
+document
+.getElementById("dashExams")
 .innerText =
 Array.isArray(exams.data)
 ? exams.data.length
-: 0;
+:0;
 
 }
+
 
 const courses =
 await supabaseClient
@@ -2142,11 +3055,13 @@ await supabaseClient
 
 if(!courses.error){
 
-document.getElementById("dashCourses")
+document
+.getElementById("dashCourses")
 .innerText =
 (courses.data || []).length;
 
 }
+
 
 const orders =
 await supabaseClient
@@ -2165,7 +3080,8 @@ String(o.status || "")
 )
 .length;
 
-document.getElementById("dashPayments")
+document
+.getElementById("dashPayments")
 .innerText =
 pending;
 
@@ -2173,9 +3089,34 @@ pending;
 
 }catch(error){
 
-console.error("Dashboard:",error);
+console.error(
+"Dashboard error:",
+error
+);
 
 }
+
+}
+
+
+/* =====================================================
+REFRESH EVERYTHING
+===================================================== */
+
+async function refreshEverything(){
+
+await Promise.allSettled([
+
+loadDashboard(),
+loadStudents(),
+loadCourseAccess(),
+loadExams(),
+loadLibrary(),
+loadPayments(),
+loadMessages(),
+loadNotifications()
+
+]);
 
 }
 
@@ -2187,19 +3128,23 @@ STUDENTS
 async function loadStudents(){
 
 const tbody =
-document.getElementById("studentsTable");
+document.getElementById(
+"studentsTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="6" class="loading">
-Loading...
+Loading students...
 </td>
 </tr>
 `;
 
 const search =
-document.getElementById("studentSearch")
-.value.trim();
+document
+.getElementById("studentSearch")
+.value
+.trim();
 
 let result;
 
@@ -2218,13 +3163,15 @@ p_search:search
 
 result =
 await supabaseClient
-.rpc("admin_get_students");
+.rpc(
+"admin_get_students"
+);
 
 }
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="6" class="empty">
 ${escapeHtml(result.error.message)}
@@ -2241,7 +3188,7 @@ result.data || [];
 
 if(!students.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="6" class="empty">
 No students found.
@@ -2261,20 +3208,28 @@ student => `
 
 <td>
 <strong>
-${escapeHtml(student.full_name || "-")}
+${escapeHtml(
+student.full_name || "-"
+)}
 </strong>
 </td>
 
 <td>
-${escapeHtml(student.email || "-")}
+${escapeHtml(
+student.email || "-"
+)}
 </td>
 
 <td>
-${escapeHtml(student.phone || "-")}
+${escapeHtml(
+student.phone || "-"
+)}
 </td>
 
 <td>
-${escapeHtml(student.student_id || "-")}
+${escapeHtml(
+student.student_id || "-"
+)}
 </td>
 
 <td>
@@ -2283,19 +3238,23 @@ ${badge(student.status)}
 
 <td>
 
+<div class="action-row">
+
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewStudent('${student.user_id}')"
 >
 View
 </button>
 
 <button
-class="action-btn"
+class="action"
 onclick="studentPerformance('${student.user_id}')"
 >
 Performance
 </button>
+
+</div>
 
 </td>
 
@@ -2309,15 +3268,19 @@ Performance
 
 async function viewStudent(userId){
 
-currentStudentId = userId;
+currentStudentId=userId;
 
 openModal("studentModal");
 
 const box =
-document.getElementById("studentDetails");
+document.getElementById(
+"studentDetails"
+);
 
-box.innerHTML =
-`<div class="loading">Loading student...</div>`;
+box.innerHTML=
+`<div class="loading">
+Loading student...
+</div>`;
 
 const result =
 await supabaseClient
@@ -2330,8 +3293,12 @@ p_user_id:userId
 
 if(result.error){
 
-box.innerHTML =
-`<p>${escapeHtml(result.error.message)}</p>`;
+box.innerHTML=
+`
+<div class="alert alert-danger">
+${escapeHtml(result.error.message)}
+</div>
+`;
 
 return;
 
@@ -2340,65 +3307,79 @@ return;
 const student =
 Array.isArray(result.data)
 ? result.data[0]
-: result.data;
+:result.data;
 
 if(!student){
 
-box.innerHTML =
+box.innerHTML=
 "<p>Student not found.</p>";
 
 return;
 
 }
 
-box.innerHTML = `
+box.innerHTML=`
 
-<p>
-<strong>Name:</strong>
+<div class="kv">
+<div class="key">Name</div>
+<div class="value">
 ${escapeHtml(student.full_name || "-")}
-</p>
+</div>
+</div>
 
-<p style="margin-top:8px">
-<strong>Email:</strong>
+<div class="kv">
+<div class="key">Email</div>
+<div class="value">
 ${escapeHtml(student.email || "-")}
-</p>
+</div>
+</div>
 
-<p style="margin-top:8px">
-<strong>Phone:</strong>
+<div class="kv">
+<div class="key">Phone</div>
+<div class="value">
 ${escapeHtml(student.phone || "-")}
-</p>
+</div>
+</div>
 
-<p style="margin-top:8px">
-<strong>Student ID:</strong>
+<div class="kv">
+<div class="key">Student ID</div>
+<div class="value">
 ${escapeHtml(student.student_id || "-")}
-</p>
+</div>
+</div>
 
-<p style="margin-top:8px">
-<strong>Institution:</strong>
+<div class="kv">
+<div class="key">Institution</div>
+<div class="value">
 ${escapeHtml(student.institution || "-")}
-</p>
+</div>
+</div>
 
-<p style="margin-top:8px">
-<strong>HSC Batch:</strong>
+<div class="kv">
+<div class="key">HSC Batch</div>
+<div class="value">
 ${escapeHtml(student.hsc_batch || "-")}
-</p>
+</div>
+</div>
 
-<p style="margin-top:8px">
-<strong>Status:</strong>
+<div class="kv">
+<div class="key">Status</div>
+<div class="value">
 ${badge(student.status)}
-</p>
+</div>
+</div>
 
-<div style="margin-top:20px">
+<div style="margin-top:18px">
 
 <button
-class="action-btn"
+class="action blue"
 onclick="loadStudentCourses('${userId}')"
 >
 Courses
 </button>
 
 <button
-class="action-btn"
+class="action"
 onclick="loadStudentResultsFor('${userId}')"
 >
 Results
@@ -2447,9 +3428,11 @@ COURSE ACCESS
 async function loadCourseAccess(){
 
 const tbody =
-document.getElementById("courseAccessTable");
+document.getElementById(
+"courseAccessTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="4" class="loading">
 Loading...
@@ -2459,11 +3442,13 @@ Loading...
 
 const result =
 await supabaseClient
-.rpc("admin_get_all_course_access");
+.rpc(
+"admin_get_all_course_access"
+);
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="4" class="empty">
 ${escapeHtml(result.error.message)}
@@ -2480,7 +3465,7 @@ result.data || [];
 
 if(!rows.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="4" class="empty">
 No course access records.
@@ -2566,15 +3551,25 @@ EXAMS
 
 function openExamModal(){
 
-document.getElementById("examTitle").value = "";
+document
+.getElementById("examTitle")
+.value="";
 
-document.getElementById("examDescription").value = "";
+document
+.getElementById("examDescription")
+.value="";
 
-document.getElementById("examMarks").value = 50;
+document
+.getElementById("examMarks")
+.value=50;
 
-document.getElementById("examPassMarks").value = 20;
+document
+.getElementById("examPassMarks")
+.value=20;
 
-document.getElementById("examDuration").value = 60;
+document
+.getElementById("examDuration")
+.value=60;
 
 openModal("examModal");
 
@@ -2584,12 +3579,14 @@ openModal("examModal");
 async function loadExams(){
 
 const tbody =
-document.getElementById("examsTable");
+document.getElementById(
+"examsTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="7" class="loading">
-Loading...
+Loading exams...
 </td>
 </tr>
 `;
@@ -2600,7 +3597,7 @@ await supabaseClient
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="7" class="empty">
 ${escapeHtml(result.error.message)}
@@ -2623,10 +3620,13 @@ renderExams();
 function renderExams(){
 
 const tbody =
-document.getElementById("examsTable");
+document.getElementById(
+"examsTable"
+);
 
 const search =
-document.getElementById("examSearch")
+document
+.getElementById("examSearch")
 .value
 .trim()
 .toLowerCase();
@@ -2642,7 +3642,7 @@ String(exam.title || "")
 
 if(!exams.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="7" class="empty">
 No exams found.
@@ -2666,13 +3666,21 @@ ${escapeHtml(exam.title || "-")}
 </strong>
 </td>
 
-<td>${exam.total_marks ?? "-"}</td>
+<td>
+${exam.total_marks ?? "-"}
+</td>
 
-<td>${exam.pass_marks ?? "-"}</td>
+<td>
+${exam.pass_marks ?? "-"}
+</td>
 
-<td>${exam.duration_minutes ?? "-"} min</td>
+<td>
+${exam.duration_minutes ?? "-"} min
+</td>
 
-<td>${badge(exam.status)}</td>
+<td>
+${badge(exam.status)}
+</td>
 
 <td>
 ${
@@ -2684,19 +3692,23 @@ exam.is_published
 
 <td>
 
+<div class="action-row">
+
 <button
-class="action-btn"
+class="action"
 onclick="manageExam('${exam.id}')"
 >
 Manage
 </button>
 
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewExamQuestions('${exam.id}')"
 >
 Questions
 </button>
+
+</div>
 
 </td>
 
@@ -2711,26 +3723,36 @@ Questions
 async function createExam(){
 
 const title =
-document.getElementById("examTitle")
-.value.trim();
+document
+.getElementById("examTitle")
+.value
+.trim();
 
 const description =
-document.getElementById("examDescription")
-.value.trim();
+document
+.getElementById("examDescription")
+.value
+.trim();
 
 const totalMarks =
 Number(
-document.getElementById("examMarks").value
+document
+.getElementById("examMarks")
+.value
 );
 
 const passMarks =
 Number(
-document.getElementById("examPassMarks").value
+document
+.getElementById("examPassMarks")
+.value
 );
 
 const duration =
 Number(
-document.getElementById("examDuration").value
+document
+.getElementById("examDuration")
+.value
 );
 
 if(!title){
@@ -2746,10 +3768,14 @@ await supabaseClient
 "admin_create_exam",
 {
 p_title:title,
-p_description:description || null,
-p_total_marks:totalMarks,
-p_pass_marks:passMarks,
-p_duration_minutes:duration
+p_description:
+description || null,
+p_total_marks:
+totalMarks,
+p_pass_marks:
+passMarks,
+p_duration_minutes:
+duration
 }
 );
 
@@ -2778,14 +3804,14 @@ e => e.id === examId
 
 if(!exam) return;
 
-const publish =
+const action =
 confirm(
 exam.is_published
 ? "Unpublish this exam?"
 : "Publish this exam?"
 );
 
-if(!publish) return;
+if(!action) return;
 
 const result =
 await supabaseClient
@@ -2837,7 +3863,7 @@ result.data || [];
 
 if(!questions.length){
 
-alert("No questions found for this exam.");
+alert("No questions found.");
 return;
 
 }
@@ -2846,7 +3872,7 @@ let text =
 `Questions: ${questions.length}\n\n`;
 
 questions.forEach(
-(q,index) => {
+(q,index)=>{
 
 text +=
 `${index+1}. ${q.question_text || ""}\n`;
@@ -2880,13 +3906,21 @@ LIBRARY
 
 function openLibraryModal(){
 
-document.getElementById("libraryTitle").value = "";
+document
+.getElementById("libraryTitle")
+.value="";
 
-document.getElementById("libraryDescription").value = "";
+document
+.getElementById("libraryDescription")
+.value="";
 
-document.getElementById("libraryCourseId").value = "";
+document
+.getElementById("libraryCourseId")
+.value="";
 
-document.getElementById("libraryFilePath").value = "";
+document
+.getElementById("libraryFilePath")
+.value="";
 
 openModal("libraryModal");
 
@@ -2896,23 +3930,27 @@ openModal("libraryModal");
 async function loadLibrary(){
 
 const tbody =
-document.getElementById("libraryTable");
+document.getElementById(
+"libraryTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="loading">
-Loading...
+Loading library...
 </td>
 </tr>
 `;
 
 const result =
 await supabaseClient
-.rpc("admin_get_library_items");
+.rpc(
+"admin_get_library_items"
+);
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="empty">
 ${escapeHtml(result.error.message)}
@@ -2935,10 +3973,13 @@ renderLibrary();
 function renderLibrary(){
 
 const tbody =
-document.getElementById("libraryTable");
+document.getElementById(
+"libraryTable"
+);
 
 const search =
-document.getElementById("librarySearch")
+document
+.getElementById("librarySearch")
 .value
 .trim()
 .toLowerCase();
@@ -2954,7 +3995,7 @@ String(item.title || "")
 
 if(!items.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="empty">
 No library items found.
@@ -2968,7 +4009,7 @@ return;
 
 tbody.innerHTML =
 items.map(
-item => `
+item=>`
 
 <tr>
 
@@ -2997,7 +4038,7 @@ item.is_published
 <td>
 
 <button
-class="action-btn danger"
+class="action red"
 onclick="deleteLibraryItem('${item.id}')"
 >
 Delete
@@ -3016,23 +4057,33 @@ Delete
 async function createLibraryItem(){
 
 const title =
-document.getElementById("libraryTitle")
-.value.trim();
+document
+.getElementById("libraryTitle")
+.value
+.trim();
 
 const description =
-document.getElementById("libraryDescription")
-.value.trim();
+document
+.getElementById("libraryDescription")
+.value
+.trim();
 
 const itemType =
-document.getElementById("libraryType").value;
+document
+.getElementById("libraryType")
+.value;
 
 const courseId =
-document.getElementById("libraryCourseId")
-.value.trim();
+document
+.getElementById("libraryCourseId")
+.value
+.trim();
 
 const filePath =
-document.getElementById("libraryFilePath")
-.value.trim();
+document
+.getElementById("libraryFilePath")
+.value
+.trim();
 
 if(!title){
 
@@ -3046,11 +4097,14 @@ await supabaseClient
 .rpc(
 "admin_create_library_item",
 {
-p_course_id:courseId || null,
+p_course_id:
+courseId || null,
 p_title:title,
-p_description:description || null,
+p_description:
+description || null,
 p_item_type:itemType,
-p_file_url:filePath || null
+p_file_url:
+filePath || null
 }
 );
 
@@ -3063,7 +4117,7 @@ return;
 
 closeModal("libraryModal");
 
-alert("Library item created successfully.");
+alert("Library item created.");
 
 loadLibrary();
 
@@ -3108,9 +4162,11 @@ PAYMENTS
 async function loadPayments(){
 
 const tbody =
-document.getElementById("paymentsTable");
+document.getElementById(
+"paymentsTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="7" class="loading">
 Loading orders...
@@ -3124,9 +4180,12 @@ await supabaseClient
 
 if(result.error){
 
-console.error("Payments:",result.error);
+console.error(
+"admin_get_orders:",
+result.error
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="7" class="empty">
 ${escapeHtml(result.error.message)}
@@ -3138,12 +4197,12 @@ return;
 
 }
 
-const orders =
+ordersCache =
 result.data || [];
 
-if(!orders.length){
+if(!ordersCache.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="7" class="empty">
 No orders found.
@@ -3156,15 +4215,21 @@ return;
 }
 
 tbody.innerHTML =
-orders.map(
-order => {
+ordersCache.map(
+renderOrderRow
+).join("");
+
+}
+
+
+function renderOrderRow(order){
 
 const status =
 String(order.status || "")
 .trim()
 .toLowerCase();
 
-const transactionId =
+const trx =
 order.transaction_id ||
 order.trx_id ||
 order.transactionId ||
@@ -3183,84 +4248,84 @@ order.total_amount ??
 order.amount ??
 0;
 
-let buttons = `
+let actions=`
 
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewOrder('${order.id}')"
 >
-Items
+Details
 </button>
 
 `;
 
-if(status === "pending"){
+if(status==="pending"){
 
-buttons = `
+actions=`
 
 <button
-class="action-btn success"
+class="action green"
 onclick="acceptOrder('${order.id}')"
 >
 Accept
 </button>
 
 <button
-class="action-btn danger"
+class="action red"
 onclick="rejectOrder('${order.id}')"
 >
 Reject
 </button>
 
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewOrder('${order.id}')"
 >
-Items
+Details
 </button>
 
 `;
 
 }
 
-else if(status === "paid"){
+if(status==="paid"){
 
-buttons = `
+actions=`
 
 <button
-class="action-btn success"
+class="action green"
 disabled
 >
 Accepted ✓
 </button>
 
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewOrder('${order.id}')"
 >
-Items
+Details
 </button>
 
 `;
 
 }
 
-else if(status === "rejected"){
+if(status==="rejected"){
 
-buttons = `
+actions=`
 
 <button
-class="action-btn danger"
+class="action red"
 disabled
 >
 Rejected
 </button>
 
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewOrder('${order.id}')"
 >
-Items
+Details
 </button>
 
 `;
@@ -3272,7 +4337,9 @@ return `
 <tr>
 
 <td>
+<strong>
 #${escapeHtml(order.id)}
+</strong>
 </td>
 
 <td>
@@ -3281,12 +4348,14 @@ ${escapeHtml(student)}
 
 <td>
 <strong>
-${escapeHtml(transactionId)}
+${escapeHtml(trx)}
 </strong>
 </td>
 
 <td>
-৳${escapeHtml(amount)}
+<strong>
+${money(amount)}
+</strong>
 </td>
 
 <td>
@@ -3298,11 +4367,9 @@ ${formatDate(order.created_at)}
 </td>
 
 <td>
-
-<div class="payment-actions">
-${buttons}
+<div class="action-row">
+${actions}
 </div>
-
 </td>
 
 </tr>
@@ -3310,13 +4377,10 @@ ${buttons}
 `;
 
 }
-).join("");
-
-}
 
 
 /* =====================================================
-VIEW ORDER
+ORDER DETAILS
 ===================================================== */
 
 async function viewOrder(orderId){
@@ -3324,110 +4388,815 @@ async function viewOrder(orderId){
 openModal("orderModal");
 
 const box =
-document.getElementById("orderDetails");
+document.getElementById(
+"orderDetails"
+);
 
-box.innerHTML = `
+box.innerHTML=`
 <div class="loading">
-Loading order...
+Loading complete order...
 </div>
 `;
 
-const result =
+
+/*
+First use the existing admin order-items RPC.
+*/
+
+const itemsResult =
 await supabaseClient
 .rpc(
 "admin_get_order_items",
 {
-p_order_id:Number(orderId)
+p_order_id:
+Number(orderId)
 }
 );
 
-if(result.error){
 
-box.innerHTML = `
-<p>
-${escapeHtml(result.error.message)}
-</p>
+/*
+Find order from cached admin orders.
+*/
+
+let order =
+ordersCache.find(
+o =>
+String(o.id) ===
+String(orderId)
+);
+
+
+/*
+If not found, try direct order lookup.
+This does NOT change the database.
+*/
+
+if(!order){
+
+const direct =
+await supabaseClient
+.from("orders")
+.select("*")
+.eq("id",Number(orderId))
+.maybeSingle();
+
+if(!direct.error){
+
+order =
+direct.data;
+
+}
+
+}
+
+
+/*
+If items RPC fails, still show
+available order information.
+*/
+
+if(itemsResult.error){
+
+console.error(
+"Order items:",
+itemsResult.error
+);
+
+if(order){
+
+renderOrderDetails(
+box,
+order,
+[],
+itemsResult.error.message
+);
+
+}else{
+
+box.innerHTML=`
+
+<div class="alert alert-danger">
+
+<strong>
+Order details unavailable.
+</strong>
+
+<br><br>
+
+${escapeHtml(
+itemsResult.error.message
+)}
+
+</div>
+
 `;
+
+}
 
 return;
 
 }
 
 const items =
-result.data || [];
+itemsResult.data || [];
 
-if(!items.length){
-
-box.innerHTML = `
-<p>
-No items found for this order.
-</p>
-`;
-
-return;
+renderOrderDetails(
+box,
+order,
+items,
+null
+);
 
 }
 
-box.innerHTML = `
 
-<div style="margin-bottom:15px">
+/* =====================================================
+RENDER ORDER DETAILS
+===================================================== */
+
+function renderOrderDetails(
+box,
+order,
+items,
+itemError
+){
+
+const selectedData =
+safeJson(
+order?.selected_data
+);
+
+const payment =
+selectedData?.payment || {};
+
+const trx =
+order?.transaction_id ||
+payment?.transaction_id ||
+order?.trx_id ||
+"-";
+
+const method =
+order?.payment_method ||
+payment?.method ||
+"-";
+
+const coupon =
+order?.coupon_code ||
+selectedData?.coupon ||
+"-";
+
+const amount =
+order?.total_amount ??
+selectedData?.total ??
+selectedData?.finalAmount ??
+0;
+
+const selectedItems =
+selectedData?.selectedItems ||
+selectedData?.selected ||
+[];
+
+const selectedMain =
+selectedData?.selectedMainCategories ||
+[];
+
+const selectedAbroad =
+selectedData?.selectedAbroad ||
+[];
+
+let mismatch=false;
+
+if(
+selectedData &&
+Number(
+selectedData.finalAmount ??
+selectedData.total ??
+selectedData.amount ??
+amount
+) !== Number(amount)
+){
+
+mismatch=true;
+
+}
+
+if(
+selectedItems.length &&
+items.length &&
+selectedItems.length !== items.length
+){
+
+mismatch=true;
+
+}
+
+
+/*
+Build selected course/category UI.
+*/
+
+let selectedHTML="";
+
+if(
+Array.isArray(selectedItems) &&
+selectedItems.length
+){
+
+selectedHTML =
+selectedItems.map(
+(item,index)=>{
+
+if(typeof item === "string"){
+
+return `
+<div class="selected-item">
+<strong>
+${index+1}.
+</strong>
+${escapeHtml(item)}
+</div>
+`;
+
+}
+
+const name =
+item.name ||
+item.title ||
+item.courseName ||
+item.course_name ||
+item.label ||
+item.category ||
+"-";
+
+const unit =
+item.unit ||
+item.units ||
+item.unitName ||
+"";
+
+const university =
+item.university ||
+item.universityName ||
+"";
+
+return `
+<div class="selected-item">
 
 <strong>
-Order #${escapeHtml(orderId)}
+${index+1}. ${escapeHtml(name)}
 </strong>
+
+${
+unit
+? `
+<div class="muted">
+Unit: ${escapeHtml(unit)}
+</div>
+`
+:""
+}
+
+${
+university
+? `
+<div class="muted">
+University:
+${escapeHtml(university)}
+</div>
+`
+:""
+}
 
 </div>
+`;
 
-${items.map(
-(item,index) => `
+}
+).join("");
 
-<div class="payment-item">
+}
+
+else if(
+selectedMain.length ||
+selectedAbroad.length
+){
+
+selectedHTML =
+[
+...selectedMain,
+...selectedAbroad
+]
+.map(
+(item,index)=>
+`
+<div class="selected-item">
+<strong>${index+1}.</strong>
+${escapeHtml(
+typeof item === "string"
+? item
+:(
+item.name ||
+item.title ||
+item.label ||
+item.category ||
+"-"
+)
+)}
+</div>
+`
+)
+.join("");
+
+}
+
+else if(items.length){
+
+selectedHTML =
+items.map(
+(item,index)=>
+`
+<div class="selected-item">
 
 <strong>
-Item ${index + 1}
-</strong>
-
-<div>
-Course:
-<b>
+${index+1}.
 ${escapeHtml(
 item.course_name ||
 item.course_id ||
 "-"
 )}
-</b>
-</div>
+</strong>
 
-<div style="margin-top:5px">
+<div class="muted">
 Course ID:
 ${escapeHtml(item.course_id || "-")}
 </div>
 
-<div style="margin-top:5px">
-Price:
-৳${escapeHtml(item.price ?? 0)}
+<div class="muted">
+Item price:
+${money(item.price)}
 </div>
 
-<div style="margin-top:5px">
-Payment Status:
+</div>
+`
+).join("");
+
+}
+
+else{
+
+selectedHTML=`
+<div class="selected-item">
+No detailed selected package data available.
+</div>
+`;
+
+}
+
+
+let itemHTML="";
+
+if(items.length){
+
+itemHTML =
+items.map(
+(item,index)=>
+`
+<div class="selected-item">
+
+<strong>
+Order Item ${index+1}
+</strong>
+
+<div class="kv">
+
+<div class="key">
+Course
+</div>
+
+<div class="value">
+${escapeHtml(
+item.course_name ||
+item.course_id ||
+"-"
+)}
+</div>
+
+<div class="key">
+Course ID
+</div>
+
+<div class="value">
+${escapeHtml(
+item.course_id ||
+"-"
+)}
+</div>
+
+<div class="key">
+Price
+</div>
+
+<div class="value">
+${money(item.price)}
+</div>
+
+<div class="key">
+Payment Status
+</div>
+
+<div class="value">
 ${badge(item.payment_status)}
 </div>
 
 ${
 item.paid_at
-? `
-<div style="margin-top:5px">
-Paid:
+?`
+
+<div class="key">
+Paid At
+</div>
+
+<div class="value">
 ${formatDate(item.paid_at)}
 </div>
+
 `
-: ""
+:""
 }
 
 </div>
 
+</div>
 `
-).join("")}
+).join("");
+
+}
+
+
+/*
+Mismatch warning.
+*/
+
+let warningHTML="";
+
+if(mismatch){
+
+warningHTML=`
+
+<div class="order-alert danger">
+
+<strong>
+⚠ PAYMENT / SELECTION MISMATCH
+</strong>
+
+<br><br>
+
+The student's selected package information and
+stored payment/order information do not completely match.
+
+Please manually verify the payment before accepting.
+
+</div>
+
+`;
+
+}
+
+if(itemError){
+
+warningHTML +=`
+
+<div class="order-alert">
+
+<strong>
+Order item permission/error:
+</strong>
+
+<br><br>
+
+${escapeHtml(itemError)}
+
+</div>
+
+`;
+
+}
+
+
+box.innerHTML=`
+
+${warningHTML}
+
+<div class="order-summary">
+
+<div class="order-stat">
+
+<span>Order ID</span>
+
+<strong>
+#${escapeHtml(order?.id || "-")}
+</strong>
+
+</div>
+
+<div class="order-stat">
+
+<span>Status</span>
+
+<strong>
+${badge(order?.status)}
+</strong>
+
+</div>
+
+<div class="order-stat">
+
+<span>Amount</span>
+
+<strong>
+${money(amount)}
+</strong>
+
+</div>
+
+<div class="order-stat">
+
+<span>TRX ID</span>
+
+<strong>
+${escapeHtml(trx)}
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="selected-box">
+
+<div class="selected-title">
+💳 PAYMENT INFORMATION
+</div>
+
+<div class="kv">
+
+<div class="key">
+Payment Method
+</div>
+
+<div class="value">
+${escapeHtml(method)}
+</div>
+
+<div class="key">
+Transaction ID
+</div>
+
+<div class="value">
+<strong>
+${escapeHtml(trx)}
+</strong>
+</div>
+
+<div class="key">
+Paid / Order Amount
+</div>
+
+<div class="value">
+<strong>
+${money(amount)}
+</strong>
+</div>
+
+<div class="key">
+Coupon
+</div>
+
+<div class="value">
+${escapeHtml(coupon)}
+</div>
+
+<div class="key">
+Order Date
+</div>
+
+<div class="value">
+${formatDate(order?.created_at)}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="selected-box">
+
+<div class="selected-title">
+👨‍🎓 STUDENT INFORMATION
+</div>
+
+<div class="kv">
+
+<div class="key">
+Student
+</div>
+
+<div class="value">
+${escapeHtml(
+order?.student_name ||
+order?.full_name ||
+order?.email ||
+order?.student_email ||
+order?.user_id ||
+"-"
+)}
+</div>
+
+<div class="key">
+Email
+</div>
+
+<div class="value">
+${escapeHtml(
+order?.email ||
+order?.student_email ||
+order?.user_email ||
+"-"
+)}
+</div>
+
+<div class="key">
+User ID
+</div>
+
+<div class="value">
+${escapeHtml(
+order?.user_id ||
+"-"
+)}
+</div>
+
+<div class="key">
+HSC Roll
+</div>
+
+<div class="value">
+${escapeHtml(
+payment?.hsc_roll ||
+selectedData?.hsc_roll ||
+"-"
+)}
+</div>
+
+<div class="key">
+HSC Registration
+</div>
+
+<div class="value">
+${escapeHtml(
+payment?.hsc_registration ||
+selectedData?.hsc_registration ||
+"-"
+)}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="selected-box">
+
+<div class="selected-title">
+🎯 SELECTED COURSES / PACKAGE
+</div>
+
+${selectedHTML}
+
+</div>
+
+
+${
+selectedMain.length
+?`
+
+<div class="selected-box">
+
+<div class="selected-title">
+MAIN CATEGORIES
+</div>
+
+<div class="selected-item">
+${selectedMain
+.map(
+x =>
+escapeHtml(
+typeof x==="string"
+?x
+:(x.name || x.title || x.label || "-")
+)
+)
+.join("<br>")}
+</div>
+
+</div>
+
+`
+:""
+}
+
+
+${
+selectedAbroad.length
+?`
+
+<div class="selected-box">
+
+<div class="selected-title">
+ABROAD
+</div>
+
+<div class="selected-item">
+${selectedAbroad
+.map(
+x =>
+escapeHtml(
+typeof x==="string"
+?x
+:(x.name || x.title || x.label || "-")
+)
+)
+.join("<br>")}
+</div>
+
+</div>
+
+`
+:""
+}
+
+
+${
+items.length
+?`
+
+<div class="selected-box">
+
+<div class="selected-title">
+DATABASE ORDER ITEMS
+</div>
+
+${itemHTML}
+
+</div>
+
+`
+:""
+}
+
+
+<div class="selected-box">
+
+<div class="selected-title">
+RAW ORDER SUMMARY
+</div>
+
+<div class="kv">
+
+<div class="key">
+Subtotal
+</div>
+
+<div class="value">
+${money(
+selectedData?.subtotal ?? amount
+)}
+</div>
+
+<div class="key">
+Discount
+</div>
+
+<div class="value">
+${money(
+selectedData?.discount ?? 0
+)}
+</div>
+
+<div class="key">
+Final Amount
+</div>
+
+<div class="value">
+${money(
+selectedData?.finalAmount ??
+selectedData?.total ??
+amount
+)}
+</div>
+
+</div>
+
+</div>
 
 `;
 
@@ -3440,26 +5209,30 @@ ACCEPT ORDER
 
 async function acceptOrder(orderId){
 
-if(
-!confirm(
-"Payment accepted korle order-er purchased course access active hobe. Continue?"
-)
-){
-return;
-}
+const confirmation =
+confirm(
+"Payment accept korle purchased course access active hobe. Continue?"
+);
+
+if(!confirmation) return;
 
 const itemsResult =
 await supabaseClient
 .rpc(
 "admin_get_order_items",
 {
-p_order_id:Number(orderId)
+p_order_id:
+Number(orderId)
 }
 );
 
 if(itemsResult.error){
 
-alert(itemsResult.error.message);
+alert(
+"Could not load order items:\n\n" +
+itemsResult.error.message
+);
+
 return;
 
 }
@@ -3469,27 +5242,17 @@ itemsResult.data || [];
 
 if(!items.length){
 
-alert("No order items found.");
+alert(
+"No order items found."
+);
 
 return;
 
 }
 
-/*
-IMPORTANT:
-
-Each order item is updated to PAID.
-
-Existing backend function:
-admin_update_payment_status()
-
-and existing payment trigger:
-grant_course_access_on_payment()
-
-will process course_access.
-*/
-
-for(const item of items){
+for(
+const item of items
+){
 
 const result =
 await supabaseClient
@@ -3503,14 +5266,14 @@ p_status:
 "paid",
 
 p_admin_note:
-"Payment accepted by admin. Course access granted through payment flow."
+"Payment accepted by admin. Course access processed."
 }
 );
 
 if(result.error){
 
 alert(
-"Payment update failed:\n" +
+"Payment update failed:\n\n" +
 result.error.message
 );
 
@@ -3521,7 +5284,7 @@ return;
 }
 
 alert(
-"✅ Payment accepted.\n\nCourse access has been processed."
+"✅ Payment accepted successfully.\n\nCourse access processing completed."
 );
 
 closeModal("orderModal");
@@ -3546,7 +5309,9 @@ if(
 "Reject this payment?"
 )
 ){
+
 return;
+
 }
 
 const itemsResult =
@@ -3554,13 +5319,17 @@ await supabaseClient
 .rpc(
 "admin_get_order_items",
 {
-p_order_id:Number(orderId)
+p_order_id:
+Number(orderId)
 }
 );
 
 if(itemsResult.error){
 
-alert(itemsResult.error.message);
+alert(
+itemsResult.error.message
+);
+
 return;
 
 }
@@ -3570,13 +5339,17 @@ itemsResult.data || [];
 
 if(!items.length){
 
-alert("No order items found.");
+alert(
+"No order items found."
+);
 
 return;
 
 }
 
-for(const item of items){
+for(
+const item of items
+){
 
 const result =
 await supabaseClient
@@ -3597,7 +5370,7 @@ p_admin_note:
 if(result.error){
 
 alert(
-"Payment update failed:\n" +
+"Payment update failed:\n\n" +
 result.error.message
 );
 
@@ -3627,36 +5400,35 @@ RESULTS
 async function loadStudentResults(){
 
 const userId =
-document.getElementById("resultStudentId")
-.value.trim();
+document
+.getElementById("resultStudentId")
+.value
+.trim();
 
 if(!userId){
 
-alert("Student UUID required.");
+alert(
+"Student UUID required."
+);
+
 return;
 
 }
 
-await loadStudentResultsFor(userId);
+await loadStudentResultsFor(
+userId
+);
 
 }
 
 
-async function loadStudentResultsFor(userId){
+async function loadStudentResultsFor(
+userId
+){
 
-currentStudentId = userId;
+currentStudentId=userId;
 
-const tbody =
-document.getElementById("resultsTable");
-
-/*
-FIX:
-আগে [7] ছিল এবং সেটা ভুল nav button select
-করতে পারত।
-এখন সরাসরি Results button খুঁজে নেওয়া হচ্ছে।
-*/
-
-const resultButton =
+const button =
 Array.from(
 document.querySelectorAll(".nav-btn")
 )
@@ -3669,10 +5441,15 @@ btn.textContent
 
 showSection(
 "results",
-resultButton
+button
 );
 
-tbody.innerHTML = `
+const tbody =
+document.getElementById(
+"resultsTable"
+);
+
+tbody.innerHTML=`
 <tr>
 <td colspan="8" class="loading">
 Loading results...
@@ -3691,7 +5468,7 @@ p_user_id:userId
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="8" class="empty">
 ${escapeHtml(result.error.message)}
@@ -3708,7 +5485,7 @@ result.data || [];
 
 if(!results.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="8" class="empty">
 No results found.
@@ -3727,7 +5504,9 @@ result => `
 <tr>
 
 <td>
-${escapeHtml(result.exam_name || "-")}
+${escapeHtml(
+result.exam_name || "-"
+)}
 </td>
 
 <td>
@@ -3760,8 +5539,10 @@ result.is_published
 
 <td>
 
+<div class="action-row">
+
 <button
-class="action-btn"
+class="action"
 onclick="openResultEdit(
 '${result.id}',
 ${result.correct_answers ?? 0},
@@ -3776,10 +5557,10 @@ Edit
 </button>
 
 <button
-class="action-btn success"
+class="action green"
 onclick="toggleResultPublish(
 '${result.id}',
-${result.is_published ? "true" : "false"}
+${result.is_published ? "true":"false"}
 )"
 >
 ${
@@ -3790,11 +5571,13 @@ result.is_published
 </button>
 
 <button
-class="action-btn danger"
+class="action red"
 onclick="deleteResult('${result.id}')"
 >
 Delete
 </button>
+
+</div>
 
 </td>
 
@@ -3816,29 +5599,38 @@ total,
 merit
 ){
 
-document.getElementById("editResultId")
-.value = id;
+document
+.getElementById("editResultId")
+.value=id;
 
-document.getElementById("editCorrect")
-.value = correct;
+document
+.getElementById("editCorrect")
+.value=correct;
 
-document.getElementById("editWrong")
-.value = wrong;
+document
+.getElementById("editWrong")
+.value=wrong;
 
-document.getElementById("editSkipped")
-.value = skipped;
+document
+.getElementById("editSkipped")
+.value=skipped;
 
-document.getElementById("editNegative")
-.value = negative;
+document
+.getElementById("editNegative")
+.value=negative;
 
-document.getElementById("editTotal")
-.value = total;
+document
+.getElementById("editTotal")
+.value=total;
 
-document.getElementById("editMerit")
-.value =
+document
+.getElementById("editMerit")
+.value=
 merit || "";
 
-openModal("resultModal");
+openModal(
+"resultModal"
+);
 
 }
 
@@ -3846,41 +5638,9 @@ openModal("resultModal");
 async function updateResult(){
 
 const id =
-document.getElementById("editResultId")
+document
+.getElementById("editResultId")
 .value;
-
-const correct =
-Number(
-document.getElementById("editCorrect").value
-);
-
-const wrong =
-Number(
-document.getElementById("editWrong").value
-);
-
-const skipped =
-Number(
-document.getElementById("editSkipped").value
-);
-
-const negative =
-Number(
-document.getElementById("editNegative").value
-);
-
-const total =
-Number(
-document.getElementById("editTotal").value
-);
-
-const meritRaw =
-document.getElementById("editMerit").value;
-
-const merit =
-meritRaw === ""
-? null
-: Number(meritRaw);
 
 const result =
 await supabaseClient
@@ -3888,29 +5648,77 @@ await supabaseClient
 "admin_update_exam_result",
 {
 p_result_id:id,
-p_correct_answers:correct,
-p_wrong_answers:wrong,
-p_skipped_answers:skipped,
-p_negative_mark:negative,
-p_total_mark:total,
-p_merit_position:merit
+
+p_correct_answers:
+Number(
+document
+.getElementById("editCorrect")
+.value
+),
+
+p_wrong_answers:
+Number(
+document
+.getElementById("editWrong")
+.value
+),
+
+p_skipped_answers:
+Number(
+document
+.getElementById("editSkipped")
+.value
+),
+
+p_negative_mark:
+Number(
+document
+.getElementById("editNegative")
+.value
+),
+
+p_total_mark:
+Number(
+document
+.getElementById("editTotal")
+.value
+),
+
+p_merit_position:
+document
+.getElementById("editMerit")
+.value === ""
+? null
+: Number(
+document
+.getElementById("editMerit")
+.value
+)
+
 }
 );
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-closeModal("resultModal");
+closeModal(
+"resultModal"
+);
 
-alert("Result updated successfully.");
+alert(
+"Result updated successfully."
+);
 
 if(currentStudentId){
 
-await loadStudentResultsFor(
+loadStudentResultsFor(
 currentStudentId
 );
 
@@ -3929,21 +5737,27 @@ await supabaseClient
 .rpc(
 "admin_update_result_publish_status",
 {
-p_result_id:resultId,
-p_is_published:!current
+p_result_id:
+resultId,
+
+p_is_published:
+!current
 }
 );
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
 if(currentStudentId){
 
-await loadStudentResultsFor(
+loadStudentResultsFor(
 currentStudentId
 );
 
@@ -3952,14 +5766,18 @@ currentStudentId
 }
 
 
-async function deleteResult(resultId){
+async function deleteResult(
+resultId
+){
 
 if(
 !confirm(
 "Delete this result permanently?"
 )
 ){
+
 return;
+
 }
 
 const result =
@@ -3967,22 +5785,28 @@ await supabaseClient
 .rpc(
 "admin_delete_exam_result",
 {
-p_result_id:resultId
+p_result_id:
+resultId
 }
 );
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-alert("Result deleted.");
+alert(
+"Result deleted."
+);
 
 if(currentStudentId){
 
-await loadStudentResultsFor(
+loadStudentResultsFor(
 currentStudentId
 );
 
@@ -3998,23 +5822,27 @@ MESSAGES
 async function loadMessages(){
 
 const tbody =
-document.getElementById("messagesTable");
+document.getElementById(
+"messagesTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="loading">
-Loading...
+Loading messages...
 </td>
 </tr>
 `;
 
 const result =
 await supabaseClient
-.rpc("admin_get_messages");
+.rpc(
+"admin_get_messages"
+);
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="empty">
 ${escapeHtml(result.error.message)}
@@ -4031,7 +5859,7 @@ result.data || [];
 
 if(!messages.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="empty">
 No messages.
@@ -4045,24 +5873,32 @@ return;
 
 tbody.innerHTML =
 messages.map(
-msg => `
+msg=>`
 
 <tr>
 
 <td>
 
-${escapeHtml(msg.sender_name || "-")}
+<strong>
+${escapeHtml(
+msg.sender_name || "-"
+)}
+</strong>
 
 <br>
 
-<small>
-${escapeHtml(msg.sender_email || "")}
-</small>
+<span class="muted">
+${escapeHtml(
+msg.sender_email || ""
+)}
+</span>
 
 </td>
 
 <td>
-${escapeHtml(msg.subject || "-")}
+${escapeHtml(
+msg.subject || "-"
+)}
 </td>
 
 <td>
@@ -4076,7 +5912,7 @@ ${formatDate(msg.created_at)}
 <td>
 
 <button
-class="action-btn info"
+class="action blue"
 onclick="viewMessage('${msg.id}')"
 >
 View
@@ -4092,31 +5928,45 @@ View
 }
 
 
-async function viewMessage(messageId){
+async function viewMessage(
+messageId
+){
 
-currentMessageId = messageId;
+currentMessageId=
+messageId;
 
-openModal("messageModal");
+openModal(
+"messageModal"
+);
 
 const box =
-document.getElementById("messageDetails");
+document.getElementById(
+"messageDetails"
+);
 
-box.innerHTML =
-`<div class="loading">Loading...</div>`;
+box.innerHTML=
+`<div class="loading">
+Loading...
+</div>`;
 
 const result =
 await supabaseClient
 .rpc(
 "admin_get_message",
 {
-p_message_id:messageId
+p_message_id:
+messageId
 }
 );
 
 if(result.error){
 
-box.innerHTML =
-`<p>${escapeHtml(result.error.message)}</p>`;
+box.innerHTML=
+`
+<div class="alert alert-danger">
+${escapeHtml(result.error.message)}
+</div>
+`;
 
 return;
 
@@ -4129,85 +5979,133 @@ Array.isArray(result.data)
 
 if(!msg){
 
-box.innerHTML =
+box.innerHTML=
 "<p>Message not found.</p>";
 
 return;
 
 }
 
-box.innerHTML = `
+box.innerHTML=`
 
-<p>
-<strong>Student:</strong>
-${escapeHtml(msg.sender_name || "-")}
-</p>
+<div class="kv">
 
-<p style="margin-top:8px">
-<strong>Email:</strong>
-${escapeHtml(msg.sender_email || "-")}
-</p>
+<div class="key">
+Student
+</div>
 
-<p style="margin-top:8px">
-<strong>Subject:</strong>
-${escapeHtml(msg.subject || "-")}
-</p>
+<div class="value">
+${escapeHtml(
+msg.sender_name || "-"
+)}
+</div>
 
-<p style="margin-top:15px">
-<strong>Message:</strong>
-</p>
+<div class="key">
+Email
+</div>
+
+<div class="value">
+${escapeHtml(
+msg.sender_email || "-"
+)}
+</div>
+
+<div class="key">
+Subject
+</div>
+
+<div class="value">
+${escapeHtml(
+msg.subject || "-"
+)}
+</div>
+
+</div>
+
+<div style="margin-top:18px">
+
+<strong>
+Message
+</strong>
 
 <div
 style="
-background:#f7f7f7;
+margin-top:8px;
 padding:14px;
-border-radius:10px;
-margin-top:7px;
+border-radius:12px;
+background:#171a21;
+color:#dce0e7;
+white-space:pre-wrap;
 "
 >
-${escapeHtml(msg.message || "")}
+${escapeHtml(
+msg.message || ""
+)}
+</div>
+
 </div>
 
 ${
 msg.admin_reply
-? `
-<p style="margin-top:15px">
-<strong>Previous Reply:</strong>
-</p>
+?`
+
+<div style="margin-top:18px">
+
+<strong>
+Previous Reply
+</strong>
 
 <div
 style="
-background:#eef7ff;
+margin-top:8px;
 padding:14px;
-border-radius:10px;
-margin-top:7px;
+border-radius:12px;
+background:#102018;
+color:#a9f0ca;
+white-space:pre-wrap;
 "
 >
-${escapeHtml(msg.admin_reply)}
+${escapeHtml(
+msg.admin_reply
+)}
 </div>
+
+</div>
+
 `
-: ""
+:""
 }
 
 `;
 
-document.getElementById("messageReply")
-.value = "";
+document
+.getElementById(
+"messageReply"
+)
+.value="";
 
 }
 
 
 async function replyCurrentMessage(){
 
-if(!currentMessageId) return;
+if(!currentMessageId)
+return;
 
 const reply =
-document.getElementById("messageReply")
-.value.trim();
+document
+.getElementById(
+"messageReply"
+)
+.value
+.trim();
 
 if(!reply){
 
-alert("Reply required.");
+alert(
+"Reply required."
+);
+
 return;
 
 }
@@ -4217,21 +6115,31 @@ await supabaseClient
 .rpc(
 "admin_reply_message",
 {
-p_message_id:currentMessageId,
-p_admin_reply:reply
+p_message_id:
+currentMessageId,
+
+p_admin_reply:
+reply
 }
 );
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-alert("Reply sent successfully.");
+alert(
+"Reply sent successfully."
+);
 
-closeModal("messageModal");
+closeModal(
+"messageModal"
+);
 
 loadMessages();
 
@@ -4244,13 +6152,21 @@ NOTIFICATIONS
 
 function openNotificationModal(){
 
-document.getElementById("notificationTitle")
-.value = "";
+document
+.getElementById(
+"notificationTitle"
+)
+.value="";
 
-document.getElementById("notificationMessage")
-.value = "";
+document
+.getElementById(
+"notificationMessage"
+)
+.value="";
 
-openModal("notificationModal");
+openModal(
+"notificationModal"
+);
 
 }
 
@@ -4258,23 +6174,27 @@ openModal("notificationModal");
 async function loadNotifications(){
 
 const tbody =
-document.getElementById("notificationsTable");
+document.getElementById(
+"notificationsTable"
+);
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="loading">
-Loading...
+Loading notifications...
 </td>
 </tr>
 `;
 
 const result =
 await supabaseClient
-.rpc("admin_get_notifications");
+.rpc(
+"admin_get_notifications"
+);
 
 if(result.error){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="empty">
 ${escapeHtml(result.error.message)}
@@ -4291,7 +6211,7 @@ result.data || [];
 
 if(!notifications.length){
 
-tbody.innerHTML = `
+tbody.innerHTML=`
 <tr>
 <td colspan="5" class="empty">
 No notifications.
@@ -4305,18 +6225,22 @@ return;
 
 tbody.innerHTML =
 notifications.map(
-n => `
+n=>`
 
 <tr>
 
 <td>
 <strong>
-${escapeHtml(n.title || "-")}
+${escapeHtml(
+n.title || "-"
+)}
 </strong>
 </td>
 
 <td>
-${escapeHtml(n.message || "-")}
+${escapeHtml(
+n.message || "-"
+)}
 </td>
 
 <td>
@@ -4328,16 +6252,20 @@ n.is_active
 </td>
 
 <td>
-${formatDate(n.created_at)}
+${formatDate(
+n.created_at
+)}
 </td>
 
 <td>
 
+<div class="action-row">
+
 <button
-class="action-btn"
+class="action"
 onclick="toggleNotification(
 '${n.id}',
-${n.is_active ? "true" : "false"}
+${n.is_active ? "true":"false"}
 )"
 >
 ${
@@ -4348,11 +6276,13 @@ n.is_active
 </button>
 
 <button
-class="action-btn danger"
+class="action red"
 onclick="deleteNotification('${n.id}')"
 >
 Delete
 </button>
+
+</div>
 
 </td>
 
@@ -4367,16 +6297,27 @@ Delete
 async function createNotification(){
 
 const title =
-document.getElementById("notificationTitle")
-.value.trim();
+document
+.getElementById(
+"notificationTitle"
+)
+.value
+.trim();
 
 const msg =
-document.getElementById("notificationMessage")
-.value.trim();
+document
+.getElementById(
+"notificationMessage"
+)
+.value
+.trim();
 
 if(!title || !msg){
 
-alert("Title and message required.");
+alert(
+"Title and message required."
+);
+
 return;
 
 }
@@ -4393,14 +6334,21 @@ p_message:msg
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-closeModal("notificationModal");
+closeModal(
+"notificationModal"
+);
 
-alert("Notification created.");
+alert(
+"Notification created."
+);
 
 loadNotifications();
 
@@ -4417,14 +6365,20 @@ await supabaseClient
 .rpc(
 "admin_update_notification_status",
 {
-p_notification_id:id,
-p_is_active:!current
+p_notification_id:
+id,
+
+p_is_active:
+!current
 }
 );
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
@@ -4434,14 +6388,18 @@ loadNotifications();
 }
 
 
-async function deleteNotification(id){
+async function deleteNotification(
+id
+){
 
 if(
 !confirm(
 "Delete this notification?"
 )
 ){
+
 return;
+
 }
 
 const result =
@@ -4449,13 +6407,17 @@ await supabaseClient
 .rpc(
 "admin_delete_notification",
 {
-p_notification_id:id
+p_notification_id:
+id
 }
 );
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
@@ -4489,7 +6451,7 @@ return;
 }
 
 const admin =
-await checkAdmin(session.user);
+await checkAdmin();
 
 if(admin){
 
@@ -4519,7 +6481,9 @@ supabaseClient
 .onAuthStateChange(
 async function(event){
 
-if(event === "SIGNED_OUT"){
+if(
+event === "SIGNED_OUT"
+){
 
 showLogin();
 
@@ -4530,12 +6494,75 @@ showLogin();
 
 
 /* =====================================================
+AUTO REFRESH
+===================================================== */
+
+function startAutoRefresh(){
+
+if(refreshTimer){
+
+clearInterval(
+refreshTimer
+);
+
+}
+
+refreshTimer =
+setInterval(
+async function(){
+
+if(
+document
+.getElementById(
+"adminPanel"
+)
+.style
+.display !== "none"
+){
+
+await loadDashboard();
+
+}
+
+},
+60000
+);
+
+}
+
+
+/* =====================================================
 START
 ===================================================== */
 
 checkExistingSession();
 
+startAutoRefresh();
+
+
+/* =====================================================
+ESCAPE MODALS
+===================================================== */
+
+document
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key !== "Escape")
+return;
+
+document
+.querySelectorAll(".modal.show")
+.forEach(
+modal =>
+modal.classList.remove("show")
+);
+
+}
+);
+
 </script>
 
 </body>
-</html>
+    </html>
